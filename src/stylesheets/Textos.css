@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'snoopy';
+    src: url(../assets/snoopy.otf);
+}
+body {
+    font-family: 'snoopy';
+}

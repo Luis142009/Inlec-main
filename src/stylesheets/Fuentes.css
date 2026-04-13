@@ -1,0 +1,743 @@
+@font-face {
+  font-family: 'School';
+  src: url(../assets/school.ttf);
+}
+
+body {
+  font-family: 'School';
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* ===================== NAV ===================== */
+.inlec-nav-btn {
+  color: #ffffff;
+  font-family: 'School';
+  font-size: 0.9rem;
+  padding: 6px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+.inlec-nav-btn:hover {
+  background-color: rgba(194, 97, 19, 0.555);
+}
+
+.inlec-toggler {
+  background: none;
+  border: 2px solid rgba(82, 56, 8, 0.9);
+  border-radius: 6px;
+  padding: 5px 8px;
+  display: flex;
+  gap: 4px;
+}
+
+.inlec-toggler span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #F5DEB3;
+  border-radius: 2px;
+}
+
+/* ===================== GALERÍA ===================== */
+.galeria-wrapper {
+  background: linear-gradient(135deg, #eeb243, #feb47b);
+  min-height: 100vh;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.galeria-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.galeria-item--offset .marco,
+.galeria-item--offset .galeria-texto {
+  margin-top: 90px;
+}
+
+.marco {
+  background-color: #b07a2a;
+  padding: 12px;
+  border: 4px solid #2b1a0f;
+  border-radius: 6px;
+  display: inline-block;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  background-image: url('https://www.transparenttextures.com/patterns/wood.png');
+  flex-shrink: 0;
+}
+
+.marco-inner {
+  background-color: #fff;
+  padding: 6px;
+  border: 2px solid #d9c5a1;
+}
+
+.marco-img {
+  background-size: cover;
+  background-position: center;
+}
+
+.galeria-texto {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  color: #2b1a0f;
+  margin: 0;
+  max-width: 300px;
+  line-height: 1.4;
+}
+
+/* ===================== HOME ===================== */
+.home-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url('/otono.png');
+  background-size: cover;
+  background-position: center 0%;
+  padding: clamp(1rem, 4vw, 3rem) clamp(0.5rem, 3vw, 2rem);
+}
+
+.home-card {
+  position: relative;
+  background-color: white;
+  border-radius: 1.5rem;
+  padding: clamp(1.2rem, 3vw, 2rem) clamp(1rem, 4vw, 3rem);
+  width: min(1200px, 100%);
+  min-height: clamp(280px, 45vw, 500px);
+  opacity: 0.95;
+  overflow: hidden;
+}
+
+.home-personaje {
+  position: absolute;
+  width: clamp(90px, 15vw, 220px);
+  height: auto;
+  top: 18px;
+  right: -10px;
+}
+
+.home-titulo {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1.5rem, 5vw, 3.5rem);
+  color: #000000;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.home-texto {
+  font-family: 'snoopy', sans-serif;
+  font-size: clamp(0.95rem, 2.5vw, 2.1rem);
+  color: #1a0a00;
+  line-height: 1.7;
+}
+
+.home-btn {
+  background-color: #2a0d00;
+  color: #ffffff;
+  font-family: 'school', sans-serif;
+  border-radius: 50px;
+  font-size: clamp(0.9rem, 2vw, 1.25rem);
+  max-width: 250px;
+  border: 3px solid #000000;
+  padding: 0.4rem 1.5rem;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.home-btn:hover {
+  background-color: #4a1d00;
+  color: #ffffff;
+}
+
+/* ===================== DETRÁS ===================== */
+.detras-title {
+  font-family: 'school';
+  font-size: clamp(1.3rem, 3vw, 2.4rem);
+  color: #000000;
+  letter-spacing: 1px;
+}
+
+.detras-box {
+  background-color: #c8922a;
+  width: 100%;
+}
+
+.detras-text {
+  font-family: 'snoopy';
+  font-size: clamp(0.95rem, 2.5vw, 2.05rem);
+  color: #2b1a0e;
+  line-height: 1.6;
+}
+
+.detras-img-left {
+  width: 100%;
+  max-width: clamp(45px, 9vw, 150px);
+  height: auto;
+  display: block;
+}
+
+.detras-img-right {
+  width: 100%;
+  max-width: clamp(45px, 9vw, 120px);
+  height: auto;
+  display: block;
+}
+
+.detras-btn {
+  font-family: 'school';
+  font-size: clamp(0.85rem, 2vw, 1.15rem);
+  background-color: #995210;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 30px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.detras-btn:hover {
+  background-color: #6b3a0a;
+}
+
+/* ===================== PRESENTACIÓN ===================== */
+.presentacion-wrapper {
+  min-height: 100vh;
+  margin-top: 3rem;
+  background-image: url('/ta.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.presentacion-titulo {
+  position: absolute;
+  top: 8%;
+  left: 6%;
+}
+
+.presentacion-titulo h1 {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1.6rem, 5vw, 4rem);
+  color: #ffffff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.presentacion-frase {
+  position: absolute;
+  top: 15%;
+  right: 7%;
+}
+
+.presentacion-frase p {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 2.2rem);
+  color: #ffffff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  max-width: min(446px, 44vw);
+  text-align: right;
+}
+
+.presentacion-capitulo {
+  position: absolute;
+  top: 30%;
+  left: 7%;
+}
+
+.presentacion-capitulo h2 {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.8rem);
+  color: #ffffff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.presentacion-descripcion {
+  position: absolute;
+  top: 43%;
+  left: 7%;
+}
+
+.presentacion-descripcion p {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1.1rem, 1.5vw, 1.7rem);
+  color: #ffffff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  max-width: min(446px, 44vw);
+}
+
+.presentacion-boton {
+  position: absolute;
+  bottom: 40%;
+  right: 7%;
+}
+
+.presentacion-btn {
+  background-color: #8B0000;
+  color: #ffffff;
+  font-family: 'school', sans-serif;
+  border-radius: 50px;
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  border: 2px solid #000000;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.presentacion-btn:hover {
+  background-color: #5a0000;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+}
+
+/* ===================== PERSONAJES ===================== */
+.personajes-wrapper {
+  background-color: #f1f1ef;
+  min-height: 180vh;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.personajes-titulo-row {
+  margin-left: clamp(1rem, 8vw, 100px);
+  margin-bottom: 1rem;
+}
+
+.personajes-titulo {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.personajes-badge-row {
+  margin-left: clamp(1rem, 22vw, 300px);
+  margin-top: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.personajes-badge {
+  display: inline-block;
+  background-color: #8B0000;
+  border: 3px solid #000;
+  padding: 8px;
+}
+
+.personajes-badge p {
+  font-family: 'school', sans-serif;
+  font-size: clamp(0.72rem, 1.5vw, 1rem);
+  color: #ffffff;
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Flechas de navegación — debajo de la card */
+.personajes-flechas-nav {
+  margin-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.personajes-flecha-nav {
+  height: clamp(50px, 10vw, 120px);
+  width: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.personajes-flecha-nav:hover {
+  transform: scale(1.1);
+}
+
+.personajes-flecha-nav--izq {
+  transform: scaleX(-1);
+}
+
+.personajes-flecha-nav--izq:hover {
+  transform: scaleX(-1) scale(1.1);
+}
+
+.personajes-flecha-nav--der {
+  transform: scaleX(1);
+}
+
+.personajes-nav-indicador {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: #1a1a1a;
+  min-width: 50px;
+  text-align: center;
+}
+
+.personajes-card {
+  background-color: #1a1a1a;
+  border-radius: 24px;
+  padding: clamp(12px, 3vw, 24px);
+  border: 3px solid #000;
+}
+
+.personajes-rol-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: clamp(0px, 22vw, 280px);
+  margin-bottom: 1.5rem;
+}
+
+.personajes-rol {
+  display: inline-block;
+  background-color: #d0d0d0;
+  border: 3px solid #000;
+  padding: 5px 20px;
+}
+
+.personajes-rol p {
+  font-family: 'school', sans-serif;
+  font-size: clamp(0.82rem, 1.5vw, 1.1rem);
+  color: #000;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.personajes-izq {
+  position: relative;
+  background-color: #ffffff;
+  padding: clamp(16px, 3vw, 40px) clamp(10px, 2vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.personajes-foto-card {
+  border: 3px solid #000;
+  overflow: hidden;
+}
+
+.personajes-foto-header {
+  background-color: #8b1d15;
+  padding: 4px;
+  border-bottom: 2px solid #000;
+  text-align: center;
+}
+
+.personajes-foto-header p {
+  font-family: 'school', sans-serif;
+  font-size: clamp(0.62rem, 1vw, 0.8rem);
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.personajes-foto-img {
+  min-height: clamp(100px, 18vw, 180px);
+  background-color: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.personajes-foto-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.personajes-foto-footer {
+  background-color: #ffffff;
+  padding: 7px;
+  border-top: 2px solid #000;
+  text-align: center;
+}
+
+.personajes-foto-footer p {
+  font-family: 'school', sans-serif;
+  font-size: clamp(0.88rem, 1.8vw, 1.24rem);
+  color: #000;
+  margin: 0;
+}
+
+.personajes-sinopsis {
+  border: 3px solid #000;
+  padding: 12px;
+  height: auto;
+  min-height: clamp(100px, 18vw, 200px);
+}
+
+.personajes-sinopsis-titulo {
+  font-family: 'school', sans-serif;
+  font-size: clamp(0.88rem, 1.8vw, 1.20rem);
+  color: #000;
+  margin: auto;
+  text-align: center;
+}
+
+.personajes-sinopsis-texto {
+  font-family: 'snoopy', sans-serif;
+  font-size: clamp(0.82rem, 1.5vw, 1.17rem);
+  color: #000;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 100%;
+  margin: 3px auto 0;
+}
+
+/* Nota: sale del absolute para que en móvil no se solape */
+.personajes-nota {
+  position: static;
+  background-color: #c8922a;
+  border: 3px solid #000;
+  padding: 12px;
+  height: auto;
+  min-height: clamp(80px, 14vw, 170px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.personajes-nota-titulo {
+  font-family: 'school', sans-serif;
+  font-size: clamp(0.82rem, 1.5vw, 1.0rem);
+  color: #000;
+  margin: 0;
+  text-align: center;
+}
+
+.personajes-nota-texto {
+  font-family: 'snoopy', sans-serif;
+  font-size: clamp(0.82rem, 1.5vw, 1.1rem);
+  color: #000;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.personajes-barra {
+  width: 3px;
+  background-color: #ffffff;
+  height: 100%;
+  min-height: clamp(400px, 80vw, 1060px);
+}
+
+.personajes-der {
+  gap: clamp(1.2rem, 4vw, 50px);
+  padding-top: clamp(0.8rem, 4vw, 50px);
+}
+
+.personajes-atributo {
+  position: relative;
+  background-color: #ffffff;
+  border: 3px solid #000;
+  padding: clamp(26px, 4vw, 40px) clamp(8px, 2vw, 12px) clamp(14px, 3vw, 50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.personajes-atributo-label {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #c8922a;
+  border: 2px solid #000;
+  padding: clamp(5px, 1.5vw, 10px) clamp(10px, 2.5vw, 25px);
+  white-space: nowrap;
+}
+
+.personajes-atributo-label p {
+  font-family: 'school', sans-serif;
+  font-size: clamp(0.78rem, 1.5vw, 1rem);
+  color: #000;
+  margin: 0;
+}
+
+.personajes-atributo-texto {
+  font-family: 'snoopy', sans-serif;
+  font-size: clamp(0.88rem, 1.8vw, 1.20rem);
+  color: #000;
+  margin: 0;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: clamp(8px, 2vw, 20px);
+}
+
+/* ===================== CREADORES ===================== */
+.creadores-wrapper {
+  background-image: url('/otoños.png');
+  background-size: cover;
+  background-position: center 30%;
+  min-height: clamp(400px, 75vw, 900px);
+  position: relative;
+  width: 100%;
+}
+
+.creadores-encabezado {
+  text-align: center;
+  padding-top: clamp(2rem, 6vw, 70px);
+}
+
+.creadores-encabezado h2 {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  color: #ffffff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.creadores-persona {
+  position: absolute;
+  bottom: 0%;
+}
+
+.creadores-persona--izq {
+  left: 12%;
+}
+
+.creadores-persona--centro {
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.creadores-persona--der {
+  right: 15%;
+  bottom: -2%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.creadores-nombre {
+  font-family: 'school', sans-serif;
+  font-size: clamp(1rem, 3vw, 2rem);
+  color: #ffffff;
+  text-shadow: 2px 2px 4px #000;
+  margin: 0 0 4px 0;
+}
+
+.creadores-nombre--sneyder {
+  transform: translateX(20%);
+}
+
+.creadores-nombre--luis {
+  margin-bottom: clamp(-20px, -3vw, -50px);
+}
+
+.creadores-nombre--matheo {
+  transform: translateX(-140%);
+}
+
+.creadores-img {
+  height: clamp(160px, 32vw, 450px);
+  width: auto;
+  display: block;
+  cursor: pointer;
+}
+
+.creadores-img--grande {
+  height: clamp(210px, 42vw, 600px);
+}
+
+/* ===================== BURBUJAS ===================== */
+/* ===================== BURBUJAS FIX ===================== */
+.burbuja {
+  position: absolute; /* 🔥 clave */
+  bottom: 100%; /* aparece arriba del personaje */
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background-color: #ffffff;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 8px 12px;
+  max-width: 140px;
+  z-index: 10;
+  animation: aparecer 0.2s ease;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+.burbuja p {
+  font-family: 'snoopy', sans-serif;
+  font-size: clamp(0.78rem, 2vw, 1.30rem);
+  color: #000;
+  margin: 0;
+  text-align: center;
+}
+
+/* COLITA */
+.burbuja::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid #000;
+}
+
+.burbuja::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid #ffffff;
+}
+/* ===================== FOOTER ===================== */
+.footer-container {
+  background-color: #f1f1ef;
+  padding: clamp(2rem, 5vw, 60px) 0;
+}
+
+.footer-title {
+  font-family: 'school';
+  font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+}
+
+.footer-text {
+  font-family: 'school';
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  margin: 0;
+}
+
+.footer-spacing {
+  margin-top: 10px;
+}
+
+.footer-slogan {
+  margin-top: 25px;
+}
+
+.footer-logo {
+  width: clamp(120px, 18vw, 250px);
+  margin: 15px 0;
+}
+
+.footer-zorro {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-zorro img {
+  width: clamp(140px, 28vw, 350px);
+}
