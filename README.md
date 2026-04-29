@@ -2,5 +2,5 @@
 
 ## Integrantes:
 
-- Sneyder (@SneyderG)
-
+- Sneyder (SneyderG)
+- Luis    (Luis142009)
