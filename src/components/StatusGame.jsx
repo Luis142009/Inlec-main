@@ -11,6 +11,7 @@ export const StatusGame = () => {
     <div>StatusGame</div>
 
 
+
   )
 }
 
