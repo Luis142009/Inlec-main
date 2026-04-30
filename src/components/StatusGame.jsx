@@ -16,6 +16,13 @@ export const StatusGame = () => {
       <button>Gemas 3</button>
     </div>
 
+    <div className='puntos'>
+        <button>+5</button>
+        <button>+10</button>
+        <button>15</button>
+
+    </div>
+
     </>
 
 
