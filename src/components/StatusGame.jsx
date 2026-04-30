@@ -19,7 +19,7 @@ export const StatusGame = () => {
     <div className='puntos'>
         <button>+5</button>
         <button>+10</button>
-        <button>15</button>
+        <button>15s</button>
 
     </div>
 
