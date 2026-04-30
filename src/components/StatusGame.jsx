@@ -8,11 +8,15 @@ export const StatusGame = () => {
 
   const [Vidas, setVidas] = useState (0)
   return (
+
+    <>
     <div className='Gemas'>
       <button>Gemas 1</button>
       <button>Gemas 2</button>
       <button>Gemas 3</button>
     </div>
+
+    </>
 
 
   )
