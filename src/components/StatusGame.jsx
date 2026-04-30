@@ -8,8 +8,8 @@ export const StatusGame = () => {
 
   const [Vidas, setVidas] = useState (0)
   return (
-    <div>StatusGame</div>
 
+    <div>StatusGame</div>
 
   )
 }
