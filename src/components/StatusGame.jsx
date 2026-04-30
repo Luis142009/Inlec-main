@@ -1,8 +1,13 @@
+import React from 'react'
+
+export const StatusGame = () => {
+
+  const [Gemas, setGemas] = useState (0)
+  return (
+    <div>StatusGame</div>
 
 
-
-   
- 
- const  [puntos, setPuntos] = useState(0)
+  )
+}
 
   
