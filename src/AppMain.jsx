@@ -1,5 +1,5 @@
-import React from "react";
-import{statusGame} from "./components/StatusGame.jsx";
+import React from 'react';
+import { StatusGame } from './components/StatusGame';
 
 export const AppMain = () => {
 
@@ -11,4 +11,6 @@ export const AppMain = () => {
 
 
 </>
+
+
 }
