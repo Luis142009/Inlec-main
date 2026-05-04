@@ -23,9 +23,14 @@ export const StatusGame = () => {
 
     </div>
 
+    <div className='Vidas'>
+        <button>Vida 1</button>
+        <button>Vida 2</button>
+        <button>Vida 3</button>
+
+    </div>
+
     </>
-
-
 
   )
 }
