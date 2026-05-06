@@ -7,6 +7,7 @@ export const AppMain = () => {
       <div>
         <h1>Hola</h1>
         <StatusGame/>
+        <SneyderRMPage/>
       </div>
     </>
   );
