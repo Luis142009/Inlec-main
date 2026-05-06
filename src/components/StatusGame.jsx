@@ -9,7 +9,7 @@ export const StatusGame = () => {
   return (
     <>
       <div className='Gemas'>
-        <h1>Gemi 🐧: {Gemas}</h1>
+        <h1>Gemas 🐧: {Gemas}</h1>
         <button onClick={() => setGemas(prev => prev + 1)}>Gemas 1</button>
         <button onClick={() => setGemas(prev => prev + 2)}>Gemas 2</button>
         <button onClick={() => setGemas(prev => prev + 3)}>Gemas 3</button>
