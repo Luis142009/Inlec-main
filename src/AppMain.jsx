@@ -8,6 +8,7 @@ export const AppMain = () => {
         <h1>Hola</h1>
         <StatusGame/>
         <SneyderRMPage/>
+        <MatheoRMPage/>
       </div>
     </>
   );
