@@ -8,7 +8,8 @@ export const AppMain = () => {
       <div>
         <h1>Hola</h1>
         <StatusGame/>
-        <LuisRMPage/>
+        <SneyderRMPage/>
+        <MatheoRMPage/>
       </div>
     </>
   );
