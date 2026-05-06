@@ -10,6 +10,7 @@ export const AppMain = () => {
         <StatusGame/>
         <SneyderRMPage/>
         <MatheoRMPage/>
+        <LuisRMPage/>
       </div>
     </>
   );
