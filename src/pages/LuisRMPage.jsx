@@ -8,7 +8,7 @@ const getCharacter = async () => {
 
 const res = await fetch("https://rickandmortyapi.com/api/character")
 const data = await res.json()
-
+setCharacter(data.results)
 console.log(data)
 }
 useEffect(() => {
@@ -18,6 +18,16 @@ useEffect(() => {
 
 
   return (
-    <div>LuisRMPage</div>
+   <>
+    <h1> Personajes de rick and Morty</h1>
+    <ul>
+      {character.map( (char, index) => (
+        <li key={index}>
+            <p>{char.name}</p>
+        </li>
+      ))}
+    </ul>
+   
+   </>
   )
 }
