@@ -1,5 +1,6 @@
 import React from 'react';
 import { StatusGame } from './components/StatusGame';
+import { LuisRMPage } from './pages/LuisRMPage';
 
 export const AppMain = () => {
   return (
@@ -7,6 +8,7 @@ export const AppMain = () => {
       <div>
         <h1>Hola</h1>
         <StatusGame/>
+        <LuisRMPage/>
       </div>
     </>
   );
