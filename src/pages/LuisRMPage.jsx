@@ -16,8 +16,27 @@ const [Pokemon, setPokemon] = useState([0])
 
 const getPokemon = async () => {
 
-const res = await fetch("https://pokeapi.co/api/v2/pokemon/")
+const res = await fetch("https://pokeapi.co/api/v2/pokemon/limit=12")
 const data = await res.json()
+
+const detallesPokemon = await Promise.all(
+
+  data.results.map(async (Pokemon) => {
+  const res = await fetch(Pokemon.url)
+  const detalles = await res.json()
+
+  return{
+    id: detalles.id,
+    name: detalles.name,
+    image: detalles.sprites.other["official-artwork"].front_default,
+    types : detalles.types[0].type.name
+    
+    
+  }
+  })
+  
+)
+
 setPokemon(data.results)
 console.log(data)  
 
