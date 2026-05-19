@@ -2,6 +2,223 @@
     font-family: 'snoopy';
     src: url(../assets/snoopy.otf);
 }
+@font-face {
+    font-family: 'Dacherry';
+    src: url(../assets/Dacherry.otf);
+}
+@font-face {
+    font-family: 'abalon';
+    src: url(../assets/abalon.otf);
+}
 body {
     font-family: 'snoopy';
+}
+
+ /* derrota */
+
+.go-wrap {
+          position: fixed;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          z-index: 9999;
+          overflow: hidden;
+        }
+        .go-title-wrap {
+          text-align: center;
+          padding: .75rem 1rem .25rem;
+       
+        }
+        .go-title {
+          display: block;
+          font-size: clamp(2.5rem, 10vw, 6rem);
+          font-weight: 900;
+          letter-spacing: .14em;
+          line-height: 1;
+          margin: 0;
+          color: #fff;
+          text-shadow: 0 0 40px rgba(240, 147, 9, 0.55), 0 4px 24px rgba(0,0,0,.9);
+          font-family: 'abalon';
+        }
+        .go-title--over {
+          color: #ff833c;
+          text-shadow: 0 0 70px rgba(255, 132, 50, 0.9), 0 4px 32px rgba(0,0,0,.9);
+          font-family: 'abalon';
+        }
+        .go-anim {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: .5rem 1rem;
+         
+        }
+        .go-anim-img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          border-radius: 12px;
+        }
+        .go-footer {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: .75rem;
+          padding: .75rem 1.25rem;
+     
+        }
+        .go-btn {
+          padding: .5rem 1.5rem;
+          font-size: .9rem;
+          font-weight: 700;
+          letter-spacing: .08em;
+          text-transform: uppercase;
+          color: #fff;
+          background: rgba(255,255,255,.12);
+          border: 1.5px solid rgba(255,255,255,.45);
+          border-radius: 8px;
+          cursor: pointer;
+          font-family: 'snoopy';
+          
+         
+        }
+        .go-btn:hover  { background: rgba(255,255,255,.25); transform: scale(1.04); }
+        .go-btn:active { transform: scale(.97); }
+        .go-logo {
+          width: 120px;
+          height: 120px;
+          object-fit: contain;
+          border-radius: 6px;
+        }
+
+
+       /* intefaz capitulos */
+
+        :root{
+  --bg:#d9c2a3;
+  --card:#f5e6d3;
+  --brown:#4b2e24;
+  --orange:#b85c38;
+  --soft:#8a6a55;
+  --line:#c7a98b;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  font-family:monospace;
+}
+
+.interfaz-wrapper{
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.interfaz-cap{
+  width:500px;
+  background:var(--card);
+  border:2px solid var(--brown);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:6px 6px 0 var(--brown);
+}
+
+.game-area{
+  height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  background:#e7d2bb;
+  border-bottom:2px solid var(--brown);
+}
+
+.game-area::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.4;
+  background-image:
+  radial-gradient(var(--line) 1px,transparent 1px);
+  background-size:18px 18px;
+}
+
+.anim-label{
+  z-index:2;
+  color:var(--soft);
+  font-size:1rem;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+
+.controls-bar,
+.found-slots{
+  padding:12px;
+}
+
+.controls-bar{
+  border-bottom:2px solid var(--brown);
+}
+
+.btn-ctrl,
+.nav-arrow,
+.btn-return,
+.ico-box,
+.slot{
+  border-radius:8px;
+}
+
+.btn-ctrl,
+.nav-arrow,
+.ico-box{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.btn-ctrl{
+  width:40px;
+  height:40px;
+  border:none;
+  background:var(--orange);
+  color:white;
+  cursor:pointer;
+}
+
+.nav-arrow{
+  width:32px;
+  height:32px;
+  border:2px solid var(--brown);
+  cursor:pointer;
+}
+
+.btn-return{
+  border:2px solid var(--brown);
+  background:none;
+  padding:6px 12px;
+  cursor:pointer;
+}
+
+
+.slot-label{
+  margin-bottom:10px;
+  color:var(--soft);
+  font-size:.7rem;
+  text-transform:uppercase;
+}
+
+.slot{
+  width:55px;
+  height:55px;
+  border:2px dashed var(--line);
+  background:#ecdcc8;
 }

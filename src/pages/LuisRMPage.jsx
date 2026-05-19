@@ -1,3 +1,4 @@
+/*
 import React, {useEffect, useState } from "react"
 
 export const LuisRMPage = () => {
@@ -104,3 +105,48 @@ useEffect(() => {
 
 
 }
+  */
+
+import React, { useState, useEffect } from 'react'
+import '../stylesheets/Textos.css';
+
+
+
+
+const BG_COLOR = "#000000"
+const ANIM_SRC = "/assets/granjeros.gif"
+const LOGO_SRC = "/public/logo.png"
+
+
+export const LuisRMPage = () => {
+
+
+  useEffect(() => {
+
+
+  }, [])
+
+
+  return (
+    <div className="go-wrap" style={{ background: BG_COLOR }}>
+
+
+      <div className="go-title-wrap">
+        <h1 className="go-title">GAME</h1>
+        <h1 className="go-title go-title--over">OVER</h1>
+      </div>
+
+
+      <div className="go-anim">
+        <img src={ANIM_SRC} alt="animacion de los granjeros enojados" className="go-anim-img" />
+      </div>
+
+
+      <div className="go-footer">
+        <button className="go-btn">Regresar</button>
+        <img src={LOGO_SRC} alt="logo" className="go-logo" />
+      </div>
+    </div>
+  )
+}
+

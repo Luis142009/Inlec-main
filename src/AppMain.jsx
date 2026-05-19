@@ -3,16 +3,16 @@ import { StatusGame } from './components/StatusGame';
 import { LuisRMPage } from './pages/LuisRMPage';
 import { MatheoRMPage} from './pages/MatheoRMPage';
 import { SneyderRMPage } from './pages/SneyderRMPage';
+import InterfazCap from "./pages/interfazcap";
 
 export const AppMain = () => {
   return (
     <>
       <div>
-        <h1>Hola</h1>
-        <StatusGame/>
-        <SneyderRMPage/>
-        <MatheoRMPage/>
-        <LuisRMPage/>
+
+    
+        <LuisRMPage />
+        
       </div>
     </>
   );
