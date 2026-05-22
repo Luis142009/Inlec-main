@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+/*import React, { useEffect, useState } from "react"
 
 export const SneyderRMPage = () => {
 
@@ -110,3 +110,10 @@ export const SneyderRMPage = () => {
 
   )
 }
+  */
+
+import React, { useState, useEffect } from 'react'
+import '../stylesheets/Textos.css';
+
+
+
