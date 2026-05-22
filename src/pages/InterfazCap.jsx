@@ -29,10 +29,12 @@ const InterfazCap = () => {
               </div>
 
             
-              <div className="col d-flex align-items-center justify-content-center gap-2">
+              <div className="flechas col d-flex align-items-center justify-content-center gap-2">
+                <div className="rows">
                 <div className="nav-arrow"> <img className="flechitas" src="./Atras.png" alt="" /> </div>
                 <div className="page-num">1/5</div>
                 <div className="nav-arrow"> <img className="flechitas" src="./Adelante.png" alt="" /> </div>
+                </div>
               </div>
 
               <div className="col-auto d-flex align-items-center gap-2">

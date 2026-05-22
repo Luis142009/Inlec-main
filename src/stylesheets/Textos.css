@@ -125,7 +125,7 @@ body{
 
 .interfaz-cap{
   width: 60vw;
-  height: 40vw;
+  height: 50vw;
   background:var(--card);
   border:2px solid var(--brown);
   border-radius:12px;
@@ -233,4 +233,11 @@ body{
 .flechitas{
   width: 60px;
   height: 60px;
+}
+
+.rows{
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;   
 }
