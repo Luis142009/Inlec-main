@@ -23,20 +23,21 @@ const InterfazCap = () => {
 
              
               <div className="col-auto d-flex gap-2">
-                <div className="btn-ctrl">A</div>
-                <div className="btn-ctrl t">T</div>
+                <div className="btn-ctrl"> <img className="iconos" src="./T.png" alt="" /></div>
+                <div className="btn-ctrl t"> <img className="iconos" src="./Volumen.png" alt="" /></div>
+                <div className="btn-ctrl"> <img className="iconos" src="./Pausa.png" alt="" /></div>
               </div>
 
             
               <div className="col d-flex align-items-center justify-content-center gap-2">
-                <div className="nav-arrow">←</div>
+                <div className="nav-arrow"> <img className="flechitas" src="./Atras.png" alt="" /> </div>
                 <div className="page-num">1/5</div>
-                <div className="nav-arrow">→</div>
+                <div className="nav-arrow"> <img className="flechitas" src="./Adelante.png" alt="" /> </div>
               </div>
 
               <div className="col-auto d-flex align-items-center gap-2">
                 <div className="btn-return">Return</div>
-                <div className="ico-box">Icon</div>
+                <div className="btn-ctrl"> <img className="iconos" src="./Full.png" alt="" /></div>
               </div>
 
             </div>

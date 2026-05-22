@@ -11,7 +11,7 @@ export const AppMain = () => {
       <div>
 
     
-        <LuisRMPage />
+        <InterfazCap />
         
       </div>
     </>

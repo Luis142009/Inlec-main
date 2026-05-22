@@ -11,7 +11,7 @@
     src: url(../assets/abalon.otf);
 }
 body {
-    font-family: 'snoopy';
+  
 }
 
  /* derrota */
@@ -95,10 +95,10 @@ body {
        /* intefaz capitulos */
 
         :root{
-  --bg:#d9c2a3;
-  --card:#f5e6d3;
-  --brown:#4b2e24;
-  --orange:#b85c38;
+  --bg:#ecdccc ;
+  --card:#fcc465 ;
+  --brown:#944c24 ;
+  --orange:#e49454;
   --soft:#8a6a55;
   --line:#c7a98b;
 }
@@ -111,7 +111,7 @@ body {
 
 body{
   background:var(--bg);
-  font-family:monospace;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 .interfaz-wrapper{
@@ -124,7 +124,8 @@ body{
 }
 
 .interfaz-cap{
-  width:500px;
+  width: 60vw;
+  height: 40vw;
   background:var(--card);
   border:2px solid var(--brown);
   border-radius:12px;
@@ -133,12 +134,12 @@ body{
 }
 
 .game-area{
-  height:260px;
+  height:500px;
   display:flex;
   align-items:center;
   justify-content:center;
   position:relative;
-  background:#e7d2bb;
+  background:#ffffff;
   border-bottom:2px solid var(--brown);
 }
 
@@ -182,12 +183,13 @@ body{
 .ico-box{
   display:flex;
   align-items:center;
+  gap: 20px;
   justify-content:center;
 }
 
 .btn-ctrl{
-  width:40px;
-  height:40px;
+  width:50px;
+  height:50px;
   border:none;
   background:var(--orange);
   color:white;
@@ -221,4 +223,14 @@ body{
   height:55px;
   border:2px dashed var(--line);
   background:#ecdcc8;
+}
+
+.iconos{
+  width: 30px;
+  height: 30px;
+}
+
+.flechitas{
+  width: 60px;
+  height: 60px;
 }
