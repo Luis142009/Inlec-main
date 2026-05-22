@@ -12,7 +12,7 @@ const InterfazCap = () => {
             <div className="col-12">
               <div className="game-area">
                 <div className="anim-label">
-                  Animación Interactiva
+          
                 </div>
               </div>
             </div>
