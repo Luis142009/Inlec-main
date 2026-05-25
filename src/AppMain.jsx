@@ -3,7 +3,8 @@ import { StatusGame } from './components/StatusGame';
 import { LuisRMPage } from './pages/LuisRMPage';
 import { MatheoRMPage} from './pages/MatheoRMPage';
 import InterfazCap from "./pages/interfazcap";
-import { SneyderRMPage } from './pages/SneyderRMPage';
+import { PruebaM } from './pages/PruebaM';
+
 
 export const AppMain = () => {
   return (
@@ -11,7 +12,7 @@ export const AppMain = () => {
       <div>
 
     
-        <SneyderRMPage />
+        <PruebaM />
         
       </div>
     </>
