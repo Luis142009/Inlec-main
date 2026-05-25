@@ -10,8 +10,8 @@ export const AppMain = () => {
     <>
       <div>
 
-      <Pruebaluis />
-        
+    
+        <SneyderRMPage />
         
       </div>
     </>
