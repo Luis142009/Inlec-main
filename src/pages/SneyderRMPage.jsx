@@ -145,7 +145,7 @@ import '../stylesheets/Textos.css';
 
 
 
-export const SneyderRMPage = () => {
+/*export const SneyderRMPage = () => {
   return (
     <>
       <div
@@ -275,4 +275,6 @@ export const SneyderRMPage = () => {
       </div>
     </>
   )
-}
+}*/
+
+
