@@ -298,7 +298,7 @@ export default function LuisRMPage() {
       </div>
 
       <div className="go-footer">
-        <button className="go-btn">Regresar</button>
+        <button className="go-btn">Regresars</button>
 
         <img
           src={LOGO_SRC}
