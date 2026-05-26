@@ -106,47 +106,206 @@ useEffect(() => {
 
 }
   */
+import React, { useEffect, useRef, useState } from "react";
+import "../stylesheets/Textos.css";
 
-import React, { useState, useEffect } from 'react'
-import '../stylesheets/Textos.css';
+const BG_COLOR = "#000000";
+const ANIM_SRC = "/assets/granjeros.gif";
+const LOGO_SRC = "/logo.png";
 
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
+function scrambleText(text, progress) {
+  return text
+    .split("")
+    .map((char, index) => {
+      if (char === " ") return " ";
 
+      if (index < progress) {
+        return char;
+      }
 
-const BG_COLOR = "#000000"
-const ANIM_SRC = "/assets/granjeros.gif"
-const LOGO_SRC = "/public/logo.png"
+      return chars[Math.floor(Math.random() * chars.length)];
+    })
+    .join("");
+}
 
+export default function LuisRMPage() {
+  const finalText1 = "GAME";
+  const finalText2 = "OVER";
 
-export const LuisRMPage = () => {
+  const [displayText1, setDisplayText1] = useState("");
+  const [displayText2, setDisplayText2] = useState("");
 
+  const cursorRef = useRef(null);
 
+  // SCRAMBLE EFFECT
   useEffect(() => {
+    let frame1 = 0;
 
+    const interval1 = setInterval(() => {
+      frame1 += 0.4;
 
-  }, [])
+      setDisplayText1(scrambleText(finalText1, frame1));
 
+      if (frame1 >= finalText1.length) {
+        clearInterval(interval1);
+        setDisplayText1(finalText1);
+      }
+    }, 45);
+
+    const timeout = setTimeout(() => {
+      let frame2 = 0;
+
+      const interval2 = setInterval(() => {
+        frame2 += 0.4;
+
+        setDisplayText2(scrambleText(finalText2, frame2));
+
+        if (frame2 >= finalText2.length) {
+          clearInterval(interval2);
+          setDisplayText2(finalText2);
+        }
+      }, 45);
+    }, 350);
+
+    return () => {
+      clearInterval(interval1);
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  // CURSOR FOLLOW
+  useEffect(() => {
+    const cursor = cursorRef.current;
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    let currentX = 0;
+    let currentY = 0;
+
+    const moveCursor = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    window.addEventListener("mousemove", moveCursor);
+
+    const animate = () => {
+      currentX += (mouseX - currentX) * 0.14;
+      currentY += (mouseY - currentY) * 0.14;
+
+      if (cursor) {
+        cursor.style.left = `${currentX}px`;
+        cursor.style.top = `${currentY}px`;
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+    };
+  }, []);
+
+  // MAGNIFY TEXT
+  const activateMagnify = (e) => {
+    const cursor = cursorRef.current;
+
+    cursor.style.width = "160px";
+    cursor.style.height = "160px";
+
+    cursor.style.border = "2px solid white";
+    cursor.style.background = "rgba(255,255,255,0.08)";
+
+    cursor.style.boxShadow =
+      "0 0 40px rgba(255,255,255,0.25)";
+
+    // AUMENTA EL TEXTO
+    e.target.style.transform = "scale(1.12)";
+    e.target.style.letterSpacing = "0.25em";
+
+    e.target.style.transition =
+      "transform 0.35s ease, letter-spacing 0.35s ease";
+  };
+
+  const deactivateMagnify = (e) => {
+    const cursor = cursorRef.current;
+
+    cursor.style.width = "18px";
+    cursor.style.height = "18px";
+
+    cursor.style.background = "transparent";
+    cursor.style.border = "2px solid white";
+
+    cursor.style.boxShadow = "0 0 0px transparent";
+
+    e.target.style.transform = "scale(1)";
+    e.target.style.letterSpacing = "0.2em";
+  };
 
   return (
     <div className="go-wrap" style={{ background: BG_COLOR }}>
-
+      
+      {/* CUSTOM CURSOR */}
+      <div
+        ref={cursorRef}
+        style={{
+          position: "fixed",
+          width: "18px",
+          height: "18px",
+          border: "2px solid white",
+          borderRadius: "999px",
+          pointerEvents: "none",
+          zIndex: 9999,
+          left: 0,
+          top: 0,
+          transform: "translate(-50%, -50%)",
+          transition:
+            "width 0.35s ease, height 0.35s ease, background 0.35s ease, box-shadow 0.35s ease",
+        }}
+      />
 
       <div className="go-title-wrap">
-        <h1 className="go-title">GAME</h1>
-        <h1 className="go-title go-title--over">OVER</h1>
-      </div>
+        
+        <h1
+          className="go-title"
+          onMouseEnter={activateMagnify}
+          onMouseLeave={deactivateMagnify}
+        >
+          {displayText1}
+        </h1>
 
+        <h1
+          className="go-title go-title--over"
+          onMouseEnter={activateMagnify}
+          onMouseLeave={deactivateMagnify}
+        >
+          {displayText2}
+        </h1>
+
+      </div>
 
       <div className="go-anim">
-        <img src={ANIM_SRC} alt="animacion de los granjeros enojados" className="go-anim-img" />
+        <img
+          src={ANIM_SRC}
+          alt="animacion de los granjeros enojados"
+          className="go-anim-img"
+        />
       </div>
-
 
       <div className="go-footer">
         <button className="go-btn">Regresar</button>
-        <img src={LOGO_SRC} alt="logo" className="go-logo" />
+
+        <img
+          src={LOGO_SRC}
+          alt="logo"
+          className="go-logo"
+        />
       </div>
     </div>
-  )
+  );
 }
-
