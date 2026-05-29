@@ -12,7 +12,7 @@ export const AppMain = () => {
       <div>
 
     
-        <Reproductorluis/>
+        <InterfazCap/>
         
       </div>
     </>

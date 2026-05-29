@@ -124,12 +124,10 @@ body{
 }
 
 .interfaz-cap{
-  width: 60vw;
-  height: 50vw;
+  width: 65vw;
   background:var(--card);
   border:2px solid var(--brown);
   border-radius:12px;
-  overflow:hidden;
   box-shadow:6px 6px 0 var(--brown);
 }
 
@@ -144,22 +142,10 @@ body{
 }
 
 .game-area::before{
-  content:"";
   position:absolute;
-  inset:0;
-  opacity:.4;
-  background-image:
-  radial-gradient(var(--line) 1px,transparent 1px);
   background-size:18px 18px;
 }
 
-.anim-label{
-  z-index:2;
-  color:var(--soft);
-  font-size:1rem;
-  font-weight:bold;
-  text-transform:uppercase;
-}
 
 .controls-bar,
 .found-slots{

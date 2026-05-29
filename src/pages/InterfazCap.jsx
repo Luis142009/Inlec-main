@@ -3,6 +3,7 @@ import '../stylesheets/Textos.css';
 import { motion } from "motion/react"
 
 const InterfazCap = () => {
+  const Video = "/Disparo.mp4";
   return (
     <>
       <motion.div
@@ -16,11 +17,22 @@ const InterfazCap = () => {
       >
         <div className="interfaz-cap">
 
-
           <div className="row g-0">
             <div className="col-12">
               <div className="game-area">
                 <div className="anim-label">
+
+                  <video
+                    src={Video}
+                    autoPlay
+                    playsInline
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block"
+                    }}
+                  />
 
                 </div>
               </div>
@@ -30,9 +42,7 @@ const InterfazCap = () => {
           <div className="controls-bar">
             <div className="row align-items-center g-0">
 
-
               <div className="col-auto d-flex gap-2">
-
                 <div className="btn-ctrl">
                   <motion.img
                     className="iconos"
@@ -59,13 +69,10 @@ const InterfazCap = () => {
                     whileTap={{ scale: 0.8 }}
                   />
                 </div>
-
               </div>
-
 
               <div className="flechas col d-flex align-items-center justify-content-center gap-2">
                 <div className="rows">
-
                   <motion.img
                     className="flechitas"
                     src="./Atras.png"
@@ -83,7 +90,6 @@ const InterfazCap = () => {
                     whileHover={{ scale: 1.0 }}
                     whileTap={{ scale: 0.85 }}
                   />
-
                 </div>
               </div>
 
@@ -97,7 +103,6 @@ const InterfazCap = () => {
                   whileHover={{ scale: 1.0 }}
                   whileTap={{ scale: 0.85 }}
                 />
-
               </div>
 
             </div>
@@ -127,10 +132,6 @@ const InterfazCap = () => {
             </div>
           </div>
 
-
-          <div>
-            <img src="./escenario.png" alt="" />
-          </div>
 
         </div>
       </motion.div>
