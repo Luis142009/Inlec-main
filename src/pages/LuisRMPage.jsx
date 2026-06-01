@@ -106,76 +106,46 @@ useEffect(() => {
 
 }
   */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import "../stylesheets/Textos.css";
 
 const BG_COLOR = "#000000";
-const ANIM_SRC = "/assets/granjeros.gif";
+
+const ANIM_SRC = "/Derrota.mp4";
 const LOGO_SRC = "/logo.png";
 
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
-function scrambleText(text, progress) {
-  return text
-    .split("")
-    .map((char, index) => {
-      if (char === " ") return " ";
-
-      if (index < progress) {
-        return char;
-      }
-
-      return chars[Math.floor(Math.random() * chars.length)];
-    })
-    .join("");
-}
-
 export default function LuisRMPage() {
-  const finalText1 = "GAME";
-  const finalText2 = "OVER";
-
-  const [displayText1, setDisplayText1] = useState("");
-  const [displayText2, setDisplayText2] = useState("");
-
   const cursorRef = useRef(null);
+  const videoRef = useRef(null);
 
-  // SCRAMBLE EFFECT
+  // =========================
+  // ACTIVA SONIDO EN PRIMERA INTERACCIÓN
+  // =========================
+
   useEffect(() => {
-    let frame1 = 0;
-
-    const interval1 = setInterval(() => {
-      frame1 += 0.4;
-
-      setDisplayText1(scrambleText(finalText1, frame1));
-
-      if (frame1 >= finalText1.length) {
-        clearInterval(interval1);
-        setDisplayText1(finalText1);
+    const enableSound = () => {
+      if (videoRef.current) {
+        videoRef.current.muted = false;
+        videoRef.current.play();
       }
-    }, 45);
 
-    const timeout = setTimeout(() => {
-      let frame2 = 0;
+      window.removeEventListener("click", enableSound);
+      window.removeEventListener("keydown", enableSound);
+    };
 
-      const interval2 = setInterval(() => {
-        frame2 += 0.4;
-
-        setDisplayText2(scrambleText(finalText2, frame2));
-
-        if (frame2 >= finalText2.length) {
-          clearInterval(interval2);
-          setDisplayText2(finalText2);
-        }
-      }, 45);
-    }, 350);
+    window.addEventListener("click", enableSound);
+    window.addEventListener("keydown", enableSound);
 
     return () => {
-      clearInterval(interval1);
-      clearTimeout(timeout);
+      window.removeEventListener("click", enableSound);
+      window.removeEventListener("keydown", enableSound);
     };
   }, []);
 
+  // =========================
   // CURSOR FOLLOW
+  // =========================
+
   useEffect(() => {
     const cursor = cursorRef.current;
 
@@ -211,46 +181,13 @@ export default function LuisRMPage() {
     };
   }, []);
 
-  // MAGNIFY TEXT
-  const activateMagnify = (e) => {
-    const cursor = cursorRef.current;
-
-    cursor.style.width = "160px";
-    cursor.style.height = "160px";
-
-    cursor.style.border = "2px solid white";
-    cursor.style.background = "rgba(255,255,255,0.08)";
-
-    cursor.style.boxShadow =
-      "0 0 40px rgba(255,255,255,0.25)";
-
-    // AUMENTA EL TEXTO
-    e.target.style.transform = "scale(1.12)";
-    e.target.style.letterSpacing = "0.25em";
-
-    e.target.style.transition =
-      "transform 0.35s ease, letter-spacing 0.35s ease";
-  };
-
-  const deactivateMagnify = (e) => {
-    const cursor = cursorRef.current;
-
-    cursor.style.width = "18px";
-    cursor.style.height = "18px";
-
-    cursor.style.background = "transparent";
-    cursor.style.border = "2px solid white";
-
-    cursor.style.boxShadow = "0 0 0px transparent";
-
-    e.target.style.transform = "scale(1)";
-    e.target.style.letterSpacing = "0.2em";
-  };
-
   return (
-    <div className="go-wrap" style={{ background: BG_COLOR }}>
-      
-      {/* CUSTOM CURSOR */}
+    <div
+      className="go-wrap"
+      style={{ background: BG_COLOR }}
+    >
+      {/* CURSOR */}
+
       <div
         ref={cursorRef}
         style={{
@@ -265,40 +202,34 @@ export default function LuisRMPage() {
           top: 0,
           transform: "translate(-50%, -50%)",
           transition:
-            "width 0.35s ease, height 0.35s ease, background 0.35s ease, box-shadow 0.35s ease",
+            "width 0.35s ease, height 0.35s ease",
         }}
       />
 
-      <div className="go-title-wrap">
-        
-        <h1
-          className="go-title"
-          onMouseEnter={activateMagnify}
-          onMouseLeave={deactivateMagnify}
-        >
-          {displayText1}
-        </h1>
-
-        <h1
-          className="go-title go-title--over"
-          onMouseEnter={activateMagnify}
-          onMouseLeave={deactivateMagnify}
-        >
-          {displayText2}
-        </h1>
-
-      </div>
+      {/* VIDEO */}
 
       <div className="go-anim">
-        <img
-          src={ANIM_SRC}
-          alt="animacion de los granjeros enojados"
+        <video
+          ref={videoRef}
           className="go-anim-img"
-        />
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source
+            src={ANIM_SRC}
+            type="video/mp4"
+          />
+        </video>
       </div>
 
+      {/* FOOTER */}
+
       <div className="go-footer">
-        <button className="go-btn">Regresars</button>
+        <button className="go-btn">
+          Regresar
+        </button>
 
         <img
           src={LOGO_SRC}
