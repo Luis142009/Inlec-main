@@ -224,7 +224,7 @@ export default function LuisRMPage() {
         </video>
       </div>
 
-      {/* FOOTER */}
+      {/* FOOTERs */}
 
       <div className="go-footer">
         <button className="go-btn">
