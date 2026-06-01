@@ -4,6 +4,8 @@ import LuisRMPage from "./pages/LuisRMPage";
 import { MatheoRMPage} from './pages/MatheoRMPage';
 import InterfazCap from "./pages/interfazcap";
 import { Reproductorluis } from './pages/Reproductorluis';
+import { Reproductors } from './components/Reproductors';
+import {SneyderRMPage} from "./pages/SneyderRMPage";
 
 
 export const AppMain = () => {
@@ -12,7 +14,7 @@ export const AppMain = () => {
       <div>
 
     
-        <InterfazCap/>
+        <SneyderRMPage/>
         
       </div>
     </>

@@ -1,282 +1,366 @@
-/*import React, { useEffect, useState } from "react"
+import React, { useRef, useState } from "react";
+import "../stylesheets/Textos.css";
+import { motion } from "motion/react";
+
+function BotonWarning() {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <motion.div
+      layout
+      layoutDependency={expanded}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: expanded ? "#ffc107" : "#fff3cd",
+        border: "1px solid #ffc107",
+        borderRadius: 20,
+        cursor: "pointer",
+        width: expanded ? 300 : 150,
+        height: expanded ? 100 : 50,
+      }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      onClick={() => setExpanded(!expanded)}
+    >
+      <motion.button
+        layout
+        layoutDependency={expanded}
+        layoutAnchor={{ x: 0.5, y: 0.5 }}
+        type="button"
+        className="btn btn-warning"
+        style={{
+          width: expanded ? 200 : 100,
+          fontSize: expanded ? 18 : 14,
+          pointerEvents: "none",
+        }}
+        transition={{
+          duration: 0.8,
+          ease: "easeInOut",
+          delay: 0.2,
+        }}
+      >
+        Warning
+      </motion.button>
+    </motion.div>
+  );
+}
+
+const fadeSlide = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut", delay: i * 0.15 },
+  }),
+};
+
+function CapituloContenido({ titulo, capitulo, texto }) {
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-12 mt-5 text-center">
+          <motion.h1
+            className="titulo"
+            variants={fadeSlide}
+            initial="hidden"
+            animate="visible"
+            custom={0}
+          >
+            {titulo}
+          </motion.h1>
+        </div>
+
+        <div className="col-12 mt-5">
+          <motion.h3
+            className="titulo"
+            variants={fadeSlide}
+            initial="hidden"
+            animate="visible"
+            custom={1}
+          >
+            {capitulo}
+          </motion.h3>
+        </div>
+
+        <div className="col-12 mt-3">
+          <motion.p
+            variants={fadeSlide}
+            initial="hidden"
+            animate="visible"
+            custom={2}
+            dangerouslySetInnerHTML={{ __html: texto }}
+          />
+        </div>
+
+        <motion.div
+          className="col-12 text-center"
+          style={{ marginTop: "2rem", marginBottom: "5rem" }}
+          variants={fadeSlide}
+          initial="hidden"
+          animate="visible"
+          custom={3}
+        >
+          <BotonWarning />
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+const capitulos = [
+  {
+    titulo: "EL SUPER ZORRO",
+    capitulo: "CAPITULO #1",
+    texto:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br />Nullam auctor, nisl eget ultricies aliquet.",
+  },
+  {
+    titulo: "EL SUPER PIDAÑA",
+    capitulo: "CAPITULO #2",
+    texto:
+      "El zorro descubrió una cueva misteriosa en lo más profundo del bosque.",
+  },
+  {
+    titulo: "EL SUPER ZORRO",
+    capitulo: "CAPITULO #3",
+    texto:
+      "Una alianza inesperada surgió cuando el águila real se unió al zorro.",
+  },
+  {
+    titulo: "EL SUPER ZORRO",
+    capitulo: "CAPITULO #4",
+    texto:
+      "El gran cazador llegó al bosque con redes y trampas de acero.",
+  },
+  {
+    titulo: "EL SUPER ZORRO",
+    capitulo: "CAPITULO #5",
+    texto:
+      "Al amanecer del último día, el zorro se enfrentó a su destino.",
+  },
+];
 
 export const SneyderRMPage = () => {
+  const videoRef = useRef(null);
 
-  const [character, setCharacter] = useState([])
+  const [mostrarMensaje, setMostrarMensaje] = useState(false);
+  const [detener, setDetener] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
-  const getCharacter = async () => {
+  // ▶ Play
+  const handlePlay = () => {
+    setDetener(false);
+    setMostrarMensaje(false);
+    videoRef.current.play();
+    setIsPlaying(true);
+  };
 
-    const res = await fetch("https://rickandmortyapi.com/api/character")
-    const data = await res.json()
-    setCharacter(data.results)
-    console.log(data)
-  }
+  // ⏸ Pause
+  const handlePause = () => {
+    videoRef.current.pause();
+    setIsPlaying(false);
+  };
 
-  const [Pokemon, setPokemon] = useState([])
+  // ⏩ Avanzar a segundo 6
+  const handleAvanzar = () => {
+    setDetener(false);
+    setMostrarMensaje(false);
+    videoRef.current.currentTime = 6;
+    videoRef.current.play();
+    setIsPlaying(true);
+  };
 
-  const getPokemon = async () => {
+  // ▶ Continuar desde donde se pausó en segundo 5
+  const handleContinuar = () => {
+    setMostrarMensaje(false);
+    videoRef.current.play();
+    setIsPlaying(true);
+  };
 
-    const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=12")
-    const data = await res.json()
+  // Detecta cuando llega al segundo 5
+  const handleUpdate = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.currentTime >= 5 && !detener) {
+      video.pause();
+      setIsPlaying(false);
+      setMostrarMensaje(true);
+      setDetener(true);
+    }
+  };
 
-    const detallesPokemon = await Promise.all(
+  // Sincroniza isPlaying si el video se pausa/reanuda por otros medios
+  const handleVideoPlay = () => setIsPlaying(true);
+  const handleVideoPause = () => setIsPlaying(false);
 
-      data.results.map(async (Pokemon) => {
-        const res = await fetch(Pokemon.url)
-        const detalles = await res.json()
-
-        return {
-          id: detalles.id,
-          name: detalles.name,
-          image: detalles.sprites.other["official-artwork"].front_default,
-          types: detalles.types[0].type.name
-        }
-      })
-
-    )
-
-    setPokemon(detallesPokemon)
-    console.log(data)
-
-  }
-
-  useEffect(() => {
-    getCharacter()
-    getPokemon()
-
-  }, [])
-
-
-  return (
-    <>
-
-      <h1>Personajes de Rick and Morty</h1>
-
-
-      {character.map((char, index) => (
-        <div key={index} className="card mb-3" style={{ width: "540px" }}>
-          <div className="row g-0">
-            <div className="col-md-4">
-              <img src={char.image} className="img-fluid rounded-start" alt="" />
-            </div>
-            <div className="col-md-8">
-              <div className="card-body">
-                <h5 className="card-title">{char.name}</h5>
-                <p className="card-text">Status: {char.status}</p>
-                <p className="card-text">Especie: {char.species}</p>
-                <p className="card-text">
-                  <small className="text-body-secondary">
-                    Last updated 3 mins ago
-                  </small>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-
-  
-
-      <div className="container">
-        <div class="row gap-3 text-center">
-          <h1>tarjetas de pokemon</h1>
-          <div></div>
-          {Pokemon.map((char, index) => (
-            <div key={index} className="card mb-3" style={{ width: "540px" }}>
-              <div className="row g-0">
-                <div className="col-md-4">
-                  <img src={char.image} className="img-fluid rounded-start" alt="" />
-                </div>
-                <div className="col-md-8">
-                  <div className="card-body">
-                    <h5 className="card-title">{char.name}</h5>
-                    <p className="card-text">Status: {char.types}</p>
-                    <p className="card-text">Nivel: {char.id}</p>
-                    <p className="card-text">
-                      <small className="text-body-secondary">
-                        Last updated 3 mins ago
-                      </small>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          ))}
-        </div>
-      </div>
-
-    </>
-
-  )
-}
-  */
-
-import React, { useState, useEffect } from 'react'
-import '../stylesheets/Textos.css';
-
-
-/*export const SneyderRMPage = () => {
-  return (
-    <>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-12 mt-5 text-center'>
-            <h1 className='titulo'>EL SUPER ZORRO</h1>
-          </div>
-          <div className='col-12 mt-5'>
-            <h3 className='titulo'>CAPITULO #1</h3>
-          </div>
-          <div className='col-12 mt-3'>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.   <br />Nullam auctor, nisl eget ultricies aliquet, nunc nisl <br /> aliquam nisl, eget ultricies nisl nunc eget nisl. Nullam auctor, <br /> nisl eget ultricies aliquet, nunc nisl aliquam nisl, eget ultricies nisl nunc eget nisl.</p>
-          </div>
-          <div className='col-12 mt-5 text-center'>
-            <button type="button" class="btn btn-warning">VER CAPITULO</button>
-          </div>
-          {/* <div className='col-12 mt-5 text-center d-flex justify-content-center align-items-end vh-100'>
-            <button type="button" class="btn btn-warning">Warning</button>
-          </div> 
-        </div>
-      </div>
-
-    </>
-  )
-}*/
-
-
-
-/*export const SneyderRMPage = () => {
   return (
     <>
       <div
-        id="carouselCapitulos"
-        className="carousel slide"
-        data-bs-ride="false"
+        style={{
+          position: "relative",
+          minHeight: "100vh",
+          overflow: "hidden",
+        }}
       >
-        <div className="carousel-indicators">
-          <button type="button" data-bs-target="#carouselCapitulos" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Capítulo 1"></button>
-          <button type="button" data-bs-target="#carouselCapitulos" data-bs-slide-to="1" aria-label="Capítulo 2"></button>
-          <button type="button" data-bs-target="#carouselCapitulos" data-bs-slide-to="2" aria-label="Capítulo 3"></button>
-          <button type="button" data-bs-target="#carouselCapitulos" data-bs-slide-to="3" aria-label="Capítulo 4"></button>
-          <button type="button" data-bs-target="#carouselCapitulos" data-bs-slide-to="4" aria-label="Capítulo 5"></button>
+        {/* VIDEO DE FONDO */}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onTimeUpdate={handleUpdate}
+          onPlay={handleVideoPlay}
+          onPause={handleVideoPause}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: -2,
+          }}
+        >
+          <source src="/animacion1.mp4" type="video/mp4" />
+        </video>
+
+        {/* MENSAJE AL LLEGAR AL SEGUNDO 5 */}
+        {mostrarMensaje && (
+          <div
+            style={{
+              position: "fixed",
+              top: "20px",
+              right: "20px",
+              background: "#ffc107",
+              padding: "15px",
+              borderRadius: "10px",
+              zIndex: 999,
+              fontWeight: "bold",
+            }}
+          >
+            🎬 Video detenido en el segundo 5
+          </div>
+        )}
+
+        {/* BOTONES DEL VIDEO */}
+        <div
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 999,
+            display: "flex",
+            gap: "10px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <button
+            className="btn btn-success"
+            onClick={handlePlay}
+            disabled={isPlaying}
+          >
+            ▶ Play
+          </button>
+
+          <button
+            className="btn btn-danger"
+            onClick={handlePause}
+            disabled={!isPlaying}
+          >
+            ⏸ Pause
+          </button>
+
+          <button className="btn btn-primary" onClick={handleAvanzar}>
+            ⏩ Avanzar a 6s
+          </button>
+
+          <button
+            className="btn btn-warning"
+            onClick={handleContinuar}
+            disabled={isPlaying}
+          >
+            ▶ Continuar
+          </button>
         </div>
 
-        <div className="carousel-inner">
+        {/* OVERLAY */}
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: -1,
+          }}
+        />
 
-      
-          <div className="carousel-item active">
-            <div className='container'>
-              <div className='row'>
-                <div className='col-12 mt-5 text-center'>
-                  <h1 className='titulo'>EL SUPER ZORRO</h1>
-                </div>
-                <div className='col-12 mt-5'>
-                  <h3 className='titulo'>CAPITULO #1</h3>
-                </div>
-                <div className='col-12 mt-3'>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.   <br />Nullam auctor, nisl eget ultricies aliquet, nunc nisl <br /> aliquam nisl, eget ultricies nisl nunc eget nisl. Nullam auctor, <br /> nisl eget ultricies aliquet, nunc nisl aliquam nisl, eget ultricies nisl nunc eget nisl.</p>
-                </div>
-                <div className='col-12 mt-5 text-center'>
-                  <button type="button" className="btn btn-warning">Warning</button>
-                </div>
-              </div>
-            </div>
+        {/* CARRUSEL */}
+        <div
+          id="carouselCapitulos"
+          className="carousel slide"
+          data-bs-ride="false"
+          style={{
+            minHeight: "100vh",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <div className="carousel-indicators" style={{ marginBottom: "1rem" }}>
+            {capitulos.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                data-bs-target="#carouselCapitulos"
+                data-bs-slide-to={i}
+                className={i === 0 ? "active" : ""}
+                aria-current={i === 0 ? "true" : undefined}
+                aria-label={`Capítulo ${i + 1}`}
+              />
+            ))}
           </div>
 
-          <div className="carousel-item">
-            <div className='container'>
-              <div className='row'>
-                <div className='col-12 mt-5 text-center'>
-                  <h1 className='titulo'>EL SUPER pidaña</h1>
-                </div>
-                <div className='col-12 mt-5'>
-                  <h3 className='titulo'>CAPITULO #2</h3>
-                </div>
-                <div className='col-12 mt-3'>
-                  <p>El zorro descubrió una cueva misteriosa en lo más profundo del bosque. <br />Dentro había mapas antiguos y tesoros olvidados por generaciones. <br /> Nadie había llegado tan lejos, pero el zorro no temía nada. <br /> Su astucia lo guiaba a través de cada trampa y obstáculo.</p>
-                </div>
-                <div className='col-12 mt-5 text-center'>
-                  <button type="button" className="btn btn-warning">Warning</button>
-                </div>
+          <div className="carousel-inner">
+            {capitulos.map((cap, i) => (
+              <div
+                key={i}
+                className={`carousel-item${i === 0 ? " active" : ""}`}
+              >
+                <CapituloContenido
+                  titulo={cap.titulo}
+                  capitulo={cap.capitulo}
+                  texto={cap.texto}
+                />
               </div>
-            </div>
+            ))}
           </div>
 
-         
-          <div className="carousel-item">
-            <div className='container'>
-              <div className='row'>
-                <div className='col-12 mt-5 text-center'>
-                  <h1 className='titulo'>EL SUPER ZORRO</h1>
-                </div>
-                <div className='col-12 mt-5'>
-                  <h3 className='titulo'>CAPITULO #3</h3>
-                </div>
-                <div className='col-12 mt-3'>
-                  <p>Una alianza inesperada surgió cuando el águila real se unió al zorro. <br />Juntos podían ver desde las alturas y moverse entre las sombras. <br /> La combinación de sus habilidades era imparable ante cualquier rival. <br /> El bosque nunca había visto una dupla tan poderosa.</p>
-                </div>
-                <div className='col-12 mt-5 text-center'>
-                  <button type="button" className="btn btn-warning">Warning</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselCapitulos"
+            data-bs-slide="prev"
+          >
+            <span className="carousel-control-prev-icon" aria-hidden="true" />
+            <span className="visually-hidden">Anterior</span>
+          </button>
 
-         
-          <div className="carousel-item">
-            <div className='container'>
-              <div className='row'>
-                <div className='col-12 mt-5 text-center'>
-                  <h1 className='titulo'>EL SUPER ZORRO</h1>
-                </div>
-                <div className='col-12 mt-5'>
-                  <h3 className='titulo'>CAPITULO #4</h3>
-                </div>
-                <div className='col-12 mt-3'>
-                  <p>El gran cazador llegó al bosque con redes y trampas de acero. <br />Buscaba al zorro desde hacía años sin lograrlo jamás. <br /> Pero esta vez traía un secreto que nadie conocía todavía. <br /> El enfrentamiento final estaba más cerca que nunca antes.</p>
-                </div>
-                <div className='col-12 mt-5 text-center'>
-                  <button type="button" className="btn btn-warning">Warning</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="carousel-item">
-            <div className='container'>
-              <div className='row'>
-                <div className='col-12 mt-5 text-center'>
-                  <h1 className='titulo'>EL SUPER ZORRO</h1>
-                </div>
-                <div className='col-12 mt-5'>
-                  <h3 className='titulo'>CAPITULO #5</h3>
-                </div>
-                <div className='col-12 mt-3'>
-                  <p>Al amanecer del último día, el zorro se enfrentó a su destino. <br />Con una última maniobra brillante burló todas las trampas tendidas. <br /> El bosque volvió a ser libre, en paz y silencio otra vez. <br /> La leyenda del Super Zorro viviría para siempre en cada árbol.</p>
-                </div>
-                <div className='col-12 mt-5 text-center'>
-                  <button type="button" className="btn btn-warning">Warning</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselCapitulos"
+            data-bs-slide="next"
+          >
+            <span className="carousel-control-next-icon" aria-hidden="true" />
+            <span className="visually-hidden">Siguiente</span>
+          </button>
         </div>
-
-       
-        <button className="carousel-control-prev" type="button" data-bs-target="#carouselCapitulos" data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Anterior</span>
-        </button>
-        <button className="carousel-control-next" type="button" data-bs-target="#carouselCapitulos" data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Siguiente</span>
-        </button>
       </div>
     </>
-  )
-}*/
-
-
-
+  );
+};
 
