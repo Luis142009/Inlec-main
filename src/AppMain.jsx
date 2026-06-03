@@ -7,6 +7,7 @@ import { Reproductorluis } from './pages/Reproductorluis';
 import { Reproductors } from './components/Reproductors';
 import {SneyderRMPage} from "./pages/SneyderRMPage";
 import { LuisPlugin } from "./components/LuisPlugin";
+import { LottieMatheo } from './components/LottieMatheo';
 
 
 export const AppMain = () => {
@@ -16,7 +17,7 @@ export const AppMain = () => {
 
     
   
-        <LuisPlugin />
+        <LottieMatheo />
       </div>
     </>
   );
