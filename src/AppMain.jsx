@@ -6,6 +6,9 @@ import InterfazCap from "./pages/interfazcap";
 import { Reproductorluis } from './pages/Reproductorluis';
 import { Reproductors } from './components/Reproductors';
 import {SneyderRMPage} from "./pages/SneyderRMPage";
+import { LuisPlugin } from "./components/LuisPlugin";
+import { LottieStiven } from './components/Lotiestiven';
+
 
 
 export const AppMain = () => {
@@ -14,7 +17,9 @@ export const AppMain = () => {
       <div>
 
     
-        <LuisRMPage/>
+  
+        <LuisPlugin />
+        
         
       </div>
     </>
