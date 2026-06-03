@@ -8,4 +8,7 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  json: {
+    stringify: false  // asegura que el JSON se importe como objeto, no string
+  }
 })
