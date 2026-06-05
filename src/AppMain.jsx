@@ -7,16 +7,14 @@ import { Reproductorluis } from './pages/Reproductorluis';
 import { Reproductors } from './components/Reproductors';
 import {SneyderRMPage} from "./pages/SneyderRMPage";
 import { LuisPlugin } from "./components/LuisPlugin";
+import { LotMatheo } from './components/LotMatheo';
 
 
 export const AppMain = () => {
   return (
     <>
       <div>
-
-    
-  
-        <LuisPlugin />
+        <LotMatheo/>
       </div>
     </>
   );
