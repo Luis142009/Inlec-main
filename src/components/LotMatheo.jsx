@@ -33,6 +33,8 @@ export const LotMatheo = () => {
 
 <div className="screen">
   <img className="fondo" src="../src/assets/svg/Fondo.webp" alt="" />
+  <img className="nube1" src="../src/assets/svg/Nube 1.webp" alt="" />
+  <img className="nube2" src="../src/assets/svg/Nube 2.webp" alt="" />
 </div>
 
     </>
