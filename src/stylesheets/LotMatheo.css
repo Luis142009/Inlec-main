@@ -1,5 +1,5 @@
 .screen{
-    width: 1000px;
+    width: 887px;
     height: 408px;
     position: relative;
     overflow: hidden;
@@ -8,5 +8,5 @@
 .fondo {
     position: absolute;
     top: 0;
-    left: -30px;
+    left: -130px;
 }
