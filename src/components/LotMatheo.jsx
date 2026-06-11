@@ -1,7 +1,8 @@
 import LottieModule from "lottie-react";
-import ositou from "../assets/ositou.json";
+import pinwino from "../assets/svg/pinwino.json";
 import { useRef } from "react";
-
+import { div } from "motion/react-client";
+import '../stylesheets/LotMatheo.css'
 
 
 const Lottie = LottieModule.default;
@@ -19,15 +20,24 @@ export const LotMatheo = () => {
 
   return (
     <>
-    <div onClick={reproducir}>
+    
+    {/* <div onClick={reproducir}>
     <Lottie
       lottieRef={lottieRef}
-      animationData={ositou}
+      animationData={pinwino}
       loop={false}
       autoplay={false}
       style={{ width: 500, height: 500 }}
     />
-    </div>
+    </div > */}
+
+<div className="screen">
+  <img className="fondo" src="../src/assets/svg/Fondo.webp" alt="" />
+</div>
+
     </>
+
+
+
   );
 };
