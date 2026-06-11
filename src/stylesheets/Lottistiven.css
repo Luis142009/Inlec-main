@@ -1,0 +1,14 @@
+.screen {
+    width: 996px;
+    height: 407px;
+    position: relative;
+    overflow: hidden;
+    background: yellow;
+}
+
+.fondo {
+    position: absolute;
+    top: 0;
+    left: -114px;
+    width: 1238px;
+}

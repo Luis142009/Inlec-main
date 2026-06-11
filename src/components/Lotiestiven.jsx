@@ -1,10 +1,11 @@
 import LottieModule from "lottie-react";
 import dataStiven from "../assets/data.json";
 import { useRef } from "react";
+import "../stylesheets/Lottistiven.css";
 
 const Lottie = LottieModule.default;
 
-export const LottieStiven = () => {
+export const Lottiestiven = () => {
 
   const lottieRef = useRef()
 
@@ -15,7 +16,7 @@ export const LottieStiven = () => {
   }
   return (
     <>
-      <div onClick={reproducir}>
+      {/* <div onClick={reproducir}>
         <Lottie
           lottieRef={lottieRef}
           animationData={dataStiven}
@@ -28,6 +29,10 @@ export const LottieStiven = () => {
           }}
 
         />
+      </div>*/}
+
+      <div className="screen">
+        <img className="fondo" src="../src/assets/svg/Fondo.webp" />
       </div>
     </>
   );
