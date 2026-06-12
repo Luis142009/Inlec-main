@@ -1,6 +1,6 @@
-.screen{
-    width: 887px;
-    height: 408px;
+.screen {
+    width: 996px;
+    height: 407px;
     position: relative;
     overflow: hidden;
 }
@@ -8,5 +8,74 @@
 .fondo {
     position: absolute;
     top: 0;
-    left: -130px;
+    left: -114px;
+    width: 1238px;
+}
+
+.nube1{
+   position: absolute;
+   top: 31px;
+   right: 30px; 
+   width: 25%;
+   animation: nube1 5s linear ;
+}
+
+.nube2{
+   position: absolute;
+   top: 20px;
+   left: 30px; 
+   width: 30%;
+   animation: nube2 5s linear ;
+}
+
+.oso{
+    position: absolute;
+    z-index: 5;
+    right: 40%;
+    bottom: 185px;
+}
+
+.pinguino{
+    position: absolute;
+    z-index: 5;
+    right: 80%;
+    bottom: 150px;
+}
+
+.pez{
+    height: 40px;
+    position: absolute;
+    z-index: 5;
+    right: 70%;
+    top: 80%;
+}
+
+@keyframes nube1 {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-200%);
+    }
+
+    100%{
+        transform: translateX(0px);
+    }
+
+}
+
+@keyframes nube2 {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(100%);
+    }
+
+    100%{
+        transform: translateX(0px);
+    }
+
 }

@@ -11,11 +11,12 @@ import { LotMatheo } from './components/LotMatheo';
 import { Lottiestiven } from './components/Lotiestiven';
 
 
+
 export const AppMain = () => {
   return (
     <>
       <div>
-        <Lottiestiven/>
+        
       </div>
     </>
   );
