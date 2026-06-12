@@ -1,31 +1,67 @@
 import LottieModule from "lottie-react";
-import Bomb from "../assets/BolasonicaLuis.json";
+import dataStiven from "../assets/ositou.json";
+import pengun from "../assets/svg/pinwino.json";
 import { useRef } from "react";
+import "../stylesheets/Lottistiven.css";
 
-const Lottie = LottieModule.default
+const Lottie = LottieModule.default;
 
 export const LuisPlugin = () => {
-
-  const lottieRef = useRef()
+  const lottieRef = useRef();
+  const lottieRef2 = useRef();
 
   const reproducir = () => {
-  lottieRef.current.stop()
-  lottieRef.current.play() 
+    lottieRef.current?.stop();
+    lottieRef.current?.play();
+  };
 
-   }
-console.log(Lottie)
+  const reproducir2 = () => {
+    lottieRef2.current?.stop();
+    lottieRef2.current?.play();
+  };
 
   return (
     <>
-    <div onClick={reproducir}>
-    <Lottie
-    lottieRef={lottieRef}
-      animationData={Bomb}
-      loop={false}
-      autoplay={false}
-      style={{ width: 500, height: 500 }}
-    />
-    </div>
+      <div className="oso" onClick={reproducir}>
+        <Lottie
+          lottieRef={lottieRef}
+          animationData={dataStiven}
+          loop={false}
+          autoplay={false}
+          style={{
+            width: 400,
+            height: 400,
+          }}
+        />
+      </div>
+
+      <div className="peguns" onClick={reproducir2}>
+        <Lottie
+          lottieRef={lottieRef2}
+          animationData={pengun}
+          loop={false}
+          autoplay={false}
+          style={{
+            width: 150,
+            height: 150,
+          }}
+        />
+      </div>
+
+      <div className="screen">
+        <img className="fondo" src="../src/assets/svg/Fondo.webp" alt="" />
+        <img className="nube1" src="../src/assets/svg/Nube 1.webp" alt="" />
+        <img className="nube2" src="../src/assets/svg/Nube 2.webp" alt="" />
+      </div>
+
+      <div className="mar">
+        <img
+          className="mar1"
+          src="../src/assets/svg/pezEspinas.svg"
+          alt=""
+        />
+      </div>
     </>
+    
   );
 };

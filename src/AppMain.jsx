@@ -15,7 +15,7 @@ export const AppMain = () => {
   return (
     <>
       <div>
-        <Lottiestiven/>
+       
       </div>
     </>
   );
