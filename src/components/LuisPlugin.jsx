@@ -20,6 +20,15 @@ export const LuisPlugin = () => {
     lottieRef2.current?.play();
   };
 
+  const lanzarHielo = () => {
+    lottieRef2.current?.stop();
+    lottieRef2.current?.playSegments([0, 20], true);
+  };
+
+  const pescado = () => {
+    lottieRef2.current?.stop();
+    lottieRef2.current?.playSegments([0, 60], true);
+  };
   return (
     <>
       <div className="oso" onClick={reproducir}>
@@ -59,9 +68,18 @@ export const LuisPlugin = () => {
           className="mar1"
           src="../src/assets/svg/pezEspinas.svg"
           alt=""
+          onClick={pescado}
+        />
+      </div>
+
+      <div className="hielo1">
+        <img
+          className="hielo2"
+          src="../src/assets/svg/cuboHielo.svg"
+          alt=""
+          onClick={lanzarHielo}
         />
       </div>
     </>
-    
   );
 };
