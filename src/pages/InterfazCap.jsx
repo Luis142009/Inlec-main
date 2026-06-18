@@ -3,7 +3,7 @@ import '../stylesheets/Textos.css';
 import { motion } from "motion/react"
 
 const InterfazCap = () => {
-  const Video = "/Disparo.mp4";
+  const Video = "";
   return (
     <>
       <motion.div

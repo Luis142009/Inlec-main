@@ -1,7 +1,4 @@
-@font-face {
-    font-family: 'snoopy';
-    src: url(../assets/snoopy.otf);
-}
+
 @font-face {
     font-family: 'Dacherry';
     src: url(../assets/Dacherry.otf);
@@ -107,7 +104,6 @@ body {
         :root{
   --bg:#ecdccc ;
   --card:#fcc465 ;
-  --brown:#944c24 ;
   --orange:#e49454;
   --soft:#8a6a55;
   --line:#c7a98b;
@@ -136,7 +132,6 @@ body{
 .interfaz-cap{
   width: 65vw;
   background:var(--card);
-  border:2px solid var(--brown);
   border-radius:12px;
   box-shadow:6px 6px 0 var(--brown);
 }

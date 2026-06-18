@@ -16,7 +16,7 @@ export const AppMain = () => {
   return (
     <>
       <div>
-       <LuisPlugin />
+       <InterfazCap />
       </div>
     </>
   );
