@@ -2,106 +2,21 @@ html,
 body,
 #root {
   margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.screen {
-
-   width: 887px;
-    height: 408px;
-}
-
-.fondo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.nube1 {
-  position: absolute;
-  top: 5%;
-  left: -20%;
-  width: 25%;
-  animation: moverNube1 50s linear infinite;
-}
-
-.nube2 {
-  position: absolute;
-  top: 15%;
-  right: -20%;
-  width: 30%;
-  animation: moverNube2 60s linear infinite;
-}
-
-
-.oso{
-    position: absolute;
-    left: 30%;
-      z-index: 10;
-      width: 5px;
-      height: 5px;
-      top: -5%;
-
-    
-}
-
-.peguns{
-position: absolute;
-    left: 2%;
-      z-index: 10;
-      width: 5px;
-      height: 5px;
-      top: 30%;
-}
-
-.mar{
-  position: absolute;
-  bottom: 230px;
-  z-index: 5;
-  left: 130px;
-  width: 5%;
-  height: 5%;
   overflow: hidden;
 }
 
-.hielo1{
-    width: 5%;
-  height: 5%;
-    left: 100px;
-
+.screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
-.hielo2{
-  position: absolute;
- left: 27px;
-  width: 8%;
-  height: 8%;
-margin-top: -60px;
-}
- 
-
-@keyframes moverNube1 {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(140vw);
-  }
-}
-
-@keyframes moverNube2 {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-140vw);
-  }
-  
+.fondo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
