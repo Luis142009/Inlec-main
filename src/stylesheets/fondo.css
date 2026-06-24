@@ -8,7 +8,6 @@ body,
   overflow: hidden;
 }
 
-/* 🌌 pantalla completa */
 .screen {
   position: fixed;
   inset: 0;
@@ -16,23 +15,23 @@ body,
   height: 100vh;
 }
 
-/* 🎥 FONDO VIDEO */
+
 .fondo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;   /* 🔥 clave */
+  object-fit: cover;  
   z-index: 0;
 }
 
-/* 🧍 PERSONAJE ENCIMA */
+
 .personaje {
   position: absolute;
-  bottom: 10%;   /* ajusta aquí */
+  bottom: 10%;   
   left: 50%;
   transform: translateX(-50%);
-  width: 250px;  /* tamaño del personaje */
+  width: 250px;  
   height: auto;
   z-index: 10;
   pointer-events: none;
