@@ -1,0 +1,155 @@
+
+.sr2 {
+  position: absolute;
+  bottom: 10%;   
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;  
+  height: auto;
+  z-index: 7;
+   transition-duration: .2s;
+  
+ 
+}
+
+.cartel {
+  position: absolute;
+  bottom: 39%;   
+  left: 38%;
+  transform: translateX(-50%);
+  width: 200px;  
+  height: auto;
+  z-index: 2;
+   transition-duration: .2s;
+  
+ 
+}
+
+.sombras{
+   position: absolute;
+   bottom: 10%;   
+   left: 50%;
+   transform: translateX(-50%);
+   width: 850px;  
+   height: auto;
+   z-index: 4;
+    transition-duration: .2s;
+    
+
+
+}
+
+.sombra3 {
+  position: absolute;
+  bottom: 10%;   
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;  
+  height: auto;
+  z-index: 5;
+   transition-duration: .2s;
+  
+ 
+}
+
+.tronco {
+  position: absolute;
+  bottom: 15%;   
+  left: 51%;
+  transform: translateX(-50%);
+  width: 759px;  
+  height: auto;
+  z-index: 5;
+   transition-duration: .2s;
+  
+ 
+}
+
+.cartel:hover{
+  
+    filter:
+       drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+       
+}
+
+
+.sr2:hover{
+  
+    filter:
+       drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+       
+}
+
+.sol2 {
+  position: absolute;
+  bottom: 28%;   
+  left: 70%;
+  transform: translateX(-50%);
+  width: 350px;  
+  height: auto;
+  z-index: 2;
+   transition-duration: .2s;
+  
+ 
+}
+
+
+
+.hojas {
+  position: absolute;
+  bottom: 38%;   
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;  
+  height: auto;
+  z-index: 6;
+   transition-duration: .2s;
+  
+ 
+}
+
+.hojas:hover{
+  
+    filter:
+       drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+       
+}
+
+.pasto2 {
+  position: absolute;
+  bottom: 10%;   
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;  
+  height: auto;
+  z-index: 4;
+   transition-duration: .2s;
+  
+ 
+}
+.scream {
+  position: absolute;
+  bottom: 10%;   
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;  
+  height: auto;
+  z-index: 1;
+   transition-duration: .2s;
+  
+ 
+}
+.pasto2:hover{
+  
+    filter:
+       drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+       
+}
