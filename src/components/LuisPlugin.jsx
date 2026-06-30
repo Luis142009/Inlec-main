@@ -8,10 +8,15 @@ import tierrass from "../assets/tierrita.webm";
 import arbol from "../assets/arbol.webm";
 import sol from "../assets/sol.webm";
 import hierba from "../assets/hierboza.webm";
-
+import tocar from "../assets/audio/tocar.mp3";
 import "../stylesheets/fondo.css";
 
-export const LuisPlugin = forwardRef(({ cambiarEscena, onRecoger }, ref) => {
+export const LuisPlugin = forwardRef(({
+  cambiarEscena,
+  onRecoger,
+  manzanaRecogida,
+  onMrFoxClick
+}, ref) => {
 
   const screenRef = useRef(null);
   const personajeRef = useRef(null);
@@ -22,10 +27,9 @@ export const LuisPlugin = forwardRef(({ cambiarEscena, onRecoger }, ref) => {
   const hierbaRef = useRef(null);
   const tierraRef = useRef(null);
   const arbolRef = useRef(null);
-
+const tocarRef = useRef(new Audio(tocar));
   const manzanaRef = useRef(null);
   const luzRef = useRef(null);
-  const manzanaRecogida = useRef(false);
 
   const todosLosVideos = () => [
     personajeRef, srRef, sraRef, solRef, hierbaRef, tierraRef, arbolRef
@@ -42,9 +46,15 @@ export const LuisPlugin = forwardRef(({ cambiarEscena, onRecoger }, ref) => {
     }
   }));
 
-  useEffect(() => {
-    gsap.set(screenRef.current, { scale: 1.4, x: 60, y: 40 });
-  }, []);
+useEffect(() => {
+  gsap.set(screenRef.current, {
+    scale: 1.4,
+    x: 60,
+    y: 40
+  });
+
+  tocarRef.current.volume = 0.5;
+}, []);
 
   const reproducirPersonaje = () => personajeRef.current.play();
 
@@ -71,24 +81,43 @@ export const LuisPlugin = forwardRef(({ cambiarEscena, onRecoger }, ref) => {
     video.play();
   };
 
-  const clickSR = () => {
-    reproducirVideo(srRef);
-    gsap.to(screenRef.current, {
-      scale: 2, x: 100, y: -78, duration: 3, ease: "power2.inOut",
-      onComplete: () => {
-        gsap.delayedCall(2, () => { cambiarEscena(2); });
-      }
-    });
-  };
+const clickSR = () => {
+
+  // Avisar al componente padre
+  if (onMrFoxClick) onMrFoxClick();
+
+  [
+    srRef,
+    sraRef,
+    solRef,
+    hierbaRef,
+    tierraRef,
+    arbolRef
+  ].forEach(reproducirVideo);
+
+  gsap.to(screenRef.current, {
+    scale: 2,
+    x: 100,
+    y: -78,
+    duration: 3,
+    ease: "power2.inOut",
+    onComplete: () => {
+      gsap.delayedCall(2, () => cambiarEscena(2));
+    }
+  });
+
+};
 
   const clickManzana = () => {
-    if (manzanaRecogida.current) return;
-    manzanaRecogida.current = true;
 
-    const manzana = manzanaRef.current;
-    const luz = luzRef.current;
+  tocarRef.current.currentTime = 0;
+  tocarRef.current.play();
 
-    // Obtener el primer slot vacío en el DOM
+  const manzana = manzanaRef.current;
+  const luz = luzRef.current;
+  
+    if (!manzana) return;
+
     const slots = document.querySelectorAll(".slot");
     const slotDestino = slots[0];
     if (!slotDestino) return;
@@ -101,27 +130,18 @@ export const LuisPlugin = forwardRef(({ cambiarEscena, onRecoger }, ref) => {
 
     const tl = gsap.timeline({
       onComplete: () => {
-        // Notifica al padre
         onRecoger("manzana");
-        // Oculta la manzana de la escena
-        gsap.set(manzana, { display: "none" });
-        gsap.set(luz, { display: "none" });
       }
     });
 
-    // Destello de luz alrededor de la manzana
     tl.fromTo(luz,
       { opacity: 0, scale: 0.5, display: "block" },
       { opacity: 1, scale: 2.5, duration: 0.3, ease: "power2.out" }
     );
 
-    // La manzana sube un poco y luego vuela al slot
     tl.to(manzana, { y: -20, duration: 0.2, ease: "power1.out" }, "<");
-
-    // Luz se desvanece
     tl.to(luz, { opacity: 0, scale: 3.5, duration: 0.4, ease: "power1.in" });
 
-    // Vuela hacia el slot
     tl.to(manzana, {
       x: dx,
       y: dy,
@@ -130,13 +150,15 @@ export const LuisPlugin = forwardRef(({ cambiarEscena, onRecoger }, ref) => {
       ease: "power3.inOut"
     });
 
-    // Pequeño pop al llegar
     tl.to(manzana, { scale: 0.5, duration: 0.1, ease: "back.out(3)" });
     tl.to(manzana, { opacity: 0, duration: 0.15 });
   };
 
   return (
+    
+    
     <div ref={screenRef} className="screen">
+      
 
       <video ref={personajeRef} className="personaje" muted autoPlay playsInline preload="auto"
         onClick={reproducirPersonaje} onEnded={termino} onTimeUpdate={controlarLoop}>
@@ -172,33 +194,39 @@ export const LuisPlugin = forwardRef(({ cambiarEscena, onRecoger }, ref) => {
         <source src={sol} type="video/webm" />
       </video>
 
-      {/* MANZANA — con ref para animarla */}
-      <div style={{ position: "relative", display: "inline-block" }}>
-        {/* Luz detrás */}
-        <div
-          ref={luzRef}
-          onClick={clickManzana}
-          style={{
-            display: "none",
-            position: "absolute",
-            top: "50%", left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "60px", height: "60px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(255,220,80,0.9) 0%, rgba(255,180,0,0) 70%)",
-            pointerEvents: "none",
-            zIndex: 10
-          }}
-        />
-        <img
-          ref={manzanaRef}
-          src="src/assets/manzana.svg"
-          className="mi-svg"
-          alt="manzana"
-          onClick={clickManzana}
-          style={{ cursor: "pointer", position: "relative", zIndex: 11 }}
-        />
-      </div>
+   {!manzanaRecogida && (
+  <div style={{ position: "relative", display: "inline-block" }}>
+    <div
+      ref={luzRef}
+      onClick={clickManzana}
+      style={{
+        display: "none",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "800px",
+        height: "800px",
+      
+        pointerEvents: "none",
+        zIndex: 10
+      }}
+    />
+    <img
+      ref={manzanaRef}
+      src="src/assets/manzana.svg"
+      className="mi-svg"
+      alt="manzana"
+      onClick={clickManzana}
+      style={{
+        cursor: "pointer",
+        position: "relative",
+        zIndex: 16,
+        pointerEvents: "auto"
+      }}
+    />
+  </div>
+)}
 
     </div>
   );

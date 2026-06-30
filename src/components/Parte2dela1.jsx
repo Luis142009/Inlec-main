@@ -1,4 +1,9 @@
-import { useRef } from "react";
+import {
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle
+} from "react";
 import { gsap } from "gsap";
 
 import "../stylesheets/Escena2.css";
@@ -85,7 +90,7 @@ export const Parte2dela1 = () => {
 
             filter:"blur(0px)",
 
-            duration:.5
+            duration:.4
 
         });
 
@@ -117,7 +122,7 @@ export const Parte2dela1 = () => {
 
         tl.to(screenRef.current,{
 
-            y:-310,
+            y:-390,
 
             duration:3,
 
@@ -125,47 +130,71 @@ export const Parte2dela1 = () => {
 
         });
 
-        // Respiración
+  
 
-        tl.to(screenRef.current,{
-
-            scale:2.3,
-
-            repeat:1,
-
-            yoyo:true,
-
-            duration:.8,
-
-            ease:"sine.inOut"
-
-        });
 
         // Pausa
 
-        tl.to({},{
+tl.to({},{
+    duration: .2
+});
 
-            duration:.7
+// Sube un poco más hacia la cara
 
-        });
+tl.to(screenRef.current,{
 
-        // Regreso
+    y: 20,          
 
-        tl.to(screenRef.current,{
+    
+    duration: 2.1,
 
-            scale:1,
+    ease: "power2.inOut"
 
-            x:0,
+});
 
-            y:0,
+// Pequeña pausa contemplativa
 
-            duration:4,
+tl.to({},{
+    duration: .5
+});
 
-            ease:"power4.inOut"
+// Regreso
 
-        });
+tl.to(screenRef.current,{
+
+    scale: 1,
+
+    x: 0,
+
+    y: 0,
+
+    duration: 3,
+
+    ease: "power4.inOut"
+
+});
 
     };
+
+const iniciarTodo = () => {
+
+    if (hojasActivadas.current) return;
+
+    hojasActivadas.current = true;
+
+    reproducirVideo(sr2Ref);
+    reproducirVideo(cartelRef);
+    reproducirVideo(troncoRef);
+    reproducirVideo(sol2Ref);
+    reproducirVideo(sombra3Ref);
+    reproducirVideo(sombrasRef);
+    reproducirVideo(pasto2Ref);
+    reproducirVideo(hojasRef);
+
+    iniciarCinematica();
+
+};
+
 
         return (
 
@@ -189,16 +218,32 @@ export const Parte2dela1 = () => {
 
             {/* Señor Fox */}
 
-            <video
-                ref={sr2Ref}
-                className="sr2"
-                muted
-                playsInline
-                preload="auto"
-                onClick={() => reproducirVideo(sr2Ref)}
-            >
-                <source src={sr2} type="video/webm" />
-            </video>
+                <video
+    ref={sr2Ref}
+    className="sr2"
+    muted
+    playsInline
+    preload="auto"
+    onClick={() => {
+
+        if (hojasActivadas.current) return;
+
+        hojasActivadas.current = true;
+
+        reproducirVideo(sr2Ref);
+        reproducirVideo(cartelRef);
+        reproducirVideo(troncoRef);
+        reproducirVideo(sol2Ref);
+        reproducirVideo(sombra3Ref);
+        reproducirVideo(sombrasRef);
+        reproducirVideo(pasto2Ref);
+        reproducirVideo(hojasRef);
+        iniciarCinematica();
+
+    }}
+>
+    <source src={sr2} type="video/webm" />
+</video>
 
             {/* Pasto */}
 
@@ -215,32 +260,16 @@ export const Parte2dela1 = () => {
 
             {/* Hojas */}
 
-            <video
-                ref={hojasRef}
-                className="hojas"
-                muted
-                playsInline
-                preload="auto"
-                onClick={() => {
-
-                    if (hojasActivadas.current) return;
-
-                    hojasActivadas.current = true;
-
-                    reproducirVideo(hojasRef);
-                    reproducirVideo(cartelRef);
-                    reproducirVideo(troncoRef);
-                    reproducirVideo(sol2Ref);
-                    reproducirVideo(sombra3Ref);
-                    reproducirVideo(sombrasRef);
-
-                    // 🎬 Inicia la cinemática
-                    iniciarCinematica();
-
-                }}
-            >
-                <source src={hojas} type="video/webm" />
-            </video>
+         <video
+    ref={hojasRef}
+    className="hojas"
+    muted
+    playsInline
+    preload="auto"
+    onClick={() => reproducirVideo(hojasRef)}
+>
+    <source src={hojas} type="video/webm" />
+</video>
 
             {/* Cartel */}
 

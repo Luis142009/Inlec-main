@@ -1,8 +1,8 @@
 
 .sr2 {
   position: absolute;
-  bottom: 10%;   
-  left: 50%;
+  bottom: 2%;   
+  left: 52%;
   transform: translateX(-50%);
   width: 300px;  
   height: auto;
@@ -14,8 +14,8 @@
 
 .cartel {
   position: absolute;
-  bottom: 39%;   
-  left: 38%;
+  bottom: 36%;   
+  left: 39%;
   transform: translateX(-50%);
   width: 200px;  
   height: auto;
@@ -27,7 +27,7 @@
 
 .sombras{
    position: absolute;
-   bottom: 10%;   
+   bottom: -1%;   
    left: 50%;
    transform: translateX(-50%);
    width: 850px;  
@@ -41,7 +41,7 @@
 
 .sombra3 {
   position: absolute;
-  bottom: 10%;   
+  bottom: -2%;   
   left: 50%;
   transform: translateX(-50%);
   width: 800px;  
@@ -54,8 +54,8 @@
 
 .tronco {
   position: absolute;
-  bottom: 15%;   
-  left: 51%;
+  bottom: 5%;   
+  left: 52%;
   transform: translateX(-50%);
   width: 759px;  
   height: auto;
@@ -101,10 +101,10 @@
 
 .hojas {
   position: absolute;
-  bottom: 38%;   
+  bottom: 23%;   
   left: 50%;
   transform: translateX(-50%);
-  width: 1200px;  
+  width: 1560px;  
   height: auto;
   z-index: 6;
    transition-duration: .2s;
@@ -123,10 +123,10 @@
 
 .pasto2 {
   position: absolute;
-  bottom: 10%;   
-  left: 50%;
+  bottom: -1%;   
+  left: 49%;
   transform: translateX(-50%);
-  width: 1200px;  
+  width: 1502px;  
   height: auto;
   z-index: 4;
    transition-duration: .2s;
@@ -135,10 +135,10 @@
 }
 .scream {
   position: absolute;
-  bottom: 10%;   
+  bottom: 2%;   
   left: 50%;
   transform: translateX(-50%);
-  width: 1200px;  
+  width: 1900px;  
   height: auto;
   z-index: 1;
    transition-duration: .2s;

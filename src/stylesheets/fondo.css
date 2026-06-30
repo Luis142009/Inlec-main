@@ -15,12 +15,11 @@
 .mi-svg {
  position: absolute;
   bottom: 29%;   
-  left: 800%;
+  left: 900%;
   width: 50px;  
   height: auto;
-  z-index: 10;
    transition-duration: .2s;
-   margin-top: 450px;
+   margin-top: 440px;
 }
 
 .mi-svg:hover {
@@ -39,7 +38,7 @@
   transform: translateX(-50%);
   width: 176px;  
   height: auto;
-  z-index: 12;
+  z-index: 14;
      transition: .25s ease;
   
 }
@@ -60,7 +59,7 @@
   transform: translateX(-50%);
   width: 230px;  
   height: auto;
-  z-index: 12;
+  z-index: 14;
      transition: .25s ease;
 }
 
@@ -107,7 +106,7 @@
   transform: translateX(-50%);
   width: 39%;  
   height: auto;
-  z-index: 11;
+  z-index: 13;
    transition-duration: .2s;
   
  
@@ -138,7 +137,7 @@
   transform: translateX(-50%);
   width: 55%;  
   height: auto;
-  z-index: 10;
+  z-index: 12;
    transition-duration: .2s;
   
  
