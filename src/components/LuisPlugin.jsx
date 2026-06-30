@@ -1,6 +1,6 @@
 import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { gsap } from "gsap";
-
+import manzana from "../assets/manzana.svg";
 import escenario from "../assets/sr.webm";
 import sra from "../assets/lady.webm";
 import personaje from "../assets/rial.webm";
@@ -214,7 +214,7 @@ const clickSR = () => {
     />
     <img
       ref={manzanaRef}
-      src="src/assets/manzana.svg"
+          src={manzana}
       className="mi-svg"
       alt="manzana"
       onClick={clickManzana}

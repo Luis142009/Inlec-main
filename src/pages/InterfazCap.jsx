@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import song1 from "../assets/audio/song1.mp3";
 import gallina from "../assets/audio/gallina.mp3";
 import grillos from "../assets/audio/grillos.mp3";
-
+import manzana from "../assets/manzana.svg";
 const InterfazCap = () => {
 
   const [escena, setEscena] = useState(1);
@@ -310,7 +310,7 @@ const toggleFullscreen = async () => {
                   >
                     {obj === "manzana" && (
                       <img
-                        src="src/assets/manzana.svg"
+                         src={manzana}
                         alt="manzana"
                         style={{ width: "90%", height: "90%", objectFit: "contain", left: "2px", position: "relative", marginTop: "2px" }}
                       />
