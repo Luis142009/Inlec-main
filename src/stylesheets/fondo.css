@@ -14,12 +14,11 @@
 
 .mi-svg {
  position: absolute;
-  bottom: 29%;   
-  left: 900%;
+  left: 1500%;
   width: 50px;  
   height: auto;
    transition-duration: .2s;
-   margin-top: 440px;
+   margin-top: 220px;
 }
 
 .mi-svg:hover {

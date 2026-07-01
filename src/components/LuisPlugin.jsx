@@ -83,7 +83,7 @@ useEffect(() => {
 
 const clickSR = () => {
 
-  // Avisar al componente padre
+
   if (onMrFoxClick) onMrFoxClick();
 
   [
@@ -108,51 +108,134 @@ const clickSR = () => {
 
 };
 
-  const clickManzana = () => {
+const clickManzana = () => {
 
   tocarRef.current.currentTime = 0;
   tocarRef.current.play();
 
   const manzana = manzanaRef.current;
-  const luz = luzRef.current;
-  
-    if (!manzana) return;
 
-    const slots = document.querySelectorAll(".slot");
-    const slotDestino = slots[0];
-    if (!slotDestino) return;
+  if (!manzana) return;
 
-    const manzanaRect = manzana.getBoundingClientRect();
-    const slotRect = slotDestino.getBoundingClientRect();
 
-    const dx = slotRect.left + slotRect.width / 2 - (manzanaRect.left + manzanaRect.width / 2);
-    const dy = slotRect.top + slotRect.height / 2 - (manzanaRect.top + manzanaRect.height / 2);
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        onRecoger("manzana");
-      }
-    });
+  const screenRect = screenRef.current.getBoundingClientRect();
+  const manzanaRect = manzana.getBoundingClientRect();
 
-    tl.fromTo(luz,
-      { opacity: 0, scale: 0.5, display: "block" },
-      { opacity: 1, scale: 2.5, duration: 0.3, ease: "power2.out" }
-    );
+  const centroX = screenRect.width / 2;
+  const centroY = screenRect.height / 2;
 
-    tl.to(manzana, { y: -20, duration: 0.2, ease: "power1.out" }, "<");
-    tl.to(luz, { opacity: 0, scale: 3.5, duration: 0.4, ease: "power1.in" });
+  const manzanaX =
+    manzanaRect.left -
+    screenRect.left +
+    manzanaRect.width / 2;
 
-    tl.to(manzana, {
-      x: dx,
-      y: dy,
-      scale: 0.4,
-      duration: 0.6,
-      ease: "power3.inOut"
-    });
+  const manzanaY =
+    manzanaRect.top -
+    screenRect.top +
+    manzanaRect.height / 2;
 
-    tl.to(manzana, { scale: 0.5, duration: 0.1, ease: "back.out(3)" });
-    tl.to(manzana, { opacity: 0, duration: 0.15 });
-  };
+  const offsetX = centroX - manzanaX;
+  const offsetY = centroY - manzanaY;
+
+
+
+  const slots = document.querySelectorAll(".slot");
+  const slotDestino = slots[0];
+
+  if (!slotDestino) return;
+
+  const slotRect = slotDestino.getBoundingClientRect();
+
+  const dx =
+    slotRect.left +
+    slotRect.width / 2 -
+    (manzanaRect.left + manzanaRect.width / 2);
+
+  const dy =
+    slotRect.top +
+    slotRect.height / 2 -
+    (manzanaRect.top + manzanaRect.height / 2);
+
+ 
+
+  const tl = gsap.timeline({
+    onComplete: () => {
+      onRecoger("manzana");
+    }
+  });
+
+ 
+  tl.to(manzana, {
+    filter: `
+      drop-shadow(0 0 50px #ffffff)
+      drop-shadow(0 0 120px #ffe600)
+      drop-shadow(0 0 220px #ffd000)
+      drop-shadow(0 0 340px #ff9900)
+    `,
+    scale: 1.35,
+    rotation: 360,
+    duration: .35,
+    ease: "back.out(2)"
+  });
+
+
+  tl.to(
+    screenRef.current,
+    {
+      scale: 2,
+      x: 60 + offsetX,
+      y: 40 + offsetY,
+      duration: .45,
+      ease: "power2.out"
+    },
+    "<"
+  );
+
+ 
+  tl.to({}, { duration: .15 });
+
+
+  tl.to(screenRef.current,{
+    scale:1.4,
+    x:60,
+    y:40,
+    duration:.45,
+    ease:"power2.inOut"
+  });
+
+ 
+  tl.to(
+    manzana,
+    {
+      x:dx,
+      y:dy,
+      scale:.4,
+      rotation:1080,
+      duration:.8,
+      ease:"power3.inOut"
+    },
+    "<"
+  );
+
+  tl.to(manzana,{
+    scale:.5,
+    duration:.12,
+    ease:"back.out(4)"
+  });
+
+ 
+  tl.to(manzana,{
+    opacity:0,
+    duration:.15
+  });
+
+
+  tl.set(manzana,{
+    clearProps:"filter"
+  });
+
+};
 
   return (
     
