@@ -2,7 +2,7 @@
 .personaje {
   position: absolute;
   bottom: 10%;   
-  left: 50%;
+  left: 48%;
   transform: translateX(-50%);
   width: 1200px;  
   height: auto;
@@ -33,9 +33,9 @@
 .sr {
   position: absolute;
   bottom: 23%;   
-  left: 44%;
+  left: 43%;
   transform: translateX(-50%);
-  width: 176px;  
+  width: 180px;  
   height: auto;
   z-index: 14;
      transition: .25s ease;
@@ -56,7 +56,7 @@
   bottom: 12%;   
   left: 56%;
   transform: translateX(-50%);
-  width: 230px;  
+  width: 235px;  
   height: auto;
   z-index: 14;
      transition: .25s ease;
@@ -77,7 +77,7 @@
   bottom: 10%;   
   left: 50%;
   transform: translateX(-50%);
-  width: 63%;  
+  width: 78%;  
   height: auto;
   z-index: 10;
    transition-duration: .2s;
@@ -90,7 +90,7 @@
   bottom: 10%;   
   left: 50%;
   transform: translateX(-50%);
-  width: 63%;  
+  width: 80%;  
   height: auto;
   z-index: 10;
    transition-duration: .2s;
@@ -100,10 +100,10 @@
 
 .arbol {
   position: absolute;
-  bottom: 20%;   
+  bottom: 19%;   
   left: 50%;
   transform: translateX(-50%);
-  width: 39%;  
+  width: 50%;  
   height: auto;
   z-index: 13;
    transition-duration: .2s;
@@ -134,7 +134,7 @@
   bottom: 17%;   
   left: 53%;
   transform: translateX(-50%);
-  width: 55%;  
+  width: 68%;  
   height: auto;
   z-index: 12;
    transition-duration: .2s;
