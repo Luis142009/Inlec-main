@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Dacherry';
+    src: url(../assets/Dacherry.otf);
+}
+
+
 
 .personaje {
   position: absolute;
@@ -8,7 +14,7 @@
   height: auto;
   z-index: 4;
    transition-duration: .2s;
-  
+   cursor: pointer;
  
 }
 
@@ -19,6 +25,7 @@
   height: auto;
    transition-duration: .2s;
    margin-top: 220px;
+   cursor: pointer;
 }
 
 .mi-svg:hover {
@@ -29,6 +36,18 @@
        
 }
 
+.encuentra {
+   max-width: 5px;
+ position: absolute;
+  left: 15%;
+  font-size: 30px;
+   transition-duration: .2s;
+   margin-top: 220px;
+   cursor: pointer;
+   z-index: 26;
+   font-family: 'Dacherry';
+   color: white;
+}
 
 .sr {
   position: absolute;
@@ -39,7 +58,7 @@
   height: auto;
   z-index: 14;
      transition: .25s ease;
-  
+  cursor: pointer;
 }
 
 .sr:hover{
@@ -60,6 +79,7 @@
   height: auto;
   z-index: 14;
      transition: .25s ease;
+     cursor: pointer;
 }
 
 .sra:hover{
@@ -81,7 +101,7 @@
   height: auto;
   z-index: 10;
    transition-duration: .2s;
-  
+  cursor: pointer;
  
 }
 
@@ -95,7 +115,7 @@
   z-index: 10;
    transition-duration: .2s;
   
- 
+ cursor: pointer;
 }
 
 .arbol {
@@ -107,7 +127,7 @@
   height: auto;
   z-index: 13;
    transition-duration: .2s;
-  
+  cursor: pointer;
  
 }
 
@@ -138,7 +158,7 @@
   height: auto;
   z-index: 12;
    transition-duration: .2s;
-  
+ cursor: pointer; 
  
 }
 

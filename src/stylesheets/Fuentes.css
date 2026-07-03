@@ -676,11 +676,11 @@ body {
   height: clamp(210px, 42vw, 600px);
 }
 
-/* ===================== BURBUJAS ===================== */
+
 
 .burbuja {
-  position: absolute; /* 🔥 clave */
-  bottom: 100%; /* aparece arriba del personaje */
+  position: absolute; 
+  bottom: 100%; 
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
   background-color: #ffffff;
@@ -711,7 +711,7 @@ body {
   text-align: center;
 }
 
-/* COLITA */
+
 .burbuja::after {
   content: "";
   position: absolute;
@@ -733,7 +733,7 @@ body {
   border-right: 7px solid transparent;
   border-top: 9px solid #ffffff;
 }
-/* ===================== FOOTER ===================== */
+
 .footer-container {
   background-color: #f1f1ef;
   padding: clamp(2rem, 5vw, 60px) 0;

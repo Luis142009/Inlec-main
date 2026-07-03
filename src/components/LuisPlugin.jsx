@@ -1,4 +1,4 @@
-import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
+import { useRef, useEffect, forwardRef, useImperativeHandle, useState } from "react";
 import { gsap } from "gsap";
 import manzana from "../assets/manzana.svg";
 import escenario from "../assets/sr.webm";
@@ -27,9 +27,11 @@ export const LuisPlugin = forwardRef(({
   const hierbaRef = useRef(null);
   const tierraRef = useRef(null);
   const arbolRef = useRef(null);
-const tocarRef = useRef(new Audio(tocar));
+  const tocarRef = useRef(new Audio(tocar));
   const manzanaRef = useRef(null);
   const luzRef = useRef(null);
+  const encuentraRef = useRef(null);
+  const [mostrarEncuentra, setMostrarEncuentra] = useState(true);
 
   const todosLosVideos = () => [
     personajeRef, srRef, sraRef, solRef, hierbaRef, tierraRef, arbolRef
@@ -46,15 +48,43 @@ const tocarRef = useRef(new Audio(tocar));
     }
   }));
 
-useEffect(() => {
-  gsap.set(screenRef.current, {
-    scale: 1.4,
-    x: 60,
-    y: 40
-  });
+  useEffect(() => {
+    if (!encuentraRef.current) return;
 
-  tocarRef.current.volume = 0.5;
-}, []);
+    const tl = gsap.timeline({
+      onComplete: () => setMostrarEncuentra(false)
+    });
+
+    tl.fromTo(encuentraRef.current,
+      { opacity: 0, scale: 0.5, letterSpacing: "20px" },
+      { opacity: 1, scale: 1, letterSpacing: "normal", duration: 1.2, ease: "back.out(1.7)" }
+    );
+
+    tl.to(encuentraRef.current, {
+      scale: 1.05,
+      duration: 1,
+      repeat: 1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    tl.to(encuentraRef.current, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 1,
+      ease: "power2.in"
+    }, ">-0.1");
+  }, []);
+
+  useEffect(() => {
+    gsap.set(screenRef.current, {
+      scale: 1.4,
+      x: 60,
+      y: 40
+    });
+
+    tocarRef.current.volume = 0.5;
+  }, []);
 
   const reproducirPersonaje = () => personajeRef.current.play();
 
@@ -81,167 +111,155 @@ useEffect(() => {
     video.play();
   };
 
-const clickSR = () => {
+  const clickSR = () => {
 
+    if (onMrFoxClick) onMrFoxClick();
 
-  if (onMrFoxClick) onMrFoxClick();
+    [
+      srRef,
+      sraRef,
+      solRef,
+      hierbaRef,
+      tierraRef,
+      arbolRef
+    ].forEach(reproducirVideo);
 
-  [
-    srRef,
-    sraRef,
-    solRef,
-    hierbaRef,
-    tierraRef,
-    arbolRef
-  ].forEach(reproducirVideo);
-
-  gsap.to(screenRef.current, {
-    scale: 2,
-    x: 100,
-    y: -78,
-    duration: 3,
-    ease: "power2.inOut",
-    onComplete: () => {
-      gsap.delayedCall(2, () => cambiarEscena(2));
-    }
-  });
-
-};
-
-const clickManzana = () => {
-
-  tocarRef.current.currentTime = 0;
-  tocarRef.current.play();
-
-  const manzana = manzanaRef.current;
-
-  if (!manzana) return;
-
-
-
-  const screenRect = screenRef.current.getBoundingClientRect();
-  const manzanaRect = manzana.getBoundingClientRect();
-
-  const centroX = screenRect.width / 2;
-  const centroY = screenRect.height / 2;
-
-  const manzanaX =
-    manzanaRect.left -
-    screenRect.left +
-    manzanaRect.width / 2;
-
-  const manzanaY =
-    manzanaRect.top -
-    screenRect.top +
-    manzanaRect.height / 2;
-
-  const offsetX = centroX - manzanaX;
-  const offsetY = centroY - manzanaY;
-
-
-
-  const slots = document.querySelectorAll(".slot");
-  const slotDestino = slots[0];
-
-  if (!slotDestino) return;
-
-  const slotRect = slotDestino.getBoundingClientRect();
-
-  const dx =
-    slotRect.left +
-    slotRect.width / 2 -
-    (manzanaRect.left + manzanaRect.width / 2);
-
-  const dy =
-    slotRect.top +
-    slotRect.height / 2 -
-    (manzanaRect.top + manzanaRect.height / 2);
-
- 
-
-  const tl = gsap.timeline({
-    onComplete: () => {
-      onRecoger("manzana");
-    }
-  });
-
- 
-  tl.to(manzana, {
-    filter: `
-      drop-shadow(0 0 50px #ffffff)
-      drop-shadow(0 0 120px #ffe600)
-      drop-shadow(0 0 220px #ffd000)
-      drop-shadow(0 0 340px #ff9900)
-    `,
-    scale: 1.35,
-    rotation: 360,
-    duration: .35,
-    ease: "back.out(2)"
-  });
-
-
-  tl.to(
-    screenRef.current,
-    {
+    gsap.to(screenRef.current, {
       scale: 2,
-      x: 60 + offsetX,
-      y: 40 + offsetY,
+      x: 100,
+      y: -78,
+      duration: 3,
+      ease: "power2.inOut",
+      onComplete: () => {
+        gsap.delayedCall(2, () => cambiarEscena(2));
+      }
+    });
+
+  };
+
+  const clickManzana = () => {
+
+    tocarRef.current.currentTime = 0;
+    tocarRef.current.play();
+
+    const manzana = manzanaRef.current;
+
+    if (!manzana) return;
+
+    const screenRect = screenRef.current.getBoundingClientRect();
+    const manzanaRect = manzana.getBoundingClientRect();
+
+    const centroX = screenRect.width / 2;
+    const centroY = screenRect.height / 2;
+
+    const manzanaX =
+      manzanaRect.left -
+      screenRect.left +
+      manzanaRect.width / 2;
+
+    const manzanaY =
+      manzanaRect.top -
+      screenRect.top +
+      manzanaRect.height / 2;
+
+    const offsetX = centroX - manzanaX;
+    const offsetY = centroY - manzanaY;
+
+    const slots = document.querySelectorAll(".slot");
+    const slotDestino = slots[0];
+
+    if (!slotDestino) return;
+
+    const slotRect = slotDestino.getBoundingClientRect();
+
+    const dx =
+      slotRect.left +
+      slotRect.width / 2 -
+      (manzanaRect.left + manzanaRect.width / 2);
+
+    const dy =
+      slotRect.top +
+      slotRect.height / 2 -
+      (manzanaRect.top + manzanaRect.height / 2);
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        onRecoger("manzana");
+      }
+    });
+
+    tl.to(manzana, {
+      filter: `
+        drop-shadow(0 0 50px #ffffff)
+        drop-shadow(0 0 120px #ffe600)
+        drop-shadow(0 0 220px #ffd000)
+        drop-shadow(0 0 340px #ff9900)
+      `,
+      scale: 1.35,
+      rotation: 360,
+      duration: .35,
+      ease: "back.out(2)"
+    });
+
+    tl.to(
+      screenRef.current,
+      {
+        scale: 2,
+        x: 60 + offsetX,
+        y: 40 + offsetY,
+        duration: .45,
+        ease: "power2.out"
+      },
+      "<"
+    );
+
+    tl.to({}, { duration: .15 });
+
+    tl.to(screenRef.current, {
+      scale: 1.4,
+      x: 60,
+      y: 40,
       duration: .45,
-      ease: "power2.out"
-    },
-    "<"
-  );
+      ease: "power2.inOut"
+    });
 
- 
-  tl.to({}, { duration: .15 });
+    tl.to(
+      manzana,
+      {
+        x: dx,
+        y: dy,
+        scale: .4,
+        rotation: 1080,
+        duration: .8,
+        ease: "power3.inOut"
+      },
+      "<"
+    );
 
+    tl.to(manzana, {
+      scale: .5,
+      duration: .12,
+      ease: "back.out(4)"
+    });
 
-  tl.to(screenRef.current,{
-    scale:1.4,
-    x:60,
-    y:40,
-    duration:.45,
-    ease:"power2.inOut"
-  });
+    tl.to(manzana, {
+      opacity: 0,
+      duration: .15
+    });
 
- 
-  tl.to(
-    manzana,
-    {
-      x:dx,
-      y:dy,
-      scale:.4,
-      rotation:1080,
-      duration:.8,
-      ease:"power3.inOut"
-    },
-    "<"
-  );
+    tl.set(manzana, {
+      clearProps: "filter"
+    });
 
-  tl.to(manzana,{
-    scale:.5,
-    duration:.12,
-    ease:"back.out(4)"
-  });
-
- 
-  tl.to(manzana,{
-    opacity:0,
-    duration:.15
-  });
-
-
-  tl.set(manzana,{
-    clearProps:"filter"
-  });
-
-};
+  };
 
   return (
-    
-    
+
     <div ref={screenRef} className="screen">
-      
+
+      {mostrarEncuentra && (
+        <h1 ref={encuentraRef} className="encuentra">¿ENCUENTRA LOS OBJETOS?</h1>
+      )}
 
       <video ref={personajeRef} className="personaje" muted autoPlay playsInline preload="auto"
         onClick={reproducirPersonaje} onEnded={termino} onTimeUpdate={controlarLoop}>
@@ -277,39 +295,38 @@ const clickManzana = () => {
         <source src={sol} type="video/webm" />
       </video>
 
-   {!manzanaRecogida && (
-  <div style={{ position: "relative", display: "inline-block" }}>
-    <div
-      ref={luzRef}
-      onClick={clickManzana}
-      style={{
-        display: "none",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "800px",
-        height: "800px",
-      
-        pointerEvents: "none",
-        zIndex: 10
-      }}
-    />
-    <img
-      ref={manzanaRef}
-          src={manzana}
-      className="mi-svg"
-      alt="manzana"
-      onClick={clickManzana}
-      style={{
-        cursor: "pointer",
-        position: "relative",
-        zIndex: 16,
-        pointerEvents: "auto"
-      }}
-    />
-  </div>
-)}
+      {!manzanaRecogida && (
+        <div style={{ position: "relative", display: "inline-block" }}>
+          <div
+            ref={luzRef}
+            onClick={clickManzana}
+            style={{
+              display: "none",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "800px",
+              height: "800px",
+              pointerEvents: "none",
+              zIndex: 10
+            }}
+          />
+          <img
+            ref={manzanaRef}
+            src={manzana}
+            className="mi-svg"
+            alt="manzana"
+            onClick={clickManzana}
+            style={{
+              cursor: "pointer",
+              position: "relative",
+              zIndex: 16,
+              pointerEvents: "auto"
+            }}
+          />
+        </div>
+      )}
 
     </div>
   );
