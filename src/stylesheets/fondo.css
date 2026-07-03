@@ -1,7 +1,7 @@
 
 .personaje {
   position: absolute;
-  bottom: 10%;   
+  top: 0;  
   left: 48%;
   transform: translateX(-50%);
   width: 1200px;  

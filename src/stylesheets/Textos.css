@@ -144,12 +144,14 @@ body{
 }
 
 .interfaz-cap {
-  width: min(108vw, 2600px);
+  width: 1475px;
+  width: min(1475px);
 
   background: var(--card);
   border-radius: 16px;
   box-shadow: 8px 8px 0 var(--brown);
   overflow: hidden;
+  position: relative;
 }
 
 /* ===========================
