@@ -51,7 +51,7 @@
 
 .sr {
   position: absolute;
-  bottom: 23%;   
+  bottom: 18%;   
   left: 43%;
   transform: translateX(-50%);
   width: 180px;  
@@ -72,7 +72,7 @@
 
 .sra {
    position: absolute;
-  bottom: 12%;   
+  bottom: 2%;   
   left: 56%;
   transform: translateX(-50%);
   width: 235px;  
@@ -120,7 +120,7 @@
 
 .arbol {
   position: absolute;
-  bottom: 19%;   
+  bottom: 14%;   
   left: 50%;
   transform: translateX(-50%);
   width: 50%;  
@@ -151,7 +151,7 @@
 
 .sol {
   position: absolute;
-  bottom: 17%;   
+  bottom: 11%;   
   left: 53%;
   transform: translateX(-50%);
   width: 68%;  

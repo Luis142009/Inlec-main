@@ -258,7 +258,7 @@ export const LuisPlugin = forwardRef(({
     <div ref={screenRef} className="screen">
 
       {mostrarEncuentra && (
-        <h1 ref={encuentraRef} className="encuentra">¿ENCUENTRA LOS OBJETOS?</h1>
+        <h1 ref={encuentraRef} className="encuentra">ENCUENTRA LOS OBJETOS</h1>
       )}
 
       <video ref={personajeRef} className="personaje" muted autoPlay playsInline preload="auto"

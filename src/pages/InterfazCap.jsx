@@ -237,7 +237,7 @@ const toggleFullscreen = async () => {
                 <div className="btn-ctrl" onClick={togglePausa} style={{ cursor: "pointer" }}>
                   <motion.img
                     className="iconos"
-                    src={pausado ? "./Play.png" : "./Pausa.png"}
+                    src={pausado ? "./play.png" : "./Pausa.png"}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.8 }}
                   />
@@ -282,16 +282,9 @@ const toggleFullscreen = async () => {
   style={{ cursor: "pointer" }}
 >
 
-  <div className="btn-return">
-    Pantalla completa
-  </div>
+  
 
-  <motion.img
-    className="btn-ctrl-full"
-    src="./Full.png"
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
-  />
+ 
 
 </div>
 
