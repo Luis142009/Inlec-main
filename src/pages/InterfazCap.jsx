@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { LuisPlugin } from "../components/LuisPlugin";
-import { Parte2dela1 } from "../components/Parte2dela1";
+import { Parte2dela1 } from "../components/Parte2dela1"
+import { Parte3dela1 } from "../components/Parte3dela1";
 import "../stylesheets/Textos.css";
 import { motion, AnimatePresence } from "motion/react";
 import song1 from "../assets/audio/song1.mp3";
@@ -213,6 +214,38 @@ const toggleFullscreen = async () => {
       />
     </motion.div>
   )}
+
+ {escena === 3 && (
+  <motion.div
+    key="escena3"
+    initial={{
+      opacity: 0,
+      scale: 1.05,
+      y: 15,
+      filter: "blur(8px) brightness(1.15)"
+    }}
+    animate={{
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      filter: "blur(0px) brightness(1)"
+    }}
+    exit={{
+      opacity: 0,
+      scale: 0.97,
+      y: -15,
+      filter: "blur(8px) brightness(1.1)"
+    }}
+    transition={{
+      duration: 0.45,
+      ease: [0.25, 0.1, 0.25, 1]
+    }}
+    style={{ width: "100%", height: "100%" }}
+  >
+    <Parte3dela1 />
+  </motion.div>
+)}
+
 
 </AnimatePresence>
                 </div>
