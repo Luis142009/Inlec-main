@@ -1,5 +1,11 @@
+import {
+    useRef,
+    forwardRef,
+    useImperativeHandle
+} from "react";
 
-import { useRef } from "react";
+import { gsap } from "gsap";
+
 import "../stylesheets/Escena2.css";
 
 import sra from "../assets/1.3sra.webm";
@@ -12,7 +18,13 @@ import detalle from "../assets/hierboza.webm";
 
 import "../stylesheets/Escena1.3.css";
 
-export const Parte3dela1 = () => {
+
+export const Parte3dela1 = forwardRef((props, ref) => {
+
+    // =========================================================
+    // REFS
+    // =========================================================
+
     const screenRef = useRef(null);
 
     const fondoRef = useRef(null);
@@ -21,37 +33,379 @@ export const Parte3dela1 = () => {
     const cartelRef = useRef(null);
     const sol2Ref = useRef(null);
     const troncoRef = useRef(null);
+    const detalle2Ref = useRef(null);
+
+    // Timeline de cámara
+    const cameraTimelineRef = useRef(null);
+
+    // Timeline de velocidad del cartel
+    const cartelTimelineRef = useRef(null);
 
     const hojasActivadas = useRef(false);
 
+
+    // =========================================================
+    // REPRODUCIR VIDEO NORMAL
+    // =========================================================
+
     const reproducirVideo = (ref) => {
+
         const video = ref.current;
 
         if (!video) return;
 
         video.pause();
         video.currentTime = 0;
+        video.playbackRate = 1;
 
         video.play().catch((error) => {
-            console.log("No se pudo reproducir el video:", error);
+            console.log(
+                "No se pudo reproducir el video:",
+                error
+            );
         });
     };
 
+
+    // =========================================================
+    // REPRODUCIR CARTEL
+    // =========================================================
+
+    const reproducirCartel = () => {
+
+        const video = cartelRef.current;
+
+        if (!video) return;
+
+        // Detener animación anterior de velocidad
+        if (cartelTimelineRef.current) {
+            cartelTimelineRef.current.kill();
+        }
+
+        video.pause();
+        video.currentTime = 0;
+
+        // Empieza rápido
+        video.playbackRate = 4;
+
+        video.play().catch((error) => {
+            console.log(
+                "No se pudo reproducir el cartel:",
+                error
+            );
+        });
+
+        // Reducir velocidad progresivamente
+        cartelTimelineRef.current = gsap.to(video, {
+
+            playbackRate: 3,
+
+            duration: 1.5,
+
+            delay: 0.3,
+
+            ease: "power3.out"
+
+        });
+    };
+
+
+    // =========================================================
+    // CÁMARA
+    // =========================================================
+
+    const iniciarCamara = () => {
+
+        const screen = screenRef.current;
+
+        if (!screen) return;
+
+
+        // Detener cámara anterior
+        gsap.killTweensOf(screen);
+
+
+        // Posición inicial
+        gsap.set(screen, {
+
+            scale: 1,
+            x: 0,
+            y: 0,
+
+            transformOrigin: "50% 50%"
+
+        });
+
+
+        // Crear timeline
+        const tl = gsap.timeline();
+
+        cameraTimelineRef.current = tl;
+
+
+        // =====================================================
+        // 1. ACERCARSE AL CARTEL
+        // =====================================================
+
+        tl.to(screen, {
+
+            scale: 2.80,
+
+            x: -140,
+            y: 20,
+
+            duration: 2.5,
+
+            ease: "power3.inOut"
+
+        });
+
+
+        // =====================================================
+        // 2. ESPERAR EN EL CARTEL
+        // =====================================================
+
+        tl.to({}, {
+
+            duration: 0.8
+
+        });
+
+
+        // =====================================================
+        // 3. REGRESAR HACIA SEÑORA FOX
+        // =====================================================
+
+        tl.to(screen, {
+
+            scale: 2.25,
+
+            x: 30,
+            y: 0,
+
+            duration: 2.3,
+
+            ease: "power3.inOut"
+
+        });
+
+
+        // =====================================================
+        // 4. BAJAR
+        // =====================================================
+
+        tl.to(screen, {
+
+            scale: 3.2,
+
+            y: 60,
+
+            duration: 1.4,
+
+            ease: "power2.inOut"
+
+        });
+
+
+        // =====================================================
+        // 5. SUBIR
+        // =====================================================
+
+        tl.to(screen, {
+
+            y: -90,
+
+            duration: 1.6,
+
+            ease: "power3.inOut"
+
+        });
+
+
+        // =====================================================
+        // 6. ENFOCAR LA CARA
+        // =====================================================
+
+        tl.to(screen, {
+
+            scale: 2.70,
+
+            x: 50,
+            y: 0,
+
+            duration: 2.2,
+
+            ease: "power3.inOut"
+
+        });
+
+
+        // =====================================================
+        // 7. PAUSA FINAL
+        // =====================================================
+
+        tl.to({}, {
+
+            duration: 1
+
+        });
+
+    };
+
+
+    // =========================================================
+    // PAUSAR TODA LA ESCENA
+    // =========================================================
+
+    const pausarTodo = () => {
+
+        const videos = [
+
+            fondoRef.current,
+            sraRef.current,
+            pasto2Ref.current,
+            cartelRef.current,
+            sol2Ref.current,
+            troncoRef.current,
+            detalle2Ref.current
+
+        ];
+
+
+        // Pausar videos
+        videos.forEach((video) => {
+
+            if (video) {
+                video.pause();
+            }
+
+        });
+
+
+        // Pausar cámara
+        if (cameraTimelineRef.current) {
+
+            cameraTimelineRef.current.pause();
+
+        }
+
+
+        // Pausar animación de velocidad del cartel
+        if (cartelTimelineRef.current) {
+
+            cartelTimelineRef.current.pause();
+
+        }
+
+    };
+
+
+    // =========================================================
+    // REANUDAR TODA LA ESCENA
+    // =========================================================
+
+    const reanudarTodo = () => {
+
+        const videos = [
+
+            fondoRef.current,
+            sraRef.current,
+            pasto2Ref.current,
+            cartelRef.current,
+            sol2Ref.current,
+            troncoRef.current,
+            detalle2Ref.current
+
+        ];
+
+
+        // Reanudar videos
+        videos.forEach((video) => {
+
+            if (video) {
+
+                video.play().catch((error) => {
+
+                    console.log(
+                        "No se pudo reanudar el video:",
+                        error
+                    );
+
+                });
+
+            }
+
+        });
+
+
+        // Reanudar cámara
+        if (cameraTimelineRef.current) {
+
+            cameraTimelineRef.current.resume();
+
+        }
+
+
+        // Reanudar cambio de velocidad del cartel
+        if (cartelTimelineRef.current) {
+
+            cartelTimelineRef.current.resume();
+
+        }
+
+    };
+
+
+    // =========================================================
+    // EXPONER FUNCIONES A INTERFAZCAP
+    // =========================================================
+
+    useImperativeHandle(ref, () => ({
+
+        pausarTodo,
+        reanudarTodo
+
+    }));
+
+
+    // =========================================================
+    // ACTIVAR ESCENA
+    // =========================================================
+
     const activarEscena = () => {
-        // Evita que la animación se vuelva a ejecutar
+
         if (hojasActivadas.current) return;
 
         hojasActivadas.current = true;
 
-        // Reproducir todos los elementos de la escena
+
+        // Señora Fox
         reproducirVideo(sraRef);
-        reproducirVideo(cartelRef);
+
+
+        // Cartel
+        reproducirCartel();
+
+
+        // Resto de elementos
         reproducirVideo(troncoRef);
         reproducirVideo(sol2Ref);
         reproducirVideo(pasto2Ref);
+        reproducirVideo(detalle2Ref);
+
+
+        // Cámara
+        iniciarCamara();
+
     };
 
+
+    // =========================================================
+    // RETURN
+    // =========================================================
+
     return (
+
         <div
             ref={screenRef}
             className="screen"
@@ -67,11 +421,16 @@ export const Parte3dela1 = () => {
                 preload="auto"
                 onClick={() => reproducirVideo(fondoRef)}
             >
-                <source src={fondo2} type="video/webm" />
+
+                <source
+                    src={fondo2}
+                    type="video/webm"
+                />
+
             </video>
 
 
-            {/* Señor Fox */}
+            {/* Señora Fox */}
 
             <video
                 ref={sraRef}
@@ -81,7 +440,12 @@ export const Parte3dela1 = () => {
                 preload="auto"
                 onClick={activarEscena}
             >
-                <source src={sra} type="video/webm" />
+
+                <source
+                    src={sra}
+                    type="video/webm"
+                />
+
             </video>
 
 
@@ -95,7 +459,12 @@ export const Parte3dela1 = () => {
                 preload="auto"
                 onClick={() => reproducirVideo(pasto2Ref)}
             >
-                <source src={pasto2} type="video/webm" />
+
+                <source
+                    src={pasto2}
+                    type="video/webm"
+                />
+
             </video>
 
 
@@ -103,12 +472,17 @@ export const Parte3dela1 = () => {
 
             <video
                 ref={cartelRef}
-                className="cartel"
+                className="cartel2"
                 muted
                 playsInline
                 preload="auto"
             >
-                <source src={cartel} type="video/webm" />
+
+                <source
+                    src={cartel}
+                    type="video/webm"
+                />
+
             </video>
 
 
@@ -116,12 +490,17 @@ export const Parte3dela1 = () => {
 
             <video
                 ref={sol2Ref}
-                className="sol2"
+                className="sol3"
                 muted
                 playsInline
                 preload="auto"
             >
-                <source src={sol2} type="video/webm" />
+
+                <source
+                    src={sol2}
+                    type="video/webm"
+                />
+
             </video>
 
 
@@ -134,22 +513,34 @@ export const Parte3dela1 = () => {
                 playsInline
                 preload="auto"
             >
-                <source src={tronco} type="video/webm" />
+
+                <source
+                    src={tronco}
+                    type="video/webm"
+                />
+
             </video>
-<video
+
+
+            {/* Detalle / Hierba */}
+
+            <video
                 ref={detalle2Ref}
-                className="pasto2"
+                className="pastos4"
                 muted
                 playsInline
                 preload="auto"
-                onClick={() => reproducirVideo(detalle2Ref)}
             >
-                <source src={detalle} type="video/webm" />
+
+                <source
+                    src={detalle}
+                    type="video/webm"
+                />
+
             </video>
 
-            
-
         </div>
-    );
-};
 
+    );
+
+});

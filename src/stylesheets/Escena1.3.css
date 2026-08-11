@@ -14,18 +14,18 @@
 
 .sras:hover{
     filter:
-       drop-shadow(2px 0 0 #3b1602)
-        drop-shadow(-2px 0 0 #3b1602)
-        drop-shadow(0 2px 0 #3b1602)
+       drop-shadow(2px 0 0 #ffffff79)
+        drop-shadow(-1px 0 0 #ffffff79)
+      
 }
 
 
-.cartel {
+.cartel2 {
   position: absolute;
   bottom: 36%;  
-  left: 36%;
+  left: 44%;
   transform: translateX(-50%);
-  width: 200px;  
+  width: 300px;  
   height: auto;
   z-index: 3;
    transition-duration: .2s;
@@ -37,7 +37,7 @@
 .sombrass{
    position: absolute;
    bottom: -11%;  
-   left: 17%;
+   left: 99%;
    transform: translateX(-50%);
    width: 970px;  
    height: auto;
@@ -103,27 +103,6 @@
 }
 
 
-.sol2 {
-  position: absolute;
-  bottom: 28%;  
-  left: 70%;
-  transform: translateX(-50%);
-  width: 350px;  
-  height: auto;
-  z-index: 2;
-   transition-duration: .2s;
- 
- 
-}
-
-
-
-
-
-
-
-
-
 
 .hojas:hover{
  
@@ -160,6 +139,33 @@
  
  
 }
+
+.sol3{
+
+   position: absolute;
+   bottom: 10%;  
+   left: 83%;
+   transform: translateX(-50%);
+   width: 350px;  
+   height: auto;
+   z-index: 2;
+    transition-duration: .2s;
+  
+}
+
+.pastos4{
+   
+   position: absolute;
+   bottom: -10%;  
+   left: 50%;
+   transform: translateX(-50%);
+   width: 1592px;  
+   height: auto;
+   z-index: 4;
+    transition-duration: .2s;
+    cursor: pointer;
+}
+
 .pasto2:hover{
  
     filter:
