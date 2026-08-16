@@ -16,7 +16,7 @@
     filter:
        drop-shadow(2px 0 0 #ffffff79)
         drop-shadow(-1px 0 0 #ffffff79)
-      
+       drop-shadow(2px 0 0 #ffffff79)
 }
 
 
@@ -129,7 +129,7 @@
 }
 .scream {
   position: absolute;
-  bottom: -10%;  
+  bottom: -14%;  
   left: 50%;
   transform: translateX(-50%);
   width: 1900px;  
@@ -137,8 +137,7 @@
   z-index: 1;
    transition-duration: .2s;
  
- 
-}
+  }
 
 .sol3{
 

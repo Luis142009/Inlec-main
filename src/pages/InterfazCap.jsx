@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import { LuisPlugin } from "../components/LuisPlugin";
 import { Parte2dela1 } from "../components/Parte2dela1";
 import { Parte3dela1 } from "../components/Parte3dela1";
+import { Escena2alfa } from "../components/Escena2alfa";
+import { Escena2beta } from "../components/Escena2beta";
 
 import "../stylesheets/Textos.css";
 
@@ -42,7 +44,7 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // REFERENCIAS
+  // REFERENCIAS DE ESCENAS
   // =========================================================
 
   const gameAreaRef = useRef(null);
@@ -50,6 +52,9 @@ const InterfazCap = () => {
   const luisRef = useRef(null);
   const parte2Ref = useRef(null);
   const parte3Ref = useRef(null);
+
+  const escena2AlfaRef = useRef(null);
+  const escena2BetaRef = useRef(null);
 
 
   // =========================================================
@@ -62,7 +67,6 @@ const InterfazCap = () => {
     null,
     null
   ]);
-
 
   const [manzanaRecogida, setManzanaRecogida] = useState(false);
 
@@ -112,13 +116,20 @@ const InterfazCap = () => {
     } else {
 
       if (audioRef.current) {
+
         audioRef.current.volume = 1;
-        audioRef.current.play().catch(() => {});
+
+        audioRef.current
+          .play()
+          .catch(() => {});
+
       }
+
 
       if (grillosRef.current) {
         grillosRef.current.volume = 0.12;
       }
+
 
       if (gallinaRef.current) {
         gallinaRef.current.volume = 0.25;
@@ -208,9 +219,15 @@ const InterfazCap = () => {
       luisRef.current
     ) {
 
-      nuevoPausado
-        ? luisRef.current.pausarTodo()
-        : luisRef.current.reanudarTodo();
+      if (nuevoPausado) {
+
+        luisRef.current.pausarTodo();
+
+      } else {
+
+        luisRef.current.reanudarTodo();
+
+      }
 
     }
 
@@ -224,9 +241,15 @@ const InterfazCap = () => {
       parte2Ref.current
     ) {
 
-      nuevoPausado
-        ? parte2Ref.current.pausarTodo()
-        : parte2Ref.current.reanudarTodo();
+      if (nuevoPausado) {
+
+        parte2Ref.current.pausarTodo();
+
+      } else {
+
+        parte2Ref.current.reanudarTodo();
+
+      }
 
     }
 
@@ -240,9 +263,59 @@ const InterfazCap = () => {
       parte3Ref.current
     ) {
 
-      nuevoPausado
-        ? parte3Ref.current.pausarTodo()
-        : parte3Ref.current.reanudarTodo();
+      if (nuevoPausado) {
+
+        parte3Ref.current.pausarTodo();
+
+      } else {
+
+        parte3Ref.current.reanudarTodo();
+
+      }
+
+    }
+
+
+    // =====================================================
+    // ESCENA 4 - ESCENA 2 ALFA
+    // =====================================================
+
+    if (
+      escena === 4 &&
+      escena2AlfaRef.current
+    ) {
+
+      if (nuevoPausado) {
+
+        escena2AlfaRef.current.pausarTodo();
+
+      } else {
+
+        escena2AlfaRef.current.reanudarTodo();
+
+      }
+
+    }
+
+
+    // =====================================================
+    // ESCENA 5 - ESCENA 2 BETA
+    // =====================================================
+
+    if (
+      escena === 5 &&
+      escena2BetaRef.current
+    ) {
+
+      if (nuevoPausado) {
+
+        escena2BetaRef.current.pausarTodo();
+
+      } else {
+
+        escena2BetaRef.current.reanudarTodo();
+
+      }
 
     }
 
@@ -346,7 +419,6 @@ const InterfazCap = () => {
               >
 
                 <div className="anim-label">
-
 
                   <AnimatePresence mode="wait">
 
@@ -468,9 +540,7 @@ const InterfazCap = () => {
 
                         <Parte2dela1
                           ref={parte2Ref}
-                          cambiarEscena={
-                            setEscena
-                          }
+                          cambiarEscena={setEscena}
                         />
 
                       </motion.div>
@@ -529,14 +599,132 @@ const InterfazCap = () => {
 
                         <Parte3dela1
                           ref={parte3Ref}
+                          cambiarEscena={setEscena}
                         />
 
                       </motion.div>
 
                     )}
 
-                  </AnimatePresence>
 
+                    {/* =================================================
+                        ESCENA 4 - ESCENA 2 ALFA
+                    ================================================= */}
+
+                    {escena === 4 && (
+
+                      <motion.div
+                        key="escena4"
+
+                        initial={{
+                          opacity: 0,
+                          scale: 1.05,
+                          y: 15,
+                          filter:
+                            "blur(8px) brightness(1.15)"
+                        }}
+
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          filter:
+                            "blur(0px) brightness(1)"
+                        }}
+
+                        exit={{
+                          opacity: 0,
+                          scale: 0.97,
+                          y: -15,
+                          filter:
+                            "blur(8px) brightness(1.1)"
+                        }}
+
+                        transition={{
+                          duration: 0.45,
+                          ease: [
+                            0.25,
+                            0.1,
+                            0.25,
+                            1
+                          ]
+                        }}
+
+                        style={{
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+
+                        <Escena2alfa
+                          ref={escena2AlfaRef}
+                          cambiarEscena={setEscena}
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 5 - ESCENA 2 BETA
+                    ================================================= */}
+
+                    {escena === 5 && (
+
+                      <motion.div
+                        key="escena5"
+
+                        initial={{
+                          opacity: 0,
+                          scale: 1.05,
+                          y: 15,
+                          filter:
+                            "blur(8px) brightness(1.15)"
+                        }}
+
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          filter:
+                            "blur(0px) brightness(1)"
+                        }}
+
+                        exit={{
+                          opacity: 0,
+                          scale: 0.97,
+                          y: -15,
+                          filter:
+                            "blur(8px) brightness(1.1)"
+                        }}
+
+                        transition={{
+                          duration: 0.45,
+                          ease: [
+                            0.25,
+                            0.1,
+                            0.25,
+                            1
+                          ]
+                        }}
+
+                        style={{
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+
+                        <Escena2beta
+                          ref={escena2BetaRef}
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                  </AnimatePresence>
 
                 </div>
 
@@ -590,6 +778,7 @@ const InterfazCap = () => {
                 <div
                   className="btn-ctrl"
                   onClick={togglePausa}
+
                   style={{
                     cursor: "pointer"
                   }}
@@ -623,6 +812,7 @@ const InterfazCap = () => {
                 <div
                   className="btn-ctrl"
                   onClick={toggleMusic}
+
                   style={{
                     cursor: "pointer"
                   }}

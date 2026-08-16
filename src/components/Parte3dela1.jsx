@@ -19,7 +19,7 @@ import detalle from "../assets/hierboza.webm";
 import "../stylesheets/Escena1.3.css";
 
 
-export const Parte3dela1 = forwardRef((props, ref) => {
+export const Parte3dela1 = forwardRef(({ cambiarEscena }, ref) => {
 
     // =========================================================
     // REFS
@@ -59,11 +59,14 @@ export const Parte3dela1 = forwardRef((props, ref) => {
         video.playbackRate = 1;
 
         video.play().catch((error) => {
+
             console.log(
                 "No se pudo reproducir el video:",
                 error
             );
+
         });
+
     };
 
 
@@ -79,7 +82,9 @@ export const Parte3dela1 = forwardRef((props, ref) => {
 
         // Detener animación anterior de velocidad
         if (cartelTimelineRef.current) {
+
             cartelTimelineRef.current.kill();
+
         }
 
         video.pause();
@@ -89,10 +94,12 @@ export const Parte3dela1 = forwardRef((props, ref) => {
         video.playbackRate = 4;
 
         video.play().catch((error) => {
+
             console.log(
                 "No se pudo reproducir el cartel:",
                 error
             );
+
         });
 
         // Reducir velocidad progresivamente
@@ -107,6 +114,7 @@ export const Parte3dela1 = forwardRef((props, ref) => {
             ease: "power3.out"
 
         });
+
     };
 
 
@@ -246,7 +254,18 @@ export const Parte3dela1 = forwardRef((props, ref) => {
 
         tl.to({}, {
 
-            duration: 1
+            duration: 1,
+
+            onComplete: () => {
+
+                // =================================================
+                // TERMINÓ COMPLETAMENTE LA ESCENA
+                // PASAMOS A ESCENA 4
+                // =================================================
+
+                cambiarEscena(4);
+
+            }
 
         });
 
@@ -276,7 +295,9 @@ export const Parte3dela1 = forwardRef((props, ref) => {
         videos.forEach((video) => {
 
             if (video) {
+
                 video.pause();
+
             }
 
         });

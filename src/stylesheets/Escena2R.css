@@ -1,0 +1,142 @@
+.escena2alfa {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+}
+
+
+
+.fondo {
+    z-index: 1;
+    
+  
+}
+
+.ash {
+    position: absolute;
+    left: 260px;
+    bottom: 40px;
+    z-index: 8;
+    width: 27%;
+    height: auto;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+.ash:hover {
+    filter:
+        drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+        drop-shadow(0 -2px 0 #3b1602);
+}
+
+.kris {
+    position: absolute;
+    left: 700px;
+    bottom: 20px;
+    z-index: 7;
+    width: 23%;
+    height: auto;
+    cursor: pointer;
+}
+
+.kris:hover{
+     filter:
+       drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+       
+}
+
+
+.kriscartel {
+    position: absolute;
+    left: 350px;
+    bottom: 90px;
+    z-index: 4;
+    width: 60%;
+    height: auto;
+}
+
+.cartelash{
+    position: absolute;
+    left: 420px;
+    bottom: 100px;
+    z-index: 5;
+    width: 30%;
+    height: auto;
+    opacity: 1 !important;
+}
+
+
+
+
+ /* =================================================
+          de escena2beta.css
+      ================================================= */
+
+
+      .junior{
+
+   position: absolute;
+    left: 260px;
+    bottom: 40px;
+    z-index: 8;
+    width: 26%;
+    height: auto;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+
+      }
+
+      .junior:hover {
+        
+        filter:
+        drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+        drop-shadow(0 -2px 0 #3b1602);
+      }
+
+
+      .cartejun{
+     position: absolute;
+    left: 420px;
+    bottom: 60px;
+    z-index: 5;
+    width: 49%;
+    height: auto;
+   
+        
+      }
+
+
+      .charles{
+        position: absolute;
+    left: 760px;
+    bottom: 20px;
+    z-index: 7;
+    width: 18%;
+    height: auto;
+    cursor: pointer;
+      }
+
+      .charles:hover{
+        filter:
+       drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+      }
+
+
+      .cartelchar{
+
+    position: absolute;
+    left: 420px;
+    bottom: 70px;
+    z-index: 5;
+    width: 60%;
+    height: auto;
+      }
