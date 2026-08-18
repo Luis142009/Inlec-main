@@ -5,6 +5,7 @@ import { Parte2dela1 } from "../components/Parte2dela1";
 import { Parte3dela1 } from "../components/Parte3dela1";
 import { Escena2alfa } from "../components/Escena2alfa";
 import { Escena2beta } from "../components/Escena2beta";
+import { Escena4 } from "../components/Escena4";
 
 import "../stylesheets/Textos.css";
 
@@ -55,6 +56,9 @@ const InterfazCap = () => {
 
   const escena2AlfaRef = useRef(null);
   const escena2BetaRef = useRef(null);
+
+  // ⭐ NUEVO: referencia para Escena4
+  const escena4Ref = useRef(null);
 
 
   // =========================================================
@@ -319,6 +323,28 @@ const InterfazCap = () => {
 
     }
 
+
+    // =====================================================
+    // ESCENA 6 - ESCENA 4
+    // =====================================================
+
+    if (
+      escena === 6 &&
+      escena4Ref.current
+    ) {
+
+      if (nuevoPausado) {
+
+        escena4Ref.current.pausarTodo();
+
+      } else {
+
+        escena4Ref.current.reanudarTodo();
+
+      }
+
+    }
+
   };
 
 
@@ -338,7 +364,7 @@ const InterfazCap = () => {
   const avanzar = () => {
 
     setEscena(prev =>
-      Math.min(5, prev + 1)
+      Math.min(6, prev + 1)
     );
 
   };
@@ -434,7 +460,7 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                          scale: 1.05,
+                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -450,7 +476,7 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                          scale: 0.97,
+                          
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -500,7 +526,7 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                          scale: 1.05,
+                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -516,7 +542,7 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                          scale: 0.97,
+                        
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -559,7 +585,7 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                          scale: 1.05,
+                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -575,7 +601,7 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                          scale: 0.97,
+                         
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -618,7 +644,7 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                          scale: 1.05,
+                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -634,7 +660,7 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                          scale: 0.97,
+                        
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -677,7 +703,7 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                          scale: 1.05,
+                          
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -693,7 +719,7 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                          scale: 0.97,
+                         
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -717,6 +743,64 @@ const InterfazCap = () => {
 
                         <Escena2beta
                           ref={escena2BetaRef}
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 6 - ESCENA 4
+                    ================================================= */}
+
+                    {escena === 6 && (
+
+                      <motion.div
+                        key="escena6"
+
+                        initial={{
+                          opacity: 0,
+                         
+                          y: 15,
+                          filter:
+                            "blur(8px) brightness(1.15)"
+                        }}
+
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          filter:
+                            "blur(0px) brightness(1)"
+                        }}
+
+                        exit={{
+                          opacity: 0,
+                         
+                          y: -15,
+                          filter:
+                            "blur(8px) brightness(1.1)"
+                        }}
+
+                        transition={{
+                          duration: 0.45,
+                          ease: [
+                            0.25,
+                            0.1,
+                            0.25,
+                            1
+                          ]
+                        }}
+
+                        style={{
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+
+                        <Escena4
+                          ref={escena4Ref}
                         />
 
                       </motion.div>
