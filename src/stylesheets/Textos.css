@@ -146,7 +146,7 @@ body{
 .interfaz-cap {
   width: 1475px;
   width: min(1475px);
-
+  
   background: var(--card);
   border-radius: 16px;
   box-shadow: 8px 8px 0 var(--brown);
@@ -236,11 +236,20 @@ body{
 
 }
 
-.flechitas{
-
-  width:55px;
-
+.flechitas {
+  position: relative;
+  left: -95px;
+  width: 55px;
 }
+
+.page-num{
+  font-family: 'abalon', cursive;
+  font-size:1.5rem;
+  color:#271003;
+   position: relative;
+  left: -95px;
+}
+
 
 .rows{
 
@@ -318,4 +327,3 @@ body{
     max-width:none;
 
 }
-

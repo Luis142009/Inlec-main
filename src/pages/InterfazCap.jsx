@@ -5,7 +5,9 @@ import { Parte2dela1 } from "../components/Parte2dela1";
 import { Parte3dela1 } from "../components/Parte3dela1";
 import { Escena2alfa } from "../components/Escena2alfa";
 import { Escena2beta } from "../components/Escena2beta";
+import { Escena3 } from "../components/Escena3";
 import { Escena4 } from "../components/Escena4";
+import { Escena6 } from "../components/Escena6";
 
 import "../stylesheets/Textos.css";
 
@@ -18,6 +20,7 @@ import manzana from "../assets/manzana.svg";
 
 
 const InterfazCap = () => {
+
 
   // =========================================================
   // ESCENA ACTUAL
@@ -57,8 +60,11 @@ const InterfazCap = () => {
   const escena2AlfaRef = useRef(null);
   const escena2BetaRef = useRef(null);
 
-  // ⭐ NUEVO: referencia para Escena4
+  const escena3Ref = useRef(null);
+
   const escena4Ref = useRef(null);
+
+  const escena6Ref = useRef(null);
 
 
   // =========================================================
@@ -97,7 +103,9 @@ const InterfazCap = () => {
 
 
     if (objeto === "manzana") {
+
       setManzanaRecogida(true);
+
     }
 
   };
@@ -131,16 +139,22 @@ const InterfazCap = () => {
 
 
       if (grillosRef.current) {
+
         grillosRef.current.volume = 0.12;
+
       }
 
 
       if (gallinaRef.current) {
+
         gallinaRef.current.volume = 0.25;
+
       }
 
 
-      // Sonidos de la escena 1
+      // =====================================================
+      // SONIDOS DE LA ESCENA 1
+      // =====================================================
 
       if (escena === 1) {
 
@@ -215,7 +229,7 @@ const InterfazCap = () => {
 
 
     // =====================================================
-    // ESCENA 1
+    // ESCENA 1 - LUIS
     // =====================================================
 
     if (
@@ -237,7 +251,7 @@ const InterfazCap = () => {
 
 
     // =====================================================
-    // ESCENA 2
+    // ESCENA 2 - PARTE 2
     // =====================================================
 
     if (
@@ -259,7 +273,7 @@ const InterfazCap = () => {
 
 
     // =====================================================
-    // ESCENA 3
+    // ESCENA 3 - PARTE 3
     // =====================================================
 
     if (
@@ -325,11 +339,33 @@ const InterfazCap = () => {
 
 
     // =====================================================
-    // ESCENA 6 - ESCENA 4
+    // ESCENA 6 - ESCENA 3
     // =====================================================
 
     if (
       escena === 6 &&
+      escena3Ref.current
+    ) {
+
+      if (nuevoPausado) {
+
+        escena3Ref.current.pausarTodo();
+
+      } else {
+
+        escena3Ref.current.reanudarTodo();
+
+      }
+
+    }
+
+
+    // =====================================================
+    // ESCENA 7 - ESCENA 4
+    // =====================================================
+
+    if (
+      escena === 7 &&
       escena4Ref.current
     ) {
 
@@ -340,6 +376,28 @@ const InterfazCap = () => {
       } else {
 
         escena4Ref.current.reanudarTodo();
+
+      }
+
+    }
+
+
+    // =====================================================
+    // ESCENA 8 - ESCENA 6
+    // =====================================================
+
+    if (
+      escena === 8 &&
+      escena6Ref.current
+    ) {
+
+      if (nuevoPausado) {
+
+        escena6Ref.current.pausarTodo();
+
+      } else {
+
+        escena6Ref.current.reanudarTodo();
 
       }
 
@@ -364,7 +422,7 @@ const InterfazCap = () => {
   const avanzar = () => {
 
     setEscena(prev =>
-      Math.min(6, prev + 1)
+      Math.min(9, prev + 1)
     );
 
   };
@@ -450,7 +508,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 1
+                        ESCENA 1 - LUIS
                     ================================================= */}
 
                     {escena === 1 && (
@@ -460,7 +518,6 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -476,7 +533,6 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                          
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -516,7 +572,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 2
+                        ESCENA 2 - PARTE 2
                     ================================================= */}
 
                     {escena === 2 && (
@@ -526,7 +582,6 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -542,7 +597,6 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                        
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -575,7 +629,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 3
+                        ESCENA 3 - PARTE 3
                     ================================================= */}
 
                     {escena === 3 && (
@@ -585,7 +639,6 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -601,7 +654,6 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                         
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -644,7 +696,6 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -660,7 +711,6 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                        
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -703,7 +753,6 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                          
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -719,7 +768,6 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                         
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -751,7 +799,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 6 - ESCENA 4
+                        ESCENA 6 - ESCENA 3
                     ================================================= */}
 
                     {escena === 6 && (
@@ -761,7 +809,6 @@ const InterfazCap = () => {
 
                         initial={{
                           opacity: 0,
-                         
                           y: 15,
                           filter:
                             "blur(8px) brightness(1.15)"
@@ -777,7 +824,63 @@ const InterfazCap = () => {
 
                         exit={{
                           opacity: 0,
-                         
+                          y: -15,
+                          filter:
+                            "blur(8px) brightness(1.1)"
+                        }}
+
+                        transition={{
+                          duration: 0.45,
+                          ease: [
+                            0.25,
+                            0.1,
+                            0.25,
+                            1
+                          ]
+                        }}
+
+                        style={{
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+
+                        <Escena3
+                          ref={escena3Ref}
+                          cambiarEscena={setEscena}
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 7 - ESCENA 4
+                    ================================================= */}
+
+                    {escena === 7 && (
+
+                      <motion.div
+                        key="escena7"
+
+                        initial={{
+                          opacity: 0,
+                          y: 15,
+                          filter:
+                            "blur(8px) brightness(1.15)"
+                        }}
+
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          filter:
+                            "blur(0px) brightness(1)"
+                        }}
+
+                        exit={{
+                          opacity: 0,
                           y: -15,
                           filter:
                             "blur(8px) brightness(1.1)"
@@ -808,6 +911,62 @@ const InterfazCap = () => {
                     )}
 
 
+                    {/* =================================================
+                        ESCENA 8 - ESCENA 6
+                    ================================================= */}
+
+                    {escena === 8 && (
+
+                      <motion.div
+                        key="escena8"
+
+                        initial={{
+                          opacity: 0,
+                          y: 15,
+                          filter:
+                            "blur(8px) brightness(1.15)"
+                        }}
+
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          filter:
+                            "blur(0px) brightness(1)"
+                        }}
+
+                        exit={{
+                          opacity: 0,
+                          y: -15,
+                          filter:
+                            "blur(8px) brightness(1.1)"
+                        }}
+
+                        transition={{
+                          duration: 0.45,
+                          ease: [
+                            0.25,
+                            0.1,
+                            0.25,
+                            1
+                          ]
+                        }}
+
+                        style={{
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+
+                        <Escena6
+                          ref={escena6Ref}
+                          cambiarEscena={setEscena}
+                        />
+
+                      </motion.div>
+
+                    )}
+
                   </AnimatePresence>
 
                 </div>
@@ -835,7 +994,7 @@ const InterfazCap = () => {
               <div className="col-auto d-flex gap-2">
 
 
-                {/* Botón T */}
+                {/* BOTÓN T */}
 
                 <div className="btn-ctrl">
 
@@ -954,7 +1113,9 @@ const InterfazCap = () => {
                   {/* NÚMERO */}
 
                   <div className="page-num">
+
                     {escena}/23
+
                   </div>
 
 
@@ -1000,7 +1161,6 @@ const InterfazCap = () => {
 
               </div>
 
-
             </div>
 
           </div>
@@ -1013,7 +1173,9 @@ const InterfazCap = () => {
           <div className="found-slots">
 
             <div className="slot-label">
+
               Objetos encontrados
+
             </div>
 
 
@@ -1028,6 +1190,7 @@ const InterfazCap = () => {
 
                   <div
                     className="slot"
+
                     style={{
                       marginLeft: "10px"
                     }}
