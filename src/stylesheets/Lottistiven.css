@@ -14,7 +14,7 @@ body,
   position: relative;
   inset: 0;
   width: 1475px;
-  height: 100vh;
+ height: 90%;
   left: 0;
   z-index: 0;
 }

@@ -8,6 +8,7 @@ import { Escena2beta } from "../components/Escena2beta";
 import { Escena3 } from "../components/Escena3";
 import { Escena4 } from "../components/Escena4";
 import { Escena6 } from "../components/Escena6";
+import { Escena7 } from "../components/Escena7";
 
 import "../stylesheets/Textos.css";
 
@@ -26,6 +27,7 @@ const InterfazCap = () => {
   // ESCENA ACTUAL
   // =========================================================
 
+  // ARRANCA DIRECTAMENTE EN LA ESCENA 7
   const [escena, setEscena] = useState(1);
 
 
@@ -65,6 +67,8 @@ const InterfazCap = () => {
   const escena4Ref = useRef(null);
 
   const escena6Ref = useRef(null);
+
+  const escena7Ref = useRef(null);
 
 
   // =========================================================
@@ -139,16 +143,12 @@ const InterfazCap = () => {
 
 
       if (grillosRef.current) {
-
         grillosRef.current.volume = 0.12;
-
       }
 
 
       if (gallinaRef.current) {
-
         gallinaRef.current.volume = 0.25;
-
       }
 
 
@@ -398,6 +398,28 @@ const InterfazCap = () => {
       } else {
 
         escena6Ref.current.reanudarTodo();
+
+      }
+
+    }
+
+
+    // =====================================================
+    // ESCENA 9 - ESCENA 7
+    // =====================================================
+
+    if (
+      escena === 9 &&
+      escena7Ref.current
+    ) {
+
+      if (nuevoPausado) {
+
+        escena7Ref.current.pausarTodo();
+
+      } else {
+
+        escena7Ref.current.reanudarTodo();
 
       }
 
@@ -960,6 +982,63 @@ const InterfazCap = () => {
 
                         <Escena6
                           ref={escena6Ref}
+                          cambiarEscena={setEscena}
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 9 - ESCENA 7
+                    ================================================= */}
+
+                    {escena === 9 && (
+
+                      <motion.div
+                        key="escena9"
+
+                        initial={{
+                          opacity: 0,
+                          y: 15,
+                          filter:
+                            "blur(8px) brightness(1.15)"
+                        }}
+
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          filter:
+                            "blur(0px) brightness(1)"
+                        }}
+
+                        exit={{
+                          opacity: 0,
+                          y: -15,
+                          filter:
+                            "blur(8px) brightness(1.1)"
+                        }}
+
+                        transition={{
+                          duration: 0.45,
+                          ease: [
+                            0.25,
+                            0.1,
+                            0.25,
+                            1
+                          ]
+                        }}
+
+                        style={{
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+
+                        <Escena7
+                          ref={escena7Ref}
                           cambiarEscena={setEscena}
                         />
 
