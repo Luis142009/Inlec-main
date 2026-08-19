@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { LuisPlugin } from "../components/LuisPlugin";
 import { Parte2dela1 } from "../components/Parte2dela1";
@@ -9,10 +9,14 @@ import { Escena3 } from "../components/Escena3";
 import { Escena4 } from "../components/Escena4";
 import { Escena6 } from "../components/Escena6";
 import { Escena7 } from "../components/Escena7";
+import { Escena8 } from "../components/Escena8";
 
 import "../stylesheets/Textos.css";
 
-import { motion, AnimatePresence } from "motion/react";
+import {
+  motion,
+  AnimatePresence
+} from "motion/react";
 
 import song1 from "../assets/audio/song1.mp3";
 import gallina from "../assets/audio/gallina.mp3";
@@ -22,13 +26,11 @@ import manzana from "../assets/manzana.svg";
 
 const InterfazCap = () => {
 
-
   // =========================================================
   // ESCENA ACTUAL
   // =========================================================
 
-  // ARRANCA DIRECTAMENTE EN LA ESCENA 7
-  const [escena, setEscena] = useState(1);
+  const [escena, setEscena] = useState(2);
 
 
   // =========================================================
@@ -50,7 +52,7 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // REFERENCIAS DE ESCENAS
+  // REFERENCIAS
   // =========================================================
 
   const gameAreaRef = useRef(null);
@@ -63,12 +65,10 @@ const InterfazCap = () => {
   const escena2BetaRef = useRef(null);
 
   const escena3Ref = useRef(null);
-
   const escena4Ref = useRef(null);
-
   const escena6Ref = useRef(null);
-
   const escena7Ref = useRef(null);
+  const escena8Ref = useRef(null);
 
 
   // =========================================================
@@ -82,7 +82,8 @@ const InterfazCap = () => {
     null
   ]);
 
-  const [manzanaRecogida, setManzanaRecogida] = useState(false);
+  const [manzanaRecogida, setManzanaRecogida] =
+    useState(false);
 
 
   // =========================================================
@@ -107,9 +108,7 @@ const InterfazCap = () => {
 
 
     if (objeto === "manzana") {
-
       setManzanaRecogida(true);
-
     }
 
   };
@@ -129,13 +128,43 @@ const InterfazCap = () => {
 
       setIsPlaying(false);
 
-    } else {
+      return;
 
-      if (audioRef.current) {
+    }
 
-        audioRef.current.volume = 1;
 
-        audioRef.current
+    if (audioRef.current) {
+
+      audioRef.current.volume = 1;
+
+      audioRef.current
+        .play()
+        .catch(() => {});
+
+    }
+
+
+    if (grillosRef.current) {
+      grillosRef.current.volume = 0.12;
+    }
+
+
+    if (gallinaRef.current) {
+      gallinaRef.current.volume = 0.25;
+    }
+
+
+    // =======================================================
+    // SONIDOS ESCENA 1
+    // =======================================================
+
+    if (escena === 1) {
+
+      if (gallinaRef.current) {
+
+        gallinaRef.current.currentTime = 0;
+
+        gallinaRef.current
           .play()
           .catch(() => {});
 
@@ -143,46 +172,17 @@ const InterfazCap = () => {
 
 
       if (grillosRef.current) {
-        grillosRef.current.volume = 0.12;
-      }
 
-
-      if (gallinaRef.current) {
-        gallinaRef.current.volume = 0.25;
-      }
-
-
-      // =====================================================
-      // SONIDOS DE LA ESCENA 1
-      // =====================================================
-
-      if (escena === 1) {
-
-        if (gallinaRef.current) {
-
-          gallinaRef.current.currentTime = 0;
-
-          gallinaRef.current
-            .play()
-            .catch(() => {});
-
-        }
-
-
-        if (grillosRef.current) {
-
-          grillosRef.current
-            .play()
-            .catch(() => {});
-
-        }
+        grillosRef.current
+          .play()
+          .catch(() => {});
 
       }
-
-
-      setIsPlaying(true);
 
     }
+
+
+    setIsPlaying(true);
 
   };
 
@@ -218,212 +218,164 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // PAUSA / REANUDAR
+  // OBTENER REFERENCIA DE ESCENA ACTUAL
+  // =========================================================
+
+  const obtenerRefEscena = () => {
+
+    switch (escena) {
+
+      case 1:
+        return luisRef;
+
+      case 2:
+        return parte2Ref;
+
+      case 3:
+        return parte3Ref;
+
+      case 4:
+        return escena2AlfaRef;
+
+      case 5:
+        return escena2BetaRef;
+
+      case 6:
+        return escena3Ref;
+
+      case 7:
+        return escena4Ref;
+
+      case 8:
+        return escena6Ref;
+
+      case 9:
+        return escena7Ref;
+
+      case 10:
+        return escena8Ref;
+
+      default:
+        return null;
+
+    }
+
+  };
+
+
+  // =========================================================
+  // INICIAR ESCENA
+  // =========================================================
+
+  const iniciarEscena = () => {
+
+    const refActual = obtenerRefEscena();
+
+    if (!refActual?.current) {
+      return;
+    }
+
+
+    // -------------------------------------------------------
+    // Si la escena tiene iniciarTodo
+    // -------------------------------------------------------
+
+    if (refActual.current.iniciarTodo) {
+
+      refActual.current.iniciarTodo();
+
+      setPausado(false);
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------------
+    // Compatibilidad con escenas antiguas
+    // -------------------------------------------------------
+
+    if (refActual.current.reanudarTodo) {
+
+      refActual.current.reanudarTodo();
+
+      setPausado(false);
+
+    }
+
+  };
+
+
+  // =========================================================
+  // PAUSAR / REANUDAR
   // =========================================================
 
   const togglePausa = () => {
 
-    const nuevoPausado = !pausado;
+    const refActual = obtenerRefEscena();
 
-    setPausado(nuevoPausado);
+    if (!refActual?.current) {
+      return;
+    }
 
 
-    // =====================================================
-    // ESCENA 1 - LUIS
-    // =====================================================
+    // =======================================================
+    // SI ESTÁ PAUSADO → REANUDAR
+    // =======================================================
 
-    if (
-      escena === 1 &&
-      luisRef.current
-    ) {
+    if (pausado) {
 
-      if (nuevoPausado) {
+      if (refActual.current.reanudarTodo) {
 
-        luisRef.current.pausarTodo();
+        refActual.current.reanudarTodo();
 
-      } else {
+      }
 
-        luisRef.current.reanudarTodo();
+      setPausado(false);
+
+      return;
+
+    }
+
+
+    // =======================================================
+    // SI NUNCA HA EMPEZADO → INICIAR
+    // =======================================================
+
+    if (refActual.current.estaIniciada) {
+
+      const iniciada =
+        refActual.current.estaIniciada();
+
+
+      if (!iniciada) {
+
+        if (refActual.current.iniciarTodo) {
+
+          refActual.current.iniciarTodo();
+
+        }
+
+        setPausado(false);
+
+        return;
 
       }
 
     }
 
 
-    // =====================================================
-    // ESCENA 2 - PARTE 2
-    // =====================================================
+    // =======================================================
+    // SI YA ESTÁ REPRODUCIENDO → PAUSAR
+    // =======================================================
 
-    if (
-      escena === 2 &&
-      parte2Ref.current
-    ) {
+    if (refActual.current.pausarTodo) {
 
-      if (nuevoPausado) {
-
-        parte2Ref.current.pausarTodo();
-
-      } else {
-
-        parte2Ref.current.reanudarTodo();
-
-      }
+      refActual.current.pausarTodo();
 
     }
 
-
-    // =====================================================
-    // ESCENA 3 - PARTE 3
-    // =====================================================
-
-    if (
-      escena === 3 &&
-      parte3Ref.current
-    ) {
-
-      if (nuevoPausado) {
-
-        parte3Ref.current.pausarTodo();
-
-      } else {
-
-        parte3Ref.current.reanudarTodo();
-
-      }
-
-    }
-
-
-    // =====================================================
-    // ESCENA 4 - ESCENA 2 ALFA
-    // =====================================================
-
-    if (
-      escena === 4 &&
-      escena2AlfaRef.current
-    ) {
-
-      if (nuevoPausado) {
-
-        escena2AlfaRef.current.pausarTodo();
-
-      } else {
-
-        escena2AlfaRef.current.reanudarTodo();
-
-      }
-
-    }
-
-
-    // =====================================================
-    // ESCENA 5 - ESCENA 2 BETA
-    // =====================================================
-
-    if (
-      escena === 5 &&
-      escena2BetaRef.current
-    ) {
-
-      if (nuevoPausado) {
-
-        escena2BetaRef.current.pausarTodo();
-
-      } else {
-
-        escena2BetaRef.current.reanudarTodo();
-
-      }
-
-    }
-
-
-    // =====================================================
-    // ESCENA 6 - ESCENA 3
-    // =====================================================
-
-    if (
-      escena === 6 &&
-      escena3Ref.current
-    ) {
-
-      if (nuevoPausado) {
-
-        escena3Ref.current.pausarTodo();
-
-      } else {
-
-        escena3Ref.current.reanudarTodo();
-
-      }
-
-    }
-
-
-    // =====================================================
-    // ESCENA 7 - ESCENA 4
-    // =====================================================
-
-    if (
-      escena === 7 &&
-      escena4Ref.current
-    ) {
-
-      if (nuevoPausado) {
-
-        escena4Ref.current.pausarTodo();
-
-      } else {
-
-        escena4Ref.current.reanudarTodo();
-
-      }
-
-    }
-
-
-    // =====================================================
-    // ESCENA 8 - ESCENA 6
-    // =====================================================
-
-    if (
-      escena === 8 &&
-      escena6Ref.current
-    ) {
-
-      if (nuevoPausado) {
-
-        escena6Ref.current.pausarTodo();
-
-      } else {
-
-        escena6Ref.current.reanudarTodo();
-
-      }
-
-    }
-
-
-    // =====================================================
-    // ESCENA 9 - ESCENA 7
-    // =====================================================
-
-    if (
-      escena === 9 &&
-      escena7Ref.current
-    ) {
-
-      if (nuevoPausado) {
-
-        escena7Ref.current.pausarTodo();
-
-      } else {
-
-        escena7Ref.current.reanudarTodo();
-
-      }
-
-    }
+    setPausado(true);
 
   };
 
@@ -432,22 +384,58 @@ const InterfazCap = () => {
   // CAMBIAR ESCENA
   // =========================================================
 
-  const retroceder = () => {
+  const cambiarEscena = (nuevaEscena) => {
 
-    setEscena(prev =>
-      Math.max(1, prev - 1)
-    );
+    setEscena(nuevaEscena);
+
+    setPausado(false);
 
   };
 
+
+  // =========================================================
+  // ATRÁS
+  // =========================================================
+
+  const retroceder = () => {
+
+    setEscena(prev => {
+
+      return Math.max(1, prev - 1);
+
+    });
+
+    setPausado(false);
+
+  };
+
+
+  // =========================================================
+  // ADELANTE
+  // =========================================================
 
   const avanzar = () => {
 
-    setEscena(prev =>
-      Math.min(9, prev + 1)
-    );
+    setEscena(prev => {
+
+      return Math.min(10, prev + 1);
+
+    });
+
+    setPausado(false);
 
   };
+
+
+  // =========================================================
+  // CUANDO CAMBIA LA ESCENA
+  // =========================================================
+
+  useEffect(() => {
+
+    setPausado(false);
+
+  }, [escena]);
 
 
   // =========================================================
@@ -476,6 +464,7 @@ const InterfazCap = () => {
       <audio
         ref={grillosRef}
         src={grillos}
+        loop
       />
 
 
@@ -530,7 +519,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 1 - LUIS
+                        ESCENA 1
                     ================================================= */}
 
                     {escena === 1 && (
@@ -578,7 +567,7 @@ const InterfazCap = () => {
 
                         <LuisPlugin
                           ref={luisRef}
-                          cambiarEscena={setEscena}
+                          cambiarEscena={cambiarEscena}
                           onRecoger={recogerObjeto}
                           manzanaRecogida={
                             manzanaRecogida
@@ -594,7 +583,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 2 - PARTE 2
+                        ESCENA 2
                     ================================================= */}
 
                     {escena === 2 && (
@@ -642,7 +631,7 @@ const InterfazCap = () => {
 
                         <Parte2dela1
                           ref={parte2Ref}
-                          cambiarEscena={setEscena}
+                          cambiarEscena={cambiarEscena}
                         />
 
                       </motion.div>
@@ -651,7 +640,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 3 - PARTE 3
+                        ESCENA 3
                     ================================================= */}
 
                     {escena === 3 && (
@@ -699,7 +688,7 @@ const InterfazCap = () => {
 
                         <Parte3dela1
                           ref={parte3Ref}
-                          cambiarEscena={setEscena}
+                          cambiarEscena={cambiarEscena}
                         />
 
                       </motion.div>
@@ -708,7 +697,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 4 - ESCENA 2 ALFA
+                        ESCENA 4
                     ================================================= */}
 
                     {escena === 4 && (
@@ -756,7 +745,7 @@ const InterfazCap = () => {
 
                         <Escena2alfa
                           ref={escena2AlfaRef}
-                          cambiarEscena={setEscena}
+                          cambiarEscena={cambiarEscena}
                         />
 
                       </motion.div>
@@ -765,7 +754,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 5 - ESCENA 2 BETA
+                        ESCENA 5
                     ================================================= */}
 
                     {escena === 5 && (
@@ -813,6 +802,7 @@ const InterfazCap = () => {
 
                         <Escena2beta
                           ref={escena2BetaRef}
+                          cambiarEscena={cambiarEscena}
                         />
 
                       </motion.div>
@@ -821,7 +811,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 6 - ESCENA 3
+                        ESCENA 6
                     ================================================= */}
 
                     {escena === 6 && (
@@ -869,7 +859,7 @@ const InterfazCap = () => {
 
                         <Escena3
                           ref={escena3Ref}
-                          cambiarEscena={setEscena}
+                          cambiarEscena={cambiarEscena}
                         />
 
                       </motion.div>
@@ -878,7 +868,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 7 - ESCENA 4
+                        ESCENA 7
                     ================================================= */}
 
                     {escena === 7 && (
@@ -926,6 +916,7 @@ const InterfazCap = () => {
 
                         <Escena4
                           ref={escena4Ref}
+                          cambiarEscena={cambiarEscena}
                         />
 
                       </motion.div>
@@ -934,7 +925,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 8 - ESCENA 6
+                        ESCENA 8
                     ================================================= */}
 
                     {escena === 8 && (
@@ -982,7 +973,7 @@ const InterfazCap = () => {
 
                         <Escena6
                           ref={escena6Ref}
-                          cambiarEscena={setEscena}
+                          cambiarEscena={cambiarEscena}
                         />
 
                       </motion.div>
@@ -991,7 +982,7 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 9 - ESCENA 7
+                        ESCENA 9
                     ================================================= */}
 
                     {escena === 9 && (
@@ -1039,7 +1030,64 @@ const InterfazCap = () => {
 
                         <Escena7
                           ref={escena7Ref}
-                          cambiarEscena={setEscena}
+                          cambiarEscena={cambiarEscena}
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 10
+                    ================================================= */}
+
+                    {escena === 10 && (
+
+                      <motion.div
+                        key="escena10"
+
+                        initial={{
+                          opacity: 0,
+                          y: 15,
+                          filter:
+                            "blur(8px) brightness(1.15)"
+                        }}
+
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          filter:
+                            "blur(0px) brightness(1)"
+                        }}
+
+                        exit={{
+                          opacity: 0,
+                          y: -15,
+                          filter:
+                            "blur(8px) brightness(1.1)"
+                        }}
+
+                        transition={{
+                          duration: 0.45,
+                          ease: [
+                            0.25,
+                            0.1,
+                            0.25,
+                            1
+                          ]
+                        }}
+
+                        style={{
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+
+                        <Escena8
+                          ref={escena8Ref}
+                          cambiarEscena={cambiarEscena}
                         />
 
                       </motion.div>
@@ -1067,13 +1115,13 @@ const InterfazCap = () => {
 
 
               {/* =================================================
-                  BOTONES IZQUIERDOS
+                  BOTONES
               ================================================= */}
 
               <div className="col-auto d-flex gap-2">
 
 
-                {/* BOTÓN T */}
+                {/* T */}
 
                 <div className="btn-ctrl">
 
@@ -1094,11 +1142,12 @@ const InterfazCap = () => {
 
 
                 {/* =================================================
-                    PAUSA
+                    PLAY / PAUSA
                 ================================================= */}
 
                 <div
                   className="btn-ctrl"
+
                   onClick={togglePausa}
 
                   style={{
@@ -1133,6 +1182,7 @@ const InterfazCap = () => {
 
                 <div
                   className="btn-ctrl"
+
                   onClick={toggleMusic}
 
                   style={{
@@ -1179,10 +1229,6 @@ const InterfazCap = () => {
                       cursor: "pointer"
                     }}
 
-                    whileHover={{
-                      scale: 1
-                    }}
-
                     whileTap={{
                       scale: 0.85
                     }}
@@ -1208,10 +1254,6 @@ const InterfazCap = () => {
 
                     style={{
                       cursor: "pointer"
-                    }}
-
-                    whileHover={{
-                      scale: 1
                     }}
 
                     whileTap={{
@@ -1246,7 +1288,7 @@ const InterfazCap = () => {
 
 
           {/* =================================================
-              OBJETOS ENCONTRADOS
+              OBJETOS
           ================================================= */}
 
           <div className="found-slots">

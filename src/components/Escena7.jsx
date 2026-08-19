@@ -199,30 +199,34 @@ export const Escena7 = forwardRef(
 
 
       // -------------------------------------------------------
-      // 6. DESAPARECE OLOR
-      // -------------------------------------------------------
+// 6. DESAPARECE OLOR
+// -------------------------------------------------------
 
-      tl.to(olorRef.current, {
+tl.to(olorRef.current, {
+  opacity: 0,
+  duration: 0.15,
+  ease: "power1.in",
 
-        opacity: 0,
+  onComplete: () => {
 
-        duration: 0.5,
+    if (olorRef.current) {
+      olorRef.current.pause();
+      olorRef.current.currentTime = 0;
+    }
 
-        ease: "power1.in",
+  }
+});
 
-        onComplete: () => {
 
-          if (olorRef.current) {
+// =======================================================
+// 7. CAMBIO INMEDIATO A ESCENA 8
+// =======================================================
 
-            olorRef.current.pause();
+tl.eventCallback("onComplete", () => {
 
-            olorRef.current.currentTime = 0;
+  cambiarEscena(10);
 
-          }
-
-        }
-
-      });
+});
 
     };
 
@@ -353,7 +357,6 @@ export const Escena7 = forwardRef(
         className="escena7"
       >
 
-
         {/* =================================================
             FONDO
         ================================================= */}
@@ -365,11 +368,6 @@ export const Escena7 = forwardRef(
           muted
           playsInline
           preload="auto"
-
-          /*
-            NO autoPlay
-            NO loop
-          */
         >
 
           <source
@@ -391,11 +389,6 @@ export const Escena7 = forwardRef(
           muted
           playsInline
           preload="auto"
-
-          /*
-            NO autoPlay
-            NO loop
-          */
 
           onClick={handleBoggisClick}
 
@@ -424,11 +417,6 @@ export const Escena7 = forwardRef(
           playsInline
           preload="auto"
 
-          /*
-            NO autoPlay
-            NO loop
-          */
-
           style={{
             opacity: 0
           }}
@@ -440,7 +428,6 @@ export const Escena7 = forwardRef(
           />
 
         </video>
-
 
       </div>
 

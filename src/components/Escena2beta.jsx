@@ -15,493 +15,505 @@ import junior from "../assets/junior.webm";
 import carteljun from "../assets/carteljun.webm";
 
 
-export const Escena2beta = forwardRef((props, ref) => {
+export const Escena2beta = forwardRef(
+  ({ cambiarEscena }, ref) => {
 
-  // =========================================================
-  // REFS
-  // =========================================================
+    // =========================================================
+    // REFS
+    // =========================================================
 
-  const escenaRef = useRef(null);
+    const escenaRef = useRef(null);
 
-  const fondoRef = useRef(null);
+    const fondoRef = useRef(null);
 
-  const charlesRef = useRef(null);
-  const charlesCartelRef = useRef(null);
+    const charlesRef = useRef(null);
+    const charlesCartelRef = useRef(null);
 
-  const juniorRef = useRef(null);
-  const juniorCartelRef = useRef(null);
+    const juniorRef = useRef(null);
+    const juniorCartelRef = useRef(null);
 
-  // Timeline de la cámara
-  const cameraTimelineRef = useRef(null);
+    const cameraTimelineRef = useRef(null);
 
-  // Evitar múltiples inicios
-  const escenaIniciada = useRef(false);
+    const escenaIniciada = useRef(false);
 
 
-  // =========================================================
-  // INICIAR ESCENA
-  // =========================================================
+    // =========================================================
+    // INICIAR ESCENA
+    // =========================================================
 
-  const iniciarEscena = () => {
+    const iniciarEscena = () => {
 
-    // Evitar múltiples clicks
-    if (escenaIniciada.current) {
-      return;
-    }
+      // Evitar múltiples clicks
+      if (escenaIniciada.current) {
+        return;
+      }
 
-    escenaIniciada.current = true;
+      escenaIniciada.current = true;
 
 
-    // =====================================================
-    // 1. REPRODUCIR FONDO
-    // =====================================================
+      // =======================================================
+      // REPRODUCIR FONDO
+      // =======================================================
 
-    if (fondoRef.current) {
+      if (fondoRef.current) {
 
-      fondoRef.current.currentTime = 0;
+        fondoRef.current.currentTime = 0;
 
-      fondoRef.current
-        .play()
-        .catch(() => {});
+        fondoRef.current
+          .play()
+          .catch(() => {});
 
-    }
+      }
 
 
-    // =====================================================
-    // 2. REPRODUCIR CHARLES
-    // =====================================================
+      // =======================================================
+      // REPRODUCIR CHARLES
+      // =======================================================
 
-    if (charlesRef.current) {
+      if (charlesRef.current) {
 
-      charlesRef.current.currentTime = 0;
+        charlesRef.current.currentTime = 0;
 
-      charlesRef.current
-        .play()
-        .catch(() => {});
+        charlesRef.current
+          .play()
+          .catch(() => {});
 
-    }
+      }
 
 
-    // =====================================================
-    // 3. REPRODUCIR JUNIOR
-    // =====================================================
+      // =======================================================
+      // REPRODUCIR JUNIOR
+      // =======================================================
 
-    if (juniorRef.current) {
+      if (juniorRef.current) {
 
-      juniorRef.current.currentTime = 0;
+        juniorRef.current.currentTime = 0;
 
-      juniorRef.current
-        .play()
-        .catch(() => {});
+        juniorRef.current
+          .play()
+          .catch(() => {});
 
-    }
+      }
 
 
-    // =====================================================
-    // 4. INICIAR CÁMARA
-    // =====================================================
+      // =======================================================
+      // INICIAR CÁMARA
+      // =======================================================
 
-    iniciarCamara();
+      iniciarCamara();
 
-  };
+    };
 
 
-  // =========================================================
-  // CÁMARA
-  // =========================================================
+    // =========================================================
+    // CÁMARA
+    // =========================================================
 
-  const iniciarCamara = () => {
+    const iniciarCamara = () => {
 
-    const escena = escenaRef.current;
+      const escena = escenaRef.current;
 
-    if (!escena) return;
+      if (!escena) {
+        return;
+      }
 
 
-    // Detener cualquier movimiento anterior
+      // Detener cualquier movimiento anterior
+      gsap.killTweensOf(escena);
 
-    gsap.killTweensOf(escena);
 
+      // =======================================================
+      // POSICIÓN INICIAL
+      // =======================================================
 
-    // =====================================================
-    // POSICIÓN INICIAL
-    // =====================================================
+      gsap.set(escena, {
 
-    gsap.set(escena, {
+        scale: 1,
+        x: 0,
+        y: 0,
 
-      scale: 1,
-      x: 0,
-      y: 0,
+        transformOrigin: "50% 50%"
 
-      transformOrigin: "50% 50%"
+      });
 
-    });
 
+      // =======================================================
+      // TIMELINE
+      // =======================================================
 
-    // =====================================================
-    // TIMELINE
-    // =====================================================
+      const tl = gsap.timeline();
 
-    const tl = gsap.timeline();
+      cameraTimelineRef.current = tl;
 
-    cameraTimelineRef.current = tl;
 
+      // =======================================================
+      // 1. ZOOM HACIA CHARLES
+      // =======================================================
 
-    // =====================================================
-    // 1. ZOOM HACIA CHARLES
-    // =====================================================
+      tl.to(escena, {
 
-    tl.to(escena, {
+        scale: 3,
 
-      scale: 3,
+        x: -290,
 
-      x: -290,
+        y: -290,
 
-      y: -290,
+        duration: 3,
 
-      duration: 3,
+        ease: "power3.inOut",
 
-      ease: "power3.inOut",
+        onComplete: () => {
 
-      onComplete: () => {
+          // =================================================
+          // CARTEL DE CHARLES
+          // =================================================
 
-        // =================================================
-        // CARTEL DE CHARLES
-        // =================================================
+          if (charlesCartelRef.current) {
 
-        if (charlesCartelRef.current) {
+            charlesCartelRef.current.currentTime = 0;
 
-          charlesCartelRef.current.currentTime = 0;
+            charlesCartelRef.current
+              .play()
+              .catch(() => {});
 
-          charlesCartelRef.current
+          }
+
+        }
+
+      });
+
+
+      // =======================================================
+      // 2. ESPERA CARTEL CHARLES
+      // =======================================================
+
+      tl.to({}, {
+
+        duration: 3
+
+      });
+
+
+      // =======================================================
+      // 3. VOLVER ARRIBA
+      // =======================================================
+
+      tl.to(escena, {
+
+        y: -500,
+
+        duration: 2.2,
+
+        ease: "power2.inOut"
+
+      });
+
+
+      // =======================================================
+      // 4. PEQUEÑA ESPERA
+      // =======================================================
+
+      tl.to({}, {
+
+        duration: 0.5
+
+      });
+
+
+      // =======================================================
+      // 5. PASAR HACIA JUNIOR
+      // =======================================================
+
+      tl.to(escena, {
+
+        scale: 3,
+
+        x: 560,
+
+        y: -450,
+
+        duration: 3,
+
+        ease: "power2.inOut"
+
+      });
+
+
+      // =======================================================
+      // 6. CARTEL DE JUNIOR
+      // =======================================================
+
+      tl.call(() => {
+
+        if (juniorCartelRef.current) {
+
+          juniorCartelRef.current.currentTime = 1;
+
+          juniorCartelRef.current
             .play()
             .catch(() => {});
 
         }
 
-      }
-
-    });
+      });
 
 
-    // =====================================================
-    // 2. ESPERA PARA EL CARTEL
-    // =====================================================
+      // =======================================================
+      // 7. ESPERA FINAL
+      // =======================================================
 
-    tl.to({}, {
+      tl.to({}, {
 
-      duration: 3
+        duration: 2
 
-    });
-
-
-    
-
-    // =====================================================
-    // 4. VOLVER ARRIBA
-    // =====================================================
-
-    tl.to(escena, {
-
-      y: -500,
-
-      duration: 2.2,
-
-      ease: "power2.inOut"
-
-    });
+      });
 
 
-    // =====================================================
-    // 5. PEQUEÑA ESPERA
-    // =====================================================
+      // =======================================================
+      // 8. PASAR A ESCENA 3
+      // =======================================================
 
-    tl.to({}, {
+      tl.call(() => {
 
-      duration: 0.5
+        cambiarEscena(6);
 
-    });
+      });
 
-
-    // =====================================================
-    // 6. PASAR HACIA JUNIOR
-    // =====================================================
-
-    tl.to(escena, {
-
-      scale: 3,
-
-      x: 560,
-
-      y: -450,
-
-      duration: 3,
-
-      ease: "power2.inOut"
-
-    });
+    };
 
 
-    // =====================================================
-    // 7. CARTEL DE JUNIOR
-    // =====================================================
+    // =========================================================
+    // PAUSAR TODA LA ESCENA
+    // =========================================================
 
-    tl.call(() => {
+    const pausarTodo = () => {
 
-      if (juniorCartelRef.current) {
+      const videos = [
 
-        juniorCartelRef.current.currentTime = 1;
+        fondoRef.current,
+
+        charlesRef.current,
+
+        charlesCartelRef.current,
+
+        juniorRef.current,
 
         juniorCartelRef.current
-          .play()
-          .catch(() => {});
+
+      ];
+
+
+      videos.forEach((video) => {
+
+        if (video) {
+
+          video.pause();
+
+        }
+
+      });
+
+
+      // Pausar cámara
+
+      if (cameraTimelineRef.current) {
+
+        cameraTimelineRef.current.pause();
 
       }
 
-    });
-
-  };
+    };
 
 
-  // =========================================================
-  // PAUSAR TODA LA ESCENA
-  // =========================================================
+    // =========================================================
+    // REANUDAR TODA LA ESCENA
+    // =========================================================
 
-  const pausarTodo = () => {
+    const reanudarTodo = () => {
 
-    const videos = [
+      const videos = [
 
-      fondoRef.current,
+        fondoRef.current,
 
-      charlesRef.current,
+        charlesRef.current,
 
-      charlesCartelRef.current,
+        charlesCartelRef.current,
 
-      juniorRef.current,
+        juniorRef.current,
 
-      juniorCartelRef.current
+        juniorCartelRef.current
 
-    ];
-
-
-    // -------------------------------------------------------
-    // PAUSAR VIDEOS
-    // -------------------------------------------------------
-
-    videos.forEach((video) => {
-
-      if (video) {
-
-        video.pause();
-
-      }
-
-    });
+      ];
 
 
-    // -------------------------------------------------------
-    // PAUSAR CÁMARA GSAP
-    // -------------------------------------------------------
+      videos.forEach((video) => {
 
-    if (cameraTimelineRef.current) {
+        if (video) {
 
-      cameraTimelineRef.current.pause();
+          video
+            .play()
+            .catch(() => {});
 
-    }
+        }
 
-  };
-
-
-  // =========================================================
-  // REANUDAR TODA LA ESCENA
-  // =========================================================
-
-  const reanudarTodo = () => {
-
-    const videos = [
-
-      fondoRef.current,
-
-      charlesRef.current,
-
-      charlesCartelRef.current,
-
-      juniorRef.current,
-
-      juniorCartelRef.current
-
-    ];
+      });
 
 
-    // -------------------------------------------------------
-    // REANUDAR VIDEOS
-    // -------------------------------------------------------
+      // Reanudar cámara
 
-    videos.forEach((video) => {
+      if (cameraTimelineRef.current) {
 
-      if (video) {
-
-        video
-          .play()
-          .catch(() => {});
+        cameraTimelineRef.current.resume();
 
       }
 
-    });
+    };
 
 
-    // -------------------------------------------------------
-    // REANUDAR CÁMARA GSAP
-    // -------------------------------------------------------
+    // =========================================================
+    // EXPONER FUNCIONES
+    // =========================================================
 
-    if (cameraTimelineRef.current) {
+    useImperativeHandle(ref, () => ({
 
-      cameraTimelineRef.current.resume();
+      pausarTodo,
 
-    }
+      reanudarTodo
 
-  };
-
-
-  // =========================================================
-  // EXPONER FUNCIONES A INTERFAZCAP
-  // =========================================================
-
-  useImperativeHandle(ref, () => ({
-
-    pausarTodo,
-
-    reanudarTodo
-
-  }));
+    }));
 
 
-  // =========================================================
-  // RETURN
-  // =========================================================
+    // =========================================================
+    // RETURN
+    // =========================================================
 
-  return (
+    return (
 
-    <div
-      ref={escenaRef}
-      className="escena2alfa"
-    >
-
-
-      {/* =================================================
-          CHARLES
-      ================================================= */}
-
-      <video
-        ref={charlesRef}
-        className="charles"
-
-
-        loop
-        muted
-        playsInline
-        preload="auto"
-
-        onClick={iniciarEscena}
+      <div
+        ref={escenaRef}
+        className="escena2alfa"
       >
 
-        <source
-          src={charles}
-          type="video/webm"
-        />
 
-      </video>
+        {/* =================================================
+            CHARLES
+        ================================================= */}
 
+        <video
+          ref={charlesRef}
+          className="charles"
 
-      {/* =================================================
-          CARTEL CHARLES
-      ================================================= */}
+          muted
+          playsInline
+          preload="auto"
 
-      <video
-        ref={charlesCartelRef}
-        className="cartelchar"
-        
-       
-        muted
-        playsInline
-        preload="auto"
-      >
+          loop
 
-        <source
-          src={cartelchar}
-          type="video/webm"
-        />
+          onClick={iniciarEscena}
 
-      </video>
+        >
+
+          <source
+            src={charles}
+            type="video/webm"
+          />
+
+        </video>
 
 
-      {/* =================================================
-          JUNIOR
-      ================================================= */}
+        {/* =================================================
+            CARTEL CHARLES
+        ================================================= */}
 
-      <video
-        ref={juniorRef}
-        className="junior"
-       
-        muted
-        playsInline
-        preload="auto"
+        <video
+          ref={charlesCartelRef}
+          className="cartelchar"
 
-        onClick={iniciarEscena}
-      >
+          muted
+          playsInline
+          preload="auto"
 
-        <source
-          src={junior}
-          type="video/webm"
-        />
+        >
 
-      </video>
+          <source
+            src={cartelchar}
+            type="video/webm"
+          />
 
-
-      {/* =================================================
-          CARTEL JUNIOR
-      ================================================= */}
-
-      <video
-        ref={juniorCartelRef}
-        className="cartejun"
-         
-      
-        muted
-        playsInline
-        preload="auto"
-      >
-
-        <source
-          src={carteljun}
-          type="video/webm"
-        />
-
-      </video>
+        </video>
 
 
-      {/* =================================================
-          FONDO
-      ================================================= */}
+        {/* =================================================
+            JUNIOR
+        ================================================= */}
 
-      <video
-        ref={fondoRef}
-        className="fondo"
-       
-        muted
-        playsInline
-        preload="auto"
-      >
+        <video
+          ref={juniorRef}
+          className="junior"
 
-        <source
-          src={fondo}
-          type="video/webm"
-        />
+          muted
+          playsInline
+          preload="auto"
 
-      </video>
+          onClick={iniciarEscena}
+
+        >
+
+          <source
+            src={junior}
+            type="video/webm"
+          />
+
+        </video>
 
 
-    </div>
+        {/* =================================================
+            CARTEL JUNIOR
+        ================================================= */}
 
-  );
+        <video
+          ref={juniorCartelRef}
+          className="cartejun"
 
-});
+          muted
+          playsInline
+          preload="auto"
+
+        >
+
+          <source
+            src={carteljun}
+            type="video/webm"
+          />
+
+        </video>
+
+
+        {/* =================================================
+            FONDO
+        ================================================= */}
+
+        <video
+          ref={fondoRef}
+          className="fondo"
+
+          muted
+          playsInline
+          preload="auto"
+
+        >
+
+          <source
+            src={fondo}
+            type="video/webm"
+          />
+
+        </video>
+
+
+      </div>
+
+    );
+
+  }
+);

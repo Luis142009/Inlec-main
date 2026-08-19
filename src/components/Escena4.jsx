@@ -28,12 +28,8 @@ export const Escena4 = forwardRef(
     const señorFoxRef = useRef(null);
     const nubesRef = useRef(null);
 
-
-    // =========================================================
-    // EVITAR MÚLTIPLES INICIOS
-    // =========================================================
-
     const escenaIniciada = useRef(false);
+    const timerRef = useRef(null);
 
 
     // =========================================================
@@ -42,27 +38,24 @@ export const Escena4 = forwardRef(
 
     const iniciarEscena = () => {
 
-      // Si ya inició, no hacemos absolutamente nada
+      // Evitar múltiples inicios
       if (escenaIniciada.current) {
         return;
       }
 
-      // Marcar escena como iniciada
       escenaIniciada.current = true;
 
 
-      // =====================================================
+      // =======================================================
       // REPRODUCIR TODOS LOS VIDEOS
-      // =====================================================
+      // =======================================================
 
       const videos = [
-
         fondoRef.current,
         señoraFoxRef.current,
         mesaRef.current,
         señorFoxRef.current,
         nubesRef.current
-
       ];
 
 
@@ -80,6 +73,17 @@ export const Escena4 = forwardRef(
 
       });
 
+
+      // =======================================================
+      // CAMBIAR A ESCENA 8 DESPUÉS DE 13 SEGUNDOS
+      // =======================================================
+
+      timerRef.current = setTimeout(() => {
+
+        cambiarEscena(8);
+
+      }, 13000);
+
     };
 
 
@@ -90,13 +94,11 @@ export const Escena4 = forwardRef(
     const pausarTodo = () => {
 
       const videos = [
-
         fondoRef.current,
         señoraFoxRef.current,
         mesaRef.current,
         señorFoxRef.current,
         nubesRef.current
-
       ];
 
 
@@ -118,13 +120,11 @@ export const Escena4 = forwardRef(
     const reanudarTodo = () => {
 
       const videos = [
-
         fondoRef.current,
         señoraFoxRef.current,
         mesaRef.current,
         señorFoxRef.current,
         nubesRef.current
-
       ];
 
 
@@ -144,7 +144,24 @@ export const Escena4 = forwardRef(
 
 
     // =========================================================
-    // EXPONER FUNCIONES A INTERFAZCAP
+    // LIMPIAR TIMER
+    // =========================================================
+
+    const limpiarTimer = () => {
+
+      if (timerRef.current) {
+
+        clearTimeout(timerRef.current);
+
+        timerRef.current = null;
+
+      }
+
+    };
+
+
+    // =========================================================
+    // EXPONER FUNCIONES
     // =========================================================
 
     useImperativeHandle(ref, () => ({
@@ -180,6 +197,7 @@ export const Escena4 = forwardRef(
           preload="auto"
 
           onClick={iniciarEscena}
+
         >
 
           <source
@@ -201,6 +219,7 @@ export const Escena4 = forwardRef(
           muted
           playsInline
           preload="auto"
+
         >
 
           <source
@@ -224,6 +243,7 @@ export const Escena4 = forwardRef(
           preload="auto"
 
           onClick={iniciarEscena}
+
         >
 
           <source
@@ -245,6 +265,7 @@ export const Escena4 = forwardRef(
           muted
           playsInline
           preload="auto"
+
         >
 
           <source
@@ -266,6 +287,7 @@ export const Escena4 = forwardRef(
           muted
           playsInline
           preload="auto"
+
         >
 
           <source

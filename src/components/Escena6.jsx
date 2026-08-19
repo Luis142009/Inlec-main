@@ -23,6 +23,53 @@ export const Escena6 = forwardRef(
 
     const escenaIniciada = useRef(false);
 
+    const fondoTermino = useRef(false);
+    const arbolTermino = useRef(false);
+
+
+    // =========================================================
+    // COMPROBAR SI TERMINÓ TODA LA ESCENA
+    // =========================================================
+
+    const comprobarFin = () => {
+
+      if (
+        fondoTermino.current &&
+        arbolTermino.current
+      ) {
+
+        cambiarEscena(9);
+
+      }
+
+    };
+
+
+    // =========================================================
+    // FONDO TERMINÓ
+    // =========================================================
+
+    const fondoTerminado = () => {
+
+      fondoTermino.current = true;
+
+      comprobarFin();
+
+    };
+
+
+    // =========================================================
+    // ÁRBOL TERMINÓ
+    // =========================================================
+
+    const arbolTerminado = () => {
+
+      arbolTermino.current = true;
+
+      comprobarFin();
+
+    };
+
 
     // =========================================================
     // INICIAR ESCENA
@@ -36,6 +83,11 @@ export const Escena6 = forwardRef(
       }
 
       escenaIniciada.current = true;
+
+
+      // Reiniciar estados
+      fondoTermino.current = false;
+      arbolTermino.current = false;
 
 
       // =====================================================
@@ -81,13 +133,10 @@ export const Escena6 = forwardRef(
         arbol6Ref.current
       ];
 
-
       videos.forEach((video) => {
 
         if (video) {
-
           video.pause();
-
         }
 
       });
@@ -105,7 +154,6 @@ export const Escena6 = forwardRef(
         fondo6Ref.current,
         arbol6Ref.current
       ];
-
 
       videos.forEach((video) => {
 
@@ -154,6 +202,8 @@ export const Escena6 = forwardRef(
           muted
           playsInline
           preload="auto"
+
+          onEnded={fondoTerminado}
         >
 
           <source
@@ -177,6 +227,12 @@ export const Escena6 = forwardRef(
           preload="auto"
 
           onClick={iniciarEscena}
+
+          onEnded={arbolTerminado}
+
+          style={{
+            cursor: "pointer"
+          }}
         >
 
           <source
