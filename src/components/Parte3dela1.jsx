@@ -17,7 +17,7 @@ import tronco from "../assets/arbol3.webm";
 import detalle from "../assets/hierboza.webm";
 
 import "../stylesheets/Escena1.3.css";
-
+import escena1sra from"../assets/audio/escena1sra.mp3";
 
 export const Parte3dela1 = forwardRef(
     ({ cambiarEscena }, ref) => {

@@ -1,4 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect
+} from "react";
 
 import { LuisPlugin } from "../components/LuisPlugin";
 import { Parte2dela1 } from "../components/Parte2dela1";
@@ -21,6 +25,21 @@ import {
 import song1 from "../assets/audio/song1.mp3";
 import gallina from "../assets/audio/gallina.mp3";
 import grillos from "../assets/audio/grillos.mp3";
+import escena1 from "../assets/audio/escena1.mp3";
+import escena1sra from "../assets/audio/escena1sra.mp3";
+import ash from "../assets/audio/escena2ash.mp3";
+import kristo from "../assets/audio/escena2Kristo.mp3";
+import wawas from "../assets/audio/wawas.mp3";
+import es3 from "../assets/audio/escena3.mp3";
+import sonido3 from "../assets/audio/sonido3.mp3";
+import audio4s from "../assets/audio/audio4s.mp3"
+import audio6 from "../assets/audio/audio6.mp3"
+import robo from "../assets/audio/robo.mp3"
+import Escenas7 from "../assets/audio/Escenas7.mp3"
+import audio7 from "../assets/audio/audio7.mp3"
+import fondo8 from "../assets/audio/fondo8.mp3"
+import audio8 from "../assets/audio/audio8.mp3"
+
 import manzana from "../assets/manzana.svg";
 
 
@@ -30,159 +49,1400 @@ const InterfazCap = () => {
   // ESCENA ACTUAL
   // =========================================================
 
-  const [escena, setEscena] = useState(2);
+  const [escena, setEscena] = useState(1);
 
 
   // =========================================================
-  // AUDIO
+  // SUBTÍTULOS
   // =========================================================
 
-  const audioRef = useRef(null);
-  const gallinaRef = useRef(null);
-  const grillosRef = useRef(null);
-
-  const [isPlaying, setIsPlaying] = useState(false);
-
-
-  // =========================================================
-  // PAUSA
-  // =========================================================
-
-  const [pausado, setPausado] = useState(false);
-
-
-  // =========================================================
-  // REFERENCIAS
-  // =========================================================
-
-  const gameAreaRef = useRef(null);
-
-  const luisRef = useRef(null);
-  const parte2Ref = useRef(null);
-  const parte3Ref = useRef(null);
-
-  const escena2AlfaRef = useRef(null);
-  const escena2BetaRef = useRef(null);
-
-  const escena3Ref = useRef(null);
-  const escena4Ref = useRef(null);
-  const escena6Ref = useRef(null);
-  const escena7Ref = useRef(null);
-  const escena8Ref = useRef(null);
-
-
-  // =========================================================
-  // OBJETOS
-  // =========================================================
-
-  const [objetos, setObjetos] = useState([
-    null,
-    null,
-    null,
-    null
-  ]);
-
-  const [manzanaRecogida, setManzanaRecogida] =
+  const [subtitulosActivos, setSubtitulosActivos] =
     useState(false);
 
+  const subtitulos = {
+
+    1: "En Inglaterra, desde lo lejos, en un campo, vive el Sr. Fox.",
+
+    2: "un zorro elegante, atleta, audaz y brillante con un toque de perspicacia en la mirada. Tiene 4 años.",
+
+    3: "comparte su vida con la Sra. Fox, una zorra elegante con sentido artístico y un gran sentido de la responsabilidad.",
+
+    4: [
+      "Ash, nacido 8 segundos después, que se siente diferente a los demás por no tener las mismas capacidades, pero con un fuerte carácter",
+
+      "Ambos tienen cuatro zorros Kristofferson, el mayor por 4 segundos, que se percibe como un atleta, el mejor en todo, con grandes habilidades generales"
+    ],
+
+    5: [
+      "Junior, nacido 12 segundos después, curioso y con buena memoria para rutas y caminos",
+
+      "Charles, el menor, nacido 16 segundos después, pequeño, veloz y con gran talento para excavar"
+    ],
+
+    6: "Todos viven en una madriguera excavada bajo un gran árbol, en lo alto de una colina",
+
+    7: "La señora Fox, con voz dulce pero decidida, le pidió al señor Fox que trajera unos pollos, unos patos o quizá un par de pavos. Quería tenerlos listos para cocinarlos y así preparar un festín delicioso.",
+
+    8: "Conoce cada atajo, cada sombra y cada rincón de las tres granjas que lo rodean",
+
+    9: "Boggis, un hombre gordo y glotón de 50 años, con chaqueta y pantalones enormes, manchados de grasa por su dieta de pollo, huele a pollo podrido, roba aves gordas y jugosas",
+
+    10: "Bunce, un granjero bajito e irritable de 40 años, sucio y con un abrigo demasiado largo para su tamaño, huele a hígado de ganso, se lleva patos y gansos, además siempre comparan a Bunce con un duende y su abrigo le queda tan grande que lo arrastra como una túnica",
+
+    11: "Aquí va el texto de la escena 11.",
+    12: "Aquí va el texto de la escena 12.",
+    13: "Aquí va el texto de la escena 13.",
+    14: "Aquí va el texto de la escena 14.",
+    15: "Aquí va el texto de la escena 15.",
+    16: "Aquí va el texto de la escena 16.",
+    17: "Aquí va el texto de la escena 17.",
+    18: "Aquí va el texto de la escena 18.",
+    19: "Aquí va el texto de la escena 19.",
+    20: "Aquí va el texto de la escena 20.",
+    21: "Aquí va el texto de la escena 21.",
+    22: "Aquí va el texto de la escena 22.",
+    23: "Aquí va el texto de la escena 23."
+  };
+
 
   // =========================================================
-  // RECOGER OBJETO
+  // AUDIO POR ESCENA
   // =========================================================
 
-  const recogerObjeto = (objeto) => {
+  const audiosPorEscena = {
 
-    setObjetos(prev => {
+    // =======================================================
+    // ESCENA 1
+    // =======================================================
 
-      const nuevo = [...prev];
+    1: {
 
-      const i = nuevo.indexOf(null);
+      musica: song1,
 
-      if (i !== -1) {
-        nuevo[i] = objeto;
-      }
+      grupoMusica: "inicio",
 
-      return nuevo;
+      grupoEfectos: "escena1",
 
-    });
+      efectos: [
+
+        {
+          src: gallina,
+          volumen: 0.30,
+          loop: false,
+          persistente: false
+        },
+
+        {
+          src: grillos,
+          volumen: 0.22,
+          loop: true,
+          persistente: false
+        },
+
+        // =================================================
+        // ESCENA1
+        // CONTINÚA HASTA ESCENA 2
+        // =================================================
+
+        {
+          src: escena1,
+          volumen: 3,
+          loop: false,
+          persistente: true,
+          hastaEscena: 2
+        }
+
+      ]
+
+    },
 
 
-    if (objeto === "manzana") {
-      setManzanaRecogida(true);
+    // =======================================================
+    // ESCENA 2
+    // =======================================================
+
+    2: {
+
+      musica: song1,
+
+      grupoMusica: "inicio",
+
+      grupoEfectos: "escena2",
+
+      efectos: []
+
+    },
+
+
+    // =======================================================
+    // ESCENA 3
+    // =======================================================
+
+    3: {
+
+      musica: song1,
+
+      grupoMusica: "inicio",
+
+      grupoEfectos: "escena3",
+
+      efectos: [
+
+        {
+          src: escena1sra,
+          volumen: 3,
+          loop: false,
+          persistente: false
+        }
+
+      ]
+
+    },
+
+
+    // =======================================================
+    // ESCENA 4
+    // =======================================================
+
+    4: {
+
+      musica: song1,
+
+      grupoMusica: "inicio",
+
+      grupoEfectos: "escena4",
+
+      efectos: [
+
+        {
+          src: kristo,
+          volumen: 3,
+         
+          persistente: false,
+          secuencia: "kristo"
+        },
+
+        {
+          src: ash,
+          volumen: 3,
+         
+          persistente: false,
+          secuencia: "ash"
+        }
+
+      ]
+
+    },
+
+
+    // =======================================================
+    // ESCENA 5
+    // =======================================================
+
+    5: {
+
+      musica: song1,
+
+      grupoMusica: "inicio",
+
+      grupoEfectos: "escena5",
+
+      efectos: [
+
+        {
+          src: wawas,
+          volumen: 3,
+        
+          persistente: false
+        }
+
+      ]
+
+    },
+
+
+    // =======================================================
+    // ESCENA 6
+    // =======================================================
+
+    6: {
+
+      musica: sonido3,
+
+      grupoMusica: "escena6",
+
+      grupoEfectos: "escena6",
+
+      efectos: [
+
+        {
+          src: es3,
+          volumen: 3,
+         
+          persistente: false
+        }
+
+      ]
+
+    },
+
+
+    // =======================================================
+    // ESCENA 7
+    // =======================================================
+
+    7: {
+
+      musica: audio4s,
+
+      grupoMusica: "escena7",
+
+      grupoEfectos: "escena7",
+
+      efectos: []
+
+    },
+
+
+    // =======================================================
+    // ESCENA 8
+    // =======================================================
+
+    8: {
+
+      musica: robo,
+
+      grupoMusica: "escena8",
+
+      grupoEfectos: "escena8",
+
+      efectos: [{
+        src: audio6,
+          volumen: 3,
+     
+          persistente: false
+      }]
+
+    },
+
+
+    // =======================================================
+    // ESCENA 9
+    // =======================================================
+
+    9: {
+
+      musica: Escenas7,
+
+      grupoMusica: "escena9",
+
+      grupoEfectos: "escena9",
+
+      efectos: [{
+        src: audio7,
+        volumen: 3,
+      }]
+
+    },
+
+
+    // =======================================================
+    // ESCENA 10
+    // =======================================================
+
+    10: {
+
+      musica: fondo8,
+
+      grupoMusica: "escena10",
+
+      grupoEfectos: "escena10",
+
+      efectos: [{
+
+        src: audio8,
+        volumen: 3,
+      }]
+
     }
 
   };
 
 
   // =========================================================
-  // MÚSICA
+  // AUDIO FALLBACK
   // =========================================================
 
-  const toggleMusic = () => {
+  const audioFallback = {
 
-    if (isPlaying) {
+    musica: song1,
 
-      audioRef.current?.pause();
-      grillosRef.current?.pause();
-      gallinaRef.current?.pause();
+    grupoMusica: "fallback",
 
-      setIsPlaying(false);
+    grupoEfectos: "fallback",
+
+    efectos: []
+
+  };
+
+
+  // =========================================================
+  // OBTENER AUDIO DE ESCENA
+  // =========================================================
+
+  const obtenerAudioEscena = (numeroEscena) => {
+
+    return (
+      audiosPorEscena[numeroEscena] ||
+      audioFallback
+    );
+
+  };
+
+
+  // =========================================================
+  // CANTIDAD DE EFECTOS
+  // =========================================================
+
+  const maxEfectosSimultaneos =
+    Object.values(audiosPorEscena)
+      .reduce((max, config) => {
+
+        const cantidad =
+          config.efectos
+            ? config.efectos.length
+            : 0;
+
+        return Math.max(
+          max,
+          cantidad
+        );
+
+      }, 0);
+
+
+  // =========================================================
+  // REFS DE AUDIO
+  // =========================================================
+
+  const musicaRef = useRef(null);
+
+  const efectosRefs = useRef([]);
+
+
+  // =========================================================
+  // ESTADO AUDIO
+  // =========================================================
+
+  const [isPlaying, setIsPlaying] =
+    useState(false);
+
+
+  // =========================================================
+  // VOLUMEN GLOBAL
+  // =========================================================
+
+  const [volumenMusica, setVolumenMusica] =
+    useState(0.7);
+
+  const [volumenEfectos, setVolumenEfectos] =
+    useState(0.7);
+
+
+  // =========================================================
+  // GRUPOS ACTUALES
+  // =========================================================
+
+  const grupoMusicaRef =
+    useRef(null);
+
+  const grupoEfectosRef =
+    useRef(null);
+
+
+  // =========================================================
+  // WEB AUDIO API
+  // =========================================================
+
+  const audioContextRef =
+    useRef(null);
+
+  const musicaGainRef =
+    useRef(null);
+
+  const efectosGainRef =
+    useRef([]);
+
+
+  // =========================================================
+  // VOLUMEN BASE DE CADA EFECTO
+  // =========================================================
+  //
+  // Aquí guardamos el "volumen: 3", "volumen: 0.3", etc.
+  //
+  // El slider global NO reemplaza ese valor.
+  //
+  // Ejemplo:
+  //
+  // volumen: 3
+  // slider: 0.5
+  //
+  // resultado:
+  //
+  // 3 × 0.5 = 1.5
+  //
+  // =========================================================
+
+  const efectosVolumenBaseRef =
+    useRef([]);
+
+
+  // =========================================================
+  // EFECTOS PERSISTENTES
+  // =========================================================
+
+  const efectosPersistentesRef =
+    useRef([]);
+
+
+  // =========================================================
+  // SECUENCIA ESCENA 4
+  // =========================================================
+
+  const secuenciaEscena4Activa =
+    useRef(false);
+
+
+  // =========================================================
+  // AUDIO CONTEXT
+  // =========================================================
+
+  const obtenerAudioContext = () => {
+
+    if (!audioContextRef.current) {
+
+      const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+      if (!AudioContext) {
+
+        console.warn(
+          "Web Audio API no disponible"
+        );
+
+        return null;
+
+      }
+
+      audioContextRef.current =
+        new AudioContext();
+
+    }
+
+    return audioContextRef.current;
+
+  };
+
+
+  // =========================================================
+  // CONFIGURAR GANANCIA
+  // =========================================================
+
+  const configurarGanancia = (
+    audio,
+    tipo,
+    indice = 0
+  ) => {
+
+    const ctx =
+      obtenerAudioContext();
+
+    if (!ctx || !audio) {
+      return null;
+    }
+
+
+    // =======================================================
+    // MÚSICA
+    // =======================================================
+
+    if (tipo === "musica") {
+
+      if (!musicaGainRef.current) {
+
+        const source =
+          ctx.createMediaElementSource(
+            audio
+          );
+
+        const gain =
+          ctx.createGain();
+
+        source.connect(gain);
+
+        gain.connect(
+          ctx.destination
+        );
+
+        musicaGainRef.current =
+          gain;
+
+      }
+
+      return musicaGainRef.current;
+
+    }
+
+
+    // =======================================================
+    // EFECTOS
+    // =======================================================
+
+    if (!efectosGainRef.current[indice]) {
+
+      const source =
+        ctx.createMediaElementSource(
+          audio
+        );
+
+      const gain =
+        ctx.createGain();
+
+      source.connect(gain);
+
+      gain.connect(
+        ctx.destination
+      );
+
+      efectosGainRef.current[indice] =
+        gain;
+
+    }
+
+    return efectosGainRef.current[indice];
+
+  };
+
+
+  // =========================================================
+  // ACTUALIZAR VOLUMEN GLOBAL
+  // =========================================================
+
+  useEffect(() => {
+
+    // =======================================================
+    // 🎵 MÚSICA
+    // =======================================================
+
+    if (musicaGainRef.current) {
+
+      musicaGainRef.current.gain.value =
+        volumenMusica;
+
+    }
+
+
+    // =======================================================
+    // 🔊 EFECTOS
+    // =======================================================
+
+    efectosGainRef.current.forEach(
+      (gain, indice) => {
+
+        if (!gain) {
+          return;
+        }
+
+        const volumenBase =
+          efectosVolumenBaseRef.current[indice] ?? 1;
+
+        gain.gain.value =
+          volumenBase * volumenEfectos;
+
+      }
+    );
+
+  }, [
+    volumenMusica,
+    volumenEfectos
+  ]);
+
+
+  // =========================================================
+  // PAUSA
+  // =========================================================
+
+  const [pausado, setPausado] =
+    useState(false);
+
+
+  // =========================================================
+  // DETENER EFECTOS
+  // =========================================================
+
+  const detenerTodosLosEfectos = (
+    numeroEscena = null,
+    forzar = false
+  ) => {
+
+    secuenciaEscena4Activa.current =
+      false;
+
+
+    efectosRefs.current.forEach(
+      (audio, indice) => {
+
+        if (!audio) {
+          return;
+        }
+
+        const persistente =
+          efectosPersistentesRef.current[indice];
+
+        const puedeContinuar =
+          persistente &&
+          numeroEscena !== null &&
+          numeroEscena <=
+            persistente.hastaEscena;
+
+
+        if (
+          !forzar &&
+          puedeContinuar
+        ) {
+
+          console.log(
+            `🔊 Efecto ${indice} CONTINÚA hasta escena ${persistente.hastaEscena}`
+          );
+
+          return;
+
+        }
+
+
+        try {
+
+          audio.pause();
+
+          audio.currentTime = 0;
+
+          efectosPersistentesRef.current[indice] =
+            null;
+
+          efectosVolumenBaseRef.current[indice] =
+            1;
+
+        } catch (error) {
+
+          console.log(
+            "Error limpiando efecto:",
+            error
+          );
+
+        }
+
+      }
+    );
+
+  };
+
+
+  // =========================================================
+  // DETENER TODO EL AUDIO
+  // =========================================================
+
+  const detenerTodoElAudio = () => {
+
+    if (musicaRef.current) {
+
+      musicaRef.current.pause();
+
+      musicaRef.current.currentTime =
+        0;
+
+    }
+
+
+    detenerTodosLosEfectos(
+      null,
+      true
+    );
+
+
+    grupoMusicaRef.current =
+      null;
+
+    grupoEfectosRef.current =
+      null;
+
+  };
+
+
+  // =========================================================
+  // REPRODUCIR EFECTO NORMAL
+  // =========================================================
+
+  const reproducirEfecto = (
+    efecto,
+    indice,
+    numeroEscena
+  ) => {
+
+    const audio =
+      efectosRefs.current[indice];
+
+    if (!audio || !efecto) {
+      return;
+    }
+
+
+    try {
+
+      audio.pause();
+
+      audio.src =
+        efecto.src;
+
+      audio.loop =
+        !!efecto.loop;
+
+      audio.currentTime =
+        0;
+
+
+      // =====================================================
+      // VOLUMEN BASE
+      // =====================================================
+
+      const volumenBase =
+        efecto.volumen ?? 0.5;
+
+      efectosVolumenBaseRef.current[indice] =
+        volumenBase;
+
+
+      // =====================================================
+      // PERSISTENCIA
+      // =====================================================
+
+      if (
+        efecto.persistente &&
+        efecto.hastaEscena
+      ) {
+
+        efectosPersistentesRef.current[indice] = {
+
+          hastaEscena:
+            efecto.hastaEscena
+
+        };
+
+        console.log(
+          `🔊 Efecto ${indice} será persistente hasta escena ${efecto.hastaEscena}`
+        );
+
+      } else {
+
+        efectosPersistentesRef.current[indice] =
+          null;
+
+      }
+
+
+      // =====================================================
+      // GANANCIA
+      // =====================================================
+
+      const gain =
+        configurarGanancia(
+          audio,
+          "efecto",
+          indice
+        );
+
+
+      if (gain) {
+
+        gain.gain.value =
+          volumenBase *
+          volumenEfectos;
+
+      } else {
+
+        audio.volume =
+          Math.min(
+            volumenBase *
+            volumenEfectos,
+            1
+          );
+
+      }
+
+
+      // =====================================================
+      // REPRODUCIR
+      // =====================================================
+
+      audio.play()
+        .then(() => {
+
+          console.log(
+            `🔊 Efecto ${indice + 1} iniciado en escena ${numeroEscena}`
+          );
+
+        })
+        .catch(
+          (error) => {
+
+            console.log(
+              `⚠️ No se pudo reproducir efecto ${indice + 1}:`,
+              error
+            );
+
+          }
+        );
+
+    } catch (error) {
+
+      console.log(
+        "⚠️ Error reproduciendo efecto:",
+        error
+      );
+
+    }
+
+  };
+
+
+  // =========================================================
+  // SECUENCIA KRISTO → ASH
+  // =========================================================
+
+  const reproducirSecuenciaEscena4 = () => {
+
+    const kristoAudio =
+      efectosRefs.current[0];
+
+    const ashAudio =
+      efectosRefs.current[1];
+
+    if (!kristoAudio || !ashAudio) {
+      return;
+    }
+
+
+    secuenciaEscena4Activa.current =
+      true;
+
+
+    // =======================================================
+    // KRISTO
+    // =======================================================
+
+    const kristoConfig =
+      audiosPorEscena[4].efectos[0];
+
+    kristoAudio.pause();
+
+    kristoAudio.src =
+      kristoConfig.src;
+
+    kristoAudio.loop =
+      false;
+
+    kristoAudio.currentTime =
+      0;
+
+
+    efectosVolumenBaseRef.current[0] =
+      kristoConfig.volumen;
+
+
+    const kristoGain =
+      configurarGanancia(
+        kristoAudio,
+        "efecto",
+        0
+      );
+
+
+    if (kristoGain) {
+
+      kristoGain.gain.value =
+        kristoConfig.volumen *
+        volumenEfectos;
+
+    }
+
+
+    // =======================================================
+    // CUANDO KRISTO TERMINE → ASH
+    // =======================================================
+
+    kristoAudio.onended = () => {
+
+      if (
+        !secuenciaEscena4Activa.current
+      ) {
+
+        return;
+
+      }
+
+
+      console.log(
+        "🦊 KRISTO TERMINÓ → AHORA ASH"
+      );
+
+
+      const ashConfig =
+        audiosPorEscena[4].efectos[1];
+
+
+      ashAudio.pause();
+
+      ashAudio.src =
+        ashConfig.src;
+
+      ashAudio.loop =
+        false;
+
+      ashAudio.currentTime =
+        0;
+
+
+      efectosVolumenBaseRef.current[1] =
+        ashConfig.volumen;
+
+
+      const ashGain =
+        configurarGanancia(
+          ashAudio,
+          "efecto",
+          1
+        );
+
+
+      if (ashGain) {
+
+        ashGain.gain.value =
+          ashConfig.volumen *
+          volumenEfectos;
+
+      }
+
+
+      ashAudio.play()
+        .then(() => {
+
+          console.log(
+            "🔥 ASH INICIADO"
+          );
+
+        })
+        .catch(
+          (error) => {
+
+            console.log(
+              "⚠️ Error iniciando Ash:",
+              error
+            );
+
+          }
+        );
+
+    };
+
+
+    // =======================================================
+    // INICIAR KRISTO
+    // =======================================================
+
+    kristoAudio.play()
+      .then(() => {
+
+        console.log(
+          "🦊 KRISTO INICIADO"
+        );
+
+      })
+      .catch(
+        (error) => {
+
+          console.log(
+            "⚠️ Error iniciando Kristo:",
+            error
+          );
+
+        }
+      );
+
+  };
+
+
+  // =========================================================
+  // REPRODUCIR AUDIO DE ESCENA
+  // =========================================================
+
+  const reproducirAudioDeEscena = async (
+    numeroEscena,
+    forzarReinicio = false
+  ) => {
+
+    const config =
+      obtenerAudioEscena(
+        numeroEscena
+      );
+
+
+    console.log(
+      "🎬 ESCENA:",
+      numeroEscena
+    );
+
+
+    // =======================================================
+    // MÚSICA
+    // =======================================================
+
+    if (
+      musicaRef.current &&
+      config.musica
+    ) {
+
+      const musica =
+        musicaRef.current;
+
+
+      const mismaMusica =
+        grupoMusicaRef.current ===
+        config.grupoMusica;
+
+
+      // =====================================================
+      // MISMA MÚSICA
+      // =====================================================
+
+      if (
+        mismaMusica &&
+        !forzarReinicio
+      ) {
+
+        console.log(
+          "🎵 CONTINÚA MÚSICA:",
+          config.grupoMusica
+        );
+
+
+        if (musica.paused) {
+
+          try {
+
+            const ctx =
+              obtenerAudioContext();
+
+            if (
+              ctx &&
+              ctx.state === "suspended"
+            ) {
+
+              await ctx.resume();
+
+            }
+
+            await musica.play();
+
+          } catch (error) {
+
+            console.log(
+              "⚠️ Error continuando música:",
+              error
+            );
+
+          }
+
+        }
+
+      }
+
+
+      // =====================================================
+      // MÚSICA NUEVA
+      // =====================================================
+
+      else {
+
+        try {
+
+          musica.pause();
+
+          musica.src =
+            config.musica;
+
+          musica.loop =
+            true;
+
+          musica.currentTime =
+            0;
+
+
+          const gain =
+            configurarGanancia(
+              musica,
+              "musica"
+            );
+
+
+          if (gain) {
+
+            gain.gain.value =
+              volumenMusica;
+
+          }
+
+
+          grupoMusicaRef.current =
+            config.grupoMusica;
+
+
+          await musica.play();
+
+
+          console.log(
+            "🎵 MÚSICA NUEVA:",
+            config.grupoMusica
+          );
+
+        } catch (error) {
+
+          console.log(
+            "⚠️ No se pudo reproducir música:",
+            error
+          );
+
+        }
+
+      }
+
+    }
+
+
+    // =======================================================
+    // EFECTOS
+    // =======================================================
+
+    const nuevoGrupoEfectos =
+      grupoEfectosRef.current !==
+      config.grupoEfectos;
+
+
+    // =====================================================
+    // CAMBIO DE GRUPO
+    // =====================================================
+
+    if (nuevoGrupoEfectos) {
+
+      detenerTodosLosEfectos(
+        numeroEscena
+      );
+
+      grupoEfectosRef.current =
+        config.grupoEfectos;
+
+    }
+
+
+    // =====================================================
+    // ESCENA 4
+    // KRISTO → ASH
+    // =====================================================
+
+    if (
+      numeroEscena === 4 &&
+      config.efectos.length > 0
+    ) {
+
+      reproducirSecuenciaEscena4();
 
       return;
 
     }
 
 
-    if (audioRef.current) {
+    // =====================================================
+    // EFECTOS NORMALES
+    // =====================================================
 
-      audioRef.current.volume = 1;
+    const efectos =
+      config.efectos || [];
 
-      audioRef.current
-        .play()
-        .catch(() => {});
+
+    efectos.forEach(
+      (efecto, i) => {
+
+        reproducirEfecto(
+          efecto,
+          i,
+          numeroEscena
+        );
+
+      }
+    );
+
+  };
+
+
+  // =========================================================
+  // CAMBIAR AUDIO AL CAMBIAR ESCENA
+  // =========================================================
+
+  useEffect(() => {
+
+    const cambiarAudio =
+      async () => {
+
+        if (!isPlaying) {
+          return;
+        }
+
+
+        const config =
+          obtenerAudioEscena(
+            escena
+          );
+
+
+        const mismaMusica =
+          grupoMusicaRef.current ===
+          config.grupoMusica;
+
+
+        if (!mismaMusica) {
+
+          await reproducirAudioDeEscena(
+            escena
+          );
+
+        } else {
+
+          console.log(
+            "🎵 MÚSICA CONTINÚA SIN CORTARSE"
+          );
+
+
+          const nuevoGrupoEfectos =
+            grupoEfectosRef.current !==
+            config.grupoEfectos;
+
+
+          if (nuevoGrupoEfectos) {
+
+            await reproducirAudioDeEscena(
+              escena
+            );
+
+          }
+
+        }
+
+      };
+
+
+    cambiarAudio();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  }, [escena]);
+
+
+  // =========================================================
+  // PAUSAR AUDIO ACTUAL
+  // =========================================================
+
+  const pausarAudioActual = () => {
+
+    if (musicaRef.current) {
+
+      musicaRef.current.pause();
 
     }
 
 
-    if (grillosRef.current) {
-      grillosRef.current.volume = 0.12;
-    }
+    efectosRefs.current.forEach(
+      (audio) => {
+
+        if (audio) {
+
+          audio.pause();
+
+        }
+
+      }
+    );
+
+  };
 
 
-    if (gallinaRef.current) {
-      gallinaRef.current.volume = 0.25;
+  // =========================================================
+  // ACTIVAR / DESACTIVAR AUDIO
+  // =========================================================
+
+  const toggleMusic = async () => {
+
+
+    // =======================================================
+    // APAGAR
+    // =======================================================
+
+    if (isPlaying) {
+
+      pausarAudioActual();
+
+      setIsPlaying(false);
+
+      console.log(
+        "🔇 Audio detenido"
+      );
+
+      return;
+
     }
 
 
     // =======================================================
-    // SONIDOS ESCENA 1
+    // ACTIVAR AUDIO CONTEXT
     // =======================================================
 
-    if (escena === 1) {
-
-      if (gallinaRef.current) {
-
-        gallinaRef.current.currentTime = 0;
-
-        gallinaRef.current
-          .play()
-          .catch(() => {});
-
-      }
+    const ctx =
+      obtenerAudioContext();
 
 
-      if (grillosRef.current) {
+    if (
+      ctx &&
+      ctx.state === "suspended"
+    ) {
 
-        grillosRef.current
-          .play()
-          .catch(() => {});
-
-      }
+      await ctx.resume();
 
     }
+
+
+    // =======================================================
+    // REPRODUCIR
+    // =======================================================
+
+    await reproducirAudioDeEscena(
+      escena
+    );
 
 
     setIsPlaying(true);
+
+
+    console.log(
+      "🔊 Audio activado"
+    );
 
   };
 
@@ -190,6 +1450,10 @@ const InterfazCap = () => {
   // =========================================================
   // FULLSCREEN
   // =========================================================
+
+  const gameAreaRef =
+    useRef(null);
+
 
   const toggleFullscreen = async () => {
 
@@ -208,7 +1472,7 @@ const InterfazCap = () => {
     } catch (error) {
 
       console.log(
-        "No se pudo cambiar el modo fullscreen:",
+        "No se pudo cambiar fullscreen:",
         error
       );
 
@@ -218,7 +1482,127 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // OBTENER REFERENCIA DE ESCENA ACTUAL
+  // REFERENCIAS DE ESCENAS
+  // =========================================================
+
+  const luisRef =
+    useRef(null);
+
+  const parte2Ref =
+    useRef(null);
+
+  const parte3Ref =
+    useRef(null);
+
+  const escena2AlfaRef =
+    useRef(null);
+
+  const escena2BetaRef =
+    useRef(null);
+
+  const escena3Ref =
+    useRef(null);
+
+  const escena4Ref =
+    useRef(null);
+
+  const escena6Ref =
+    useRef(null);
+
+  const escena7Ref =
+    useRef(null);
+
+  const escena8Ref =
+    useRef(null);
+
+
+  // =========================================================
+  // OBJETOS
+  // =========================================================
+
+  const [objetos, setObjetos] =
+    useState([
+      null,
+      null,
+      null,
+      null,
+      null
+    ]);
+
+
+  const [manzanaRecogida, setManzanaRecogida] =
+    useState(false);
+
+
+  // =========================================================
+  // RECOGER OBJETO
+  // =========================================================
+
+  const recogerObjeto = (objeto) => {
+
+    setObjetos(prev => {
+
+      const nuevo = [...prev];
+
+      const i =
+        nuevo.indexOf(null);
+
+      if (i !== -1) {
+
+        nuevo[i] =
+          objeto;
+
+      }
+
+      return nuevo;
+
+    });
+
+
+    if (objeto === "manzana") {
+
+      setManzanaRecogida(true);
+
+    }
+
+  };
+
+
+  // =========================================================
+  // SUBTÍTULOS
+  // =========================================================
+
+  const toggleSubtitulos = () => {
+
+    setSubtitulosActivos(
+      prev => !prev
+    );
+
+  };
+
+
+  // =========================================================
+  // TEXTOS ESCENA ACTUAL
+  // =========================================================
+
+  const textosEscenaActual =
+    subtitulos[escena]
+
+      ? (
+          Array.isArray(
+            subtitulos[escena]
+          )
+
+            ? subtitulos[escena]
+
+            : [subtitulos[escena]]
+        )
+
+      : [];
+
+
+  // =========================================================
+  // REFERENCIA ESCENA
   // =========================================================
 
   const obtenerRefEscena = () => {
@@ -269,18 +1653,18 @@ const InterfazCap = () => {
 
   const iniciarEscena = () => {
 
-    const refActual = obtenerRefEscena();
+    const refActual =
+      obtenerRefEscena();
+
 
     if (!refActual?.current) {
       return;
     }
 
 
-    // -------------------------------------------------------
-    // Si la escena tiene iniciarTodo
-    // -------------------------------------------------------
-
-    if (refActual.current.iniciarTodo) {
+    if (
+      refActual.current.iniciarTodo
+    ) {
 
       refActual.current.iniciarTodo();
 
@@ -291,11 +1675,9 @@ const InterfazCap = () => {
     }
 
 
-    // -------------------------------------------------------
-    // Compatibilidad con escenas antiguas
-    // -------------------------------------------------------
-
-    if (refActual.current.reanudarTodo) {
+    if (
+      refActual.current.reanudarTodo
+    ) {
 
       refActual.current.reanudarTodo();
 
@@ -312,7 +1694,9 @@ const InterfazCap = () => {
 
   const togglePausa = () => {
 
-    const refActual = obtenerRefEscena();
+    const refActual =
+      obtenerRefEscena();
+
 
     if (!refActual?.current) {
       return;
@@ -320,16 +1704,43 @@ const InterfazCap = () => {
 
 
     // =======================================================
-    // SI ESTÁ PAUSADO → REANUDAR
+    // REANUDAR
     // =======================================================
 
     if (pausado) {
 
-      if (refActual.current.reanudarTodo) {
+      if (
+        refActual.current.reanudarTodo
+      ) {
 
         refActual.current.reanudarTodo();
 
       }
+
+
+      if (musicaRef.current) {
+
+        musicaRef.current
+          .play()
+          .catch(() => {});
+
+      }
+
+
+      efectosRefs.current.forEach(
+        audio => {
+
+          if (audio) {
+
+            audio
+              .play()
+              .catch(() => {});
+
+          }
+
+        }
+      );
+
 
       setPausado(false);
 
@@ -339,10 +1750,12 @@ const InterfazCap = () => {
 
 
     // =======================================================
-    // SI NUNCA HA EMPEZADO → INICIAR
+    // SI NUNCA HA EMPEZADO
     // =======================================================
 
-    if (refActual.current.estaIniciada) {
+    if (
+      refActual.current.estaIniciada
+    ) {
 
       const iniciada =
         refActual.current.estaIniciada();
@@ -350,7 +1763,9 @@ const InterfazCap = () => {
 
       if (!iniciada) {
 
-        if (refActual.current.iniciarTodo) {
+        if (
+          refActual.current.iniciarTodo
+        ) {
 
           refActual.current.iniciarTodo();
 
@@ -366,14 +1781,19 @@ const InterfazCap = () => {
 
 
     // =======================================================
-    // SI YA ESTÁ REPRODUCIENDO → PAUSAR
+    // PAUSAR
     // =======================================================
 
-    if (refActual.current.pausarTodo) {
+    if (
+      refActual.current.pausarTodo
+    ) {
 
       refActual.current.pausarTodo();
 
     }
+
+
+    pausarAudioActual();
 
     setPausado(true);
 
@@ -401,7 +1821,10 @@ const InterfazCap = () => {
 
     setEscena(prev => {
 
-      return Math.max(1, prev - 1);
+      return Math.max(
+        1,
+        prev - 1
+      );
 
     });
 
@@ -418,24 +1841,16 @@ const InterfazCap = () => {
 
     setEscena(prev => {
 
-      return Math.min(10, prev + 1);
+      return Math.min(
+        23,
+        prev + 1
+      );
 
     });
 
     setPausado(false);
 
   };
-
-
-  // =========================================================
-  // CUANDO CAMBIA LA ESCENA
-  // =========================================================
-
-  useEffect(() => {
-
-    setPausado(false);
-
-  }, [escena]);
 
 
   // =========================================================
@@ -451,21 +1866,28 @@ const InterfazCap = () => {
       ===================================================== */}
 
       <audio
-        ref={audioRef}
-        src={song1}
-        loop
+        ref={musicaRef}
+        preload="auto"
       />
 
-      <audio
-        ref={gallinaRef}
-        src={gallina}
-      />
 
-      <audio
-        ref={grillosRef}
-        src={grillos}
-        loop
-      />
+      {Array.from({
+        length:
+          maxEfectosSimultaneos
+      }).map((_, i) => (
+
+        <audio
+          key={`efecto-${i}`}
+          preload="auto"
+          ref={(el) => {
+
+            efectosRefs.current[i] =
+              el;
+
+          }}
+        />
+
+      ))}
 
 
       {/* =====================================================
@@ -473,6 +1895,7 @@ const InterfazCap = () => {
       ===================================================== */}
 
       <motion.div
+
         className="interfaz-wrapper"
 
         initial={{
@@ -493,8 +1916,8 @@ const InterfazCap = () => {
             visualDuration: 0.4,
             bounce: 0.5
           }
-
         }}
+
       >
 
         <div className="interfaz-cap">
@@ -513,6 +1936,87 @@ const InterfazCap = () => {
                 ref={gameAreaRef}
               >
 
+
+                {/* =================================================
+                    SUBTÍTULOS
+                ================================================= */}
+
+                <AnimatePresence mode="wait">
+
+                  {subtitulosActivos &&
+                    textosEscenaActual.length > 0 && (
+
+                    <React.Fragment
+                      key={`subtitulo-wrap-${escena}`}
+                    >
+
+                      <motion.div
+
+                        className="subtitulos-backdrop activo"
+
+                        initial={{
+                          opacity: 0
+                        }}
+
+                        animate={{
+                          opacity: 1
+                        }}
+
+                        exit={{
+                          opacity: 0
+                        }}
+
+                        transition={{
+                          duration: 0.3
+                        }}
+
+                      />
+
+
+                      {textosEscenaActual.map(
+                        (texto, i) => (
+
+                        <motion.div
+
+                          key={`sub-${escena}-${i}`}
+
+                          className={`subtitulos subtitulos-${i}`}
+
+                          initial={{
+                            opacity: 0,
+                            y: 20
+                          }}
+
+                          animate={{
+                            opacity: 1,
+                            y: 0
+                          }}
+
+                          exit={{
+                            opacity: 0,
+                            y: 20
+                          }}
+
+                          transition={{
+                            duration: 0.25,
+                            delay: i * 0.12
+                          }}
+
+                        >
+
+                          {texto}
+
+                        </motion.div>
+
+                      ))}
+
+                    </React.Fragment>
+
+                  )}
+
+                </AnimatePresence>
+
+
                 <div className="anim-label">
 
                   <AnimatePresence mode="wait">
@@ -525,6 +2029,7 @@ const InterfazCap = () => {
                     {escena === 1 && (
 
                       <motion.div
+
                         key="escena1"
 
                         initial={{
@@ -563,12 +2068,17 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <LuisPlugin
                           ref={luisRef}
-                          cambiarEscena={cambiarEscena}
-                          onRecoger={recogerObjeto}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+                          onRecoger={
+                            recogerObjeto
+                          }
                           manzanaRecogida={
                             manzanaRecogida
                           }
@@ -589,6 +2099,7 @@ const InterfazCap = () => {
                     {escena === 2 && (
 
                       <motion.div
+
                         key="escena2"
 
                         initial={{
@@ -627,11 +2138,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Parte2dela1
                           ref={parte2Ref}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -646,6 +2160,7 @@ const InterfazCap = () => {
                     {escena === 3 && (
 
                       <motion.div
+
                         key="escena3"
 
                         initial={{
@@ -684,11 +2199,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Parte3dela1
                           ref={parte3Ref}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -703,6 +2221,7 @@ const InterfazCap = () => {
                     {escena === 4 && (
 
                       <motion.div
+
                         key="escena4"
 
                         initial={{
@@ -741,11 +2260,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Escena2alfa
                           ref={escena2AlfaRef}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -760,6 +2282,7 @@ const InterfazCap = () => {
                     {escena === 5 && (
 
                       <motion.div
+
                         key="escena5"
 
                         initial={{
@@ -798,11 +2321,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Escena2beta
                           ref={escena2BetaRef}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -817,6 +2343,7 @@ const InterfazCap = () => {
                     {escena === 6 && (
 
                       <motion.div
+
                         key="escena6"
 
                         initial={{
@@ -855,11 +2382,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Escena3
                           ref={escena3Ref}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -874,6 +2404,7 @@ const InterfazCap = () => {
                     {escena === 7 && (
 
                       <motion.div
+
                         key="escena7"
 
                         initial={{
@@ -912,11 +2443,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Escena4
                           ref={escena4Ref}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -931,6 +2465,7 @@ const InterfazCap = () => {
                     {escena === 8 && (
 
                       <motion.div
+
                         key="escena8"
 
                         initial={{
@@ -969,11 +2504,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Escena6
                           ref={escena6Ref}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -988,6 +2526,7 @@ const InterfazCap = () => {
                     {escena === 9 && (
 
                       <motion.div
+
                         key="escena9"
 
                         initial={{
@@ -1026,11 +2565,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Escena7
                           ref={escena7Ref}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -1045,6 +2587,7 @@ const InterfazCap = () => {
                     {escena === 10 && (
 
                       <motion.div
+
                         key="escena10"
 
                         initial={{
@@ -1083,11 +2626,14 @@ const InterfazCap = () => {
                           width: "100%",
                           height: "100%"
                         }}
+
                       >
 
                         <Escena8
                           ref={escena8Ref}
-                          cambiarEscena={cambiarEscena}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
                         />
 
                       </motion.div>
@@ -1121,12 +2667,26 @@ const InterfazCap = () => {
               <div className="col-auto d-flex gap-2">
 
 
-                {/* T */}
+                {/* SUBTÍTULOS */}
 
-                <div className="btn-ctrl">
+                <div
+
+                  className="btn-ctrl"
+
+                  onClick={
+                    toggleSubtitulos
+                  }
+
+                  style={{
+                    cursor: "pointer"
+                  }}
+
+                >
 
                   <motion.img
+
                     className="iconos"
+
                     src="./T.png"
 
                     whileHover={{
@@ -1136,26 +2696,30 @@ const InterfazCap = () => {
                     whileTap={{
                       scale: 0.8
                     }}
+
                   />
 
                 </div>
 
 
-                {/* =================================================
-                    PLAY / PAUSA
-                ================================================= */}
+                {/* PLAY / PAUSA */}
 
                 <div
+
                   className="btn-ctrl"
 
-                  onClick={togglePausa}
+                  onClick={
+                    togglePausa
+                  }
 
                   style={{
                     cursor: "pointer"
                   }}
+
                 >
 
                   <motion.img
+
                     className="iconos"
 
                     src={
@@ -1171,27 +2735,32 @@ const InterfazCap = () => {
                     whileTap={{
                       scale: 0.8
                     }}
+
                   />
 
                 </div>
 
 
-                {/* =================================================
-                    MÚSICA
-                ================================================= */}
+                {/* MÚSICA ON / OFF */}
 
                 <div
+
                   className="btn-ctrl"
 
-                  onClick={toggleMusic}
+                  onClick={
+                    toggleMusic
+                  }
 
                   style={{
                     cursor: "pointer"
                   }}
+
                 >
 
                   <motion.img
+
                     className="iconos"
+
                     src="./Volumen.png"
 
                     whileHover={{
@@ -1201,9 +2770,76 @@ const InterfazCap = () => {
                     whileTap={{
                       scale: 0.8
                     }}
+
                   />
 
                 </div>
+
+
+                {/* =================================================
+                    CONTROLES DE VOLUMEN
+                ================================================= */}
+
+               <div className="audio-controls">
+
+  {/* 🎵 MÚSICA */}
+
+  <div className="volume-control">
+
+    <span className="volume-icon">
+     🍂
+    </span>
+
+    <input
+      className="volume-slider"
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+      value={volumenMusica}
+      onChange={(e) =>
+        setVolumenMusica(
+          Number(e.target.value)
+        )
+      }
+    />
+
+    <span className="volume-number">
+      {Math.round(volumenMusica * 100)}%
+    </span>
+
+  </div>
+
+
+  {/* 🔊 EFECTOS */}
+
+  <div className="volume-control">
+
+    <span className="volume-icon">
+      🔊
+    </span>
+
+    <input
+      className="volume-slider"
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+      value={volumenEfectos}
+      onChange={(e) =>
+        setVolumenEfectos(
+          Number(e.target.value)
+        )
+      }
+    />
+
+    <span className="volume-number">
+      {Math.round(volumenEfectos * 100)}%
+    </span>
+
+  </div>
+
+</div>
 
               </div>
 
@@ -1220,10 +2856,14 @@ const InterfazCap = () => {
                   {/* ATRÁS */}
 
                   <motion.img
+
                     className="flechitas"
+
                     src="./Atras.png"
 
-                    onClick={retroceder}
+                    onClick={
+                      retroceder
+                    }
 
                     style={{
                       cursor: "pointer"
@@ -1232,6 +2872,7 @@ const InterfazCap = () => {
                     whileTap={{
                       scale: 0.85
                     }}
+
                   />
 
 
@@ -1247,10 +2888,14 @@ const InterfazCap = () => {
                   {/* ADELANTE */}
 
                   <motion.img
+
                     className="flechitas"
+
                     src="./Adelante.png"
 
-                    onClick={avanzar}
+                    onClick={
+                      avanzar
+                    }
 
                     style={{
                       cursor: "pointer"
@@ -1259,6 +2904,7 @@ const InterfazCap = () => {
                     whileTap={{
                       scale: 0.85
                     }}
+
                   />
 
                 </div>
@@ -1271,13 +2917,17 @@ const InterfazCap = () => {
               ================================================= */}
 
               <div
+
                 className="col-auto d-flex align-items-center gap-2"
 
-                onClick={toggleFullscreen}
+                onClick={
+                  toggleFullscreen
+                }
 
                 style={{
                   cursor: "pointer"
                 }}
+
               >
 
               </div>
@@ -1302,35 +2952,51 @@ const InterfazCap = () => {
 
             <div className="row g-2">
 
-              {objetos.map((obj, i) => (
+              {objetos.map(
+                (obj, i) => (
 
                 <div
+
                   className="col-auto"
+
                   key={i}
+
                 >
 
                   <div
+
                     className="slot"
 
                     style={{
                       marginLeft: "10px"
                     }}
+
                   >
 
                     {obj === "manzana" && (
 
                       <img
+
                         src={manzana}
+
                         alt="manzana"
 
                         style={{
+
                           width: "90%",
+
                           height: "90%",
+
                           objectFit: "contain",
+
                           left: "2px",
+
                           position: "relative",
+
                           marginTop: "2px"
+
                         }}
+
                       />
 
                     )}
@@ -1344,7 +3010,6 @@ const InterfazCap = () => {
             </div>
 
           </div>
-
 
         </div>
 

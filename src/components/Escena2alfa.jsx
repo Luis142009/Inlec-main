@@ -14,6 +14,7 @@ import cartelash from "../assets/cartelash.webm";
 import kris from "../assets/kristoferson.webm";
 import kriscartel from "../assets/kriscartel.webm";
 
+import intro from "../assets/audio/song1.mp3"
 
 export const Escena2alfa = forwardRef(
   ({ cambiarEscena }, ref) => {
@@ -239,41 +240,50 @@ export const Escena2alfa = forwardRef(
       });
 
 
-      // =====================================================
-      // 6. PASAR HACIA ASH
-      // =====================================================
+  // =====================================================
+// 6. PASAR HACIA ASH
+// =====================================================
 
-      tl.to(escena, {
+tl.to(escena, {
 
-        scale: 3,
+  scale: 3,
 
-        x: 560,
+  x: 560,
 
-        y: -190,
+  y: -190,
 
-        duration: 9,
+  duration: 7,
 
-        ease: "power2.inOut",
+  ease: "power2.inOut"
+
+});
 
 
-       
+// =====================================================
+// PAUSA DESPUÉS DEL MOVIMIENTO
+// =====================================================
 
-        // =================================================
-        // CUANDO TERMINA EL ÚLTIMO MOVIMIENTO
-        // PASAMOS A ESCENA 5
-        // =================================================
+tl.to({}, {
 
-        onComplete: () => {
+  duration: 3
 
-          if (cambiarEscena) {
+});
 
-            cambiarEscena(5);
 
-          }
+// =====================================================
+// CUANDO TERMINA LA PAUSA
+// PASAMOS A ESCENA 5
+// =====================================================
 
-        }
+tl.call(() => {
 
-      });
+  if (cambiarEscena) {
+
+    cambiarEscena(5);
+
+  }
+
+});
 
 
       // =====================================================

@@ -17,7 +17,7 @@ import tierrass from "../assets/tierrita.webm";
 import arbol from "../assets/arbol.webm";
 import sol from "../assets/sol.webm";
 import hierba from "../assets/hierboza.webm";
-
+import escena1 from "../assets/audio/escena1.mp3";
 import tocar from "../assets/audio/tocar.mp3";
 
 import "../stylesheets/fondo.css";

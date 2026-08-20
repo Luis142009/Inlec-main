@@ -38,16 +38,43 @@
 }
 
 .encuentra {
-   max-width: 5px;
- position: absolute;
+
+  max-width: 5px;
+
+  position: absolute;
+
   left: 15%;
+
   font-size: 30px;
-   transition-duration: .2s;
-   margin-top: 220px;
-   cursor: pointer;
-   z-index: 26;
-   font-family: 'Dacherry';
-   color: white;
+
+  transition-duration: .2s;
+
+  margin-top: 220px;
+
+  cursor: pointer; 
+  
+
+  z-index: 26;
+
+  font-family: 'Dacherry';
+
+  color: #ffefe9;
+
+  /* ===========================
+     RECUBRIMIENTO CAFÉ FUERTE
+  =========================== */
+
+  -webkit-text-stroke: 5px #642909;
+
+  paint-order: stroke fill;
+
+  /* ===========================
+     SOMBRA PROFUNDA
+  =========================== */
+
+  text-shadow:
+    2px 2px 0 #461906,
+    4px 4px 0 #883508;
 }
 
 .sr {
