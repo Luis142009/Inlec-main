@@ -28,7 +28,7 @@ import grillos from "../assets/audio/grillos.mp3";
 import escena1 from "../assets/audio/escena1.mp3";
 import escena1sra from "../assets/audio/escena1sra.mp3";
 import ash from "../assets/audio/escena2ash.mp3";
-import kristo from "../assets/audio/escena2Kristo.mp3";
+import kristo from "../assets/audio/escena2kristo.mp3";
 import wawas from "../assets/audio/wawas.mp3";
 import es3 from "../assets/audio/escena3.mp3";
 import sonido3 from "../assets/audio/sonido3.mp3";
