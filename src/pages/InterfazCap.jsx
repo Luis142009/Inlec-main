@@ -15,7 +15,12 @@ import { Escena6 } from "../components/Escena6";
 import { Escena7 } from "../components/Escena7";
 import { Escena8 } from "../components/Escena8";
 
+import LibroPersonajes from "../components/LibroPersonajes";
+
 import "../stylesheets/Textos.css";
+import "../stylesheets/ObjetosModal.css";
+
+import "../stylesheets/noticia-objetos.css";
 
 import {
   motion,
@@ -32,13 +37,13 @@ import kristo from "../assets/audio/escena2kristo.mp3";
 import wawas from "../assets/audio/wawas.mp3";
 import es3 from "../assets/audio/escena3.mp3";
 import sonido3 from "../assets/audio/sonido3.mp3";
-import audio4s from "../assets/audio/audio4s.mp3"
-import audio6 from "../assets/audio/audio6.mp3"
-import robo from "../assets/audio/robo.mp3"
-import Escenas7 from "../assets/audio/Escenas7.mp3"
-import audio7 from "../assets/audio/audio7.mp3"
-import fondo8 from "../assets/audio/fondo8.mp3"
-import audio8 from "../assets/audio/audio8.mp3"
+import audio4s from "../assets/audio/audio4s.mp3";
+import audio6 from "../assets/audio/audio6.mp3";
+import robo from "../assets/audio/robo.mp3";
+import Escenas7 from "../assets/audio/Escenas7.mp3";
+import audio7 from "../assets/audio/audio7.mp3";
+import fondo8 from "../assets/audio/fondo8.mp3";
+import audio8 from "../assets/audio/audio8.mp3";
 
 import manzana from "../assets/manzana.svg";
 
@@ -111,16 +116,9 @@ const InterfazCap = () => {
 
   const audiosPorEscena = {
 
-    // =======================================================
-    // ESCENA 1
-    // =======================================================
-
     1: {
-
       musica: song1,
-
       grupoMusica: "inicio",
-
       grupoEfectos: "escena1",
 
       efectos: [
@@ -139,11 +137,6 @@ const InterfazCap = () => {
           persistente: false
         },
 
-        // =================================================
-        // ESCENA1
-        // CONTINÚA HASTA ESCENA 2
-        // =================================================
-
         {
           src: escena1,
           volumen: 3,
@@ -153,37 +146,20 @@ const InterfazCap = () => {
         }
 
       ]
-
     },
 
-
-    // =======================================================
-    // ESCENA 2
-    // =======================================================
 
     2: {
-
       musica: song1,
-
       grupoMusica: "inicio",
-
       grupoEfectos: "escena2",
-
       efectos: []
-
     },
 
 
-    // =======================================================
-    // ESCENA 3
-    // =======================================================
-
     3: {
-
       musica: song1,
-
       grupoMusica: "inicio",
-
       grupoEfectos: "escena3",
 
       efectos: [
@@ -196,20 +172,12 @@ const InterfazCap = () => {
         }
 
       ]
-
     },
 
 
-    // =======================================================
-    // ESCENA 4
-    // =======================================================
-
     4: {
-
       musica: song1,
-
       grupoMusica: "inicio",
-
       grupoEfectos: "escena4",
 
       efectos: [
@@ -217,7 +185,6 @@ const InterfazCap = () => {
         {
           src: kristo,
           volumen: 3,
-         
           persistente: false,
           secuencia: "kristo"
         },
@@ -225,26 +192,17 @@ const InterfazCap = () => {
         {
           src: ash,
           volumen: 3,
-         
           persistente: false,
           secuencia: "ash"
         }
 
       ]
-
     },
 
 
-    // =======================================================
-    // ESCENA 5
-    // =======================================================
-
     5: {
-
       musica: song1,
-
       grupoMusica: "inicio",
-
       grupoEfectos: "escena5",
 
       efectos: [
@@ -252,25 +210,16 @@ const InterfazCap = () => {
         {
           src: wawas,
           volumen: 3,
-        
           persistente: false
         }
 
       ]
-
     },
 
 
-    // =======================================================
-    // ESCENA 6
-    // =======================================================
-
     6: {
-
       musica: sonido3,
-
       grupoMusica: "escena6",
-
       grupoEfectos: "escena6",
 
       efectos: [
@@ -278,92 +227,67 @@ const InterfazCap = () => {
         {
           src: es3,
           volumen: 3,
-         
           persistente: false
         }
 
       ]
-
     },
 
-
-    // =======================================================
-    // ESCENA 7
-    // =======================================================
 
     7: {
-
       musica: audio4s,
-
       grupoMusica: "escena7",
-
       grupoEfectos: "escena7",
-
       efectos: []
-
     },
 
-
-    // =======================================================
-    // ESCENA 8
-    // =======================================================
 
     8: {
-
       musica: robo,
-
       grupoMusica: "escena8",
-
       grupoEfectos: "escena8",
 
-      efectos: [{
-        src: audio6,
-          volumen: 3,
-     
-          persistente: false
-      }]
+      efectos: [
 
+        {
+          src: audio6,
+          volumen: 3,
+          persistente: false
+        }
+
+      ]
     },
 
-
-    // =======================================================
-    // ESCENA 9
-    // =======================================================
 
     9: {
-
       musica: Escenas7,
-
       grupoMusica: "escena9",
-
       grupoEfectos: "escena9",
 
-      efectos: [{
-        src: audio7,
-        volumen: 3,
-      }]
+      efectos: [
 
+        {
+          src: audio7,
+          volumen: 3
+        }
+
+      ]
     },
 
 
-    // =======================================================
-    // ESCENA 10
-    // =======================================================
-
     10: {
-
       musica: fondo8,
-
       grupoMusica: "escena10",
-
       grupoEfectos: "escena10",
 
-      efectos: [{
+      efectos: [
 
-        src: audio8,
-        volumen: 3,
-      }]
+        {
+          src: audio8,
+          volumen: 3
+        }
 
+      ]
     }
 
   };
@@ -376,19 +300,12 @@ const InterfazCap = () => {
   const audioFallback = {
 
     musica: song1,
-
     grupoMusica: "fallback",
-
     grupoEfectos: "fallback",
-
     efectos: []
 
   };
 
-
-  // =========================================================
-  // OBTENER AUDIO DE ESCENA
-  // =========================================================
 
   const obtenerAudioEscena = (numeroEscena) => {
 
@@ -422,11 +339,10 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // REFS DE AUDIO
+  // REFS AUDIO
   // =========================================================
 
   const musicaRef = useRef(null);
-
   const efectosRefs = useRef([]);
 
 
@@ -437,21 +353,12 @@ const InterfazCap = () => {
   const [isPlaying, setIsPlaying] =
     useState(false);
 
-
-  // =========================================================
-  // VOLUMEN GLOBAL
-  // =========================================================
-
   const [volumenMusica, setVolumenMusica] =
     useState(0.7);
 
   const [volumenEfectos, setVolumenEfectos] =
     useState(0.7);
 
-
-  // =========================================================
-  // GRUPOS ACTUALES
-  // =========================================================
 
   const grupoMusicaRef =
     useRef(null);
@@ -461,7 +368,7 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // WEB AUDIO API
+  // WEB AUDIO
   // =========================================================
 
   const audioContextRef =
@@ -473,41 +380,11 @@ const InterfazCap = () => {
   const efectosGainRef =
     useRef([]);
 
-
-  // =========================================================
-  // VOLUMEN BASE DE CADA EFECTO
-  // =========================================================
-  //
-  // Aquí guardamos el "volumen: 3", "volumen: 0.3", etc.
-  //
-  // El slider global NO reemplaza ese valor.
-  //
-  // Ejemplo:
-  //
-  // volumen: 3
-  // slider: 0.5
-  //
-  // resultado:
-  //
-  // 3 × 0.5 = 1.5
-  //
-  // =========================================================
-
   const efectosVolumenBaseRef =
     useRef([]);
 
-
-  // =========================================================
-  // EFECTOS PERSISTENTES
-  // =========================================================
-
   const efectosPersistentesRef =
     useRef([]);
-
-
-  // =========================================================
-  // SECUENCIA ESCENA 4
-  // =========================================================
 
   const secuenciaEscena4Activa =
     useRef(false);
@@ -532,16 +409,13 @@ const InterfazCap = () => {
         );
 
         return null;
-
       }
 
       audioContextRef.current =
         new AudioContext();
-
     }
 
     return audioContextRef.current;
-
   };
 
 
@@ -563,10 +437,6 @@ const InterfazCap = () => {
     }
 
 
-    // =======================================================
-    // MÚSICA
-    // =======================================================
-
     if (tipo === "musica") {
 
       if (!musicaGainRef.current) {
@@ -580,24 +450,15 @@ const InterfazCap = () => {
           ctx.createGain();
 
         source.connect(gain);
-
-        gain.connect(
-          ctx.destination
-        );
+        gain.connect(ctx.destination);
 
         musicaGainRef.current =
           gain;
-
       }
 
       return musicaGainRef.current;
-
     }
 
-
-    // =======================================================
-    // EFECTOS
-    // =======================================================
 
     if (!efectosGainRef.current[indice]) {
 
@@ -610,42 +471,28 @@ const InterfazCap = () => {
         ctx.createGain();
 
       source.connect(gain);
-
-      gain.connect(
-        ctx.destination
-      );
+      gain.connect(ctx.destination);
 
       efectosGainRef.current[indice] =
         gain;
-
     }
 
     return efectosGainRef.current[indice];
-
   };
 
 
   // =========================================================
-  // ACTUALIZAR VOLUMEN GLOBAL
+  // ACTUALIZAR VOLUMEN
   // =========================================================
 
   useEffect(() => {
-
-    // =======================================================
-    // 🎵 MÚSICA
-    // =======================================================
 
     if (musicaGainRef.current) {
 
       musicaGainRef.current.gain.value =
         volumenMusica;
-
     }
 
-
-    // =======================================================
-    // 🔊 EFECTOS
-    // =======================================================
 
     efectosGainRef.current.forEach(
       (gain, indice) => {
@@ -658,7 +505,8 @@ const InterfazCap = () => {
           efectosVolumenBaseRef.current[indice] ?? 1;
 
         gain.gain.value =
-          volumenBase * volumenEfectos;
+          volumenBase *
+          volumenEfectos;
 
       }
     );
@@ -712,19 +560,13 @@ const InterfazCap = () => {
           puedeContinuar
         ) {
 
-          console.log(
-            `🔊 Efecto ${indice} CONTINÚA hasta escena ${persistente.hastaEscena}`
-          );
-
           return;
-
         }
 
 
         try {
 
           audio.pause();
-
           audio.currentTime = 0;
 
           efectosPersistentesRef.current[indice] =
@@ -744,12 +586,11 @@ const InterfazCap = () => {
 
       }
     );
-
   };
 
 
   // =========================================================
-  // DETENER TODO EL AUDIO
+  // DETENER TODO AUDIO
   // =========================================================
 
   const detenerTodoElAudio = () => {
@@ -760,7 +601,6 @@ const InterfazCap = () => {
 
       musicaRef.current.currentTime =
         0;
-
     }
 
 
@@ -775,12 +615,11 @@ const InterfazCap = () => {
 
     grupoEfectosRef.current =
       null;
-
   };
 
 
   // =========================================================
-  // REPRODUCIR EFECTO NORMAL
+  // REPRODUCIR EFECTO
   // =========================================================
 
   const reproducirEfecto = (
@@ -811,20 +650,12 @@ const InterfazCap = () => {
         0;
 
 
-      // =====================================================
-      // VOLUMEN BASE
-      // =====================================================
-
       const volumenBase =
         efecto.volumen ?? 0.5;
 
       efectosVolumenBaseRef.current[indice] =
         volumenBase;
 
-
-      // =====================================================
-      // PERSISTENCIA
-      // =====================================================
 
       if (
         efecto.persistente &&
@@ -838,21 +669,12 @@ const InterfazCap = () => {
 
         };
 
-        console.log(
-          `🔊 Efecto ${indice} será persistente hasta escena ${efecto.hastaEscena}`
-        );
-
       } else {
 
         efectosPersistentesRef.current[indice] =
           null;
-
       }
 
-
-      // =====================================================
-      // GANANCIA
-      // =====================================================
 
       const gain =
         configurarGanancia(
@@ -876,13 +698,8 @@ const InterfazCap = () => {
             volumenEfectos,
             1
           );
-
       }
 
-
-      // =====================================================
-      // REPRODUCIR
-      // =====================================================
 
       audio.play()
         .then(() => {
@@ -911,12 +728,11 @@ const InterfazCap = () => {
       );
 
     }
-
   };
 
 
   // =========================================================
-  // SECUENCIA KRISTO → ASH
+  // SECUENCIA ESCENA 4
   // =========================================================
 
   const reproducirSecuenciaEscena4 = () => {
@@ -936,12 +752,9 @@ const InterfazCap = () => {
       true;
 
 
-    // =======================================================
-    // KRISTO
-    // =======================================================
-
     const kristoConfig =
       audiosPorEscena[4].efectos[0];
+
 
     kristoAudio.pause();
 
@@ -972,28 +785,16 @@ const InterfazCap = () => {
       kristoGain.gain.value =
         kristoConfig.volumen *
         volumenEfectos;
-
     }
 
-
-    // =======================================================
-    // CUANDO KRISTO TERMINE → ASH
-    // =======================================================
 
     kristoAudio.onended = () => {
 
       if (
         !secuenciaEscena4Activa.current
       ) {
-
         return;
-
       }
-
-
-      console.log(
-        "🦊 KRISTO TERMINÓ → AHORA ASH"
-      );
 
 
       const ashConfig =
@@ -1029,18 +830,10 @@ const InterfazCap = () => {
         ashGain.gain.value =
           ashConfig.volumen *
           volumenEfectos;
-
       }
 
 
       ashAudio.play()
-        .then(() => {
-
-          console.log(
-            "🔥 ASH INICIADO"
-          );
-
-        })
         .catch(
           (error) => {
 
@@ -1055,18 +848,7 @@ const InterfazCap = () => {
     };
 
 
-    // =======================================================
-    // INICIAR KRISTO
-    // =======================================================
-
     kristoAudio.play()
-      .then(() => {
-
-        console.log(
-          "🦊 KRISTO INICIADO"
-        );
-
-      })
       .catch(
         (error) => {
 
@@ -1077,12 +859,11 @@ const InterfazCap = () => {
 
         }
       );
-
   };
 
 
   // =========================================================
-  // REPRODUCIR AUDIO DE ESCENA
+  // REPRODUCIR AUDIO ESCENA
   // =========================================================
 
   const reproducirAudioDeEscena = async (
@@ -1094,12 +875,6 @@ const InterfazCap = () => {
       obtenerAudioEscena(
         numeroEscena
       );
-
-
-    console.log(
-      "🎬 ESCENA:",
-      numeroEscena
-    );
 
 
     // =======================================================
@@ -1120,20 +895,10 @@ const InterfazCap = () => {
         config.grupoMusica;
 
 
-      // =====================================================
-      // MISMA MÚSICA
-      // =====================================================
-
       if (
         mismaMusica &&
         !forzarReinicio
       ) {
-
-        console.log(
-          "🎵 CONTINÚA MÚSICA:",
-          config.grupoMusica
-        );
-
 
         if (musica.paused) {
 
@@ -1148,7 +913,6 @@ const InterfazCap = () => {
             ) {
 
               await ctx.resume();
-
             }
 
             await musica.play();
@@ -1161,17 +925,9 @@ const InterfazCap = () => {
             );
 
           }
-
         }
 
-      }
-
-
-      // =====================================================
-      // MÚSICA NUEVA
-      // =====================================================
-
-      else {
+      } else {
 
         try {
 
@@ -1198,7 +954,6 @@ const InterfazCap = () => {
 
             gain.gain.value =
               volumenMusica;
-
           }
 
 
@@ -1208,12 +963,6 @@ const InterfazCap = () => {
 
           await musica.play();
 
-
-          console.log(
-            "🎵 MÚSICA NUEVA:",
-            config.grupoMusica
-          );
-
         } catch (error) {
 
           console.log(
@@ -1222,9 +971,7 @@ const InterfazCap = () => {
           );
 
         }
-
       }
-
     }
 
 
@@ -1237,10 +984,6 @@ const InterfazCap = () => {
       config.grupoEfectos;
 
 
-    // =====================================================
-    // CAMBIO DE GRUPO
-    // =====================================================
-
     if (nuevoGrupoEfectos) {
 
       detenerTodosLosEfectos(
@@ -1249,14 +992,12 @@ const InterfazCap = () => {
 
       grupoEfectosRef.current =
         config.grupoEfectos;
-
     }
 
 
-    // =====================================================
+    // =======================================================
     // ESCENA 4
-    // KRISTO → ASH
-    // =====================================================
+    // =======================================================
 
     if (
       numeroEscena === 4 &&
@@ -1266,13 +1007,12 @@ const InterfazCap = () => {
       reproducirSecuenciaEscena4();
 
       return;
-
     }
 
 
-    // =====================================================
+    // =======================================================
     // EFECTOS NORMALES
-    // =====================================================
+    // =======================================================
 
     const efectos =
       config.efectos || [];
@@ -1289,7 +1029,6 @@ const InterfazCap = () => {
 
       }
     );
-
   };
 
 
@@ -1326,11 +1065,6 @@ const InterfazCap = () => {
 
         } else {
 
-          console.log(
-            "🎵 MÚSICA CONTINÚA SIN CORTARSE"
-          );
-
-
           const nuevoGrupoEfectos =
             grupoEfectosRef.current !==
             config.grupoEfectos;
@@ -1343,9 +1077,7 @@ const InterfazCap = () => {
             );
 
           }
-
         }
-
       };
 
 
@@ -1357,7 +1089,7 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // PAUSAR AUDIO ACTUAL
+  // PAUSAR AUDIO
   // =========================================================
 
   const pausarAudioActual = () => {
@@ -1380,7 +1112,6 @@ const InterfazCap = () => {
 
       }
     );
-
   };
 
 
@@ -1390,29 +1121,15 @@ const InterfazCap = () => {
 
   const toggleMusic = async () => {
 
-
-    // =======================================================
-    // APAGAR
-    // =======================================================
-
     if (isPlaying) {
 
       pausarAudioActual();
 
       setIsPlaying(false);
 
-      console.log(
-        "🔇 Audio detenido"
-      );
-
       return;
-
     }
 
-
-    // =======================================================
-    // ACTIVAR AUDIO CONTEXT
-    // =======================================================
 
     const ctx =
       obtenerAudioContext();
@@ -1428,22 +1145,12 @@ const InterfazCap = () => {
     }
 
 
-    // =======================================================
-    // REPRODUCIR
-    // =======================================================
-
     await reproducirAudioDeEscena(
       escena
     );
 
 
     setIsPlaying(true);
-
-
-    console.log(
-      "🔊 Audio activado"
-    );
-
   };
 
 
@@ -1477,12 +1184,11 @@ const InterfazCap = () => {
       );
 
     }
-
   };
 
 
   // =========================================================
-  // REFERENCIAS DE ESCENAS
+  // REFERENCIAS ESCENAS
   // =========================================================
 
   const luisRef =
@@ -1535,6 +1241,102 @@ const InterfazCap = () => {
 
 
   // =========================================================
+  // OBJETO SELECCIONADO
+  // =========================================================
+
+  const [objetoSeleccionado, setObjetoSeleccionado] =
+    useState(null);
+
+
+  // =========================================================
+  // INFORMACIÓN OBJETOS
+  // =========================================================
+
+  const informacionObjetos = {
+
+    manzana: {
+
+      nombre: "Manzana",
+
+      descripcion:
+        "Una manzana roja, fresca y jugosa. Fue encontrada bajo el gran árbol. Parece tener estrellas?",
+
+      imagen: manzana,
+
+      detalle:
+        "Objeto encontrado bajo el gran árbol."
+
+    }
+
+  };
+
+
+  // =========================================================
+  // ABRIR DESCRIPCIÓN
+  // =========================================================
+
+  const abrirDescripcionObjeto = (objeto) => {
+
+    if (!objeto) {
+      return;
+    }
+
+    if (!informacionObjetos[objeto]) {
+      return;
+    }
+
+    setObjetoSeleccionado(objeto);
+
+  };
+
+
+  // =========================================================
+  // CERRAR DESCRIPCIÓN
+  // =========================================================
+
+  const cerrarDescripcionObjeto = () => {
+
+    setObjetoSeleccionado(null);
+
+  };
+
+
+  // =========================================================
+  // ESCAPE
+  // =========================================================
+
+  useEffect(() => {
+
+    const manejarEscape = (event) => {
+
+      if (event.key === "Escape") {
+
+        cerrarDescripcionObjeto();
+
+      }
+
+    };
+
+
+    window.addEventListener(
+      "keydown",
+      manejarEscape
+    );
+
+
+    return () => {
+
+      window.removeEventListener(
+        "keydown",
+        manejarEscape
+      );
+
+    };
+
+  }, []);
+
+
+  // =========================================================
   // RECOGER OBJETO
   // =========================================================
 
@@ -1542,10 +1344,18 @@ const InterfazCap = () => {
 
     setObjetos(prev => {
 
+      if (prev.includes(objeto)) {
+
+        return prev;
+
+      }
+
+
       const nuevo = [...prev];
 
       const i =
         nuevo.indexOf(null);
+
 
       if (i !== -1) {
 
@@ -1553,6 +1363,7 @@ const InterfazCap = () => {
           objeto;
 
       }
+
 
       return nuevo;
 
@@ -1582,13 +1393,14 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // TEXTOS ESCENA ACTUAL
+  // TEXTO ESCENA ACTUAL
   // =========================================================
 
   const textosEscenaActual =
     subtitulos[escena]
 
       ? (
+
           Array.isArray(
             subtitulos[escena]
           )
@@ -1596,6 +1408,7 @@ const InterfazCap = () => {
             ? subtitulos[escena]
 
             : [subtitulos[escena]]
+
         )
 
       : [];
@@ -1658,7 +1471,9 @@ const InterfazCap = () => {
 
 
     if (!refActual?.current) {
+
       return;
+
     }
 
 
@@ -1699,13 +1514,13 @@ const InterfazCap = () => {
 
 
     if (!refActual?.current) {
+
       return;
+
     }
 
 
-    // =======================================================
     // REANUDAR
-    // =======================================================
 
     if (pausado) {
 
@@ -1749,9 +1564,7 @@ const InterfazCap = () => {
     }
 
 
-    // =======================================================
     // SI NUNCA HA EMPEZADO
-    // =======================================================
 
     if (
       refActual.current.estaIniciada
@@ -1780,9 +1593,7 @@ const InterfazCap = () => {
     }
 
 
-    // =======================================================
     // PAUSAR
-    // =======================================================
 
     if (
       refActual.current.pausarTodo
@@ -2099,7 +1910,6 @@ const InterfazCap = () => {
                     {escena === 2 && (
 
                       <motion.div
-
                         key="escena2"
 
                         initial={{
@@ -2160,7 +1970,6 @@ const InterfazCap = () => {
                     {escena === 3 && (
 
                       <motion.div
-
                         key="escena3"
 
                         initial={{
@@ -2221,7 +2030,6 @@ const InterfazCap = () => {
                     {escena === 4 && (
 
                       <motion.div
-
                         key="escena4"
 
                         initial={{
@@ -2282,7 +2090,6 @@ const InterfazCap = () => {
                     {escena === 5 && (
 
                       <motion.div
-
                         key="escena5"
 
                         initial={{
@@ -2343,7 +2150,6 @@ const InterfazCap = () => {
                     {escena === 6 && (
 
                       <motion.div
-
                         key="escena6"
 
                         initial={{
@@ -2404,7 +2210,6 @@ const InterfazCap = () => {
                     {escena === 7 && (
 
                       <motion.div
-
                         key="escena7"
 
                         initial={{
@@ -2465,7 +2270,6 @@ const InterfazCap = () => {
                     {escena === 8 && (
 
                       <motion.div
-
                         key="escena8"
 
                         initial={{
@@ -2526,7 +2330,6 @@ const InterfazCap = () => {
                     {escena === 9 && (
 
                       <motion.div
-
                         key="escena9"
 
                         initial={{
@@ -2587,7 +2390,6 @@ const InterfazCap = () => {
                     {escena === 10 && (
 
                       <motion.div
-
                         key="escena10"
 
                         initial={{
@@ -2661,7 +2463,7 @@ const InterfazCap = () => {
 
 
               {/* =================================================
-                  BOTONES
+                  CONTROLES IZQUIERDA
               ================================================= */}
 
               <div className="col-auto d-flex gap-2">
@@ -2670,33 +2472,24 @@ const InterfazCap = () => {
                 {/* SUBTÍTULOS */}
 
                 <div
-
                   className="btn-ctrl"
-
                   onClick={
                     toggleSubtitulos
                   }
-
                   style={{
                     cursor: "pointer"
                   }}
-
                 >
 
                   <motion.img
-
                     className="iconos"
-
                     src="./T.png"
-
                     whileHover={{
                       scale: 1.2
                     }}
-
                     whileTap={{
                       scale: 0.8
                     }}
-
                   />
 
                 </div>
@@ -2705,150 +2498,153 @@ const InterfazCap = () => {
                 {/* PLAY / PAUSA */}
 
                 <div
-
                   className="btn-ctrl"
-
                   onClick={
                     togglePausa
                   }
-
                   style={{
                     cursor: "pointer"
                   }}
-
                 >
 
                   <motion.img
-
                     className="iconos"
-
                     src={
                       pausado
                         ? "./play.png"
                         : "./Pausa.png"
                     }
-
                     whileHover={{
                       scale: 1.2
                     }}
-
                     whileTap={{
                       scale: 0.8
                     }}
-
                   />
 
                 </div>
 
 
-                {/* MÚSICA ON / OFF */}
+                {/* MÚSICA */}
 
                 <div
-
                   className="btn-ctrl"
-
                   onClick={
                     toggleMusic
                   }
-
                   style={{
                     cursor: "pointer"
                   }}
-
                 >
 
                   <motion.img
-
                     className="iconos"
-
                     src="./Volumen.png"
-
                     whileHover={{
                       scale: 1.2
                     }}
-
                     whileTap={{
                       scale: 0.8
                     }}
-
                   />
 
                 </div>
 
 
                 {/* =================================================
-                    CONTROLES DE VOLUMEN
+                    CONTROLES VOLUMEN
                 ================================================= */}
 
-               <div className="audio-controls">
-
-  {/* 🎵 MÚSICA */}
-
-  <div className="volume-control">
-
-    <span className="volume-icon">
-     🍂
-    </span>
-
-    <input
-      className="volume-slider"
-      type="range"
-      min="0"
-      max="1"
-      step="0.01"
-      value={volumenMusica}
-      onChange={(e) =>
-        setVolumenMusica(
-          Number(e.target.value)
-        )
-      }
-    />
-
-    <span className="volume-number">
-      {Math.round(volumenMusica * 100)}%
-    </span>
-
-  </div>
+                <div className="audio-controls">
 
 
-  {/* 🔊 EFECTOS */}
+                  {/* MÚSICA */}
 
-  <div className="volume-control">
+                  <div className="volume-control">
 
-    <span className="volume-icon">
-      🔊
-    </span>
+                    <span className="volume-icon">
+                      🍂
+                    </span>
 
-    <input
-      className="volume-slider"
-      type="range"
-      min="0"
-      max="1"
-      step="0.01"
-      value={volumenEfectos}
-      onChange={(e) =>
-        setVolumenEfectos(
-          Number(e.target.value)
-        )
-      }
-    />
+                    <input
+                      className="volume-slider"
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={
+                        volumenMusica
+                      }
+                      onChange={(e) =>
+                        setVolumenMusica(
+                          Number(
+                            e.target.value
+                          )
+                        )
+                      }
+                    />
 
-    <span className="volume-number">
-      {Math.round(volumenEfectos * 100)}%
-    </span>
+                    <span className="volume-number">
 
-  </div>
+                      {
+                        Math.round(
+                          volumenMusica * 100
+                        )
+                      }%
 
-</div>
+                    </span>
+
+                  </div>
+
+
+                  {/* EFECTOS */}
+
+                  <div className="volume-control">
+
+                    <span className="volume-icon">
+                      🔊
+                    </span>
+
+                    <input
+                      className="volume-slider"
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={
+                        volumenEfectos
+                      }
+                      onChange={(e) =>
+                        setVolumenEfectos(
+                          Number(
+                            e.target.value
+                          )
+                        )
+                      }
+                    />
+
+                    <span className="volume-number">
+
+                      {
+                        Math.round(
+                          volumenEfectos * 100
+                        )
+                      }%
+
+                    </span>
+
+                  </div>
+
+                </div>
 
               </div>
 
 
               {/* =================================================
-                  FLECHAS
+                  FLECHAS + LIBRO
               ================================================= */}
 
-              <div className="flechas col d-flex align-items-center justify-content-center gap-2">
+              <div className="flechas col d-flex align-items-center justify-content-center gap-3">
 
                 <div className="rows">
 
@@ -2856,23 +2652,17 @@ const InterfazCap = () => {
                   {/* ATRÁS */}
 
                   <motion.img
-
                     className="flechitas"
-
                     src="./Atras.png"
-
                     onClick={
                       retroceder
                     }
-
                     style={{
                       cursor: "pointer"
                     }}
-
                     whileTap={{
                       scale: 0.85
                     }}
-
                   />
 
 
@@ -2888,26 +2678,27 @@ const InterfazCap = () => {
                   {/* ADELANTE */}
 
                   <motion.img
-
                     className="flechitas"
-
                     src="./Adelante.png"
-
                     onClick={
                       avanzar
                     }
-
                     style={{
                       cursor: "pointer"
                     }}
-
                     whileTap={{
                       scale: 0.85
                     }}
-
                   />
 
                 </div>
+
+
+                {/* =================================================
+                    LIBRO DE PERSONAJES
+                ================================================= */}
+
+                <LibroPersonajes />
 
               </div>
 
@@ -2917,20 +2708,14 @@ const InterfazCap = () => {
               ================================================= */}
 
               <div
-
                 className="col-auto d-flex align-items-center gap-2"
-
                 onClick={
                   toggleFullscreen
                 }
-
                 style={{
                   cursor: "pointer"
                 }}
-
-              >
-
-              </div>
+              />
 
             </div>
 
@@ -2938,10 +2723,34 @@ const InterfazCap = () => {
 
 
           {/* =================================================
-              OBJETOS
+              OBJETOS ENCONTRADOS
           ================================================= */}
 
           <div className="found-slots">
+
+            {/* =================================================
+                NOTICIA DE OBJETOS (fuera de la escena, junto a los slots)
+            ================================================= */}
+
+            <AnimatePresence>
+
+              {escena === 1 && (
+
+                <motion.div
+                  key="noticia-objetos"
+                  className="noticia-objetos"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.4, delay: 0.8 }}
+                >
+                 Puedes darle click a los objetos para saber más sobre estos.
+                </motion.div>
+
+              )}
+
+            </AnimatePresence>
+
 
             <div className="slot-label">
 
@@ -2953,63 +2762,372 @@ const InterfazCap = () => {
             <div className="row g-2">
 
               {objetos.map(
-                (obj, i) => (
+                (obj, i) => {
 
-                <div
+                  const informacion =
+                    obj
+                      ? informacionObjetos[obj]
+                      : null;
 
-                  className="col-auto"
 
-                  key={i}
+                  return (
 
-                >
+                    <div
+                      className="col-auto"
+                      key={i}
+                    >
 
-                  <div
+                      <motion.div
 
-                    className="slot"
+                        className={`slot ${
+                          obj
+                            ? "slot-con-objeto"
+                            : "slot-vacio"
+                        } ${
+                          objetoSeleccionado === obj
+                            ? "slot-seleccionado"
+                            : ""
+                        }`}
 
-                    style={{
-                      marginLeft: "10px"
-                    }}
+                        onClick={() =>
+                          abrirDescripcionObjeto(
+                            obj
+                          )
+                        }
 
-                  >
+                        whileHover={
+                          obj
+                            ? {
+                                scale: 1.08,
+                                y: -3
+                              }
+                            : {}
+                        }
 
-                    {obj === "manzana" && (
-
-                      <img
-
-                        src={manzana}
-
-                        alt="manzana"
+                        whileTap={
+                          obj
+                            ? {
+                                scale: 0.92
+                              }
+                            : {}
+                        }
 
                         style={{
 
-                          width: "90%",
+                          marginLeft: "10px",
 
-                          height: "90%",
+                          cursor:
+                            obj
+                              ? "pointer"
+                              : "default",
 
-                          objectFit: "contain",
-
-                          left: "2px",
-
-                          position: "relative",
-
-                          marginTop: "2px"
+                          position:
+                            "relative"
 
                         }}
 
-                      />
+                        title={
+                          informacion
+                            ? `Ver ${informacion.nombre}`
+                            : "Espacio vacío"
+                        }
+                      >
 
-                    )}
 
-                  </div>
+                        {/* =================================================
+                            OBJETO
+                        ================================================= */}
 
-                </div>
+                        {obj &&
+                          informacion && (
 
-              ))}
+                          <img
+                            src={
+                              informacion.imagen
+                            }
+                            alt={
+                              informacion.nombre
+                            }
+                            className="slot-objeto-imagen"
+                          />
+
+                        )}
+
+
+                        {/* =================================================
+                            ✓ CHULITO
+                        ================================================= */}
+
+                        {obj && (
+
+                          <motion.div
+
+                            initial={{
+                              scale: 0,
+                              opacity: 0,
+                              rotate: -20
+                            }}
+
+                            animate={{
+                              scale: 1,
+                              opacity: 1,
+                              rotate: 0
+                            }}
+
+                            transition={{
+                              type: "spring",
+                              stiffness: 450,
+                              damping: 18
+                            }}
+
+                            style={{
+
+                              position:
+                                "absolute",
+
+                              right:
+                                "-6px",
+
+                              top:
+                                "-6px",
+
+                              width:
+                                "24px",
+
+                              height:
+                                "24px",
+
+                              borderRadius:
+                                "50%",
+
+                              background:
+                                "#4CAF50",
+
+                              color:
+                                "white",
+
+                              display:
+                                "flex",
+
+                              alignItems:
+                                "center",
+
+                              justifyContent:
+                                "center",
+
+                              fontSize:
+                                "16px",
+
+                              fontWeight:
+                                "900",
+
+                              lineHeight:
+                                1,
+
+                              zIndex:
+                                20,
+
+                              border:
+                                "2px solid white",
+
+                              boxShadow:
+                                "0 2px 6px rgba(0,0,0,0.35)",
+
+                              pointerEvents:
+                                "none"
+
+                            }}
+
+                          >
+
+                            ✓
+
+                          </motion.div>
+
+                        )}
+
+                      </motion.div>
+
+                    </div>
+
+                  );
+
+                }
+
+              )}
 
             </div>
 
           </div>
+
+
+          {/* =================================================
+              MODAL DEL OBJETO
+          ================================================= */}
+
+          <AnimatePresence>
+
+            {objetoSeleccionado &&
+              informacionObjetos[
+                objetoSeleccionado
+              ] && (
+
+                <motion.div
+
+                  className="objeto-modal-overlay"
+
+                  initial={{
+                    opacity: 0
+                  }}
+
+                  animate={{
+                    opacity: 1
+                  }}
+
+                  exit={{
+                    opacity: 0
+                  }}
+
+                  onClick={
+                    cerrarDescripcionObjeto
+                  }
+                >
+
+
+                  <motion.div
+
+                    className="objeto-modal"
+
+                    initial={{
+                      opacity: 0,
+                      scale: 0.8,
+                      y: 25
+                    }}
+
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      y: 0
+                    }}
+
+                    exit={{
+                      opacity: 0,
+                      scale: 0.8,
+                      y: 25
+                    }}
+
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 22
+                    }}
+
+                    onClick={(event) =>
+                      event.stopPropagation()
+                    }
+                  >
+
+
+                    {/* CERRAR */}
+
+                    <button
+
+                      className="objeto-modal-cerrar"
+
+                      onClick={
+                        cerrarDescripcionObjeto
+                      }
+
+                      aria-label="Cerrar descripción"
+
+                    >
+
+                      ×
+
+                    </button>
+
+
+                    {/* IMAGEN */}
+
+                    <div className="objeto-modal-imagen-contenedor">
+
+                      <img
+
+                        src={
+                          informacionObjetos[
+                            objetoSeleccionado
+                          ].imagen
+                        }
+
+                        alt={
+                          informacionObjetos[
+                            objetoSeleccionado
+                          ].nombre
+                        }
+
+                        className="objeto-modal-imagen"
+
+                      />
+
+                    </div>
+
+
+                    {/* TEXTO */}
+
+                    <div className="objeto-modal-texto">
+
+                      <span className="objeto-modal-etiqueta">
+
+                        OBJETO ENCONTRADO
+
+                      </span>
+
+
+                      <h2>
+
+                        {
+                          informacionObjetos[
+                            objetoSeleccionado
+                          ].nombre
+                        }
+
+                      </h2>
+
+
+                      <p>
+
+                        {
+                          informacionObjetos[
+                            objetoSeleccionado
+                          ].descripcion
+                        }
+
+                      </p>
+
+
+                      <div className="objeto-modal-detalle">
+
+                        <span>
+                          ✦
+                        </span>
+
+                        {
+                          informacionObjetos[
+                            objetoSeleccionado
+                          ].detalle
+                        }
+
+                      </div>
+
+                    </div>
+
+                  </motion.div>
+
+                </motion.div>
+
+              )}
+
+          </AnimatePresence>
 
         </div>
 
