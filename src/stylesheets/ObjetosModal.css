@@ -61,8 +61,7 @@
   background:
     linear-gradient(
       135deg,
-      #ffe09a 0%,
-      #ffd27a 45%,
+      
       #f6b85e 100%
     );
 
@@ -86,30 +85,6 @@
    BRILLO QUE PASA POR LA TARJETA
    ========================================================= */
 
-.objeto-modal::after {
-  content: "";
-
-  position: absolute;
-
-  top: -50%;
-  left: -100%;
-
-  width: 60%;
-  height: 200%;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,0.35),
-    transparent
-  );
-
-  transform: rotate(18deg);
-
-  pointer-events: none;
-
-  animation: brilloTarjeta 3.5s ease-in-out infinite;
-}
 
 
 /* =========================================================
@@ -516,27 +491,7 @@
 
 /* Brillo al pasar mouse */
 
-.slot-con-objeto::after {
-  content: "";
 
-  position: absolute;
-
-  inset: 0;
-
-  border-radius: inherit;
-
-  background:
-    linear-gradient(
-      120deg,
-      transparent 30%,
-      rgba(255,255,255,0.5),
-      transparent 70%
-    );
-
-  transform: translateX(-120%);
-
-  pointer-events: none;
-}
 
 .slot-con-objeto:hover::after {
   animation:
@@ -659,8 +614,7 @@
 
   margin-top: 2px;
 
-  filter:
-    drop-shadow(0 3px 3px rgba(80,40,20,0.2));
+ 
 
   transition:
     transform 0.25s ease,
