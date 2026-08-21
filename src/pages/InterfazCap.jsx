@@ -19,7 +19,6 @@ import LibroPersonajes from "../components/LibroPersonajes";
 
 import "../stylesheets/Textos.css";
 import "../stylesheets/ObjetosModal.css";
-
 import "../stylesheets/noticia-objetos.css";
 
 import {
@@ -55,6 +54,13 @@ const InterfazCap = () => {
   // =========================================================
 
   const [escena, setEscena] = useState(1);
+
+  // =========================================================
+  // SELECTOR DE ESCENAS
+  // =========================================================
+
+  const [selectorEscenasAbierto, setSelectorEscenasAbierto] =
+    useState(false);
 
 
   // =========================================================
@@ -793,6 +799,7 @@ const InterfazCap = () => {
       if (
         !secuenciaEscena4Activa.current
       ) {
+
         return;
       }
 
@@ -1313,6 +1320,8 @@ const InterfazCap = () => {
 
         cerrarDescripcionObjeto();
 
+        setSelectorEscenasAbierto(false);
+
       }
 
     };
@@ -1621,6 +1630,22 @@ const InterfazCap = () => {
 
     setPausado(false);
 
+    // Cerramos el selector al cambiar
+    setSelectorEscenasAbierto(false);
+
+  };
+
+
+  // =========================================================
+  // SELECCIONAR ESCENA DESDE EL MENÚ
+  // =========================================================
+
+  const seleccionarEscena = (numeroEscena) => {
+
+    cambiarEscena(numeroEscena);
+
+    setSelectorEscenasAbierto(false);
+
   };
 
 
@@ -1910,6 +1935,7 @@ const InterfazCap = () => {
                     {escena === 2 && (
 
                       <motion.div
+
                         key="escena2"
 
                         initial={{
@@ -1970,6 +1996,7 @@ const InterfazCap = () => {
                     {escena === 3 && (
 
                       <motion.div
+
                         key="escena3"
 
                         initial={{
@@ -2030,6 +2057,7 @@ const InterfazCap = () => {
                     {escena === 4 && (
 
                       <motion.div
+
                         key="escena4"
 
                         initial={{
@@ -2090,6 +2118,7 @@ const InterfazCap = () => {
                     {escena === 5 && (
 
                       <motion.div
+
                         key="escena5"
 
                         initial={{
@@ -2150,6 +2179,7 @@ const InterfazCap = () => {
                     {escena === 6 && (
 
                       <motion.div
+
                         key="escena6"
 
                         initial={{
@@ -2210,6 +2240,7 @@ const InterfazCap = () => {
                     {escena === 7 && (
 
                       <motion.div
+
                         key="escena7"
 
                         initial={{
@@ -2270,6 +2301,7 @@ const InterfazCap = () => {
                     {escena === 8 && (
 
                       <motion.div
+
                         key="escena8"
 
                         initial={{
@@ -2330,6 +2362,7 @@ const InterfazCap = () => {
                     {escena === 9 && (
 
                       <motion.div
+
                         key="escena9"
 
                         initial={{
@@ -2390,6 +2423,7 @@ const InterfazCap = () => {
                     {escena === 10 && (
 
                       <motion.div
+
                         key="escena10"
 
                         initial={{
@@ -2437,6 +2471,76 @@ const InterfazCap = () => {
                             cambiarEscena
                           }
                         />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENAS 11 - 23
+                    ================================================= */}
+
+                    {escena >= 11 && (
+
+                      <motion.div
+
+                        key={`escena-${escena}`}
+
+                        initial={{
+                          opacity: 0,
+                          y: 15,
+                          filter:
+                            "blur(8px) brightness(1.15)"
+                        }}
+
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          filter:
+                            "blur(0px) brightness(1)"
+                        }}
+
+                        exit={{
+                          opacity: 0,
+                          y: -15,
+                          filter:
+                            "blur(8px) brightness(1.1)"
+                        }}
+
+                        transition={{
+                          duration: 0.45,
+                          ease: [
+                            0.25,
+                            0.1,
+                            0.25,
+                            1
+                          ]
+                        }}
+
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+
+                      >
+
+                        <div
+                          style={{
+                            color: "white",
+                            textAlign: "center",
+                            fontSize: "24px",
+                            padding: "30px"
+                          }}
+                        >
+
+                          Escena {escena}
+
+                        </div>
 
                       </motion.div>
 
@@ -2641,7 +2745,7 @@ const InterfazCap = () => {
 
 
               {/* =================================================
-                  FLECHAS + LIBRO
+                  FLECHAS + SELECTOR + LIBRO
               ================================================= */}
 
               <div className="flechas col d-flex align-items-center justify-content-center gap-3">
@@ -2666,11 +2770,171 @@ const InterfazCap = () => {
                   />
 
 
-                  {/* NÚMERO */}
+                  {/* =================================================
+                      SELECTOR DE ESCENAS
+                  ================================================= */}
 
-                  <div className="page-num">
+                  <div
+                    className="page-num-selector"
+                    onClick={() =>
+                      setSelectorEscenasAbierto(
+                        prev => !prev
+                      )
+                    }
+                  >
 
-                    {escena}/23
+                    <div className="page-num">
+
+                      <span>
+                        {escena}/23
+                      </span>
+
+                      <motion.span
+                        className="page-num-flecha"
+                        animate={{
+                          rotate:
+                            selectorEscenasAbierto
+                              ? 180
+                              : 0
+                        }}
+                        transition={{
+                          duration: 0.2
+                        }}
+                      >
+                        ▼
+                      </motion.span>
+
+                    </div>
+
+
+                    {/* =================================================
+                        MENÚ DESPLEGABLE
+                    ================================================= */}
+
+                    <AnimatePresence>
+
+                      {selectorEscenasAbierto && (
+
+                        <motion.div
+
+                          className="selector-escenas"
+
+                          initial={{
+                            opacity: 0,
+                            y: 10,
+                            scale: 0.92
+                          }}
+
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                            scale: 1
+                          }}
+
+                          exit={{
+                            opacity: 0,
+                            y: 10,
+                            scale: 0.92
+                          }}
+
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 25
+                          }}
+
+                          onClick={(event) =>
+                            event.stopPropagation()
+                          }
+
+                        >
+
+                          <div className="selector-escenas-titulo">
+
+                            SELECCIONAR ESCENA
+
+                          </div>
+
+
+                          <div className="selector-escenas-grid">
+
+                            {Array.from(
+                              {
+                                length: 23
+                              },
+                              (_, i) =>
+                                i + 1
+                            ).map(numero => (
+
+                              <motion.button
+
+                                key={numero}
+
+                                className={`selector-escena ${
+                                  escena === numero
+                                    ? "escena-actual"
+                                    : ""
+                                }`}
+
+                                onClick={() =>
+                                  seleccionarEscena(
+                                    numero
+                                  )
+                                }
+
+                                whileHover={{
+                                  scale: 1.08,
+                                  y: -2
+                                }}
+
+                                whileTap={{
+                                  scale: 0.9
+                                }}
+
+                              >
+
+                                <span>
+                                  {numero}
+                                </span>
+
+
+                                {escena === numero && (
+
+                                  <motion.span
+
+                                    className="escena-check"
+
+                                    initial={{
+                                      scale: 0
+                                    }}
+
+                                    animate={{
+                                      scale: 1
+                                    }}
+
+                                    transition={{
+                                      type: "spring",
+                                      stiffness: 500,
+                                      damping: 20
+                                    }}
+
+                                  >
+                                    ✓
+                                  </motion.span>
+
+                                )}
+
+                              </motion.button>
+
+                            ))}
+
+                          </div>
+
+                        </motion.div>
+
+                      )}
+
+                    </AnimatePresence>
 
                   </div>
 
@@ -2728,8 +2992,9 @@ const InterfazCap = () => {
 
           <div className="found-slots">
 
+
             {/* =================================================
-                NOTICIA DE OBJETOS (fuera de la escena, junto a los slots)
+                NOTICIA DE OBJETOS
             ================================================= */}
 
             <AnimatePresence>
@@ -2737,14 +3002,35 @@ const InterfazCap = () => {
               {escena === 1 && (
 
                 <motion.div
+
                   key="noticia-objetos"
+
                   className="noticia-objetos"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.4, delay: 0.8 }}
+
+                  initial={{
+                    opacity: 0,
+                    y: 10
+                  }}
+
+                  animate={{
+                    opacity: 1,
+                    y: 0
+                  }}
+
+                  exit={{
+                    opacity: 0,
+                    y: 10
+                  }}
+
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.8
+                  }}
+
                 >
-                 Puedes darle click a los objetos para saber más sobre estos.
+
+                  Puedes darle click a los objetos para saber más sobre estos.
+
                 </motion.div>
 
               )}
@@ -2831,6 +3117,7 @@ const InterfazCap = () => {
                             ? `Ver ${informacion.nombre}`
                             : "Espacio vacío"
                         }
+
                       >
 
 
@@ -2855,7 +3142,7 @@ const InterfazCap = () => {
 
 
                         {/* =================================================
-                            ✓ CHULITO
+                            CHULITO
                         ================================================= */}
 
                         {obj && (
@@ -2991,6 +3278,7 @@ const InterfazCap = () => {
                   onClick={
                     cerrarDescripcionObjeto
                   }
+
                 >
 
 
@@ -3025,6 +3313,7 @@ const InterfazCap = () => {
                     onClick={(event) =>
                       event.stopPropagation()
                     }
+
                   >
 
 

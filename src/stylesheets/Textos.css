@@ -704,3 +704,271 @@ body{
   }
 
 }
+
+
+/* =========================================================
+   SELECTOR DE ESCENAS
+========================================================= */
+
+.page-num-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  user-select: none;
+
+  z-index: 100;
+}
+
+
+/* Número de página */
+
+.page-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  cursor: pointer;
+}
+
+
+/* Flecha */
+
+.page-num-flecha {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 8px;
+
+  opacity: 0.7;
+}
+
+
+/* =========================================================
+   CONTENEDOR DEL MENÚ
+========================================================= */
+
+.selector-escenas {
+
+  position: absolute;
+
+  bottom: calc(100% + 14px);
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 235px;
+
+  padding: 12px;
+
+  background:
+    rgba(238, 193, 95, 0.897);
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.20);
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 12px 35px
+    rgba(0, 0, 0, 0.45),
+
+    0 0 20px
+    rgba(255, 255, 255, 0.08);
+
+  backdrop-filter:
+    blur(12px);
+
+  z-index: 99999;
+
+  font-family: 'abalon',cursive;
+
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.selector-escenas-titulo {
+
+  width: 100%;
+
+  text-align: center;
+
+  margin-bottom: 10px;
+
+  color: #5a321f;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.selector-escenas-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: 7px;
+
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+.selector-escena {
+
+  position: relative;
+
+  width: 36px;
+
+  height: 36px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background:
+    rgba(104, 50, 6, 0.829);
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.selector-escena:hover {
+
+  background:
+    rgba(255, 0, 0, 0.18);
+
+  box-shadow:
+    0 0 10px
+    rgba(247, 13, 13, 0.15);
+
+
+}
+
+
+/* =========================================================
+   ESCENA ACTUAL
+========================================================= */
+
+.selector-escena.escena-actual {
+
+  background:
+    #db7f16;
+
+
+
+
+}
+
+
+/* =========================================================
+   CHULITO
+========================================================= */
+
+.escena-check {
+
+  position: absolute;
+
+  top: -5px;
+
+  right: -5px;
+
+  width: 15px;
+
+  height: 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: white;
+
+  color: #d37528;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  
+
+}
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+.selector-escenas::-webkit-scrollbar {
+
+  width: 5px;
+  
+  background:
+    #c77312;
+
+}
+
+.selector-escenas::-webkit-scrollbar-track {
+
+ 
+  background:
+    #c77312;
+
+}
+
+.selector-escenas::-webkit-scrollbar-thumb {
+
+  background:
+    rgba(255, 0, 0, 0.25);
+
+  border-radius: 10px;
+
+}
