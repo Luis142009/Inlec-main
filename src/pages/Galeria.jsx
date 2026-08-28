@@ -11,7 +11,7 @@ const Galeria = () => {
             <div className="galeria-item">
               <div className="marco">
                 <div className="marco-inner">
-                  <div className="marco-img" style={{ backgroundImage: "url('/cuadro1.png')", width: "300px", height: "150px" }}></div>
+                  <div className="marco-img" style={{ backgroundImage: "url('/12.png')", width: "300px", height: "200px" }}></div>
                 </div>
               </div>
               <p className="galeria-texto">El Super Zorro fue escrito por Roald Dahl en 1970.</p>
@@ -20,7 +20,7 @@ const Galeria = () => {
             <div className="galeria-item galeria-item--offset">
               <div className="marco">
                 <div className="marco-inner">
-                  <div className="marco-img" style={{ backgroundImage: "url('/escenario.png')", width: "300px", height: "140px" }}></div>
+                  <div className="marco-img" style={{ backgroundImage: "url('/13.png')", width: "300px", height: "200px" }}></div>
                 </div>
               </div>
               <p className="galeria-texto galeria-texto--offset">El personaje del Sr. Fox destaca por su inteligencia sobre la fuerza.</p>
@@ -30,7 +30,7 @@ const Galeria = () => {
  <div className="galeria-item galeria-item--offset">
               <div className="marco">
                 <div className="marco-inner">
-                  <div className="marco-img" style={{ backgroundImage: "url('/yepez.png')", width: "300px", height: "140px" }}></div>
+                  <div className="marco-img" style={{ backgroundImage: "url('/14.png')", width: "300px", height: "200px" }}></div>
                 </div>
               </div>
               <p className="galeria-texto galeria-texto--offset">Es super zorro es un libro infantil donde se relata de la historia de un zorro quedara todo para salvar</p>
@@ -42,7 +42,7 @@ const Galeria = () => {
             <div className="galeria-item">
               <div className="marco">
                 <div className="marco-inner">
-                  <div className="marco-img" style={{ backgroundImage: "url('/gordo.png')", width: "300px", height: "150px" }}></div>
+                  <div className="marco-img" style={{ backgroundImage: "url('/cara1.png')", width: "300px", height: "270px" }}></div>
                 </div>
               </div>
               <p className="galeria-texto">Los tres granjeros representan distintos tipos de villanos.</p>
@@ -51,7 +51,7 @@ const Galeria = () => {
             <div className="galeria-item galeria-item--offset">
               <div className="marco">
                 <div className="marco-inner">
-                  <div className="marco-img" style={{ backgroundImage: "url('/tejon.png')", width: "300px", height: "150px" }}></div>
+                  <div className="marco-img" style={{ backgroundImage: "url('/cara2.png')", width: "300px", height: "270px" }}></div>
                 </div>
               </div>
               <p className="galeria-texto">La historia resalta el valor de la familia y el trabajo en equipo.</p>
@@ -59,8 +59,8 @@ const Galeria = () => {
 
             <div className="galeria-item galeria-item--offset">
               <div className="marco">
-                <div className="marco-inner">
-                  <div className="marco-img" style={{ backgroundImage: "url('/sv.png')", width: "300px", height: "220px" }}></div>
+                <div className="marco-inner text-center">
+                  <div className="marco-img" style={{ backgroundImage: "url('/cara3.png')", width: "300px", height: "270px" }}></div>
                 </div>
               </div>
               <p className="galeria-texto">El libro tiene una adaptación animada muy famosa.</p>
