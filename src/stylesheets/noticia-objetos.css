@@ -1,0 +1,116 @@
+.noticia-objetos {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  /* Fondo */
+  background: rgba(255, 239, 213, 0.97);
+
+  /* Texto */
+  color: #4b3428;
+  font-family: 'abalon', cursive;
+  font-size: 19px;
+  font-weight: normal;
+  letter-spacing: 0.3px;
+  line-height: 1.25;
+  text-align: center;
+
+  padding: 14px 28px 15px;
+
+  min-width: 310px;
+  max-width: 430px;
+
+  /* Forma */
+  border-radius: 14px;
+  border: 1.5px solid rgba(91, 62, 43, 0.35);
+
+  /* Sombra suave */
+  box-shadow:
+    0 4px 0 rgba(91, 62, 43, 0.12),
+    0 8px 22px rgba(43, 29, 20, 0.18);
+
+  z-index: 50;
+  pointer-events: none;
+
+  /* Animación */
+  animation: noticiaEntrada 15s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+
+/* Pequeña pestañita arriba */
+.noticia-objetos::before {
+  content: "";
+
+  position: absolute;
+  top: -7px;
+  left: 50%;
+
+  width: 42px;
+  height: 14px;
+
+  transform: translateX(-50%) rotate(-2deg);
+
+  background: rgba(255, 224, 184, 0.95);
+
+  border-radius: 4px;
+
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Mini indicador debajo */
+.noticia-objetos::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -8px;
+  left: 50%;
+
+  width: 16px;
+  height: 16px;
+
+  background: rgba(255, 239, 213, 0.97);
+
+  transform: translateX(-50%) rotate(45deg);
+
+  border-right: 1.5px solid rgba(91, 62, 43, 0.25);
+  border-bottom: 1.5px solid rgba(91, 62, 43, 0.25);
+}
+
+
+/* Entrada y desaparición */
+@keyframes noticiaEntrada {
+
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px) scale(0.94);
+  }
+
+  12% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  78% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px) scale(0.98);
+  }
+}
+
+
+/* Fuente */
+@font-face {
+  font-family: 'abalon';
+  src: url('../assets/abalon.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
