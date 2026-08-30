@@ -1,0 +1,772 @@
+
+/* =========================================================
+   PORTADA DE CAPÍTULO
+   ESTILO: CUENTO / TEATRO / LIBRO ILUSTRADO
+   ========================================================= */
+
+.portada-capitulo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 1200px;
+
+  padding: 24px;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #3b1b10 0%,
+      #241008 55%,
+      #120704 100%
+    );
+
+  cursor: pointer;
+
+  /* Profundidad general */
+
+}
+
+
+/* =========================================================
+   VIÑETA
+   ========================================================= */
+
+.portada-capitulo-vineta {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 190, 105, 0.18) 0%,
+      rgba(111, 48, 25, 0.25) 30%,
+      rgba(48, 25, 15, 0.58) 58%,
+      rgba(10, 5, 3, 0.96) 100%
+    );
+
+  transform: translateZ(0);
+  will-change: opacity;
+  backface-visibility: hidden;
+
+  /* Luz teatral */
+  mix-blend-mode: normal;
+}
+
+
+/* =========================================================
+   TELONES
+   ========================================================= */
+
+.portada-capitulo-cortina {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  width: 50%;
+
+  background:
+    /* Brillos verticales */
+
+
+    /* Pliegues */
+    repeating-linear-gradient(
+      90deg,
+      #572018 0px,
+      #6d2a1f 12px,
+      #8a3427 22px,
+      #67251d 32px,
+      #4d1914 44px
+    );
+
+  box-shadow:
+    inset 0 0 80px rgba(0, 0, 0, 0.65),
+    inset 0 0 25px rgba(255, 134, 75, 0.10),
+    0 0 35px rgba(0, 0, 0, 0.35);
+
+  z-index: 2;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+
+/* =========================================================
+   BORDE DORADO DE LAS CORTINAS
+   ========================================================= */
+
+.portada-capitulo-cortina-izq {
+  left: 0;
+
+  border-right: 4px solid #f4c26a;
+
+  box-shadow:
+    inset -15px 0 30px rgba(0, 0, 0, 0.35),
+    inset 0 0 80px rgba(0, 0, 0, 0.65),
+    8px 0 20px rgba(0, 0, 0, 0.18);
+}
+
+.portada-capitulo-cortina-der {
+  right: 0;
+
+  border-left: 4px solid #f4c26a;
+
+  box-shadow:
+    inset 15px 0 30px rgba(0, 0, 0, 0.35),
+    inset 0 0 80px rgba(0, 0, 0, 0.65),
+    -8px 0 20px rgba(0, 0, 0, 0.18);
+}
+
+
+/* =========================================================
+   TARJETA PRINCIPAL
+   ========================================================= */
+
+.portada-capitulo-contenido {
+  position: relative;
+
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  width: min(680px, 94vw);
+
+  padding: 60px 44px 46px;
+
+  border: 4px solid #6b3620;
+  border-radius: 26px;
+
+  background:
+    /* Mancha cálida */
+    radial-gradient(
+      circle at 50% 15%,
+      transparent 45%
+    ),
+
+    /* Textura de papel */
+    repeating-linear-gradient(
+      175deg,
+      #f2b467 0px,
+      #f2b467 3px,
+      #eda956 3px,
+      #eda956 6px
+    );
+
+  box-shadow:
+    0 35px 80px rgba(20, 9, 5, 0.75),
+    0 12px 25px rgba(80, 30, 15, 0.35),
+    0 0 0 8px rgba(255, 226, 153, 0.12),
+    0 0 0 12px rgba(80, 35, 18, 0.10),
+    inset 0 0 55px rgba(120, 60, 20, 0.25),
+    inset 0 2px 0 rgba(255, 244, 202, 0.65);
+
+  overflow: visible;
+
+  cursor: default;
+}
+
+
+/* =========================================================
+   BRILLO SUPERIOR DE LA TARJETA
+   ========================================================= */
+
+.portada-capitulo-contenido::before {
+  content: "";
+
+  position: absolute;
+
+  top: 4px;
+  left: 8%;
+
+  width: 84%;
+  height: 2px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 243, 190, 0.8),
+      transparent
+    );
+
+  opacity: 0.75;
+}
+
+
+/* =========================================================
+   BORDE INTERIOR
+   ========================================================= */
+
+.portada-capitulo-borde {
+  position: absolute;
+
+  inset: 10px;
+
+  pointer-events: none;
+
+  border: 2px dashed rgba(107, 54, 32, 0.4);
+
+  border-radius: 18px;
+
+  box-shadow:
+    inset 0 0 8px rgba(255, 224, 160, 0.18);
+}
+
+
+/* =========================================================
+   ESQUINEROS
+   ========================================================= */
+
+.portada-capitulo-esquina {
+  position: absolute;
+
+  width: 46px;
+  height: 46px;
+
+  border: 5px solid #6b3620;
+
+  z-index: 4;
+
+  filter:
+    drop-shadow(2px 3px 1px rgba(50, 20, 10, 0.25));
+}
+
+.portada-capitulo-esquina-tl {
+  top: -4px;
+  left: -4px;
+
+  border-right: none;
+  border-bottom: none;
+
+  border-top-left-radius: 20px;
+}
+
+.portada-capitulo-esquina-tr {
+  top: -4px;
+  right: -4px;
+
+  border-left: none;
+  border-bottom: none;
+
+  border-top-right-radius: 20px;
+}
+
+.portada-capitulo-esquina-bl {
+  bottom: -4px;
+  left: -4px;
+
+  border-right: none;
+  border-top: none;
+
+  border-bottom-left-radius: 20px;
+}
+
+.portada-capitulo-esquina-br {
+  bottom: -4px;
+  right: -4px;
+
+  border-left: none;
+  border-top: none;
+
+  border-bottom-right-radius: 20px;
+}
+
+
+/* =========================================================
+   SELLO
+   ========================================================= */
+
+.portada-capitulo-sello-envoltura {
+  position: absolute;
+
+  top: -46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 5;
+
+  filter:
+    drop-shadow(0 10px 12px rgba(54, 19, 10, 0.35));
+}
+
+
+/* =========================================================
+   ANILLO DEL SELLO
+   ========================================================= */
+
+.portada-capitulo-sello-anillo {
+  position: absolute;
+
+  width: 165px;
+  height: 165px;
+
+  bottom: 30px;
+
+  border-radius: 50%;
+
+  border: 3px dashed rgba(159, 63, 47, 0.55);
+
+  animation:
+    selloAnilloGira 7s linear infinite;
+
+  will-change: transform;
+
+  backface-visibility: hidden;
+
+  box-shadow:
+    0 0 0 5px rgba(159, 63, 47, 0.05),
+    inset 0 0 10px rgba(255, 215, 150, 0.08);
+}
+
+@keyframes selloAnilloGira {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   SELLO CENTRAL
+   ========================================================= */
+
+.portada-capitulo-sello {
+  position: relative;
+
+  width: 148px;
+  height: 148px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+
+  bottom: 40px;
+
+  border-radius: 50%;
+
+  border: 3px solid #f4dba8;
+
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+     
+      #af3a30 100%
+    );
+
+  box-shadow:
+    0 6px 0 #5c211a,
+    0 10px 18px rgba(40, 15, 8, 0.45),
+    inset 0 4px 8px rgba(255, 215, 160, 0.20),
+    inset 0 -10px 18px rgba(50, 10, 5, 0.22);
+}
+
+.portada-capitulo-sello-texto {
+  font-family: "abalon", cursive;
+
+  font-size: 26px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  color: #fcfcfc;
+
+  text-shadow:
+    2px 2px 0 rgba(90, 28, 18, 0.45);
+}
+
+.portada-capitulo-sello-pata {
+  font-family: "abalon", cursive;
+
+  font-size: 14px;
+  line-height: 1;
+
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+   ETIQUETA "CAPÍTULO"
+   ========================================================= */
+
+.portada-capitulo-etiqueta {
+  position: relative;
+
+  z-index: 2;
+
+ border: 50px;
+  margin-top: 30px;
+
+  font-family: "abalon", cursive;
+
+  font-size: 25px;
+  font-weight: 900;
+text-align: center;
+  letter-spacing: 6px;
+
+  color: #ffffff;
+
+  text-shadow:
+    1px 1px 0 rgba(255, 228, 170, 0.55);
+}
+
+.portada-capitulo-etiqueta-contenedor{
+  
+    margin-top: 50px;
+
+ background-color: #5c2d1c;
+   padding: 14px;
+ border-radius: 45px;
+}
+/* =========================================================
+   NÚMERO DE CAPÍTULO
+   ========================================================= */
+
+.portada-capitulo-numero {
+  position: relative;
+
+  z-index: 2;
+
+  margin: 4px 0 0;
+
+  font-family: "Dacherry", "abalon", serif;
+
+  font-size: 150px;
+
+  line-height: 0.95;
+
+  color: #5c2d1c;
+
+  text-shadow:
+    4px 4px 0 rgba(255, 238, 183, 0.85),
+    0 14px 30px rgba(91, 43, 25, 0.4),
+    0 2px 0 rgba(255, 207, 120, 0.3);
+}
+
+
+/* =========================================================
+   SEPARADOR
+   ========================================================= */
+
+.portada-capitulo-separador {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+  max-width: 320px;
+
+  margin: 20px 0 22px;
+}
+
+.portada-capitulo-separador-linea {
+  flex: 1;
+
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #9f3f2f
+    );
+
+  box-shadow:
+    0 1px 0 rgba(255, 225, 160, 0.25);
+}
+
+.portada-capitulo-separador-linea:last-child {
+  background:
+    linear-gradient(
+      90deg,
+      #9f3f2f,
+      transparent
+    );
+}
+
+.portada-capitulo-separador-hoja {
+  font-size: 20px;
+
+  animation:
+    hojaCentroBalancea 2.6s ease-in-out infinite;
+
+  will-change: transform;
+
+  filter:
+    drop-shadow(1px 2px 1px rgba(90, 35, 20, 0.25));
+}
+
+@keyframes hojaCentroBalancea {
+  0%,
+  100% {
+    transform: rotate(-12deg);
+  }
+
+  50% {
+    transform: rotate(12deg);
+  }
+}
+
+
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+.portada-capitulo-texto {
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 460px;
+
+  margin: 0 0 30px;
+
+  color: #5c2d1c;
+
+  font-family: "abalon", cursive;
+
+  font-size: 20px;
+
+  line-height: 1.55;
+
+  text-shadow:
+    0 1px 0 rgba(255, 226, 168, 0.4);
+}
+
+.portada-capitulo-texto strong {
+  color: #7d2e24;
+
+  text-shadow:
+    1px 1px 0 rgba(255, 218, 155, 0.5);
+}
+
+
+/* =========================================================
+   CUERDA + MARCOS
+   ========================================================= */
+
+.portada-capitulo-cuerda {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  flex-wrap: wrap;
+
+  gap: 26px;
+
+  width: 100%;
+  max-width: 480px;
+
+  margin-bottom: 30px;
+
+  padding-top: 22px;
+
+  border-top: 3px solid #8d4b2e;
+
+  box-shadow:
+    0 -1px 0 rgba(255, 218, 155, 0.25);
+}
+
+
+/* =========================================================
+   MARCOS COLGANTES
+   ========================================================= */
+
+.portada-capitulo-marco-envoltura {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  filter:
+    drop-shadow(0 6px 5px rgba(50, 20, 10, 0.22));
+}
+
+.portada-capitulo-clip {
+  width: 14px;
+  height: 14px;
+
+  margin-top: -25px;
+  margin-bottom: 4px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+     
+      #4a2415
+    );
+
+  box-shadow:
+    0 3px 0 #4a2415,
+    inset 0 2px 2px rgba(255, 214, 155, 0.25);
+}
+
+.portada-capitulo-marco {
+  width: 62px;
+  height: 62px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #6b3620;
+
+  border-radius: 10px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.72),
+      rgba(255, 239, 194, 0.48)
+    );
+
+  box-shadow:
+    inset 0 0 12px rgba(255, 255, 255, 0.45),
+    inset 0 -8px 12px rgba(100, 45, 20, 0.10),
+    0 8px 14px rgba(40, 18, 10, 0.35);
+
+  transform-origin: top center;
+}
+
+.portada-capitulo-marco-signo {
+  font-family: "abalon", cursive;
+
+  font-size: 28px;
+  font-weight: 900;
+
+  color: #9f3f2f;
+
+  text-shadow:
+    1px 1px 0 rgba(255, 255, 255, 0.5),
+    0 2px 3px rgba(80, 25, 15, 0.18);
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.portada-capitulo-cta {
+  position: relative;
+
+  z-index: 2;
+
+  font-family: "abalon", cursive;
+
+  font-size: 15px;
+  font-weight: 700;
+  
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #7d2e24;
+
+ 
+
+ 
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .portada-capitulo-contenido {
+    padding: 52px 26px 34px;
+  }
+
+  .portada-capitulo-numero {
+    font-size: 96px;
+  }
+
+  .portada-capitulo-texto {
+    font-size: 16px;
+  }
+
+  .portada-capitulo-marco {
+    width: 50px;
+    height: 50px;
+  }
+
+  .portada-capitulo-marco-signo {
+    font-size: 22px;
+  }
+
+  .portada-capitulo-sello {
+    width: 62px;
+    height: 62px;
+  }
+
+  .portada-capitulo-sello-anillo {
+    width: 78px;
+    height: 78px;
+  }
+
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .portada-capitulo-sello-anillo,
+  .portada-capitulo-separador-hoja,
+  .portada-capitulo-marco {
+    animation: none !important;
+    transition: none !important;
+  }
+
+}
+
+.portada-capitulo-objeto {
+  width: 65%;
+  height: 65%;
+
+  object-fit: contain;
+
+  display: block;
+
+  margin: auto;
+
+  user-select: none;
+  pointer-events: none;
+
+  filter: brightness(0);
+}

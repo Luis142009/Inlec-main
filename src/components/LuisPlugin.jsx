@@ -602,7 +602,10 @@ export const LuisPlugin = forwardRef(({
   // CLICK MANZANA
   // =========================================================
 
-  const clickManzana = () => {
+  const clickManzana = (e) => {
+
+    // Evita que el click se propague a otros elementos
+    e.stopPropagation();
 
 
     // =======================================================
@@ -611,7 +614,9 @@ export const LuisPlugin = forwardRef(({
 
     tocarRef.current.currentTime = 0;
 
-    tocarRef.current.play();
+    tocarRef.current
+      .play()
+      .catch(() => {});
 
 
     const manzana = manzanaRef.current;
@@ -663,6 +668,7 @@ export const LuisPlugin = forwardRef(({
 
     const slots =
       document.querySelectorAll(".slot");
+
 
     const slotDestino =
       slots[0];
@@ -1081,14 +1087,15 @@ export const LuisPlugin = forwardRef(({
         <div
           style={{
             position: "relative",
-            display: "inline-block"
+            display: "inline-block",
+            zIndex: 20,
+            pointerEvents: "none"
           }}
         >
 
+          {/* ZONA DE LUZ - NO INTERFIERE CON EL CLICK */}
           <div
             ref={luzRef}
-
-            onClick={clickManzana}
 
             style={{
               display: "none",
@@ -1103,20 +1110,26 @@ export const LuisPlugin = forwardRef(({
             }}
           />
 
+          {/* MANZANA */}
           <img
             ref={manzanaRef}
+
             src={manzana}
+
             className="mi-svg"
 
             alt="manzana"
 
             onClick={clickManzana}
 
+            draggable={false}
+
             style={{
               cursor: "pointer",
               position: "relative",
-              zIndex: 16,
-              pointerEvents: "auto"
+              zIndex: 20,
+              pointerEvents: "auto",
+              userSelect: "none"
             }}
           />
 

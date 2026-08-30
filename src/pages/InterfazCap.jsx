@@ -11,20 +11,19 @@ import { Escena2alfa } from "../components/Escena2alfa";
 import { Escena2beta } from "../components/Escena2beta";
 import { Escena3 } from "../components/Escena3";
 import { Escena4 } from "../components/Escena4";
+import { Escena5 } from "../components/Escena5";
 import { Escena6 } from "../components/Escena6";
 import { Escena7 } from "../components/Escena7";
 import { Escena8 } from "../components/Escena8";
 
 import LibroPersonajes from "../components/LibroPersonajes";
+import { PortadaCapitulo } from "../components/PortadaCapitulo";
 
 import "../stylesheets/Textos.css";
 import "../stylesheets/ObjetosModal.css";
 import "../stylesheets/noticia-objetos.css";
 
-import {
-  motion,
-  AnimatePresence
-} from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 import song1 from "../assets/audio/song1.mp3";
 import gallina from "../assets/audio/gallina.mp3";
@@ -44,8 +43,49 @@ import audio7 from "../assets/audio/audio7.mp3";
 import fondo8 from "../assets/audio/fondo8.mp3";
 import audio8 from "../assets/audio/audio8.mp3";
 
+import pintura from "../assets/svg/pintura.svg";
 import manzana from "../assets/manzana.svg";
 
+
+// =========================================================
+// TOTAL DE ESCENAS
+// =========================================================
+
+const TOTAL_ESCENAS = 24;
+
+
+// =========================================================
+// CAPÍTULOS
+// =========================================================
+
+const capitulos = [
+  {
+    numero: 1,
+    escenaInicio: 1,
+    escenaFin: 9,
+    objetos: 4
+  }
+
+  // {
+  //   numero: 2,
+  //   escenaInicio: 10,
+  //   escenaFin: X,
+  //   objetos: Y
+  // }
+];
+
+
+const obtenerCapituloPorEscena = (numeroEscena) =>
+  capitulos.find(
+    (cap) =>
+      numeroEscena >= cap.escenaInicio &&
+      numeroEscena <= cap.escenaFin
+  ) || null;
+
+
+// =========================================================
+// COMPONENTE
+// =========================================================
 
 const InterfazCap = () => {
 
@@ -55,52 +95,107 @@ const InterfazCap = () => {
 
   const [escena, setEscena] = useState(1);
 
+
   // =========================================================
   // SELECTOR DE ESCENAS
   // =========================================================
 
-  const [selectorEscenasAbierto, setSelectorEscenasAbierto] =
-    useState(false);
+  const [
+    selectorEscenasAbierto,
+    setSelectorEscenasAbierto
+  ] = useState(false);
+
+
+  // =========================================================
+  // PORTADA DE CAPÍTULO
+  // =========================================================
+
+  const [
+    portadaVisible,
+    setPortadaVisible
+  ] = useState(false);
+
+  const capitulosVistosRef = useRef(new Set());
+
+
+  useEffect(() => {
+
+    const capitulo =
+      obtenerCapituloPorEscena(escena);
+
+    if (
+      capitulo &&
+      escena === capitulo.escenaInicio &&
+      !capitulosVistosRef.current.has(
+        capitulo.numero
+      )
+    ) {
+
+      setPortadaVisible(true);
+
+    }
+
+  }, [escena]);
+
+
+  const cerrarPortadaCapitulo = () => {
+
+    const capitulo =
+      obtenerCapituloPorEscena(escena);
+
+    if (capitulo) {
+
+      capitulosVistosRef.current.add(
+        capitulo.numero
+      );
+
+    }
+
+    setPortadaVisible(false);
+
+  };
 
 
   // =========================================================
   // SUBTÍTULOS
   // =========================================================
 
-  const [subtitulosActivos, setSubtitulosActivos] =
-    useState(false);
+  const [
+    subtitulosActivos,
+    setSubtitulosActivos
+  ] = useState(false);
+
 
   const subtitulos = {
 
     1: "En Inglaterra, desde lo lejos, en un campo, vive el Sr. Fox.",
 
-    2: "un zorro elegante, atleta, audaz y brillante con un toque de perspicacia en la mirada. Tiene 4 años.",
+    2: "Un zorro elegante, atleta, audaz y brillante con un toque de perspicacia en la mirada. Tiene 4 años.",
 
-    3: "comparte su vida con la Sra. Fox, una zorra elegante con sentido artístico y un gran sentido de la responsabilidad.",
+    3: "Comparte su vida con la Sra. Fox, una zorra elegante con sentido artístico y un gran sentido de la responsabilidad.",
 
     4: [
-      "Ash, nacido 8 segundos después, que se siente diferente a los demás por no tener las mismas capacidades, pero con un fuerte carácter",
-
-      "Ambos tienen cuatro zorros Kristofferson, el mayor por 4 segundos, que se percibe como un atleta, el mejor en todo, con grandes habilidades generales"
+      "Ash, nacido 8 segundos después, que se siente diferente a los demás por no tener las mismas capacidades, pero con un fuerte carácter.",
+      "Ambos tienen cuatro zorros Kristofferson, el mayor por 4 segundos, que se percibe como un atleta, el mejor en todo, con grandes habilidades generales."
     ],
 
     5: [
-      "Junior, nacido 12 segundos después, curioso y con buena memoria para rutas y caminos",
-
-      "Charles, el menor, nacido 16 segundos después, pequeño, veloz y con gran talento para excavar"
+      "Junior, nacido 12 segundos después, curioso y con buena memoria para rutas y caminos.",
+      "Charles, el menor, nacido 16 segundos después, pequeño, veloz y con gran talento para excavar."
     ],
 
-    6: "Todos viven en una madriguera excavada bajo un gran árbol, en lo alto de una colina",
+    6: "Todos viven en una madriguera excavada bajo un gran árbol, en lo alto de una colina.",
 
     7: "La señora Fox, con voz dulce pero decidida, le pidió al señor Fox que trajera unos pollos, unos patos o quizá un par de pavos. Quería tenerlos listos para cocinarlos y así preparar un festín delicioso.",
 
-    8: "Conoce cada atajo, cada sombra y cada rincón de las tres granjas que lo rodean",
+    8: "Aquí va el texto de la escena 8.",
 
-    9: "Boggis, un hombre gordo y glotón de 50 años, con chaqueta y pantalones enormes, manchados de grasa por su dieta de pollo, huele a pollo podrido, roba aves gordas y jugosas",
+    9: "Conoce cada atajo, cada sombra y cada rincón de las tres granjas que lo rodean.",
 
-    10: "Bunce, un granjero bajito e irritable de 40 años, sucio y con un abrigo demasiado largo para su tamaño, huele a hígado de ganso, se lleva patos y gansos, además siempre comparan a Bunce con un duende y su abrigo le queda tan grande que lo arrastra como una túnica",
+    10: "Boggis, un hombre gordo y glotón de 50 años, con chaqueta y pantalones enormes, manchados de grasa por su dieta de pollo, huele a pollo podrido, roba aves gordas y jugosas.",
 
-    11: "Aquí va el texto de la escena 11.",
+    11: "Bunce, un granjero bajito e irritable de 40 años, sucio y con un abrigo demasiado largo para su tamaño, huele a hígado de ganso, se lleva patos y gansos. Además, siempre comparan a Bunce con un duende y su abrigo le queda tan grande que lo arrastra como una túnica.",
+
     12: "Aquí va el texto de la escena 12.",
     13: "Aquí va el texto de la escena 13.",
     14: "Aquí va el texto de la escena 14.",
@@ -112,7 +207,9 @@ const InterfazCap = () => {
     20: "Aquí va el texto de la escena 20.",
     21: "Aquí va el texto de la escena 21.",
     22: "Aquí va el texto de la escena 22.",
-    23: "Aquí va el texto de la escena 23."
+    23: "Aquí va el texto de la escena 23.",
+    24: "Aquí va el texto de la escena 24."
+
   };
 
 
@@ -128,7 +225,6 @@ const InterfazCap = () => {
       grupoEfectos: "escena1",
 
       efectos: [
-
         {
           src: gallina,
           volumen: 0.30,
@@ -150,10 +246,8 @@ const InterfazCap = () => {
           persistente: true,
           hastaEscena: 2
         }
-
       ]
     },
-
 
     2: {
       musica: song1,
@@ -162,24 +256,20 @@ const InterfazCap = () => {
       efectos: []
     },
 
-
     3: {
       musica: song1,
       grupoMusica: "inicio",
       grupoEfectos: "escena3",
 
       efectos: [
-
         {
           src: escena1sra,
           volumen: 3,
           loop: false,
           persistente: false
         }
-
       ]
     },
-
 
     4: {
       musica: song1,
@@ -187,7 +277,6 @@ const InterfazCap = () => {
       grupoEfectos: "escena4",
 
       efectos: [
-
         {
           src: kristo,
           volumen: 3,
@@ -201,10 +290,8 @@ const InterfazCap = () => {
           persistente: false,
           secuencia: "ash"
         }
-
       ]
     },
-
 
     5: {
       musica: song1,
@@ -212,16 +299,13 @@ const InterfazCap = () => {
       grupoEfectos: "escena5",
 
       efectos: [
-
         {
           src: wawas,
           volumen: 3,
           persistente: false
         }
-
       ]
     },
-
 
     6: {
       musica: sonido3,
@@ -229,16 +313,13 @@ const InterfazCap = () => {
       grupoEfectos: "escena6",
 
       efectos: [
-
         {
           src: es3,
           volumen: 3,
           persistente: false
         }
-
       ]
     },
-
 
     7: {
       musica: audio4s,
@@ -247,52 +328,50 @@ const InterfazCap = () => {
       efectos: []
     },
 
-
     8: {
-      musica: robo,
-      grupoMusica: "escena8",
+      musica: audio4s,
+      grupoMusica: "escena7",
       grupoEfectos: "escena8",
+      efectos: []
+    },
+
+    9: {
+      musica: robo,
+      grupoMusica: "escena9",
+      grupoEfectos: "escena9",
 
       efectos: [
-
         {
           src: audio6,
           volumen: 3,
           persistente: false
         }
-
       ]
     },
-
-
-    9: {
-      musica: Escenas7,
-      grupoMusica: "escena9",
-      grupoEfectos: "escena9",
-
-      efectos: [
-
-        {
-          src: audio7,
-          volumen: 3
-        }
-
-      ]
-    },
-
 
     10: {
-      musica: fondo8,
+      musica: Escenas7,
       grupoMusica: "escena10",
       grupoEfectos: "escena10",
 
       efectos: [
+        {
+          src: audio7,
+          volumen: 3
+        }
+      ]
+    },
 
+    11: {
+      musica: fondo8,
+      grupoMusica: "escena11",
+      grupoEfectos: "escena11",
+
+      efectos: [
         {
           src: audio8,
           volumen: 3
         }
-
       ]
     }
 
@@ -304,12 +383,10 @@ const InterfazCap = () => {
   // =========================================================
 
   const audioFallback = {
-
     musica: song1,
     grupoMusica: "fallback",
     grupoEfectos: "fallback",
     efectos: []
-
   };
 
 
@@ -365,32 +442,19 @@ const InterfazCap = () => {
   const [volumenEfectos, setVolumenEfectos] =
     useState(0.7);
 
-
-  const grupoMusicaRef =
-    useRef(null);
-
-  const grupoEfectosRef =
-    useRef(null);
+  const grupoMusicaRef = useRef(null);
+  const grupoEfectosRef = useRef(null);
 
 
   // =========================================================
   // WEB AUDIO
   // =========================================================
 
-  const audioContextRef =
-    useRef(null);
-
-  const musicaGainRef =
-    useRef(null);
-
-  const efectosGainRef =
-    useRef([]);
-
-  const efectosVolumenBaseRef =
-    useRef([]);
-
-  const efectosPersistentesRef =
-    useRef([]);
+  const audioContextRef = useRef(null);
+  const musicaGainRef = useRef(null);
+  const efectosGainRef = useRef([]);
+  const efectosVolumenBaseRef = useRef([]);
+  const efectosPersistentesRef = useRef([]);
 
   const secuenciaEscena4Activa =
     useRef(false);
@@ -415,13 +479,16 @@ const InterfazCap = () => {
         );
 
         return null;
+
       }
 
       audioContextRef.current =
         new AudioContext();
+
     }
 
     return audioContextRef.current;
+
   };
 
 
@@ -429,28 +496,43 @@ const InterfazCap = () => {
   // CONFIGURAR GANANCIA
   // =========================================================
 
-  const configurarGanancia = (
-    audio,
-    tipo,
-    indice = 0
-  ) => {
+  const configurarGanancia =
+    (audio, tipo, indice = 0) => {
 
-    const ctx =
-      obtenerAudioContext();
+      const ctx =
+        obtenerAudioContext();
 
-    if (!ctx || !audio) {
-      return null;
-    }
+      if (!ctx || !audio) {
+        return null;
+      }
+
+      if (tipo === "musica") {
+
+        if (!musicaGainRef.current) {
+
+          const source =
+            ctx.createMediaElementSource(audio);
+
+          const gain =
+            ctx.createGain();
+
+          source.connect(gain);
+          gain.connect(ctx.destination);
+
+          musicaGainRef.current =
+            gain;
+
+        }
+
+        return musicaGainRef.current;
+
+      }
 
 
-    if (tipo === "musica") {
-
-      if (!musicaGainRef.current) {
+      if (!efectosGainRef.current[indice]) {
 
         const source =
-          ctx.createMediaElementSource(
-            audio
-          );
+          ctx.createMediaElementSource(audio);
 
         const gain =
           ctx.createGain();
@@ -458,33 +540,14 @@ const InterfazCap = () => {
         source.connect(gain);
         gain.connect(ctx.destination);
 
-        musicaGainRef.current =
+        efectosGainRef.current[indice] =
           gain;
+
       }
 
-      return musicaGainRef.current;
-    }
+      return efectosGainRef.current[indice];
 
-
-    if (!efectosGainRef.current[indice]) {
-
-      const source =
-        ctx.createMediaElementSource(
-          audio
-        );
-
-      const gain =
-        ctx.createGain();
-
-      source.connect(gain);
-      gain.connect(ctx.destination);
-
-      efectosGainRef.current[indice] =
-        gain;
-    }
-
-    return efectosGainRef.current[indice];
-  };
+    };
 
 
   // =========================================================
@@ -497,8 +560,8 @@ const InterfazCap = () => {
 
       musicaGainRef.current.gain.value =
         volumenMusica;
-    }
 
+    }
 
     efectosGainRef.current.forEach(
       (gain, indice) => {
@@ -508,7 +571,8 @@ const InterfazCap = () => {
         }
 
         const volumenBase =
-          efectosVolumenBaseRef.current[indice] ?? 1;
+          efectosVolumenBaseRef.current[indice] ??
+          1;
 
         gain.gain.value =
           volumenBase *
@@ -535,64 +599,62 @@ const InterfazCap = () => {
   // DETENER EFECTOS
   // =========================================================
 
-  const detenerTodosLosEfectos = (
-    numeroEscena = null,
-    forzar = false
-  ) => {
+  const detenerTodosLosEfectos =
+    (
+      numeroEscena = null,
+      forzar = false
+    ) => {
 
-    secuenciaEscena4Activa.current =
-      false;
+      secuenciaEscena4Activa.current =
+        false;
 
+      efectosRefs.current.forEach(
+        (audio, indice) => {
 
-    efectosRefs.current.forEach(
-      (audio, indice) => {
+          if (!audio) {
+            return;
+          }
 
-        if (!audio) {
-          return;
-        }
+          const persistente =
+            efectosPersistentesRef.current[indice];
 
-        const persistente =
-          efectosPersistentesRef.current[indice];
-
-        const puedeContinuar =
-          persistente &&
-          numeroEscena !== null &&
-          numeroEscena <=
+          const puedeContinuar =
+            persistente &&
+            numeroEscena !== null &&
+            numeroEscena <=
             persistente.hastaEscena;
 
+          if (
+            !forzar &&
+            puedeContinuar
+          ) {
+            return;
+          }
 
-        if (
-          !forzar &&
-          puedeContinuar
-        ) {
+          try {
 
-          return;
+            audio.pause();
+            audio.currentTime = 0;
+
+            efectosPersistentesRef.current[indice] =
+              null;
+
+            efectosVolumenBaseRef.current[indice] =
+              1;
+
+          } catch (error) {
+
+            console.log(
+              "Error limpiando efecto:",
+              error
+            );
+
+          }
+
         }
+      );
 
-
-        try {
-
-          audio.pause();
-          audio.currentTime = 0;
-
-          efectosPersistentesRef.current[indice] =
-            null;
-
-          efectosVolumenBaseRef.current[indice] =
-            1;
-
-        } catch (error) {
-
-          console.log(
-            "Error limpiando efecto:",
-            error
-          );
-
-        }
-
-      }
-    );
-  };
+    };
 
 
   // =========================================================
@@ -604,23 +666,21 @@ const InterfazCap = () => {
     if (musicaRef.current) {
 
       musicaRef.current.pause();
+      musicaRef.current.currentTime = 0;
 
-      musicaRef.current.currentTime =
-        0;
     }
-
 
     detenerTodosLosEfectos(
       null,
       true
     );
 
-
     grupoMusicaRef.current =
       null;
 
     grupoEfectosRef.current =
       null;
+
   };
 
 
@@ -628,415 +688,349 @@ const InterfazCap = () => {
   // REPRODUCIR EFECTO
   // =========================================================
 
-  const reproducirEfecto = (
-    efecto,
-    indice,
-    numeroEscena
-  ) => {
+  const reproducirEfecto =
+    (
+      efecto,
+      indice,
+      numeroEscena
+    ) => {
 
-    const audio =
-      efectosRefs.current[indice];
+      const audio =
+        efectosRefs.current[indice];
 
-    if (!audio || !efecto) {
-      return;
-    }
-
-
-    try {
-
-      audio.pause();
-
-      audio.src =
-        efecto.src;
-
-      audio.loop =
-        !!efecto.loop;
-
-      audio.currentTime =
-        0;
-
-
-      const volumenBase =
-        efecto.volumen ?? 0.5;
-
-      efectosVolumenBaseRef.current[indice] =
-        volumenBase;
-
-
-      if (
-        efecto.persistente &&
-        efecto.hastaEscena
-      ) {
-
-        efectosPersistentesRef.current[indice] = {
-
-          hastaEscena:
-            efecto.hastaEscena
-
-        };
-
-      } else {
-
-        efectosPersistentesRef.current[indice] =
-          null;
+      if (!audio || !efecto) {
+        return;
       }
 
+      try {
 
-      const gain =
-        configurarGanancia(
-          audio,
-          "efecto",
-          indice
-        );
+        audio.pause();
 
+        audio.src =
+          efecto.src;
 
-      if (gain) {
+        audio.loop =
+          !!efecto.loop;
 
-        gain.gain.value =
-          volumenBase *
-          volumenEfectos;
+        audio.currentTime =
+          0;
 
-      } else {
+        const volumenBase =
+          efecto.volumen ?? 0.5;
 
-        audio.volume =
-          Math.min(
+        efectosVolumenBaseRef.current[indice] =
+          volumenBase;
+
+        if (
+          efecto.persistente &&
+          efecto.hastaEscena
+        ) {
+
+          efectosPersistentesRef.current[indice] =
+          {
+            hastaEscena:
+              efecto.hastaEscena
+          };
+
+        } else {
+
+          efectosPersistentesRef.current[indice] =
+            null;
+
+        }
+
+        const gain =
+          configurarGanancia(
+            audio,
+            "efecto",
+            indice
+          );
+
+        if (gain) {
+
+          gain.gain.value =
             volumenBase *
-            volumenEfectos,
-            1
-          );
-      }
+            volumenEfectos;
 
+        } else {
 
-      audio.play()
-        .then(() => {
-
-          console.log(
-            `🔊 Efecto ${indice + 1} iniciado en escena ${numeroEscena}`
-          );
-
-        })
-        .catch(
-          (error) => {
-
-            console.log(
-              `⚠️ No se pudo reproducir efecto ${indice + 1}:`,
-              error
+          audio.volume =
+            Math.min(
+              volumenBase *
+              volumenEfectos,
+              1
             );
 
-          }
+        }
+
+        audio
+          .play()
+          .catch(() => { });
+
+      } catch (error) {
+
+        console.log(
+          "⚠️ Error reproduciendo efecto:",
+          error
         );
 
-    } catch (error) {
+      }
 
-      console.log(
-        "⚠️ Error reproduciendo efecto:",
-        error
-      );
-
-    }
-  };
+    };
 
 
   // =========================================================
   // SECUENCIA ESCENA 4
   // =========================================================
 
-  const reproducirSecuenciaEscena4 = () => {
+  const reproducirSecuenciaEscena4 =
+    () => {
 
-    const kristoAudio =
-      efectosRefs.current[0];
+      const kristoAudio =
+        efectosRefs.current[0];
 
-    const ashAudio =
-      efectosRefs.current[1];
+      const ashAudio =
+        efectosRefs.current[1];
 
-    if (!kristoAudio || !ashAudio) {
-      return;
-    }
-
-
-    secuenciaEscena4Activa.current =
-      true;
-
-
-    const kristoConfig =
-      audiosPorEscena[4].efectos[0];
-
-
-    kristoAudio.pause();
-
-    kristoAudio.src =
-      kristoConfig.src;
-
-    kristoAudio.loop =
-      false;
-
-    kristoAudio.currentTime =
-      0;
-
-
-    efectosVolumenBaseRef.current[0] =
-      kristoConfig.volumen;
-
-
-    const kristoGain =
-      configurarGanancia(
-        kristoAudio,
-        "efecto",
-        0
-      );
-
-
-    if (kristoGain) {
-
-      kristoGain.gain.value =
-        kristoConfig.volumen *
-        volumenEfectos;
-    }
-
-
-    kristoAudio.onended = () => {
-
-      if (
-        !secuenciaEscena4Activa.current
-      ) {
-
+      if (!kristoAudio || !ashAudio) {
         return;
       }
 
+      secuenciaEscena4Activa.current =
+        true;
 
-      const ashConfig =
-        audiosPorEscena[4].efectos[1];
+      const kristoConfig =
+        audiosPorEscena[4]
+          .efectos[0];
 
+      kristoAudio.pause();
 
-      ashAudio.pause();
+      kristoAudio.src =
+        kristoConfig.src;
 
-      ashAudio.src =
-        ashConfig.src;
-
-      ashAudio.loop =
+      kristoAudio.loop =
         false;
 
-      ashAudio.currentTime =
+      kristoAudio.currentTime =
         0;
 
+      efectosVolumenBaseRef.current[0] =
+        kristoConfig.volumen;
 
-      efectosVolumenBaseRef.current[1] =
-        ashConfig.volumen;
-
-
-      const ashGain =
+      const kristoGain =
         configurarGanancia(
-          ashAudio,
+          kristoAudio,
           "efecto",
-          1
+          0
         );
 
+      if (kristoGain) {
 
-      if (ashGain) {
-
-        ashGain.gain.value =
-          ashConfig.volumen *
+        kristoGain.gain.value =
+          kristoConfig.volumen *
           volumenEfectos;
+
       }
 
+      kristoAudio.onended =
+        () => {
 
-      ashAudio.play()
-        .catch(
-          (error) => {
+          if (
+            !secuenciaEscena4Activa.current
+          ) {
+            return;
+          }
 
-            console.log(
-              "⚠️ Error iniciando Ash:",
-              error
+          const ashConfig =
+            audiosPorEscena[4]
+              .efectos[1];
+
+          ashAudio.pause();
+
+          ashAudio.src =
+            ashConfig.src;
+
+          ashAudio.loop =
+            false;
+
+          ashAudio.currentTime =
+            0;
+
+          efectosVolumenBaseRef.current[1] =
+            ashConfig.volumen;
+
+          const ashGain =
+            configurarGanancia(
+              ashAudio,
+              "efecto",
+              1
             );
 
+          if (ashGain) {
+
+            ashGain.gain.value =
+              ashConfig.volumen *
+              volumenEfectos;
+
           }
-        );
+
+          ashAudio
+            .play()
+            .catch(() => { });
+
+        };
+
+      kristoAudio
+        .play()
+        .catch(() => { });
 
     };
-
-
-    kristoAudio.play()
-      .catch(
-        (error) => {
-
-          console.log(
-            "⚠️ Error iniciando Kristo:",
-            error
-          );
-
-        }
-      );
-  };
 
 
   // =========================================================
   // REPRODUCIR AUDIO ESCENA
   // =========================================================
 
-  const reproducirAudioDeEscena = async (
-    numeroEscena,
-    forzarReinicio = false
-  ) => {
+  const reproducirAudioDeEscena =
+    async (
+      numeroEscena,
+      forzarReinicio = false
+    ) => {
 
-    const config =
-      obtenerAudioEscena(
-        numeroEscena
-      );
-
-
-    // =======================================================
-    // MÚSICA
-    // =======================================================
-
-    if (
-      musicaRef.current &&
-      config.musica
-    ) {
-
-      const musica =
-        musicaRef.current;
-
-
-      const mismaMusica =
-        grupoMusicaRef.current ===
-        config.grupoMusica;
-
-
-      if (
-        mismaMusica &&
-        !forzarReinicio
-      ) {
-
-        if (musica.paused) {
-
-          try {
-
-            const ctx =
-              obtenerAudioContext();
-
-            if (
-              ctx &&
-              ctx.state === "suspended"
-            ) {
-
-              await ctx.resume();
-            }
-
-            await musica.play();
-
-          } catch (error) {
-
-            console.log(
-              "⚠️ Error continuando música:",
-              error
-            );
-
-          }
-        }
-
-      } else {
-
-        try {
-
-          musica.pause();
-
-          musica.src =
-            config.musica;
-
-          musica.loop =
-            true;
-
-          musica.currentTime =
-            0;
-
-
-          const gain =
-            configurarGanancia(
-              musica,
-              "musica"
-            );
-
-
-          if (gain) {
-
-            gain.gain.value =
-              volumenMusica;
-          }
-
-
-          grupoMusicaRef.current =
-            config.grupoMusica;
-
-
-          await musica.play();
-
-        } catch (error) {
-
-          console.log(
-            "⚠️ No se pudo reproducir música:",
-            error
-          );
-
-        }
-      }
-    }
-
-
-    // =======================================================
-    // EFECTOS
-    // =======================================================
-
-    const nuevoGrupoEfectos =
-      grupoEfectosRef.current !==
-      config.grupoEfectos;
-
-
-    if (nuevoGrupoEfectos) {
-
-      detenerTodosLosEfectos(
-        numeroEscena
-      );
-
-      grupoEfectosRef.current =
-        config.grupoEfectos;
-    }
-
-
-    // =======================================================
-    // ESCENA 4
-    // =======================================================
-
-    if (
-      numeroEscena === 4 &&
-      config.efectos.length > 0
-    ) {
-
-      reproducirSecuenciaEscena4();
-
-      return;
-    }
-
-
-    // =======================================================
-    // EFECTOS NORMALES
-    // =======================================================
-
-    const efectos =
-      config.efectos || [];
-
-
-    efectos.forEach(
-      (efecto, i) => {
-
-        reproducirEfecto(
-          efecto,
-          i,
+      const config =
+        obtenerAudioEscena(
           numeroEscena
         );
 
+
+      // MÚSICA
+
+      if (
+        musicaRef.current &&
+        config.musica
+      ) {
+
+        const musica =
+          musicaRef.current;
+
+        const mismaMusica =
+          grupoMusicaRef.current ===
+          config.grupoMusica;
+
+        if (
+          mismaMusica &&
+          !forzarReinicio
+        ) {
+
+          if (musica.paused) {
+
+            try {
+
+              const ctx =
+                obtenerAudioContext();
+
+              if (
+                ctx &&
+                ctx.state ===
+                "suspended"
+              ) {
+
+                await ctx.resume();
+
+              }
+
+              await musica.play();
+
+            } catch { }
+
+          }
+
+        } else {
+
+          try {
+
+            musica.pause();
+
+            musica.src =
+              config.musica;
+
+            musica.loop =
+              true;
+
+            musica.currentTime =
+              0;
+
+            const gain =
+              configurarGanancia(
+                musica,
+                "musica"
+              );
+
+            if (gain) {
+
+              gain.gain.value =
+                volumenMusica;
+
+            }
+
+            grupoMusicaRef.current =
+              config.grupoMusica;
+
+            await musica.play();
+
+          } catch { }
+
+        }
+
       }
-    );
-  };
+
+
+      // EFECTOS
+
+      const nuevoGrupoEfectos =
+        grupoEfectosRef.current !==
+        config.grupoEfectos;
+
+      if (nuevoGrupoEfectos) {
+
+        detenerTodosLosEfectos(
+          numeroEscena
+        );
+
+        grupoEfectosRef.current =
+          config.grupoEfectos;
+
+      }
+
+
+      if (
+        numeroEscena === 4 &&
+        config.efectos.length > 0
+      ) {
+
+        reproducirSecuenciaEscena4();
+
+        return;
+
+      }
+
+
+      const efectos =
+        config.efectos || [];
+
+      efectos.forEach(
+        (efecto, i) => {
+
+          reproducirEfecto(
+            efecto,
+            i,
+            numeroEscena
+          );
+
+        }
+      );
+
+    };
 
 
   // =========================================================
@@ -1052,17 +1046,14 @@ const InterfazCap = () => {
           return;
         }
 
-
         const config =
           obtenerAudioEscena(
             escena
           );
 
-
         const mismaMusica =
           grupoMusicaRef.current ===
           config.grupoMusica;
-
 
         if (!mismaMusica) {
 
@@ -1076,7 +1067,6 @@ const InterfazCap = () => {
             grupoEfectosRef.current !==
             config.grupoEfectos;
 
-
           if (nuevoGrupoEfectos) {
 
             await reproducirAudioDeEscena(
@@ -1084,9 +1074,10 @@ const InterfazCap = () => {
             );
 
           }
-        }
-      };
 
+        }
+
+      };
 
     cambiarAudio();
 
@@ -1102,23 +1093,19 @@ const InterfazCap = () => {
   const pausarAudioActual = () => {
 
     if (musicaRef.current) {
-
       musicaRef.current.pause();
-
     }
 
-
     efectosRefs.current.forEach(
-      (audio) => {
+      audio => {
 
         if (audio) {
-
           audio.pause();
-
         }
 
       }
     );
+
   };
 
 
@@ -1135,12 +1122,11 @@ const InterfazCap = () => {
       setIsPlaying(false);
 
       return;
-    }
 
+    }
 
     const ctx =
       obtenerAudioContext();
-
 
     if (
       ctx &&
@@ -1151,13 +1137,12 @@ const InterfazCap = () => {
 
     }
 
-
     await reproducirAudioDeEscena(
       escena
     );
 
-
     setIsPlaying(true);
+
   };
 
 
@@ -1169,29 +1154,25 @@ const InterfazCap = () => {
     useRef(null);
 
 
-  const toggleFullscreen = async () => {
+  const toggleFullscreen =
+    async () => {
 
-    try {
+      try {
 
-      if (!document.fullscreenElement) {
+        if (!document.fullscreenElement) {
 
-        await gameAreaRef.current?.requestFullscreen();
+          await gameAreaRef.current
+            ?.requestFullscreen();
 
-      } else {
+        } else {
 
-        await document.exitFullscreen();
+          await document.exitFullscreen();
 
-      }
+        }
 
-    } catch (error) {
+      } catch { }
 
-      console.log(
-        "No se pudo cambiar fullscreen:",
-        error
-      );
-
-    }
-  };
+    };
 
 
   // =========================================================
@@ -1219,6 +1200,9 @@ const InterfazCap = () => {
   const escena4Ref =
     useRef(null);
 
+  const escena5Ref =
+    useRef(null);
+
   const escena6Ref =
     useRef(null);
 
@@ -1233,26 +1217,31 @@ const InterfazCap = () => {
   // OBJETOS
   // =========================================================
 
-  const [objetos, setObjetos] =
-    useState([
-      null,
-      null,
-      null,
-      null,
-      null
-    ]);
+  const [
+    objetos,
+    setObjetos
+  ] = useState([
+    null,
+    null,
+    null,
+    null,
+  
+  ]);
 
-
-  const [manzanaRecogida, setManzanaRecogida] =
-    useState(false);
+  const [
+    manzanaRecogida,
+    setManzanaRecogida
+  ] = useState(false);
 
 
   // =========================================================
   // OBJETO SELECCIONADO
   // =========================================================
 
-  const [objetoSeleccionado, setObjetoSeleccionado] =
-    useState(null);
+  const [
+    objetoSeleccionado,
+    setObjetoSeleccionado
+  ] = useState(null);
 
 
   // =========================================================
@@ -1273,39 +1262,63 @@ const InterfazCap = () => {
       detalle:
         "Objeto encontrado bajo el gran árbol."
 
+    },
+
+    pintura: {
+
+      nombre: "Pintura",
+
+      descripcion:
+        "Una misteriosa pintura encontrada durante la aventura. Sus detalles parecen esconder algo más.",
+
+      imagen: pintura,
+
+      detalle:
+        "Objeto encontrado durante la aventura."
+
     }
 
   };
 
 
   // =========================================================
-  // ABRIR DESCRIPCIÓN
+  // ABRIR DESCRIPCIÓN OBJETO
   // =========================================================
 
-  const abrirDescripcionObjeto = (objeto) => {
+  const abrirDescripcionObjeto =
+    (objeto) => {
 
-    if (!objeto) {
-      return;
-    }
+      if (!objeto) {
+        return;
+      }
 
-    if (!informacionObjetos[objeto]) {
-      return;
-    }
+      if (!informacionObjetos[objeto]) {
 
-    setObjetoSeleccionado(objeto);
+        console.warn(
+          `El objeto "${objeto}" no existe en informacionObjetos.`
+        );
 
-  };
+        return;
+
+      }
+
+      setObjetoSeleccionado(
+        objeto
+      );
+
+    };
 
 
   // =========================================================
   // CERRAR DESCRIPCIÓN
   // =========================================================
 
-  const cerrarDescripcionObjeto = () => {
+  const cerrarDescripcionObjeto =
+    () => {
 
-    setObjetoSeleccionado(null);
+      setObjetoSeleccionado(null);
 
-  };
+    };
 
 
   // =========================================================
@@ -1314,33 +1327,31 @@ const InterfazCap = () => {
 
   useEffect(() => {
 
-    const manejarEscape = (event) => {
+    const manejarEscape =
+      (event) => {
 
-      if (event.key === "Escape") {
+        if (event.key === "Escape") {
 
-        cerrarDescripcionObjeto();
+          cerrarDescripcionObjeto();
 
-        setSelectorEscenasAbierto(false);
+          setSelectorEscenasAbierto(
+            false
+          );
 
-      }
+        }
 
-    };
-
+      };
 
     window.addEventListener(
       "keydown",
       manejarEscape
     );
 
-
-    return () => {
-
+    return () =>
       window.removeEventListener(
         "keydown",
         manejarEscape
       );
-
-    };
 
   }, []);
 
@@ -1349,77 +1360,130 @@ const InterfazCap = () => {
   // RECOGER OBJETO
   // =========================================================
 
-  const recogerObjeto = (objeto) => {
+  const recogerObjeto =
+    (objeto) => {
 
-    setObjetos(prev => {
+      console.log(
+        "OBJETO RECIBIDO:",
+        objeto
+      );
 
-      if (prev.includes(objeto)) {
+      if (!objeto) {
 
-        return prev;
+        console.warn(
+          "Se intentó recoger un objeto vacío."
+        );
+
+        return;
 
       }
 
+      if (!informacionObjetos[objeto]) {
 
-      const nuevo = [...prev];
+        console.warn(
+          `El objeto "${objeto}" NO existe en informacionObjetos.`
+        );
 
-      const i =
-        nuevo.indexOf(null);
+        return;
+
+      }
+
+      setObjetos((prev) => {
+
+        // Evitar duplicados
+
+        if (prev.includes(objeto)) {
+
+          console.log(
+            "El objeto ya estaba en el inventario:",
+            objeto
+          );
+
+          return prev;
+
+        }
 
 
-      if (i !== -1) {
+        // Buscar espacio vacío
 
-        nuevo[i] =
+        const indiceVacio =
+          prev.findIndex(
+            (slot) => slot === null
+          );
+
+
+        // Inventario lleno
+
+        if (indiceVacio === -1) {
+
+          console.warn(
+            "El inventario está lleno."
+          );
+
+          return prev;
+
+        }
+
+
+        // Crear copia
+
+        const nuevo =
+          [...prev];
+
+
+        // Insertar objeto
+
+        nuevo[indiceVacio] =
           objeto;
 
+
+        console.log(
+          "INVENTARIO ACTUALIZADO:",
+          nuevo
+        );
+
+
+        return nuevo;
+
+      });
+
+
+      // Estado específico de la manzana
+
+      if (objeto === "manzana") {
+
+        setManzanaRecogida(
+          true
+        );
+
       }
 
-
-      return nuevo;
-
-    });
-
-
-    if (objeto === "manzana") {
-
-      setManzanaRecogida(true);
-
-    }
-
-  };
+    };
 
 
   // =========================================================
   // SUBTÍTULOS
   // =========================================================
 
-  const toggleSubtitulos = () => {
+  const toggleSubtitulos =
+    () => {
 
-    setSubtitulosActivos(
-      prev => !prev
-    );
+      setSubtitulosActivos(
+        prev => !prev
+      );
 
-  };
+    };
 
-
-  // =========================================================
-  // TEXTO ESCENA ACTUAL
-  // =========================================================
 
   const textosEscenaActual =
     subtitulos[escena]
-
       ? (
-
-          Array.isArray(
-            subtitulos[escena]
-          )
-
-            ? subtitulos[escena]
-
-            : [subtitulos[escena]]
-
+        Array.isArray(
+          subtitulos[escena]
         )
-
+          ? subtitulos[escena]
+          : [subtitulos[escena]]
+      )
       : [];
 
 
@@ -1427,171 +1491,71 @@ const InterfazCap = () => {
   // REFERENCIA ESCENA
   // =========================================================
 
-  const obtenerRefEscena = () => {
+  const obtenerRefEscena =
+    () => {
 
-    switch (escena) {
+      switch (escena) {
 
-      case 1:
-        return luisRef;
+        case 1:
+          return luisRef;
 
-      case 2:
-        return parte2Ref;
+        case 2:
+          return parte2Ref;
 
-      case 3:
-        return parte3Ref;
+        case 3:
+          return parte3Ref;
 
-      case 4:
-        return escena2AlfaRef;
+        case 4:
+          return escena2AlfaRef;
 
-      case 5:
-        return escena2BetaRef;
+        case 5:
+          return escena2BetaRef;
 
-      case 6:
-        return escena3Ref;
+        case 6:
+          return escena3Ref;
 
-      case 7:
-        return escena4Ref;
+        case 7:
+          return escena4Ref;
 
-      case 8:
-        return escena6Ref;
+        case 8:
+          return escena5Ref;
 
-      case 9:
-        return escena7Ref;
+        case 9:
+          return escena6Ref;
 
-      case 10:
-        return escena8Ref;
+        case 10:
+          return escena7Ref;
 
-      default:
-        return null;
+        case 11:
+          return escena8Ref;
 
-    }
+        default:
+          return null;
 
-  };
+      }
+
+    };
 
 
   // =========================================================
   // INICIAR ESCENA
   // =========================================================
 
-  const iniciarEscena = () => {
+  const iniciarEscena =
+    () => {
 
-    const refActual =
-      obtenerRefEscena();
+      const refActual =
+        obtenerRefEscena();
 
-
-    if (!refActual?.current) {
-
-      return;
-
-    }
-
-
-    if (
-      refActual.current.iniciarTodo
-    ) {
-
-      refActual.current.iniciarTodo();
-
-      setPausado(false);
-
-      return;
-
-    }
-
-
-    if (
-      refActual.current.reanudarTodo
-    ) {
-
-      refActual.current.reanudarTodo();
-
-      setPausado(false);
-
-    }
-
-  };
-
-
-  // =========================================================
-  // PAUSAR / REANUDAR
-  // =========================================================
-
-  const togglePausa = () => {
-
-    const refActual =
-      obtenerRefEscena();
-
-
-    if (!refActual?.current) {
-
-      return;
-
-    }
-
-
-    // REANUDAR
-
-    if (pausado) {
+      if (!refActual?.current) {
+        return;
+      }
 
       if (
-        refActual.current.reanudarTodo
+        refActual.current.iniciarTodo
       ) {
 
-        refActual.current.reanudarTodo();
-
-      }
-
-
-      if (musicaRef.current) {
-
-        musicaRef.current
-          .play()
-          .catch(() => {});
-
-      }
-
-
-      efectosRefs.current.forEach(
-        audio => {
-
-          if (audio) {
-
-            audio
-              .play()
-              .catch(() => {});
-
-          }
-
-        }
-      );
-
-
-      setPausado(false);
-
-      return;
-
-    }
-
-
-    // SI NUNCA HA EMPEZADO
-
-    if (
-      refActual.current.estaIniciada
-    ) {
-
-      const iniciada =
-        refActual.current.estaIniciada();
-
-
-      if (!iniciada) {
-
-        if (
-          refActual.current.iniciarTodo
-        ) {
-
-          refActual.current.iniciarTodo();
-
-        }
+        refActual.current.iniciarTodo();
 
         setPausado(false);
 
@@ -1599,92 +1563,255 @@ const InterfazCap = () => {
 
       }
 
-    }
+      if (
+        refActual.current.iniciarCamara
+      ) {
+
+        refActual.current.iniciarCamara();
+
+        setPausado(false);
+
+        return;
+
+      }
+
+      if (
+        refActual.current.reanudarTodo
+      ) {
+
+        refActual.current.reanudarTodo();
+
+        setPausado(false);
+
+      }
+
+    };
 
 
-    // PAUSAR
+  // =========================================================
+  // PAUSAR / REANUDAR
+  // =========================================================
 
-    if (
-      refActual.current.pausarTodo
-    ) {
+  const togglePausa =
+    () => {
 
-      refActual.current.pausarTodo();
+      const refActual =
+        obtenerRefEscena();
 
-    }
+      if (!refActual?.current) {
+        return;
+      }
 
 
-    pausarAudioActual();
+      // REANUDAR
 
-    setPausado(true);
+      if (pausado) {
 
-  };
+        if (
+          refActual.current.reanudarTodo
+        ) {
+
+          refActual.current.reanudarTodo();
+
+        }
+
+        if (musicaRef.current) {
+
+          musicaRef.current
+            .play()
+            .catch(() => { });
+
+        }
+
+        efectosRefs.current.forEach(
+          audio => {
+
+            if (audio) {
+
+              audio
+                .play()
+                .catch(() => { });
+
+            }
+
+          }
+        );
+
+        setPausado(false);
+
+        return;
+
+      }
+
+
+      // SI NUNCA HA EMPEZADO
+
+      if (
+        refActual.current.estaIniciada
+      ) {
+
+        const iniciada =
+          refActual.current
+            .estaIniciada();
+
+        if (!iniciada) {
+
+          if (
+            refActual.current.iniciarTodo
+          ) {
+
+            refActual.current
+              .iniciarTodo();
+
+          }
+
+          if (
+            refActual.current.iniciarCamara
+          ) {
+
+            refActual.current
+              .iniciarCamara();
+
+          }
+
+          setPausado(false);
+
+          return;
+
+        }
+
+      }
+
+
+      // PAUSAR
+
+      if (
+        refActual.current.pausarTodo
+      ) {
+
+        refActual.current.pausarTodo();
+
+      }
+
+      pausarAudioActual();
+
+      setPausado(true);
+
+    };
 
 
   // =========================================================
   // CAMBIAR ESCENA
   // =========================================================
 
-  const cambiarEscena = (nuevaEscena) => {
+  const cambiarEscena =
+    (nuevaEscena) => {
 
-    setEscena(nuevaEscena);
-
-    setPausado(false);
-
-    // Cerramos el selector al cambiar
-    setSelectorEscenasAbierto(false);
-
-  };
-
-
-  // =========================================================
-  // SELECCIONAR ESCENA DESDE EL MENÚ
-  // =========================================================
-
-  const seleccionarEscena = (numeroEscena) => {
-
-    cambiarEscena(numeroEscena);
-
-    setSelectorEscenasAbierto(false);
-
-  };
-
-
-  // =========================================================
-  // ATRÁS
-  // =========================================================
-
-  const retroceder = () => {
-
-    setEscena(prev => {
-
-      return Math.max(
-        1,
-        prev - 1
+      setEscena(
+        nuevaEscena
       );
 
-    });
+      setPausado(false);
 
-    setPausado(false);
-
-  };
-
-
-  // =========================================================
-  // ADELANTE
-  // =========================================================
-
-  const avanzar = () => {
-
-    setEscena(prev => {
-
-      return Math.min(
-        23,
-        prev + 1
+      setSelectorEscenasAbierto(
+        false
       );
 
-    });
+    };
 
-    setPausado(false);
+
+  const seleccionarEscena =
+    (numeroEscena) => {
+
+      cambiarEscena(
+        numeroEscena
+      );
+
+      setSelectorEscenasAbierto(
+        false
+      );
+
+    };
+
+
+  // =========================================================
+  // ATRÁS / ADELANTE
+  // =========================================================
+
+  const retroceder =
+    () => {
+
+      setEscena(
+        prev =>
+          Math.max(
+            1,
+            prev - 1
+          )
+      );
+
+      setPausado(false);
+
+    };
+
+
+  const avanzar =
+    () => {
+
+      setEscena(
+        prev =>
+          Math.min(
+            TOTAL_ESCENAS,
+            prev + 1
+          )
+      );
+
+      setPausado(false);
+
+    };
+
+
+  // =========================================================
+  // TRANSICIÓN
+  // =========================================================
+
+  const transicionEscena = {
+
+    initial: {
+      opacity: 0,
+      y: 15,
+      filter:
+        "blur(8px) brightness(1.15)"
+    },
+
+    animate: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      filter:
+        "blur(0px) brightness(1)"
+    },
+
+    exit: {
+      opacity: 0,
+      y: -15,
+      filter:
+        "blur(8px) brightness(1.1)"
+    },
+
+    transition: {
+      duration: 0.45,
+      ease: [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    },
+
+    style: {
+      width: "100%",
+      height: "100%"
+    }
 
   };
 
@@ -1706,7 +1833,6 @@ const InterfazCap = () => {
         preload="auto"
       />
 
-
       {Array.from({
         length:
           maxEfectosSimultaneos
@@ -1716,10 +1842,8 @@ const InterfazCap = () => {
           key={`efecto-${i}`}
           preload="auto"
           ref={(el) => {
-
             efectosRefs.current[i] =
               el;
-
           }}
         />
 
@@ -1731,37 +1855,51 @@ const InterfazCap = () => {
       ===================================================== */}
 
       <motion.div
-
         className="interfaz-wrapper"
-
         initial={{
           opacity: 0,
           scale: 0
         }}
-
         animate={{
           opacity: 1,
           scale: 1
         }}
-
         transition={{
           duration: 0.4,
-
           scale: {
             type: "spring",
             visualDuration: 0.4,
             bounce: 0.5
           }
         }}
-
       >
 
+
+        {/* PORTADA */}
+
+        <PortadaCapitulo
+  visible={portadaVisible}
+
+  numero={
+    obtenerCapituloPorEscena(escena)?.numero
+  }
+
+  totalObjetos={
+    obtenerCapituloPorEscena(escena)?.objetos
+  }
+
+  objetos={[
+    manzana,
+    pintura
+  ]}
+
+  onComenzar={
+    cerrarPortadaCapitulo
+  }
+/>
+
+
         <div className="interfaz-cap">
-
-
-          {/* =================================================
-              ÁREA DEL JUEGO
-          ================================================= */}
 
           <div className="row g-0">
 
@@ -1780,75 +1918,65 @@ const InterfazCap = () => {
                 <AnimatePresence mode="wait">
 
                   {subtitulosActivos &&
-                    textosEscenaActual.length > 0 && (
+                    textosEscenaActual.length >
+                    0 && (
 
-                    <React.Fragment
-                      key={`subtitulo-wrap-${escena}`}
-                    >
-
-                      <motion.div
-
-                        className="subtitulos-backdrop activo"
-
-                        initial={{
-                          opacity: 0
-                        }}
-
-                        animate={{
-                          opacity: 1
-                        }}
-
-                        exit={{
-                          opacity: 0
-                        }}
-
-                        transition={{
-                          duration: 0.3
-                        }}
-
-                      />
-
-
-                      {textosEscenaActual.map(
-                        (texto, i) => (
+                      <React.Fragment
+                        key={`subtitulo-wrap-${escena}`}
+                      >
 
                         <motion.div
-
-                          key={`sub-${escena}-${i}`}
-
-                          className={`subtitulos subtitulos-${i}`}
-
+                          className="subtitulos-backdrop activo"
                           initial={{
-                            opacity: 0,
-                            y: 20
+                            opacity: 0
                           }}
-
                           animate={{
-                            opacity: 1,
-                            y: 0
+                            opacity: 1
                           }}
-
                           exit={{
-                            opacity: 0,
-                            y: 20
+                            opacity: 0
                           }}
-
                           transition={{
-                            duration: 0.25,
-                            delay: i * 0.12
+                            duration: 0.3
                           }}
+                        />
 
-                        >
 
-                          {texto}
+                        {textosEscenaActual.map(
+                          (texto, i) => (
 
-                        </motion.div>
+                            <motion.div
+                              key={`sub-${escena}-${i}`}
+                              className={`subtitulos subtitulos-${i}`}
+                              initial={{
+                                opacity: 0,
+                                y: 20
+                              }}
+                              animate={{
+                                opacity: 1,
+                                y: 0
+                              }}
+                              exit={{
+                                opacity: 0,
+                                y: 20
+                              }}
+                              transition={{
+                                duration: 0.25,
+                                delay:
+                                  i * 0.12
+                              }}
+                            >
 
-                      ))}
+                              {texto}
 
-                    </React.Fragment>
+                            </motion.div>
 
-                  )}
+                          )
+                        )}
+
+                      </React.Fragment>
+
+                    )}
 
                 </AnimatePresence>
 
@@ -1858,66 +1986,30 @@ const InterfazCap = () => {
                   <AnimatePresence mode="wait">
 
 
-                    {/* =================================================
-                        ESCENA 1
-                    ================================================= */}
+                    {/* ESCENA 1 */}
 
                     {escena === 1 && (
 
                       <motion.div
-
                         key="escena1"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        {...transicionEscena}
                       >
 
                         <LuisPlugin
                           ref={luisRef}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                           onRecoger={
                             recogerObjeto
                           }
+
                           manzanaRecogida={
                             manzanaRecogida
                           }
+
                           onMrFoxClick={
                             toggleMusic
                           }
@@ -1928,53 +2020,13 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 2
-                    ================================================= */}
+                    {/* ESCENA 2 */}
 
                     {escena === 2 && (
 
                       <motion.div
-
                         key="escena2"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        {...transicionEscena}
                       >
 
                         <Parte2dela1
@@ -1989,59 +2041,25 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 3
-                    ================================================= */}
+                    {/* ESCENA 3 */}
 
                     {escena === 3 && (
 
                       <motion.div
-
                         key="escena3"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        {...transicionEscena}
                       >
 
                         <Parte3dela1
                           ref={parte3Ref}
                           cambiarEscena={
                             cambiarEscena
+                          }
+                          onRecoger={
+                            recogerObjeto
+                          }
+                          objetoRecogido={
+                            objetos.includes("pintura")
                           }
                         />
 
@@ -2050,53 +2068,13 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 4
-                    ================================================= */}
+                    {/* ESCENA 4 */}
 
                     {escena === 4 && (
 
                       <motion.div
-
                         key="escena4"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        {...transicionEscena}
                       >
 
                         <Escena2alfa
@@ -2111,53 +2089,13 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 5
-                    ================================================= */}
+                    {/* ESCENA 5 */}
 
                     {escena === 5 && (
 
                       <motion.div
-
                         key="escena5"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        {...transicionEscena}
                       >
 
                         <Escena2beta
@@ -2172,53 +2110,13 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 6
-                    ================================================= */}
+                    {/* ESCENA 6 */}
 
                     {escena === 6 && (
 
                       <motion.div
-
                         key="escena6"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        {...transicionEscena}
                       >
 
                         <Escena3
@@ -2233,53 +2131,13 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 7
-                    ================================================= */}
+                    {/* ESCENA 7 */}
 
                     {escena === 7 && (
 
                       <motion.div
-
                         key="escena7"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        {...transicionEscena}
                       >
 
                         <Escena4
@@ -2294,53 +2152,34 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 8
-                    ================================================= */}
+                    {/* ESCENA 8 */}
 
                     {escena === 8 && (
 
                       <motion.div
-
                         key="escena8"
+                        {...transicionEscena}
+                      >
 
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
+                        <Escena5
+                          ref={escena5Ref}
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+                        />
 
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
+                      </motion.div>
 
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
+                    )}
 
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
 
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
+                    {/* ESCENA 9 */}
 
+                    {escena === 9 && (
+
+                      <motion.div
+                        key="escena9"
+                        {...transicionEscena}
                       >
 
                         <Escena6
@@ -2355,53 +2194,13 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 9
-                    ================================================= */}
+                    {/* ESCENA 10 */}
 
-                    {escena === 9 && (
+                    {escena === 10 && (
 
                       <motion.div
-
-                        key="escena9"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        key="escena10"
+                        {...transicionEscena}
                       >
 
                         <Escena7
@@ -2416,53 +2215,13 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 10
-                    ================================================= */}
+                    {/* ESCENA 11 */}
 
-                    {escena === 10 && (
+                    {escena === 11 && (
 
                       <motion.div
-
-                        key="escena10"
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
-                        style={{
-                          width: "100%",
-                          height: "100%"
-                        }}
-
+                        key="escena11"
+                        {...transicionEscena}
                       >
 
                         <Escena8
@@ -2477,64 +2236,31 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENAS 11 - 23
-                    ================================================= */}
+                    {/* ESCENAS 12 - 24 */}
 
-                    {escena >= 11 && (
+                    {escena >= 12 && (
 
                       <motion.div
-
                         key={`escena-${escena}`}
-
-                        initial={{
-                          opacity: 0,
-                          y: 15,
-                          filter:
-                            "blur(8px) brightness(1.15)"
-                        }}
-
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          filter:
-                            "blur(0px) brightness(1)"
-                        }}
-
-                        exit={{
-                          opacity: 0,
-                          y: -15,
-                          filter:
-                            "blur(8px) brightness(1.1)"
-                        }}
-
-                        transition={{
-                          duration: 0.45,
-                          ease: [
-                            0.25,
-                            0.1,
-                            0.25,
-                            1
-                          ]
-                        }}
-
+                        {...transicionEscena}
                         style={{
-                          width: "100%",
-                          height: "100%",
+                          ...transicionEscena.style,
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "center"
+                          justifyContent:
+                            "center"
                         }}
-
                       >
 
                         <div
                           style={{
                             color: "white",
-                            textAlign: "center",
-                            fontSize: "24px",
-                            padding: "30px"
+                            textAlign:
+                              "center",
+                            fontSize:
+                              "24px",
+                            padding:
+                              "30px"
                           }}
                         >
 
@@ -2557,18 +2283,13 @@ const InterfazCap = () => {
           </div>
 
 
-          {/* =================================================
-              BARRA DE CONTROLES
-          ================================================= */}
+          {/* =====================================================
+              CONTROLES
+          ===================================================== */}
 
           <div className="controls-bar">
 
             <div className="row align-items-center g-0">
-
-
-              {/* =================================================
-                  CONTROLES IZQUIERDA
-              ================================================= */}
 
               <div className="col-auto d-flex gap-2">
 
@@ -2581,7 +2302,8 @@ const InterfazCap = () => {
                     toggleSubtitulos
                   }
                   style={{
-                    cursor: "pointer"
+                    cursor:
+                      "pointer"
                   }}
                 >
 
@@ -2599,7 +2321,7 @@ const InterfazCap = () => {
                 </div>
 
 
-                {/* PLAY / PAUSA */}
+                {/* PAUSA */}
 
                 <div
                   className="btn-ctrl"
@@ -2607,7 +2329,8 @@ const InterfazCap = () => {
                     togglePausa
                   }
                   style={{
-                    cursor: "pointer"
+                    cursor:
+                      "pointer"
                   }}
                 >
 
@@ -2637,7 +2360,8 @@ const InterfazCap = () => {
                     toggleMusic
                   }
                   style={{
-                    cursor: "pointer"
+                    cursor:
+                      "pointer"
                   }}
                 >
 
@@ -2655,14 +2379,9 @@ const InterfazCap = () => {
                 </div>
 
 
-                {/* =================================================
-                    CONTROLES VOLUMEN
-                ================================================= */}
+                {/* VOLUMEN */}
 
                 <div className="audio-controls">
-
-
-                  {/* MÚSICA */}
 
                   <div className="volume-control">
 
@@ -2690,18 +2409,17 @@ const InterfazCap = () => {
 
                     <span className="volume-number">
 
-                      {
-                        Math.round(
-                          volumenMusica * 100
-                        )
-                      }%
+                      {Math.round(
+                        volumenMusica *
+                        100
+                      )}
+
+                      %
 
                     </span>
 
                   </div>
 
-
-                  {/* EFECTOS */}
 
                   <div className="volume-control">
 
@@ -2729,11 +2447,12 @@ const InterfazCap = () => {
 
                     <span className="volume-number">
 
-                      {
-                        Math.round(
-                          volumenEfectos * 100
-                        )
-                      }%
+                      {Math.round(
+                        volumenEfectos *
+                        100
+                      )}
+
+                      %
 
                     </span>
 
@@ -2745,15 +2464,12 @@ const InterfazCap = () => {
 
 
               {/* =================================================
-                  FLECHAS + SELECTOR + LIBRO
+                  FLECHAS
               ================================================= */}
 
               <div className="flechas col d-flex align-items-center justify-content-center gap-3">
 
                 <div className="rows">
-
-
-                  {/* ATRÁS */}
 
                   <motion.img
                     className="flechitas"
@@ -2762,7 +2478,8 @@ const InterfazCap = () => {
                       retroceder
                     }
                     style={{
-                      cursor: "pointer"
+                      cursor:
+                        "pointer"
                     }}
                     whileTap={{
                       scale: 0.85
@@ -2770,15 +2487,14 @@ const InterfazCap = () => {
                   />
 
 
-                  {/* =================================================
-                      SELECTOR DE ESCENAS
-                  ================================================= */}
+                  {/* SELECTOR */}
 
                   <div
                     className="page-num-selector"
                     onClick={() =>
                       setSelectorEscenasAbierto(
-                        prev => !prev
+                        prev =>
+                          !prev
                       )
                     }
                   >
@@ -2786,7 +2502,10 @@ const InterfazCap = () => {
                     <div className="page-num">
 
                       <span>
-                        {escena}/23
+
+                        {escena}/
+                        {TOTAL_ESCENAS}
+
                       </span>
 
                       <motion.span
@@ -2798,55 +2517,47 @@ const InterfazCap = () => {
                               : 0
                         }}
                         transition={{
-                          duration: 0.2
+                          duration:
+                            0.2
                         }}
                       >
+
                         ▼
+
                       </motion.span>
 
                     </div>
 
-
-                    {/* =================================================
-                        MENÚ DESPLEGABLE
-                    ================================================= */}
 
                     <AnimatePresence>
 
                       {selectorEscenasAbierto && (
 
                         <motion.div
-
                           className="selector-escenas"
-
                           initial={{
                             opacity: 0,
                             y: 10,
                             scale: 0.92
                           }}
-
                           animate={{
                             opacity: 1,
                             y: 0,
                             scale: 1
                           }}
-
                           exit={{
                             opacity: 0,
                             y: 10,
                             scale: 0.92
                           }}
-
                           transition={{
                             type: "spring",
                             stiffness: 400,
                             damping: 25
                           }}
-
                           onClick={(event) =>
                             event.stopPropagation()
                           }
-
                         >
 
                           <div className="selector-escenas-titulo">
@@ -2860,73 +2571,69 @@ const InterfazCap = () => {
 
                             {Array.from(
                               {
-                                length: 23
+                                length:
+                                  TOTAL_ESCENAS
                               },
                               (_, i) =>
                                 i + 1
-                            ).map(numero => (
+                            ).map(
+                              numero => (
 
-                              <motion.button
-
-                                key={numero}
-
-                                className={`selector-escena ${
-                                  escena === numero
+                                <motion.button
+                                  key={numero}
+                                  className={`selector-escena ${escena ===
+                                    numero
                                     ? "escena-actual"
                                     : ""
-                                }`}
+                                    }`}
+                                  onClick={() =>
+                                    seleccionarEscena(
+                                      numero
+                                    )
+                                  }
+                                  whileHover={{
+                                    scale:
+                                      1.08,
+                                    y: -2
+                                  }}
+                                  whileTap={{
+                                    scale:
+                                      0.9
+                                  }}
+                                >
 
-                                onClick={() =>
-                                  seleccionarEscena(
-                                    numero
-                                  )
-                                }
+                                  <span>
 
-                                whileHover={{
-                                  scale: 1.08,
-                                  y: -2
-                                }}
+                                    {numero}
 
-                                whileTap={{
-                                  scale: 0.9
-                                }}
-
-                              >
-
-                                <span>
-                                  {numero}
-                                </span>
+                                  </span>
 
 
-                                {escena === numero && (
+                                  {escena ===
+                                    numero && (
 
-                                  <motion.span
+                                      <motion.span
+                                        className="escena-check"
+                                        initial={{
+                                          scale:
+                                            0
+                                        }}
+                                        animate={{
+                                          scale:
+                                            1
+                                        }}
+                                      >
 
-                                    className="escena-check"
+                                        ✓
 
-                                    initial={{
-                                      scale: 0
-                                    }}
+                                      </motion.span>
 
-                                    animate={{
-                                      scale: 1
-                                    }}
+                                    )}
 
-                                    transition={{
-                                      type: "spring",
-                                      stiffness: 500,
-                                      damping: 20
-                                    }}
+                                </motion.button>
 
-                                  >
-                                    ✓
-                                  </motion.span>
-
-                                )}
-
-                              </motion.button>
-
-                            ))}
+                              )
+                            )}
 
                           </div>
 
@@ -2939,8 +2646,6 @@ const InterfazCap = () => {
                   </div>
 
 
-                  {/* ADELANTE */}
-
                   <motion.img
                     className="flechitas"
                     src="./Adelante.png"
@@ -2948,7 +2653,8 @@ const InterfazCap = () => {
                       avanzar
                     }
                     style={{
-                      cursor: "pointer"
+                      cursor:
+                        "pointer"
                     }}
                     whileTap={{
                       scale: 0.85
@@ -2958,18 +2664,12 @@ const InterfazCap = () => {
                 </div>
 
 
-                {/* =================================================
-                    LIBRO DE PERSONAJES
-                ================================================= */}
-
                 <LibroPersonajes />
 
               </div>
 
 
-              {/* =================================================
-                  FULLSCREEN
-              ================================================= */}
+              {/* FULLSCREEN */}
 
               <div
                 className="col-auto d-flex align-items-center gap-2"
@@ -2977,7 +2677,8 @@ const InterfazCap = () => {
                   toggleFullscreen
                 }
                 style={{
-                  cursor: "pointer"
+                  cursor:
+                    "pointer"
                 }}
               />
 
@@ -2986,47 +2687,38 @@ const InterfazCap = () => {
           </div>
 
 
-          {/* =================================================
+          {/* =====================================================
               OBJETOS ENCONTRADOS
-          ================================================= */}
+          ===================================================== */}
 
           <div className="found-slots">
 
 
-            {/* =================================================
-                NOTICIA DE OBJETOS
-            ================================================= */}
+            {/* AVISO */}
 
             <AnimatePresence>
 
               {escena === 1 && (
 
                 <motion.div
-
                   key="noticia-objetos"
-
                   className="noticia-objetos"
-
                   initial={{
                     opacity: 0,
                     y: 10
                   }}
-
                   animate={{
                     opacity: 1,
                     y: 0
                   }}
-
                   exit={{
                     opacity: 0,
                     y: 10
                   }}
-
                   transition={{
                     duration: 0.4,
                     delay: 0.8
                   }}
-
                 >
 
                   Puedes darle click a los objetos para saber más sobre estos.
@@ -3055,7 +2747,6 @@ const InterfazCap = () => {
                       ? informacionObjetos[obj]
                       : null;
 
-
                   return (
 
                     <div
@@ -3064,16 +2755,14 @@ const InterfazCap = () => {
                     >
 
                       <motion.div
-
-                        className={`slot ${
-                          obj
-                            ? "slot-con-objeto"
-                            : "slot-vacio"
-                        } ${
-                          objetoSeleccionado === obj
+                        className={`slot ${obj
+                          ? "slot-con-objeto"
+                          : "slot-vacio"
+                          } ${objetoSeleccionado ===
+                            obj
                             ? "slot-seleccionado"
                             : ""
-                        }`}
+                          }`}
 
                         onClick={() =>
                           abrirDescripcionObjeto(
@@ -3084,23 +2773,25 @@ const InterfazCap = () => {
                         whileHover={
                           obj
                             ? {
-                                scale: 1.08,
-                                y: -3
-                              }
+                              scale:
+                                1.08,
+                              y: -3
+                            }
                             : {}
                         }
 
                         whileTap={
                           obj
                             ? {
-                                scale: 0.92
-                              }
+                              scale:
+                                0.92
+                            }
                             : {}
                         }
 
                         style={{
-
-                          marginLeft: "10px",
+                          marginLeft:
+                            "10px",
 
                           cursor:
                             obj
@@ -3109,7 +2800,6 @@ const InterfazCap = () => {
 
                           position:
                             "relative"
-
                         }}
 
                         title={
@@ -3117,38 +2807,34 @@ const InterfazCap = () => {
                             ? `Ver ${informacion.nombre}`
                             : "Espacio vacío"
                         }
-
                       >
 
 
-                        {/* =================================================
-                            OBJETO
-                        ================================================= */}
+                        {/* IMAGEN DEL OBJETO */}
 
                         {obj &&
                           informacion && (
 
-                          <img
-                            src={
-                              informacion.imagen
-                            }
-                            alt={
-                              informacion.nombre
-                            }
-                            className="slot-objeto-imagen"
-                          />
+                            <img
+                              src={
+                                informacion.imagen
+                              }
 
-                        )}
+                              alt={
+                                informacion.nombre
+                              }
+
+                              className="slot-objeto-imagen"
+                            />
+
+                          )}
 
 
-                        {/* =================================================
-                            CHULITO
-                        ================================================= */}
+                        {/* CHECK */}
 
                         {obj && (
 
                           <motion.div
-
                             initial={{
                               scale: 0,
                               opacity: 0,
@@ -3162,13 +2848,15 @@ const InterfazCap = () => {
                             }}
 
                             transition={{
-                              type: "spring",
-                              stiffness: 450,
-                              damping: 18
+                              type:
+                                "spring",
+                              stiffness:
+                                450,
+                              damping:
+                                18
                             }}
 
                             style={{
-
                               position:
                                 "absolute",
 
@@ -3222,9 +2910,7 @@ const InterfazCap = () => {
 
                               pointerEvents:
                                 "none"
-
                             }}
-
                           >
 
                             ✓
@@ -3240,7 +2926,6 @@ const InterfazCap = () => {
                   );
 
                 }
-
               )}
 
             </div>
@@ -3248,19 +2933,18 @@ const InterfazCap = () => {
           </div>
 
 
-          {/* =================================================
-              MODAL DEL OBJETO
-          ================================================= */}
+          {/* =====================================================
+              MODAL OBJETO
+          ===================================================== */}
 
           <AnimatePresence>
 
             {objetoSeleccionado &&
               informacionObjetos[
-                objetoSeleccionado
+              objetoSeleccionado
               ] && (
 
                 <motion.div
-
                   className="objeto-modal-overlay"
 
                   initial={{
@@ -3278,12 +2962,10 @@ const InterfazCap = () => {
                   onClick={
                     cerrarDescripcionObjeto
                   }
-
                 >
 
 
                   <motion.div
-
                     className="objeto-modal"
 
                     initial={{
@@ -3313,22 +2995,17 @@ const InterfazCap = () => {
                     onClick={(event) =>
                       event.stopPropagation()
                     }
-
                   >
 
 
                     {/* CERRAR */}
 
                     <button
-
                       className="objeto-modal-cerrar"
-
                       onClick={
                         cerrarDescripcionObjeto
                       }
-
                       aria-label="Cerrar descripción"
-
                     >
 
                       ×
@@ -3341,7 +3018,6 @@ const InterfazCap = () => {
                     <div className="objeto-modal-imagen-contenedor">
 
                       <img
-
                         src={
                           informacionObjetos[
                             objetoSeleccionado
@@ -3355,7 +3031,6 @@ const InterfazCap = () => {
                         }
 
                         className="objeto-modal-imagen"
-
                       />
 
                     </div>
@@ -3396,9 +3071,7 @@ const InterfazCap = () => {
 
                       <div className="objeto-modal-detalle">
 
-                        <span>
-                          ✦
-                        </span>
+                        <span>✦</span>
 
                         {
                           informacionObjetos[

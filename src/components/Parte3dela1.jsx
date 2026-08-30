@@ -1,3 +1,4 @@
+
 import {
     useRef,
     forwardRef,
@@ -7,6 +8,7 @@ import {
 import { gsap } from "gsap";
 
 import "../stylesheets/Escena2.css";
+import "../stylesheets/Escena1.3.css";
 
 import sra from "../assets/1.3sra.webm";
 import pasto2 from "../assets/pasto1.3.webm";
@@ -16,21 +18,35 @@ import sol2 from "../assets/sol2.webm";
 import tronco from "../assets/arbol3.webm";
 import detalle from "../assets/hierboza.webm";
 
-import "../stylesheets/Escena1.3.css";
-import escena1sra from"../assets/audio/escena1sra.mp3";
+import objeto from "../assets/svg/pintura.svg";
+
+import tocar from "../assets/audio/tocar.mp3";
+
 
 export const Parte3dela1 = forwardRef(
-    ({ cambiarEscena }, ref) => {
+    ({
+        cambiarEscena,
+        onRecoger,
+        objetoRecogido
+    }, ref) => {
+
 
         // =========================================================
-        // ESCENA
+        // ID DEL OBJETO
+        // =========================================================
+
+        const ID_OBJETO = "pintura";
+
+
+        // =========================================================
+        // REF PRINCIPAL
         // =========================================================
 
         const screenRef = useRef(null);
 
 
         // =========================================================
-        // VIDEOS
+        // REFS DE VIDEOS
         // =========================================================
 
         const fondoRef = useRef(null);
@@ -43,18 +59,40 @@ export const Parte3dela1 = forwardRef(
 
 
         // =========================================================
-        // CONTROL
+        // REF DEL OBJETO
+        // =========================================================
+
+        const objetoRef = useRef(null);
+
+
+        // =========================================================
+        // AUDIO
+        // =========================================================
+
+        const tocarRef = useRef(
+            new Audio(tocar)
+        );
+
+        tocarRef.current.volume = 0.5;
+
+
+        // =========================================================
+        // CONTROL DE ESCENA
         // =========================================================
 
         const escenaIniciada = useRef(false);
+
+        const objetoAnimando = useRef(false);
 
         const cameraTimelineRef = useRef(null);
 
         const cartelTimelineRef = useRef(null);
 
+        const objetoTimelineRef = useRef(null);
+
 
         // =========================================================
-        // TODOS LOS VIDEOS
+        // OBTENER TODOS LOS VIDEOS
         // =========================================================
 
         const obtenerVideos = () => {
@@ -73,7 +111,7 @@ export const Parte3dela1 = forwardRef(
 
 
         // =========================================================
-        // REPRODUCIR VIDEOS
+        // REPRODUCIR TODOS LOS VIDEOS
         // =========================================================
 
         const reproducirVideos = () => {
@@ -92,7 +130,7 @@ export const Parte3dela1 = forwardRef(
 
 
         // =========================================================
-        // PAUSAR VIDEOS
+        // PAUSAR TODOS LOS VIDEOS
         // =========================================================
 
         const pausarVideos = () => {
@@ -109,7 +147,7 @@ export const Parte3dela1 = forwardRef(
 
 
         // =========================================================
-        // CARTEL
+        // INICIAR CARTEL
         // =========================================================
 
         const iniciarCartel = () => {
@@ -119,12 +157,20 @@ export const Parte3dela1 = forwardRef(
             if (!video) return;
 
 
+            // -----------------------------------------------------
+            // LIMPIAR ANIMACIÓN ANTERIOR
+            // -----------------------------------------------------
+
             if (cartelTimelineRef.current) {
 
                 cartelTimelineRef.current.kill();
 
             }
 
+
+            // -----------------------------------------------------
+            // REINICIAR
+            // -----------------------------------------------------
 
             video.pause();
 
@@ -133,10 +179,18 @@ export const Parte3dela1 = forwardRef(
             video.playbackRate = 4;
 
 
+            // -----------------------------------------------------
+            // REPRODUCIR
+            // -----------------------------------------------------
+
             video
                 .play()
                 .catch(() => {});
 
+
+            // -----------------------------------------------------
+            // CAMBIAR VELOCIDAD
+            // -----------------------------------------------------
 
             cartelTimelineRef.current = gsap.to(
                 video,
@@ -157,7 +211,7 @@ export const Parte3dela1 = forwardRef(
 
 
         // =========================================================
-        // CÁMARA
+        // CÁMARA DE LA ESCENA
         // =========================================================
 
         const iniciarCamara = () => {
@@ -167,9 +221,9 @@ export const Parte3dela1 = forwardRef(
             if (!screen) return;
 
 
-            // -----------------------------------------------
+            // -----------------------------------------------------
             // LIMPIAR CÁMARA ANTERIOR
-            // -----------------------------------------------
+            // -----------------------------------------------------
 
             if (cameraTimelineRef.current) {
 
@@ -180,9 +234,9 @@ export const Parte3dela1 = forwardRef(
             gsap.killTweensOf(screen);
 
 
-            // -----------------------------------------------
+            // -----------------------------------------------------
             // POSICIÓN INICIAL
-            // -----------------------------------------------
+            // -----------------------------------------------------
 
             gsap.set(
                 screen,
@@ -200,9 +254,9 @@ export const Parte3dela1 = forwardRef(
             );
 
 
-            // -----------------------------------------------
-            // TIMELINE
-            // -----------------------------------------------
+            // -----------------------------------------------------
+            // CREAR TIMELINE
+            // -----------------------------------------------------
 
             const tl = gsap.timeline({
 
@@ -214,9 +268,9 @@ export const Parte3dela1 = forwardRef(
             cameraTimelineRef.current = tl;
 
 
-            // =================================================
-            // 1 — ZOOM CARTEL
-            // =================================================
+            // =====================================================
+            // 1 — ZOOM AL CARTEL
+            // =====================================================
 
             tl.to(
                 screen,
@@ -236,9 +290,9 @@ export const Parte3dela1 = forwardRef(
             );
 
 
-            // =================================================
+            // =====================================================
             // 2 — ESPERA
-            // =================================================
+            // =====================================================
 
             tl.to(
                 {},
@@ -250,9 +304,9 @@ export const Parte3dela1 = forwardRef(
             );
 
 
-            // =================================================
+            // =====================================================
             // 3 — REGRESAR A SEÑORA FOX
-            // =================================================
+            // =====================================================
 
             tl.to(
                 screen,
@@ -272,9 +326,9 @@ export const Parte3dela1 = forwardRef(
             );
 
 
-            // =================================================
+            // =====================================================
             // 4 — BAJAR
-            // =================================================
+            // =====================================================
 
             tl.to(
                 screen,
@@ -292,9 +346,9 @@ export const Parte3dela1 = forwardRef(
             );
 
 
-            // =================================================
+            // =====================================================
             // 5 — SUBIR
-            // =================================================
+            // =====================================================
 
             tl.to(
                 screen,
@@ -310,9 +364,9 @@ export const Parte3dela1 = forwardRef(
             );
 
 
-            // =================================================
+            // =====================================================
             // 6 — ENFOCAR CARA
-            // =================================================
+            // =====================================================
 
             tl.to(
                 screen,
@@ -332,9 +386,9 @@ export const Parte3dela1 = forwardRef(
             );
 
 
-            // =================================================
+            // =====================================================
             // 7 — PAUSA FINAL
-            // =================================================
+            // =====================================================
 
             tl.to(
                 {},
@@ -346,13 +400,17 @@ export const Parte3dela1 = forwardRef(
             );
 
 
-            // =================================================
-            // 8 — SIGUIENTE ESCENA
-            // =================================================
+            // =====================================================
+            // 8 — CAMBIAR A ESCENA 4
+            // =====================================================
 
             tl.call(() => {
 
-                cambiarEscena(4);
+                if (cambiarEscena) {
+
+                    cambiarEscena(4);
+
+                }
 
             });
 
@@ -360,27 +418,41 @@ export const Parte3dela1 = forwardRef(
 
 
         // =========================================================
-        // INICIAR TODO
+        // INICIAR TODA LA ESCENA
         // =========================================================
 
         const iniciarTodo = () => {
 
-            // IMPORTANTE:
-            // si ya existe la escena, no crear otra cámara
+
+            // -----------------------------------------------------
+            // SI YA ESTÁ INICIADA
+            // -----------------------------------------------------
 
             if (escenaIniciada.current) {
+
+                reproducirVideos();
+
+                if (cameraTimelineRef.current) {
+
+                    cameraTimelineRef.current.resume();
+
+                }
 
                 return;
 
             }
 
 
+            // -----------------------------------------------------
+            // MARCAR COMO INICIADA
+            // -----------------------------------------------------
+
             escenaIniciada.current = true;
 
 
-            // -----------------------------------------------
+            // -----------------------------------------------------
             // REINICIAR VIDEOS
-            // -----------------------------------------------
+            // -----------------------------------------------------
 
             obtenerVideos().forEach((video) => {
 
@@ -391,25 +463,385 @@ export const Parte3dela1 = forwardRef(
             });
 
 
-            // -----------------------------------------------
-            // VIDEOS
-            // -----------------------------------------------
+            // -----------------------------------------------------
+            // REPRODUCIR VIDEOS
+            // -----------------------------------------------------
 
             reproducirVideos();
 
 
-            // -----------------------------------------------
-            // CARTEL
-            // -----------------------------------------------
+            // -----------------------------------------------------
+            // INICIAR CARTEL
+            // -----------------------------------------------------
 
             iniciarCartel();
 
 
-            // -----------------------------------------------
-            // CÁMARA
-            // -----------------------------------------------
+            // -----------------------------------------------------
+            // INICIAR CÁMARA
+            // -----------------------------------------------------
 
             iniciarCamara();
+
+        };
+
+
+        // =========================================================
+        // CLICK EN PINTURA
+        // =========================================================
+
+        const clickObjeto = (e) => {
+
+
+            // -----------------------------------------------------
+            // EVITAR PROPAGACIÓN
+            // -----------------------------------------------------
+
+            if (e) {
+
+                e.stopPropagation();
+
+            }
+
+
+            // -----------------------------------------------------
+            // EVITAR DOBLE CLICK
+            // -----------------------------------------------------
+
+            if (objetoAnimando.current) return;
+
+            if (objetoRecogido) return;
+
+
+            // -----------------------------------------------------
+            // REFERENCIAS
+            // -----------------------------------------------------
+
+            const objetoActual =
+                objetoRef.current;
+
+            const screen =
+                screenRef.current;
+
+
+            if (!objetoActual || !screen) return;
+
+
+            // -----------------------------------------------------
+            // BLOQUEAR OBJETO
+            // -----------------------------------------------------
+
+            objetoAnimando.current = true;
+
+
+            // =====================================================
+            // SONIDO
+            // =====================================================
+
+            tocarRef.current.currentTime = 0;
+
+            tocarRef.current
+                .play()
+                .catch(() => {});
+
+
+            // =====================================================
+            // LIMPIAR ANIMACIÓN ANTERIOR
+            // =====================================================
+
+            if (objetoTimelineRef.current) {
+
+                objetoTimelineRef.current.kill();
+
+            }
+
+
+            // =====================================================
+            // BUSCAR SLOT
+            // =====================================================
+
+            const slotDestino =
+                document.querySelector(".slot");
+
+
+            if (!slotDestino) {
+
+                objetoAnimando.current = false;
+
+                return;
+
+            }
+
+
+            // =====================================================
+            // POSICIONES
+            // =====================================================
+
+            const objetoRect =
+                objetoActual.getBoundingClientRect();
+
+
+            const screenRect =
+                screen.getBoundingClientRect();
+
+
+            // =====================================================
+            // CENTRO DE LA PANTALLA
+            // =====================================================
+
+            const centroX =
+                screenRect.width / 2;
+
+            const centroY =
+                screenRect.height / 2;
+
+
+            // =====================================================
+            // CENTRO DE LA PINTURA
+            // =====================================================
+
+            const objetoX =
+                objetoRect.left -
+                screenRect.left +
+                objetoRect.width / 2;
+
+
+            const objetoY =
+                objetoRect.top -
+                screenRect.top +
+                objetoRect.height / 2;
+
+
+            // =====================================================
+            // DISTANCIA HACIA EL CENTRO
+            // =====================================================
+
+            const offsetX =
+                centroX - objetoX;
+
+
+            const offsetY =
+                centroY - objetoY;
+
+
+            // =====================================================
+            // POSICIÓN DEL SLOT
+            // =====================================================
+
+            const slotRect =
+                slotDestino.getBoundingClientRect();
+
+
+            const diferenciaX =
+                slotRect.left +
+                slotRect.width / 2 -
+                (
+                    objetoRect.left +
+                    objetoRect.width / 2
+                );
+
+
+            const diferenciaY =
+                slotRect.top +
+                slotRect.height / 2 -
+                (
+                    objetoRect.top +
+                    objetoRect.height / 2
+                );
+
+
+            // =====================================================
+            // CREAR TIMELINE
+            // =====================================================
+
+            const tl = gsap.timeline({
+
+                onComplete: () => {
+
+                    // ---------------------------------------------
+                    // AVISAR AL PADRE
+                    // ---------------------------------------------
+
+                    if (onRecoger) {
+
+                        onRecoger(ID_OBJETO);
+
+                    }
+
+
+                    // ---------------------------------------------
+                    // DESBLOQUEAR
+                    // ---------------------------------------------
+
+                    objetoAnimando.current = false;
+
+                }
+
+            });
+
+
+            objetoTimelineRef.current = tl;
+
+
+            // =====================================================
+            // 1 — BRILLO + CRECER + GIRAR
+            // =====================================================
+
+            tl.to(
+                objetoActual,
+                {
+
+                    filter: `
+                        drop-shadow(0 0 50px #ffffff)
+                        drop-shadow(0 0 120px #ffe600)
+                        drop-shadow(0 0 220px #ffd000)
+                        drop-shadow(0 0 340px #ff9900)
+                    `,
+
+                    scale: 1.35,
+                    
+                    rotation: 360,
+
+                    duration: 0.35,
+
+                    ease: "back.out(2)"
+
+                }
+            );
+
+
+            // =====================================================
+            // 2 — CÁMARA HACIA LA PINTURA
+            // =====================================================
+
+            tl.to(
+                screen,
+                {
+
+                    scale: 2,
+
+                    x: offsetX,
+
+                    y: -340,
+
+                    duration: 0.7,
+
+                    ease: "power3.inOut"
+
+                },
+
+                "<"
+            );
+
+
+            // =====================================================
+            // 3 — PEQUEÑA ESPERA
+            // =====================================================
+
+            tl.to(
+                {},
+                {
+
+                    duration: 0.25
+
+                }
+            );
+
+
+            // =====================================================
+            // 4 — REGRESAR CÁMARA
+            // =====================================================
+
+            tl.to(
+                screen,
+                {
+
+                    scale: 1,
+
+                    x: 0,
+
+                    y: 0,
+
+                    duration: 0.7,
+
+                    ease: "power3.inOut"
+
+                }
+            );
+
+
+            // =====================================================
+            // 5 — MOVER PINTURA AL SLOT
+            // =====================================================
+
+            tl.to(
+                objetoActual,
+                {
+
+                    x: `+=${diferenciaX}`,
+
+                    y: `+=${diferenciaY}`,
+
+                    scale: 0.4,
+
+                    rotation: 1080,
+
+                    duration: 0.8,
+
+                    ease: "power3.inOut"
+
+                },
+
+                "<"
+            );
+
+
+            // =====================================================
+            // 6 — PEQUEÑO REBOTE
+            // =====================================================
+
+            tl.to(
+                objetoActual,
+                {
+
+                    scale: 0.5,
+
+                    duration: 0.12,
+
+                    ease: "back.out(4)"
+
+                }
+            );
+
+
+            // =====================================================
+            // 7 — DESAPARECER
+            // =====================================================
+
+            tl.to(
+                objetoActual,
+                {
+
+                    opacity: 0,
+
+                    duration: 0.15
+
+                }
+            );
+
+
+            // =====================================================
+            // 8 — LIMPIAR FILTRO
+            // =====================================================
+
+            tl.set(
+                objetoActual,
+                {
+
+                    clearProps: "filter"
+
+                }
+            );
 
         };
 
@@ -420,8 +852,17 @@ export const Parte3dela1 = forwardRef(
 
         const pausarTodo = () => {
 
+
+            // -----------------------------------------------------
+            // VIDEOS
+            // -----------------------------------------------------
+
             pausarVideos();
 
+
+            // -----------------------------------------------------
+            // CÁMARA
+            // -----------------------------------------------------
 
             if (cameraTimelineRef.current) {
 
@@ -430,9 +871,24 @@ export const Parte3dela1 = forwardRef(
             }
 
 
+            // -----------------------------------------------------
+            // CARTEL
+            // -----------------------------------------------------
+
             if (cartelTimelineRef.current) {
 
                 cartelTimelineRef.current.pause();
+
+            }
+
+
+            // -----------------------------------------------------
+            // OBJETO
+            // -----------------------------------------------------
+
+            if (objetoTimelineRef.current) {
+
+                objetoTimelineRef.current.pause();
 
             }
 
@@ -445,9 +901,10 @@ export const Parte3dela1 = forwardRef(
 
         const reanudarTodo = () => {
 
-            // -----------------------------------------------
-            // SI TODAVÍA NO HABÍA EMPEZADO
-            // -----------------------------------------------
+
+            // -----------------------------------------------------
+            // SI TODAVÍA NO EMPEZÓ
+            // -----------------------------------------------------
 
             if (!escenaIniciada.current) {
 
@@ -458,16 +915,16 @@ export const Parte3dela1 = forwardRef(
             }
 
 
-            // -----------------------------------------------
+            // -----------------------------------------------------
             // VIDEOS
-            // -----------------------------------------------
+            // -----------------------------------------------------
 
             reproducirVideos();
 
 
-            // -----------------------------------------------
+            // -----------------------------------------------------
             // CÁMARA
-            // -----------------------------------------------
+            // -----------------------------------------------------
 
             if (cameraTimelineRef.current) {
 
@@ -476,9 +933,9 @@ export const Parte3dela1 = forwardRef(
             }
 
 
-            // -----------------------------------------------
+            // -----------------------------------------------------
             // CARTEL
-            // -----------------------------------------------
+            // -----------------------------------------------------
 
             if (cartelTimelineRef.current) {
 
@@ -486,11 +943,22 @@ export const Parte3dela1 = forwardRef(
 
             }
 
+
+            // -----------------------------------------------------
+            // OBJETO
+            // -----------------------------------------------------
+
+            if (objetoTimelineRef.current) {
+
+                objetoTimelineRef.current.resume();
+
+            }
+
         };
 
 
         // =========================================================
-        // INTERFAZCAP
+        // EXPONER FUNCIONES
         // =========================================================
 
         useImperativeHandle(
@@ -517,6 +985,7 @@ export const Parte3dela1 = forwardRef(
                 ref={screenRef}
                 className="screen"
             >
+
 
                 {/* =================================================
                     FONDO
@@ -670,9 +1139,55 @@ export const Parte3dela1 = forwardRef(
 
                 </video>
 
+
+                {/* =================================================
+                    PINTURA
+                ================================================= */}
+
+                {!objetoRecogido && (
+
+                    <div
+                        style={{
+                            position: "relative",
+                            display: "inline-block",
+                            zIndex: 16,
+                            pointerEvents: "auto"
+                        }}
+                    >
+
+                        <img
+                            ref={objetoRef}
+
+                            src={objeto}
+
+                            className="pin"
+
+                            alt="objeto oculto"
+
+                            onClick={clickObjeto}
+
+                            draggable={false}
+
+                            style={{
+                                cursor: "pointer",
+                                position: "relative",
+                                zIndex: 16,
+                                pointerEvents: "auto",
+                                userSelect: "none"
+                            }}
+                        />
+
+                    </div>
+
+                )}
+
             </div>
 
         );
 
     }
 );
+
+
+export default Parte3dela1;
+

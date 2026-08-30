@@ -224,7 +224,7 @@ tl.to(olorRef.current, {
 
 tl.eventCallback("onComplete", () => {
 
-  cambiarEscena(10);
+  cambiarEscena(11);
 
 });
 

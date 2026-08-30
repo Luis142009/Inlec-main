@@ -38,7 +38,7 @@ export const Escena6 = forwardRef(
         arbolTermino.current
       ) {
 
-        cambiarEscena(9);
+        cambiarEscena(10);
 
       }
 

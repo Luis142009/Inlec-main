@@ -301,8 +301,8 @@ body{
   inset: 0; 
   z-index: 9998; 
   background: rgba(0, 0, 0, 0.15); 
-  backdrop-filter: blur(7px); 
-  -webkit-backdrop-filter: blur(7px); 
+  backdrop-filter: blur(1px); 
+  -webkit-backdrop-filter: blur(1px); 
   opacity: 0; 
   pointer-events: none; 
   transition: opacity 0.4s ease; 

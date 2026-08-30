@@ -1,0 +1,278 @@
+@font-face {
+  font-family: 'abalon';
+  src: url('../assets/abalon.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.escena5 {
+
+  position: relative;
+
+  width: 123%;
+  height: 100%;
+
+  overflow: hidden;
+
+}
+
+
+.escena5 video {
+
+  position: absolute;
+
+}
+
+
+/* =========================================================
+   FONDO
+========================================================= */
+
+.escenario5-fondo {
+
+  width: 100%;
+  height: 100%;
+
+  inset: 0;
+
+  object-fit: cover;
+
+  z-index: 1;
+
+}
+
+
+/* =========================================================
+   GRANJA
+========================================================= */
+
+.granja {
+
+  z-index: 5;
+
+  width: 1250px;
+
+  height: auto;
+
+  left: 174px;
+
+  bottom: 299px;
+
+}
+
+
+.granja:hover {
+
+  filter:
+    drop-shadow(2px 0 0 #3b1602)
+    drop-shadow(-2px 0 0 #3b1602)
+    drop-shadow(0 2px 0 #3b1602);
+
+}
+
+
+/* =========================================================
+   SR. FOX
+========================================================= */
+
+.srca {
+
+  z-index: 20;
+
+  width: 1500px;
+
+  height: auto;
+
+  left: -370px;
+
+  bottom: 7px;
+
+}
+
+
+/* =========================================================
+   NOTA
+========================================================= */
+
+.noticia-objetos {
+
+  position: absolute;
+
+  bottom: 40px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: rgba(255, 239, 213, 0.97);
+
+  color: #4b3428;
+
+  font-family: 'abalon', cursive;
+
+  font-size: 25px;
+
+  font-weight: normal;
+
+  letter-spacing: 0.3px;
+
+  line-height: 1.3;
+
+  text-align: center;
+
+  padding: 22px 42px 24px;
+
+  width: 520px;
+
+  min-height: 90px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 18px;
+
+  border: 2px solid rgba(91, 62, 43, 0.35);
+
+  box-shadow:
+
+    0 5px 0 rgba(91, 62, 43, 0.12),
+
+    0 12px 28px rgba(43, 29, 20, 0.2);
+
+  z-index: 50;
+
+  pointer-events: none;
+
+  animation:
+    noticiaEntrada
+    15s
+    cubic-bezier(.22, 1, .36, 1)
+    forwards;
+
+}
+
+
+/* =========================================================
+   PESTAÑA SUPERIOR
+========================================================= */
+
+.noticia-objetos::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: -9px;
+
+  left: 50%;
+
+  width: 55px;
+
+  height: 18px;
+
+  transform:
+    translateX(-50%)
+    rotate(-2deg);
+
+  background: rgba(255, 224, 184, 0.95);
+
+  border-radius: 5px;
+
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.12);
+
+}
+
+
+/* =========================================================
+   PUNTA INFERIOR
+========================================================= */
+
+.noticia-objetos::after {
+
+  content: "";
+
+  position: absolute;
+
+  bottom: -9px;
+
+  left: 50%;
+
+  width: 18px;
+
+  height: 18px;
+
+  background: rgba(255, 239, 213, 0.97);
+
+  transform:
+    translateX(-50%)
+    rotate(45deg);
+
+  border-right:
+    2px solid
+    rgba(91, 62, 43, 0.25);
+
+  border-bottom:
+    2px solid
+    rgba(91, 62, 43, 0.25);
+
+}
+
+
+/* =========================================================
+   ENTRADA Y DESAPARICIÓN
+========================================================= */
+
+@keyframes noticiaEntrada {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(12px)
+      scale(0.94);
+
+  }
+
+  12% {
+
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1);
+
+  }
+
+  78% {
+
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1);
+
+  }
+
+  100% {
+
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(-6px)
+      scale(0.98);
+
+  }
+
+}
