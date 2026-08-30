@@ -2,6 +2,10 @@
   font-family: 'School';
   src: url(../assets/school.ttf);
 }
+@font-face {
+  font-family: 'pepe';
+  src: url(../assets/abalon.otf);
+}
 
 body {
   font-family: 'School';
@@ -108,33 +112,247 @@ body {
 
 /* imagen */
 .marco-img {
-  width: 100%;
-  aspect-ratio: 1/1;
+  height: auto;
+  aspect-ratio: 1 / 1;
   background-size: cover;
   background-position: center;
+  max-height: 700px;
 }
-
 /* texto */
 .galeria-texto {
-  font-family: 'school', sans-serif;
+ font-family: TT,sans-serif;
   font-size: 0.95rem;
-  color: #2b1a0f;
+  color: #934e24;
   text-align: center;
   max-width: 400px;
   line-height: 1.4;
+
+}
+
+
+.superzorro-section {
+  overflow: hidden;
+}
+
+/* NUEVO: contenedor que agrupa imagen + overlay + controles.
+   Todo lo que estaba "position-absolute" respecto a la sección
+   ahora es relativo a ESTE frame, así se achica junto con la imagen */
+.superzorro-frame {
+  position: relative;
+  width: 70%;
+  max-width: 1800px;
+  margin: 0 auto; /* centra y deja espacio a los dos lados */
+}
+
+.superzorro-img {
+  display: block;
+  border-radius: 24px;
+  object-fit: cover;
+  max-height: 700px;
+  height: auto;
+  width: 100%; /* ahora 100% del frame, no de toda la página */
+}
+
+.superzorro-overlay {
+  padding-top: 2rem;
+}
+
+/* Título "El SuperZorro" */
+.superzorro-titulo {
+  font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  color: #fff8ec;
+  -webkit-text-stroke: 3px #d97b2f;
+  text-shadow:
+    0 3px 0 #d97b2f,
+    0 6px 10px rgba(0, 0, 0, 0.35);
+  margin-bottom: 1rem;
+}
+
+/* Caja blanca que contiene el botón y los capítulos */
+.fondo-capitulos {
+  max-width: 520px;
+  background: rgba(255, 250, 240, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  backdrop-filter: blur(2px);
+}
+
+/* Botón "Empezar Historia" */
+.superzorro-btn {
+  display: inline-block;
+  background:#e89255;
+  border: 2px solid #fff;
+  color: #fff;
+  font-weight: 700;
+  font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.superzorro-btn:hover {
+  background:#e89255;
+  color: #fff;
+  transform: scale(1.03);
+}
+
+/* Texto "Selecciona un capitulo" */
+.s-cap {
+  color: #fff;
+  font-weight: 700;
+  font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
+  margin-bottom: 0;
+}
+
+/* Botones numerados */
+.btn-numero {
+  aspect-ratio: 1 / 1;
+  max-width: 64px;
+  background: linear-gradient(180deg, #f0c374 0%, #e0a352 100%);
+  border: none;
+  border-bottom: 4px solid #b97a2f;
+  border-radius: 14px;
+  color: #fff;
+  font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
+  font-weight: 800;
+  font-size: 1.6rem;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.btn-numero:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.btn-numero:active {
+  transform: translateY(1px);
+  border-bottom-width: 2px;
+}
+
+/* Grupos de botones inferiores (subtítulos, volumen, pausa / pantalla completa) */
+.botones {
+  background: #e89255;
+  border: 2px solid rgba(210, 140, 60, 0.6);
+  padding: 4px 8px;
+  gap: 6px;
+}
+
+.botones .btn {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+}
+
+.botones .btn img {
+  display: block;
 }
 /* ===================== HOME ===================== */
 .home-wrapper {
+  width: 100%;
+  min-height: 200vh;
+
+  background-image: url('/Header.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center top;
+
+
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-image: url('/otono.png');
-  background-size: cover;
-  background-position: center 0%;
-  padding: clamp(1rem, 4vw, 3rem) clamp(0.5rem, 3vw, 2rem);
+
+  padding: 0%;
+}
+/* ===== Sección Inicio ===== */
+.home-wrapper {
+  background-color: #f3ded0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.home-titulo {
+  font-family: "Baloo 2", "Comic Sans MS", cursive;
+  color: #a1622f;
+  -webkit-text-stroke: 1.5px #7a4623;
+  font-weight: 700;
+  text-align: center;
+}
+
+.home-texto {
+  color: #5c3a22;
+  text-align: justify;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+}
+
+.home-btn {
+  background-color: #e2a04e;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 28px;
+  font-weight: 600;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.home-btn:hover {
+  background-color: #cf8b38;
+  transform: translateY(-2px);
+}
+
+/* ===== Sección Nuestro Proyecto ===== */
+.proyecto-wrapper {
+  background-color: #f3ded0;
+  padding: 60px 0;
+}
+
+.proyecto-titulo {
+font-family: 'pepe', sans-serif;
+  color: #eee9e6;
+  -webkit-text-stroke: 12px #934E24;
+  paint-order: stroke fill;
+  font-weight: 700;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  
+  
+}
+
+.proyecto-descripcion {
+  color: #934e24;
+  font-family: TT,sans-serif;
+  text-align: justify;
+  line-height: 1.7;
+  font-size: 1.25rem;
+}
+
+.proyecto-img-frame {
+  background-color: #f3ded0;
+  border: 8px solid #e8b23d;
+  border-radius: 28px;
+  overflow: hidden;
+  display: inline-block;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.proyecto-img {
+  width: 100%;
+  height: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .proyecto-titulo,
+  .proyecto-descripcion {
+    text-align: center;
+  }
+}
 .home-card {
   position: relative;
   background-color: white;
@@ -189,9 +407,12 @@ body {
 
 /* ===================== DETRÁS ===================== */
 .detras-title {
-  font-family: 'school';
+font-family: 'pepe', sans-serif;
+  color: #eee9e6;
+  -webkit-text-stroke: 12px #934E24;
+  paint-order: stroke fill;
   font-size: clamp(1.3rem, 3vw, 2.4rem);
-  color: #000000;
+  
   letter-spacing: 1px;
 }
 
@@ -201,7 +422,7 @@ body {
 }
 
 .detras-text {
-  font-family: 'snoopy';
+  font-family: TT,sans-serif;
   font-size: clamp(0.95rem, 2.5vw, 2.05rem);
   color: #2b1a0e;
   line-height: 1.6;
@@ -222,7 +443,7 @@ body {
 }
 
 .detras-btn {
-  font-family: 'school';
+ font-family: TT,sans-serif;
   font-size: clamp(0.85rem, 2vw, 1.15rem);
   background-color: #995210;
   color: #ffffff;
@@ -327,9 +548,60 @@ body {
   color: #ffffff;
 }
 
+.masinlec-section {
+  background-color: #ecd9cb;
+  padding-bottom: 2rem;
+}
+
+.masinlec-contenido {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  padding: 1.5rem;
+  margin: 1.5rem auto;
+  max-width: 800px;
+}
+
+.masinlec-img {
+  min-width: 220px;
+  height: 200px;
+  border-radius: 14px;
+}
+
+.masinlec-descripcion {
+  font-family: 'TT', sans-serif;
+  color: #934E24;
+  text-align: justify;
+  font-size: 20px;
+  margin: 0;
+}
+
+.masinlec-botones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
+
+.masinlec-btn {
+  background-color: #e89255;
+  color: #ffffff;
+  font-family: 'Abalone', sans-serif;
+  font-size: 20px;
+  border: 3px solid #934E24;
+  padding: 0.4rem 1.5rem;
+}
+
+.masinlec-btn:hover,
+.masinlec-btn:focus {
+  background-color: #ebbb59 !important;
+  color: #ffffff !important;
+  border-color: #934E24 !important;
+}
+
 /* ===================== PERSONAJES ===================== */
 .personajes-wrapper {
-  background-color: #f1f1ef;
+  background-color: #ecd9cb;
   min-height: 180vh;
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -338,24 +610,25 @@ body {
 .personajes-titulo-row {
   margin-left: clamp(1rem, 8vw, 100px);
   margin-bottom: 1rem;
+  
 }
 
 .personajes-titulo {
-  font-family: 'school', sans-serif;
-  font-size: clamp(1.7rem, 5vw, 3rem);
-  color: #1a1a1a;
-  margin: 0;
+font-family: 'pepe', sans-serif;
+  color: #eee9e6;
+  -webkit-text-stroke: 12px #934E24;
+  paint-order: stroke fill;
 }
 
 .personajes-badge-row {
-  margin-left: clamp(1rem, 22vw, 300px);
+  
   margin-top: 20px;
   margin-bottom: 0.5rem;
 }
 
 .personajes-badge {
   display: inline-block;
-  background-color: #8B0000;
+  background-color: #e89255;
   border: 3px solid #000;
   padding: 8px;
 }
@@ -740,15 +1013,21 @@ body {
 }
 
 .footer-title {
-  font-family: 'school';
-  font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+ font-family: 'pepe', sans-serif;
+  color: #eee9e6;
+  -webkit-text-stroke: 12px #934E24;
+  paint-order: stroke fill;
 }
 
 .footer-text {
-  font-family: 'school';
-  font-size: clamp(1rem, 2vw, 1.4rem);
-  margin: 0;
+ color: #934e24;
+ margin: 0;
+ padding-left: .2rem;
+ font-family: TT,sans-serif;
+ font-size: 18px;
 }
+
+
 
 .footer-spacing {
   margin-top: 10px;
@@ -770,4 +1049,161 @@ body {
 
 .footer-zorro img {
   width: clamp(140px, 28vw, 350px);
+}
+
+
+
+
+
+
+
+/* matheo*/
+
+/* =========================================
+   HEADER
+========================================= */
+
+.inlec-header {
+
+    background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+  width: 100%;
+  padding-bottom: 30%;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 20%;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.inlec-logo {
+  height: 100px;
+  width: auto;
+  margin-left: 25px;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+
+/* =========================================
+   CONTENEDOR DEL MENÚ
+========================================= */
+
+.inlec-navbar-pill {
+  
+  background: linear-gradient(90deg, #e89255, #ebbb59);
+  border-radius: 50rem;
+  padding: 0.9rem 4rem;
+  gap: 0.5rem;
+  display: flex;
+  justify-content: center;
+  font-family: 'pepe', sans-serif;
+  -webkit-text-stroke: 12px #934E24;
+  paint-order: stroke fill;
+  width: 70%;
+  height: 106px;
+}
+
+
+
+
+/* =========================================
+   BOTONES DEL MENÚ
+========================================= */
+
+.inlec-navbar-btn {
+  border: none;
+
+  padding: 10px 20px;
+
+  border-radius: 60px;
+
+  background: transparent;
+
+  color: #ecd9cb;
+
+  font-size: 34px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+
+/* HOVER */
+
+.inlec-navbar-btn:hover {
+  background: #ebbb59;
+ 
+
+  transform: translateY(-2px);
+}
+
+
+/* BOTÓN ACTIVO / PRESIONADO */
+
+.inlec-navbar-btn:active {
+  transform: scale(0.95);
+}
+
+
+/* =========================================
+   HAMBURGUESA
+========================================= */
+
+.navbar-toggler {
+  border: 2px solid rgba(255, 255, 255, 0.6) !important;
+
+  border-radius: 12px;
+
+  padding: 7px 10px;
+}
+
+.navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 991px) {
+
+  .inlec-logo {
+    height: 65px;
+    margin-left: 5px;
+  }
+
+  .inlec-navbar-pill {
+    width: 100%;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin: 10px 0 0 0;
+
+    padding: 12px;
+
+    border-radius: 25px;
+  }
+
+  .inlec-navbar-btn {
+    width: 100%;
+
+    padding: 12px;
+
+    text-align: center;
+
+    font-size: 18px;
+  }
+
 }

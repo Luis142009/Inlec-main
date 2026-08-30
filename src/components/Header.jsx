@@ -7,82 +7,92 @@ const Header = () => {
   const scrollTo = (id) => {
     if (window.location.pathname !== '/') {
       navigate('/');
+
       setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById(id)?.scrollIntoView({
+          behavior: 'smooth'
+        });
       }, 100);
     } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(id)?.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   };
 
   return (
-    <nav className="navbar navbar-expand-lg p-0" style={{ backgroundColor: "#1a0a00" }}>
+    <nav
+      className="navbar navbar-expand-lg p-0 inlec-header"
+    >
       <div className="container-fluid px-3 py-2">
 
-        {/* Logo */}
+        {/* LOGO */}
         <img
-          src="logo.png"
+          src="/logo.png"
           alt="Inlec logo"
-          height="80px"
-          className="ms-2 ms-md-4"
-          style={{ cursor: 'pointer' }}
+          className="inlec-logo"
           onClick={() => navigate('/')}
         />
 
-        {/* Botón hamburguesa — visible solo en móvil */}
+        {/* BOTÓN HAMBURGUESA */}
         <button
-          className="navbar-toggler ms-auto me-2"
+          className="navbar-toggler ms-auto"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#inlec-navbar"
           aria-controls="inlec-navbar"
           aria-expanded="false"
           aria-label="Toggle navigation"
-          style={{ borderColor: "rgba(255,255,255,0.4)" }}
         >
-          <span className="navbar-toggler-icon" style={{ filter: "invert(1)" }} />
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Menú colapsable */}
-        <div className="collapse navbar-collapse justify-content-end" id="inlec-navbar">
-          <ul className="navbar-nav align-items-center gap-lg-4 mb-0 pe-lg-5 py-3 py-lg-0">
+        {/* MENÚ */}
+        <div
+          className="collapse navbar-collapse justify-content-end"
+          id="inlec-navbar"
+        >
 
-            <li className="nav-item text-center py-1 py-lg-0">
-              <span className="inlec-nav-btn" style={{ fontSize: "19px", cursor: 'pointer' }}
-                onClick={() => scrollTo('inicio')}>
-                Inicio
-              </span>
-            </li>
+          {/* CONTENEDOR TIPO PÍLDORA */}
+          <div className="inlec-navbar-pill">
 
-            <li className="nav-item text-center py-1 py-lg-0">
-              <span className="inlec-nav-btn" style={{ fontSize: "19px", cursor: 'pointer' }}
-                onClick={() => scrollTo('capitulos')}>
-                Capítulos
-              </span>
-            </li>
+            <button
+              className="inlec-navbar-btn"
+              onClick={() => scrollTo('inicio')}
+            >
+              Inicio
+            </button>
 
-            <li className="nav-item text-center py-1 py-lg-0">
-              <span className="inlec-nav-btn" style={{ fontSize: "19px", cursor: 'pointer' }}
-                onClick={() => scrollTo('personajes')}>
-                Personajes
-              </span>
-            </li>
+            <button
+              className="inlec-navbar-btn"
+              onClick={() => scrollTo('capitulos')}
+            >
+              Capítulos
+            </button>
 
-            <li className="nav-item text-center py-1 py-lg-0">
-              <span className="inlec-nav-btn" style={{ fontSize: "19px", cursor: 'pointer' }}
-                onClick={() => navigate('/galeria')}>
-                Ver más
-              </span>
-            </li>
+            <button
+              className="inlec-navbar-btn"
+              onClick={() => scrollTo('personajes')}
+            >
+              Personajes
+            </button>
 
-            <li className="nav-item text-center py-1 py-lg-0">
-              <span className="inlec-nav-btn" style={{ fontSize: "19px", cursor: 'pointer' }}
-                onClick={() => scrollTo('contacto')}>
-                Contacto
-              </span>
-            </li>
+            <button
+              className="inlec-navbar-btn"
+              onClick={() => navigate('/galeria')}
+            >
+              Ver más
+            </button>
 
-          </ul>
+            <button
+              className="inlec-navbar-btn"
+              onClick={() => scrollTo('contacto')}
+            >
+              Contacto
+            </button>
+
+          </div>
+
         </div>
 
       </div>
