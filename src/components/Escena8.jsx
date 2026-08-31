@@ -1,3 +1,4 @@
+
 import React, {
   useRef,
   forwardRef,
@@ -105,10 +106,14 @@ export const Escena8 = forwardRef(
 
       const tl = gsap.timeline({
 
+        defaults: {
+          ease: "power2.inOut"
+        },
+
         onComplete: () => {
 
           // ===================================================
-          // AL TERMINAR LOS 14 SEGUNDOS
+          // DETENER VIDEOS
           // ===================================================
 
           if (bunce) {
@@ -118,6 +123,13 @@ export const Escena8 = forwardRef(
           if (escenario) {
             escenario.pause();
           }
+
+
+          // ===================================================
+          // PASAR A LA ESCENA 12
+          // ===================================================
+
+          cambiarEscena(12);
 
         }
 
@@ -140,9 +152,7 @@ export const Escena8 = forwardRef(
 
         y: -80,
 
-        duration: 3,
-
-        ease: "power2.inOut"
+        duration: 3
 
       });
 
@@ -160,9 +170,7 @@ export const Escena8 = forwardRef(
 
         y: -300,
 
-        duration: 3,
-
-        ease: "power2.inOut"
+        duration: 3
 
       });
 
@@ -180,9 +188,7 @@ export const Escena8 = forwardRef(
 
         y: 40,
 
-        duration: 2,
-
-        ease: "power2.inOut"
+        duration: 2
 
       });
 
@@ -212,9 +218,7 @@ export const Escena8 = forwardRef(
 
         y: -240,
 
-        duration: 3,
-
-        ease: "power2.inOut"
+        duration: 3
 
       });
 
@@ -229,17 +233,6 @@ export const Escena8 = forwardRef(
         duration: 2
 
       });
-
-
-      // =======================================================
-      // TOTAL
-      // =======================================================
-      //
-      // 3 + 3 + 2 + 1 + 3 + 2
-      //
-      // = 14 SEGUNDOS
-      //
-      // =======================================================
 
     };
 
@@ -357,11 +350,6 @@ export const Escena8 = forwardRef(
 
           preload="auto"
 
-          /*
-            NO autoPlay
-            NO loop
-          */
-
         >
 
           <source
@@ -387,21 +375,10 @@ export const Escena8 = forwardRef(
 
           preload="auto"
 
-          /*
-            NO autoPlay
-            NO loop
-          */
-
-          onClick={() => {
-
-            iniciarCamara();
-
-          }}
+          onClick={iniciarCamara}
 
           style={{
-
             cursor: "pointer"
-
           }}
 
         >
@@ -420,3 +397,4 @@ export const Escena8 = forwardRef(
 
   }
 );
+

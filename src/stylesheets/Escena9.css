@@ -1,0 +1,127 @@
+.escena9 {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+}
+
+
+/* =========================================================
+   FONDO
+========================================================= */
+
+.fondo9 {
+
+    position: absolute;
+
+    z-index: 1;
+
+    width: 123%;
+    height: 170%;
+
+    top: -220px;
+    left: 0;
+
+}
+
+
+/* =========================================================
+   BEAN
+========================================================= */
+
+.bean9 {
+
+    position: absolute;
+
+    z-index: 5;
+ cursor: pointer;
+    width: 37%;
+    height: auto;
+
+    top: 200px;
+    left: 520px;
+
+}
+
+.bean9:hover{
+
+
+ filter: drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+         drop-shadow(-2px 0 0 #3b1602)
+       
+}
+
+
+
+
+/* =========================================================
+   ESQUELETO
+========================================================= */
+
+.esqueleto9 {
+
+    position: absolute;
+
+    z-index: 3;
+ cursor: pointer;
+    width: 25%;
+    height: auto;
+
+    top: 200px;
+    left: 200px;
+
+}
+
+.huellas9 {
+    position: absolute;
+    z-index: 16;
+    width: 6%;
+    height: auto;
+    top: 100px;
+    left: 490px;
+
+    opacity: 0.65;
+
+    filter: saturate(0.75) brightness(0.85);
+    
+    transition: 
+        opacity 0.25s ease,
+        filter 0.25s ease,
+        transform 0.25s ease;
+}
+
+.huellas9:hover {
+    opacity: 0.9;
+
+    filter:
+        saturate(1)
+        brightness(1)
+        drop-shadow(2px 0 0 #3b1602)
+        drop-shadow(-2px 0 0 #3b1602)
+        drop-shadow(0 2px 0 #3b1602)
+        drop-shadow(0 -2px 0 #3b1602);
+}
+
+/* =========================================================
+   LAPIZ
+========================================================= */
+
+.lapiz9 {
+
+    position: absolute;
+
+    z-index: 4;
+
+    width: 25%;
+    height: auto;
+  cursor: pointer;
+    top: 200px;
+    left: 900px;
+
+}
+
+

@@ -6,6 +6,7 @@ import "../stylesheets/PortadaCapitulo.css";
 export const PortadaCapitulo = ({
   visible,
   numero,
+  titulo,
   totalObjetos,
   objetos = [],
   onComenzar,
@@ -278,7 +279,7 @@ export const PortadaCapitulo = ({
                 }}
               >
 
-                LA FAMILIA FOX
+                {titulo || "LA FAMILIA FOX"}
 
               </motion.span>
 

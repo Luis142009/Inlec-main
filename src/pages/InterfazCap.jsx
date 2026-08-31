@@ -15,6 +15,7 @@ import { Escena5 } from "../components/Escena5";
 import { Escena6 } from "../components/Escena6";
 import { Escena7 } from "../components/Escena7";
 import { Escena8 } from "../components/Escena8";
+import { Escena9 } from "../components/Escena9";
 
 import LibroPersonajes from "../components/LibroPersonajes";
 import { PortadaCapitulo } from "../components/PortadaCapitulo";
@@ -23,7 +24,10 @@ import "../stylesheets/Textos.css";
 import "../stylesheets/ObjetosModal.css";
 import "../stylesheets/noticia-objetos.css";
 
-import { motion, AnimatePresence } from "motion/react";
+import {
+  motion,
+  AnimatePresence
+} from "motion/react";
 
 import song1 from "../assets/audio/song1.mp3";
 import gallina from "../assets/audio/gallina.mp3";
@@ -42,9 +46,12 @@ import Escenas7 from "../assets/audio/Escenas7.mp3";
 import audio7 from "../assets/audio/audio7.mp3";
 import fondo8 from "../assets/audio/fondo8.mp3";
 import audio8 from "../assets/audio/audio8.mp3";
+import audio9 from "../assets/audio/audio9.mp3";
 
 import pintura from "../assets/svg/pintura.svg";
 import manzana from "../assets/manzana.svg";
+import huella from "../assets/svg/huella.svg";
+import tomate from "../assets/svg/tomate.svg";
 
 
 // =========================================================
@@ -55,23 +62,44 @@ const TOTAL_ESCENAS = 24;
 
 
 // =========================================================
+// SILUETAS DE OBJETOS POR CAPÍTULO
+// =========================================================
+
+const siluetasPorCapitulo = {
+
+  1: [
+    manzana,
+    pintura,
+    huella
+  ],
+
+  2: [
+    tomate
+  ]
+
+};
+
+
+// =========================================================
 // CAPÍTULOS
 // =========================================================
 
 const capitulos = [
   {
     numero: 1,
+    titulo: "LA FAMILIA FOX",
     escenaInicio: 1,
-    escenaFin: 9,
+    escenaFin: 12,
+    objetos: 4
+  },
+
+  {
+    numero: 2,
+    titulo: "EL PLAN DE LOS GRANJEROS",
+    escenaInicio: 13,
+    escenaFin: 24,
     objetos: 4
   }
-
-  // {
-  //   numero: 2,
-  //   escenaInicio: 10,
-  //   escenaFin: X,
-  //   objetos: Y
-  // }
 ];
 
 
@@ -115,8 +143,6 @@ const InterfazCap = () => {
     setPortadaVisible
   ] = useState(false);
 
-  const capitulosVistosRef = useRef(new Set());
-
 
   useEffect(() => {
 
@@ -125,13 +151,21 @@ const InterfazCap = () => {
 
     if (
       capitulo &&
-      escena === capitulo.escenaInicio &&
-      !capitulosVistosRef.current.has(
-        capitulo.numero
-      )
+      escena === capitulo.escenaInicio
     ) {
 
       setPortadaVisible(true);
+
+      // Al entrar a un capítulo nuevo (distinto del primero)
+      // se cierra la descripción de objeto que pudiera haber
+      // quedado abierta. El inventario YA NO se borra: cada
+      // capítulo mantiene su propio inventario independiente.
+
+      if (capitulo.numero > 1) {
+
+        setObjetoSeleccionado(null);
+
+      }
 
     }
 
@@ -139,17 +173,6 @@ const InterfazCap = () => {
 
 
   const cerrarPortadaCapitulo = () => {
-
-    const capitulo =
-      obtenerCapituloPorEscena(escena);
-
-    if (capitulo) {
-
-      capitulosVistosRef.current.add(
-        capitulo.numero
-      );
-
-    }
 
     setPortadaVisible(false);
 
@@ -196,7 +219,8 @@ const InterfazCap = () => {
 
     11: "Bunce, un granjero bajito e irritable de 40 años, sucio y con un abrigo demasiado largo para su tamaño, huele a hígado de ganso, se lleva patos y gansos. Además, siempre comparan a Bunce con un duende y su abrigo le queda tan grande que lo arrastra como una túnica.",
 
-    12: "Aquí va el texto de la escena 12.",
+    12: "Bean, un hombre alto, huesudo y flaco, tan flaco como un lápiz enfermizo de 60 años, vestido de forma austera con ropa que le cuelga por lo esquelético que es huele a sidra de manzana, consigue pavos y barriles de sidra.",
+
     13: "Aquí va el texto de la escena 13.",
     14: "Aquí va el texto de la escena 14.",
     15: "Aquí va el texto de la escena 15.",
@@ -373,6 +397,14 @@ const InterfazCap = () => {
           volumen: 3
         }
       ]
+    },
+
+    12: {
+      musica: audio9,
+      grupoMusica: "escena12",
+      grupoEfectos: "escena12",
+
+      efectos: []
     }
 
   };
@@ -505,6 +537,7 @@ const InterfazCap = () => {
       if (!ctx || !audio) {
         return null;
       }
+
 
       if (tipo === "musica") {
 
@@ -721,13 +754,13 @@ const InterfazCap = () => {
         efectosVolumenBaseRef.current[indice] =
           volumenBase;
 
+
         if (
           efecto.persistente &&
           efecto.hastaEscena
         ) {
 
-          efectosPersistentesRef.current[indice] =
-          {
+          efectosPersistentesRef.current[indice] = {
             hastaEscena:
               efecto.hastaEscena
           };
@@ -739,12 +772,14 @@ const InterfazCap = () => {
 
         }
 
+
         const gain =
           configurarGanancia(
             audio,
             "efecto",
             indice
           );
+
 
         if (gain) {
 
@@ -762,6 +797,7 @@ const InterfazCap = () => {
             );
 
         }
+
 
         audio
           .play()
@@ -796,12 +832,15 @@ const InterfazCap = () => {
         return;
       }
 
+
       secuenciaEscena4Activa.current =
         true;
+
 
       const kristoConfig =
         audiosPorEscena[4]
           .efectos[0];
+
 
       kristoAudio.pause();
 
@@ -814,8 +853,10 @@ const InterfazCap = () => {
       kristoAudio.currentTime =
         0;
 
+
       efectosVolumenBaseRef.current[0] =
         kristoConfig.volumen;
+
 
       const kristoGain =
         configurarGanancia(
@@ -824,6 +865,7 @@ const InterfazCap = () => {
           0
         );
 
+
       if (kristoGain) {
 
         kristoGain.gain.value =
@@ -831,6 +873,7 @@ const InterfazCap = () => {
           volumenEfectos;
 
       }
+
 
       kristoAudio.onended =
         () => {
@@ -841,9 +884,11 @@ const InterfazCap = () => {
             return;
           }
 
+
           const ashConfig =
             audiosPorEscena[4]
               .efectos[1];
+
 
           ashAudio.pause();
 
@@ -856,8 +901,10 @@ const InterfazCap = () => {
           ashAudio.currentTime =
             0;
 
+
           efectosVolumenBaseRef.current[1] =
             ashConfig.volumen;
+
 
           const ashGain =
             configurarGanancia(
@@ -865,6 +912,7 @@ const InterfazCap = () => {
               "efecto",
               1
             );
+
 
           if (ashGain) {
 
@@ -874,11 +922,13 @@ const InterfazCap = () => {
 
           }
 
+
           ashAudio
             .play()
             .catch(() => { });
 
         };
+
 
       kristoAudio
         .play()
@@ -903,7 +953,9 @@ const InterfazCap = () => {
         );
 
 
+      // =======================================================
       // MÚSICA
+      // =======================================================
 
       if (
         musicaRef.current &&
@@ -916,6 +968,7 @@ const InterfazCap = () => {
         const mismaMusica =
           grupoMusicaRef.current ===
           config.grupoMusica;
+
 
         if (
           mismaMusica &&
@@ -960,11 +1013,13 @@ const InterfazCap = () => {
             musica.currentTime =
               0;
 
+
             const gain =
               configurarGanancia(
                 musica,
                 "musica"
               );
+
 
             if (gain) {
 
@@ -973,8 +1028,10 @@ const InterfazCap = () => {
 
             }
 
+
             grupoMusicaRef.current =
               config.grupoMusica;
+
 
             await musica.play();
 
@@ -985,11 +1042,14 @@ const InterfazCap = () => {
       }
 
 
+      // =======================================================
       // EFECTOS
+      // =======================================================
 
       const nuevoGrupoEfectos =
         grupoEfectosRef.current !==
         config.grupoEfectos;
+
 
       if (nuevoGrupoEfectos) {
 
@@ -1017,6 +1077,7 @@ const InterfazCap = () => {
 
       const efectos =
         config.efectos || [];
+
 
       efectos.forEach(
         (efecto, i) => {
@@ -1046,14 +1107,17 @@ const InterfazCap = () => {
           return;
         }
 
+
         const config =
           obtenerAudioEscena(
             escena
           );
 
+
         const mismaMusica =
           grupoMusicaRef.current ===
           config.grupoMusica;
+
 
         if (!mismaMusica) {
 
@@ -1067,6 +1131,7 @@ const InterfazCap = () => {
             grupoEfectosRef.current !==
             config.grupoEfectos;
 
+
           if (nuevoGrupoEfectos) {
 
             await reproducirAudioDeEscena(
@@ -1078,6 +1143,7 @@ const InterfazCap = () => {
         }
 
       };
+
 
     cambiarAudio();
 
@@ -1125,8 +1191,10 @@ const InterfazCap = () => {
 
     }
 
+
     const ctx =
       obtenerAudioContext();
+
 
     if (
       ctx &&
@@ -1137,9 +1205,11 @@ const InterfazCap = () => {
 
     }
 
+
     await reproducirAudioDeEscena(
       escena
     );
+
 
     setIsPlaying(true);
 
@@ -1212,26 +1282,41 @@ const InterfazCap = () => {
   const escena8Ref =
     useRef(null);
 
+  const escena9Ref =
+    useRef(null);
+
 
   // =========================================================
-  // OBJETOS
+  // OBJETOS (inventario independiente por capítulo)
   // =========================================================
 
   const [
-    objetos,
-    setObjetos
-  ] = useState([
-    null,
-    null,
-    null,
-    null,
-  
-  ]);
+    objetosPorCapitulo,
+    setObjetosPorCapitulo
+  ] = useState({
+    1: [null, null, null, null],
+    2: [null, null, null, null]
+  });
 
-  const [
-    manzanaRecogida,
-    setManzanaRecogida
-  ] = useState(false);
+
+  // Capítulo al que pertenece la escena actual, y el
+  // inventario correspondiente a ese capítulo. Al volver a un
+  // capítulo anterior, se muestran de nuevo sus propios objetos
+  // recogidos; al avanzar a uno nuevo, se muestran los suyos,
+  // sin perder lo que ya se había recogido en el otro.
+
+  const capituloActual =
+    obtenerCapituloPorEscena(escena);
+
+
+  const objetos =
+    objetosPorCapitulo[capituloActual?.numero] ||
+    [null, null, null, null];
+
+
+  const manzanaRecogida =
+    objetosPorCapitulo[1]?.includes("manzana") ??
+    false;
 
 
   // =========================================================
@@ -1260,21 +1345,52 @@ const InterfazCap = () => {
       imagen: manzana,
 
       detalle:
-        "Objeto encontrado bajo el gran árbol."
+        "Objeto encontrado bajo el gran árbol"
 
     },
+
 
     pintura: {
 
       nombre: "Pintura",
 
       descripcion:
-        "Una misteriosa pintura encontrada durante la aventura. Sus detalles parecen esconder algo más.",
+        "Una misteriosa pintura encontrada. Su intenso color parece ocultar algo?",
 
       imagen: pintura,
 
       detalle:
-        "Objeto encontrado durante la aventura."
+        "Objeto encontrado al lado de la señora Fox"
+
+    },
+
+
+    huella: {
+
+      nombre: "Huella",
+
+      descripcion:
+        "Una misteriosa huella encontrada en la granja. Todo apunta a que pertenece a un zorro astuto y sigiloso... pero el Sr. Fox insiste en que seguramente fue otro zorro",
+
+      imagen: huella,
+
+      detalle:
+        "Huella encontrada en las paredes de la granja de bean"
+
+    },
+
+
+    tomate: {
+
+      nombre: "Tomate",
+
+      descripcion:
+        "Un tomate maduro y jugoso, robado directamente del huerto de una de las granjas.",
+
+      imagen: tomate,
+
+      detalle:
+        "Objeto encontrado en el capítulo 2"
 
     }
 
@@ -1292,6 +1408,7 @@ const InterfazCap = () => {
         return;
       }
 
+
       if (!informacionObjetos[objeto]) {
 
         console.warn(
@@ -1301,6 +1418,7 @@ const InterfazCap = () => {
         return;
 
       }
+
 
       setObjetoSeleccionado(
         objeto
@@ -1342,10 +1460,12 @@ const InterfazCap = () => {
 
       };
 
+
     window.addEventListener(
       "keydown",
       manejarEscape
     );
+
 
     return () =>
       window.removeEventListener(
@@ -1364,9 +1484,10 @@ const InterfazCap = () => {
     (objeto) => {
 
       console.log(
-        "OBJETO RECIBIDO:",
+        "🟢 OBJETO RECIBIDO:",
         objeto
       );
+
 
       if (!objeto) {
 
@@ -1378,6 +1499,7 @@ const InterfazCap = () => {
 
       }
 
+
       if (!informacionObjetos[objeto]) {
 
         console.warn(
@@ -1388,14 +1510,31 @@ const InterfazCap = () => {
 
       }
 
-      setObjetos((prev) => {
+
+      // El objeto se guarda en el inventario del capítulo al
+      // que pertenece la escena en la que se recogió, no en un
+      // inventario global compartido entre capítulos.
+
+      const capitulo =
+        obtenerCapituloPorEscena(escena);
+
+      const numeroCapitulo =
+        capitulo?.numero || 1;
+
+
+      setObjetosPorCapitulo((prev) => {
+
+        const inventarioActual =
+          prev[numeroCapitulo] ||
+          [null, null, null, null];
+
 
         // Evitar duplicados
 
-        if (prev.includes(objeto)) {
+        if (inventarioActual.includes(objeto)) {
 
           console.log(
-            "El objeto ya estaba en el inventario:",
+            "⚠️ El objeto ya estaba en el inventario:",
             objeto
           );
 
@@ -1407,7 +1546,7 @@ const InterfazCap = () => {
         // Buscar espacio vacío
 
         const indiceVacio =
-          prev.findIndex(
+          inventarioActual.findIndex(
             (slot) => slot === null
           );
 
@@ -1417,7 +1556,7 @@ const InterfazCap = () => {
         if (indiceVacio === -1) {
 
           console.warn(
-            "El inventario está lleno."
+            "⚠️ El inventario está lleno."
           );
 
           return prev;
@@ -1427,36 +1566,29 @@ const InterfazCap = () => {
 
         // Crear copia
 
-        const nuevo =
-          [...prev];
+        const nuevoInventario =
+          [...inventarioActual];
 
 
         // Insertar objeto
 
-        nuevo[indiceVacio] =
+        nuevoInventario[indiceVacio] =
           objeto;
 
 
         console.log(
-          "INVENTARIO ACTUALIZADO:",
-          nuevo
+          `✅ INVENTARIO ACTUALIZADO (capítulo ${numeroCapitulo}):`,
+          nuevoInventario
         );
 
 
-        return nuevo;
+        return {
+          ...prev,
+          [numeroCapitulo]:
+            nuevoInventario
+        };
 
       });
-
-
-      // Estado específico de la manzana
-
-      if (objeto === "manzana") {
-
-        setManzanaRecogida(
-          true
-        );
-
-      }
 
     };
 
@@ -1529,6 +1661,9 @@ const InterfazCap = () => {
         case 11:
           return escena8Ref;
 
+        case 12:
+          return escena9Ref;
+
         default:
           return null;
 
@@ -1547,9 +1682,11 @@ const InterfazCap = () => {
       const refActual =
         obtenerRefEscena();
 
+
       if (!refActual?.current) {
         return;
       }
+
 
       if (
         refActual.current.iniciarTodo
@@ -1563,6 +1700,7 @@ const InterfazCap = () => {
 
       }
 
+
       if (
         refActual.current.iniciarCamara
       ) {
@@ -1574,6 +1712,7 @@ const InterfazCap = () => {
         return;
 
       }
+
 
       if (
         refActual.current.reanudarTodo
@@ -1598,6 +1737,7 @@ const InterfazCap = () => {
       const refActual =
         obtenerRefEscena();
 
+
       if (!refActual?.current) {
         return;
       }
@@ -1615,6 +1755,7 @@ const InterfazCap = () => {
 
         }
 
+
         if (musicaRef.current) {
 
           musicaRef.current
@@ -1622,6 +1763,7 @@ const InterfazCap = () => {
             .catch(() => { });
 
         }
+
 
         efectosRefs.current.forEach(
           audio => {
@@ -1636,6 +1778,7 @@ const InterfazCap = () => {
 
           }
         );
+
 
         setPausado(false);
 
@@ -1654,6 +1797,7 @@ const InterfazCap = () => {
           refActual.current
             .estaIniciada();
 
+
         if (!iniciada) {
 
           if (
@@ -1665,6 +1809,7 @@ const InterfazCap = () => {
 
           }
 
+
           if (
             refActual.current.iniciarCamara
           ) {
@@ -1673,6 +1818,7 @@ const InterfazCap = () => {
               .iniciarCamara();
 
           }
+
 
           setPausado(false);
 
@@ -1692,6 +1838,7 @@ const InterfazCap = () => {
         refActual.current.pausarTodo();
 
       }
+
 
       pausarAudioActual();
 
@@ -1833,6 +1980,7 @@ const InterfazCap = () => {
         preload="auto"
       />
 
+
       {Array.from({
         length:
           maxEfectosSimultaneos
@@ -1856,16 +2004,20 @@ const InterfazCap = () => {
 
       <motion.div
         className="interfaz-wrapper"
+
         initial={{
           opacity: 0,
           scale: 0
         }}
+
         animate={{
           opacity: 1,
           scale: 1
         }}
+
         transition={{
           duration: 0.4,
+
           scale: {
             type: "spring",
             visualDuration: 0.4,
@@ -1875,28 +2027,39 @@ const InterfazCap = () => {
       >
 
 
-        {/* PORTADA */}
+        {/* ===================================================
+            PORTADA
+        =================================================== */}
 
         <PortadaCapitulo
-  visible={portadaVisible}
 
-  numero={
-    obtenerCapituloPorEscena(escena)?.numero
-  }
+          visible={
+            portadaVisible
+          }
 
-  totalObjetos={
-    obtenerCapituloPorEscena(escena)?.objetos
-  }
+          numero={
+            obtenerCapituloPorEscena(escena)?.numero
+          }
 
-  objetos={[
-    manzana,
-    pintura
-  ]}
+          titulo={
+            obtenerCapituloPorEscena(escena)?.titulo
+          }
 
-  onComenzar={
-    cerrarPortadaCapitulo
-  }
-/>
+          totalObjetos={
+            obtenerCapituloPorEscena(escena)?.objetos
+          }
+
+          objetos={
+            siluetasPorCapitulo[
+              obtenerCapituloPorEscena(escena)?.numero
+            ] || []
+          }
+
+          onComenzar={
+            cerrarPortadaCapitulo
+          }
+
+        />
 
 
         <div className="interfaz-cap">
@@ -1927,15 +2090,19 @@ const InterfazCap = () => {
 
                         <motion.div
                           className="subtitulos-backdrop activo"
+
                           initial={{
                             opacity: 0
                           }}
+
                           animate={{
                             opacity: 1
                           }}
+
                           exit={{
                             opacity: 0
                           }}
+
                           transition={{
                             duration: 0.3
                           }}
@@ -1946,20 +2113,26 @@ const InterfazCap = () => {
                           (texto, i) => (
 
                             <motion.div
+
                               key={`sub-${escena}-${i}`}
+
                               className={`subtitulos subtitulos-${i}`}
+
                               initial={{
                                 opacity: 0,
                                 y: 20
                               }}
+
                               animate={{
                                 opacity: 1,
                                 y: 0
                               }}
+
                               exit={{
                                 opacity: 0,
                                 y: 20
                               }}
+
                               transition={{
                                 duration: 0.25,
                                 delay:
@@ -1986,7 +2159,9 @@ const InterfazCap = () => {
                   <AnimatePresence mode="wait">
 
 
-                    {/* ESCENA 1 */}
+                    {/* =================================================
+                        ESCENA 1
+                    ================================================= */}
 
                     {escena === 1 && (
 
@@ -1996,6 +2171,7 @@ const InterfazCap = () => {
                       >
 
                         <LuisPlugin
+
                           ref={luisRef}
 
                           cambiarEscena={
@@ -2013,6 +2189,7 @@ const InterfazCap = () => {
                           onMrFoxClick={
                             toggleMusic
                           }
+
                         />
 
                       </motion.div>
@@ -2020,7 +2197,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 2 */}
+                    {/* =================================================
+                        ESCENA 2
+                    ================================================= */}
 
                     {escena === 2 && (
 
@@ -2041,7 +2220,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 3 */}
+                    {/* =================================================
+                        ESCENA 3
+                    ================================================= */}
 
                     {escena === 3 && (
 
@@ -2051,16 +2232,23 @@ const InterfazCap = () => {
                       >
 
                         <Parte3dela1
+
                           ref={parte3Ref}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                           onRecoger={
                             recogerObjeto
                           }
+
                           objetoRecogido={
-                            objetos.includes("pintura")
+                            objetos.includes(
+                              "pintura"
+                            )
                           }
+
                         />
 
                       </motion.div>
@@ -2068,7 +2256,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 4 */}
+                    {/* =================================================
+                        ESCENA 4
+                    ================================================= */}
 
                     {escena === 4 && (
 
@@ -2078,10 +2268,13 @@ const InterfazCap = () => {
                       >
 
                         <Escena2alfa
+
                           ref={escena2AlfaRef}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                         />
 
                       </motion.div>
@@ -2089,7 +2282,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 5 */}
+                    {/* =================================================
+                        ESCENA 5
+                    ================================================= */}
 
                     {escena === 5 && (
 
@@ -2099,10 +2294,13 @@ const InterfazCap = () => {
                       >
 
                         <Escena2beta
+
                           ref={escena2BetaRef}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                         />
 
                       </motion.div>
@@ -2110,7 +2308,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 6 */}
+                    {/* =================================================
+                        ESCENA 6
+                    ================================================= */}
 
                     {escena === 6 && (
 
@@ -2120,10 +2320,13 @@ const InterfazCap = () => {
                       >
 
                         <Escena3
+
                           ref={escena3Ref}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                         />
 
                       </motion.div>
@@ -2131,7 +2334,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 7 */}
+                    {/* =================================================
+                        ESCENA 7
+                    ================================================= */}
 
                     {escena === 7 && (
 
@@ -2141,10 +2346,13 @@ const InterfazCap = () => {
                       >
 
                         <Escena4
+
                           ref={escena4Ref}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                         />
 
                       </motion.div>
@@ -2152,7 +2360,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 8 */}
+                    {/* =================================================
+                        ESCENA 8
+                    ================================================= */}
 
                     {escena === 8 && (
 
@@ -2162,10 +2372,13 @@ const InterfazCap = () => {
                       >
 
                         <Escena5
+
                           ref={escena5Ref}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                         />
 
                       </motion.div>
@@ -2173,7 +2386,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 9 */}
+                    {/* =================================================
+                        ESCENA 9
+                    ================================================= */}
 
                     {escena === 9 && (
 
@@ -2183,10 +2398,13 @@ const InterfazCap = () => {
                       >
 
                         <Escena6
+
                           ref={escena6Ref}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                         />
 
                       </motion.div>
@@ -2194,7 +2412,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 10 */}
+                    {/* =================================================
+                        ESCENA 10
+                    ================================================= */}
 
                     {escena === 10 && (
 
@@ -2204,10 +2424,13 @@ const InterfazCap = () => {
                       >
 
                         <Escena7
+
                           ref={escena7Ref}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                         />
 
                       </motion.div>
@@ -2215,7 +2438,9 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENA 11 */}
+                    {/* =================================================
+                        ESCENA 11
+                    ================================================= */}
 
                     {escena === 11 && (
 
@@ -2225,10 +2450,13 @@ const InterfazCap = () => {
                       >
 
                         <Escena8
+
                           ref={escena8Ref}
+
                           cambiarEscena={
                             cambiarEscena
                           }
+
                         />
 
                       </motion.div>
@@ -2236,13 +2464,54 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* ESCENAS 12 - 24 */}
+                    {/* =================================================
+                        ESCENA 12
+                    ================================================= */}
 
-                    {escena >= 12 && (
+                    {escena === 12 && (
 
                       <motion.div
-                        key={`escena-${escena}`}
+                        key="escena12"
                         {...transicionEscena}
+                      >
+
+                        <Escena9
+
+                          ref={escena9Ref}
+
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+
+                          onRecoger={
+                            recogerObjeto
+                          }
+
+                          objetoRecogido={
+                            objetos.includes(
+                              "huella"
+                            )
+                          }
+
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENAS 13 - 24
+                    ================================================= */}
+
+                    {escena >= 13 && (
+
+                      <motion.div
+
+                        key={`escena-${escena}`}
+
+                        {...transicionEscena}
+
                         style={{
                           ...transicionEscena.style,
                           display: "flex",
@@ -2250,6 +2519,7 @@ const InterfazCap = () => {
                           justifyContent:
                             "center"
                         }}
+
                       >
 
                         <div
@@ -2294,92 +2564,127 @@ const InterfazCap = () => {
               <div className="col-auto d-flex gap-2">
 
 
-                {/* SUBTÍTULOS */}
+                {/* =================================================
+                    SUBTÍTULOS
+                ================================================= */}
 
                 <div
+
                   className="btn-ctrl"
+
                   onClick={
                     toggleSubtitulos
                   }
+
                   style={{
                     cursor:
                       "pointer"
                   }}
+
                 >
 
                   <motion.img
+
                     className="iconos"
+
                     src="./T.png"
+
                     whileHover={{
                       scale: 1.2
                     }}
+
                     whileTap={{
                       scale: 0.8
                     }}
+
                   />
 
                 </div>
 
 
-                {/* PAUSA */}
+                {/* =================================================
+                    PAUSA
+                ================================================= */}
 
                 <div
+
                   className="btn-ctrl"
+
                   onClick={
                     togglePausa
                   }
+
                   style={{
                     cursor:
                       "pointer"
                   }}
+
                 >
 
                   <motion.img
+
                     className="iconos"
+
                     src={
                       pausado
                         ? "./play.png"
                         : "./Pausa.png"
                     }
+
                     whileHover={{
                       scale: 1.2
                     }}
+
                     whileTap={{
                       scale: 0.8
                     }}
+
                   />
 
                 </div>
 
 
-                {/* MÚSICA */}
+                {/* =================================================
+                    MÚSICA
+                ================================================= */}
 
                 <div
+
                   className="btn-ctrl"
+
                   onClick={
                     toggleMusic
                   }
+
                   style={{
                     cursor:
                       "pointer"
                   }}
+
                 >
 
                   <motion.img
+
                     className="iconos"
+
                     src="./Volumen.png"
+
                     whileHover={{
                       scale: 1.2
                     }}
+
                     whileTap={{
                       scale: 0.8
                     }}
+
                   />
 
                 </div>
 
 
-                {/* VOLUMEN */}
+                {/* =================================================
+                    VOLUMEN
+                ================================================= */}
 
                 <div className="audio-controls">
 
@@ -2390,14 +2695,21 @@ const InterfazCap = () => {
                     </span>
 
                     <input
+
                       className="volume-slider"
+
                       type="range"
+
                       min="0"
+
                       max="1"
+
                       step="0.01"
+
                       value={
                         volumenMusica
                       }
+
                       onChange={(e) =>
                         setVolumenMusica(
                           Number(
@@ -2405,6 +2717,7 @@ const InterfazCap = () => {
                           )
                         )
                       }
+
                     />
 
                     <span className="volume-number">
@@ -2428,14 +2741,21 @@ const InterfazCap = () => {
                     </span>
 
                     <input
+
                       className="volume-slider"
+
                       type="range"
+
                       min="0"
+
                       max="1"
+
                       step="0.01"
+
                       value={
                         volumenEfectos
                       }
+
                       onChange={(e) =>
                         setVolumenEfectos(
                           Number(
@@ -2443,6 +2763,7 @@ const InterfazCap = () => {
                           )
                         )
                       }
+
                     />
 
                     <span className="volume-number">
@@ -2472,31 +2793,40 @@ const InterfazCap = () => {
                 <div className="rows">
 
                   <motion.img
+
                     className="flechitas"
+
                     src="./Atras.png"
+
                     onClick={
                       retroceder
                     }
+
                     style={{
                       cursor:
                         "pointer"
                     }}
+
                     whileTap={{
                       scale: 0.85
                     }}
+
                   />
 
 
                   {/* SELECTOR */}
 
                   <div
+
                     className="page-num-selector"
+
                     onClick={() =>
                       setSelectorEscenasAbierto(
                         prev =>
                           !prev
                       )
                     }
+
                   >
 
                     <div className="page-num">
@@ -2509,17 +2839,21 @@ const InterfazCap = () => {
                       </span>
 
                       <motion.span
+
                         className="page-num-flecha"
+
                         animate={{
                           rotate:
                             selectorEscenasAbierto
                               ? 180
                               : 0
                         }}
+
                         transition={{
                           duration:
                             0.2
                         }}
+
                       >
 
                         ▼
@@ -2534,30 +2868,37 @@ const InterfazCap = () => {
                       {selectorEscenasAbierto && (
 
                         <motion.div
+
                           className="selector-escenas"
+
                           initial={{
                             opacity: 0,
                             y: 10,
                             scale: 0.92
                           }}
+
                           animate={{
                             opacity: 1,
                             y: 0,
                             scale: 1
                           }}
+
                           exit={{
                             opacity: 0,
                             y: 10,
                             scale: 0.92
                           }}
+
                           transition={{
                             type: "spring",
                             stiffness: 400,
                             damping: 25
                           }}
+
                           onClick={(event) =>
                             event.stopPropagation()
                           }
+
                         >
 
                           <div className="selector-escenas-titulo">
@@ -2580,26 +2921,33 @@ const InterfazCap = () => {
                               numero => (
 
                                 <motion.button
+
                                   key={numero}
-                                  className={`selector-escena ${escena ===
+
+                                  className={`selector-escena ${
+                                    escena ===
                                     numero
-                                    ? "escena-actual"
-                                    : ""
-                                    }`}
+                                      ? "escena-actual"
+                                      : ""
+                                  }`}
+
                                   onClick={() =>
                                     seleccionarEscena(
                                       numero
                                     )
                                   }
+
                                   whileHover={{
                                     scale:
                                       1.08,
                                     y: -2
                                   }}
+
                                   whileTap={{
                                     scale:
                                       0.9
                                   }}
+
                                 >
 
                                   <span>
@@ -2613,15 +2961,19 @@ const InterfazCap = () => {
                                     numero && (
 
                                       <motion.span
+
                                         className="escena-check"
+
                                         initial={{
                                           scale:
                                             0
                                         }}
+
                                         animate={{
                                           scale:
                                             1
                                         }}
+
                                       >
 
                                         ✓
@@ -2647,18 +2999,24 @@ const InterfazCap = () => {
 
 
                   <motion.img
+
                     className="flechitas"
+
                     src="./Adelante.png"
+
                     onClick={
                       avanzar
                     }
+
                     style={{
                       cursor:
                         "pointer"
                     }}
+
                     whileTap={{
                       scale: 0.85
                     }}
+
                   />
 
                 </div>
@@ -2669,17 +3027,23 @@ const InterfazCap = () => {
               </div>
 
 
-              {/* FULLSCREEN */}
+              {/* =================================================
+                  FULLSCREEN
+              ================================================= */}
 
               <div
+
                 className="col-auto d-flex align-items-center gap-2"
+
                 onClick={
                   toggleFullscreen
                 }
+
                 style={{
                   cursor:
                     "pointer"
                 }}
+
               />
 
             </div>
@@ -2701,24 +3065,31 @@ const InterfazCap = () => {
               {escena === 1 && (
 
                 <motion.div
+
                   key="noticia-objetos"
+
                   className="noticia-objetos"
+
                   initial={{
                     opacity: 0,
                     y: 10
                   }}
+
                   animate={{
                     opacity: 1,
                     y: 0
                   }}
+
                   exit={{
                     opacity: 0,
                     y: 10
                   }}
+
                   transition={{
                     duration: 0.4,
                     delay: 0.8
                   }}
+
                 >
 
                   Puedes darle click a los objetos para saber más sobre estos.
@@ -2730,12 +3101,18 @@ const InterfazCap = () => {
             </AnimatePresence>
 
 
+            {/* TÍTULO */}
+
             <div className="slot-label">
 
               Objetos encontrados
 
             </div>
 
+
+            {/* =================================================
+                SLOTS
+            ================================================= */}
 
             <div className="row g-2">
 
@@ -2747,22 +3124,29 @@ const InterfazCap = () => {
                       ? informacionObjetos[obj]
                       : null;
 
+
                   return (
 
                     <div
+
                       className="col-auto"
-                      key={i}
+
+                      key={`slot-${i}`}
+
                     >
 
                       <motion.div
-                        className={`slot ${obj
-                          ? "slot-con-objeto"
-                          : "slot-vacio"
-                          } ${objetoSeleccionado ===
-                            obj
+
+                        className={`slot ${
+                          obj
+                            ? "slot-con-objeto"
+                            : "slot-vacio"
+                        } ${
+                          objetoSeleccionado ===
+                          obj
                             ? "slot-seleccionado"
                             : ""
-                          }`}
+                        }`}
 
                         onClick={() =>
                           abrirDescripcionObjeto(
@@ -2773,23 +3157,24 @@ const InterfazCap = () => {
                         whileHover={
                           obj
                             ? {
-                              scale:
-                                1.08,
-                              y: -3
-                            }
+                                scale:
+                                  1.08,
+                                y: -3
+                              }
                             : {}
                         }
 
                         whileTap={
                           obj
                             ? {
-                              scale:
-                                0.92
-                            }
+                                scale:
+                                  0.92
+                              }
                             : {}
                         }
 
                         style={{
+
                           marginLeft:
                             "10px",
 
@@ -2800,6 +3185,7 @@ const InterfazCap = () => {
 
                           position:
                             "relative"
+
                         }}
 
                         title={
@@ -2807,15 +3193,19 @@ const InterfazCap = () => {
                             ? `Ver ${informacion.nombre}`
                             : "Espacio vacío"
                         }
+
                       >
 
 
-                        {/* IMAGEN DEL OBJETO */}
+                        {/* =====================================
+                            IMAGEN DEL OBJETO
+                        ===================================== */}
 
                         {obj &&
                           informacion && (
 
                             <img
+
                               src={
                                 informacion.imagen
                               }
@@ -2825,16 +3215,20 @@ const InterfazCap = () => {
                               }
 
                               className="slot-objeto-imagen"
+
                             />
 
                           )}
 
 
-                        {/* CHECK */}
+                        {/* =====================================
+                            CHECK
+                        ===================================== */}
 
                         {obj && (
 
                           <motion.div
+
                             initial={{
                               scale: 0,
                               opacity: 0,
@@ -2857,6 +3251,7 @@ const InterfazCap = () => {
                             }}
 
                             style={{
+
                               position:
                                 "absolute",
 
@@ -2910,7 +3305,9 @@ const InterfazCap = () => {
 
                               pointerEvents:
                                 "none"
+
                             }}
+
                           >
 
                             ✓
@@ -2926,6 +3323,7 @@ const InterfazCap = () => {
                   );
 
                 }
+
               )}
 
             </div>
@@ -2941,10 +3339,11 @@ const InterfazCap = () => {
 
             {objetoSeleccionado &&
               informacionObjetos[
-              objetoSeleccionado
+                objetoSeleccionado
               ] && (
 
                 <motion.div
+
                   className="objeto-modal-overlay"
 
                   initial={{
@@ -2962,10 +3361,12 @@ const InterfazCap = () => {
                   onClick={
                     cerrarDescripcionObjeto
                   }
+
                 >
 
 
                   <motion.div
+
                     className="objeto-modal"
 
                     initial={{
@@ -2995,17 +3396,22 @@ const InterfazCap = () => {
                     onClick={(event) =>
                       event.stopPropagation()
                     }
+
                   >
 
 
                     {/* CERRAR */}
 
                     <button
+
                       className="objeto-modal-cerrar"
+
                       onClick={
                         cerrarDescripcionObjeto
                       }
+
                       aria-label="Cerrar descripción"
+
                     >
 
                       ×
@@ -3018,6 +3424,7 @@ const InterfazCap = () => {
                     <div className="objeto-modal-imagen-contenedor">
 
                       <img
+
                         src={
                           informacionObjetos[
                             objetoSeleccionado
@@ -3031,6 +3438,7 @@ const InterfazCap = () => {
                         }
 
                         className="objeto-modal-imagen"
+
                       />
 
                     </div>
