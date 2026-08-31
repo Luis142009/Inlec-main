@@ -125,7 +125,7 @@ const InterfazCap = () => {
   // ESCENA ACTUAL
   // =========================================================
 
-  const [escena, setEscena] = useState(13);
+  const [escena, setEscena] = useState(1);
 
 
   // =========================================================
