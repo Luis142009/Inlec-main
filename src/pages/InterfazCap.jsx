@@ -1,57 +1,58 @@
-import React, {
-  useState,
-  useRef,
-  useEffect
-} from "react";
+import React, { 
+  useState, 
+  useRef, 
+  useEffect 
+} from "react"; 
 
-import { LuisPlugin } from "../components/LuisPlugin";
-import { Parte2dela1 } from "../components/Parte2dela1";
-import { Parte3dela1 } from "../components/Parte3dela1";
-import { Escena2alfa } from "../components/Escena2alfa";
-import { Escena2beta } from "../components/Escena2beta";
-import { Escena3 } from "../components/Escena3";
-import { Escena4 } from "../components/Escena4";
-import { Escena5 } from "../components/Escena5";
-import { Escena6 } from "../components/Escena6";
-import { Escena7 } from "../components/Escena7";
-import { Escena8 } from "../components/Escena8";
-import { Escena9 } from "../components/Escena9";
+import { LuisPlugin } from "../components/LuisPlugin"; 
+import { Parte2dela1 } from "../components/Parte2dela1"; 
+import { Parte3dela1 } from "../components/Parte3dela1"; 
+import { Escena2alfa } from "../components/Escena2alfa"; 
+import { Escena2beta } from "../components/Escena2beta"; 
+import { Escena3 } from "../components/Escena3"; 
+import { Escena4 } from "../components/Escena4"; 
+import { Escena5 } from "../components/Escena5"; 
+import { Escena6 } from "../components/Escena6"; 
+import { Escena7 } from "../components/Escena7"; 
+import { Escena8 } from "../components/Escena8"; 
+import { Escena9 } from "../components/Escena9"; 
+import { Escena10 } from "../components/Escena10"; 
 
-import LibroPersonajes from "../components/LibroPersonajes";
-import { PortadaCapitulo } from "../components/PortadaCapitulo";
+import LibroPersonajes from "../components/LibroPersonajes"; 
+import { PortadaCapitulo } from "../components/PortadaCapitulo"; 
 
-import "../stylesheets/Textos.css";
-import "../stylesheets/ObjetosModal.css";
-import "../stylesheets/noticia-objetos.css";
+import "../stylesheets/Textos.css"; 
+import "../stylesheets/ObjetosModal.css"; 
+import "../stylesheets/noticia-objetos.css"; 
 
-import {
-  motion,
-  AnimatePresence
-} from "motion/react";
+import { 
+  motion, 
+  AnimatePresence 
+} from "motion/react"; 
 
-import song1 from "../assets/audio/song1.mp3";
-import gallina from "../assets/audio/gallina.mp3";
-import grillos from "../assets/audio/grillos.mp3";
-import escena1 from "../assets/audio/escena1.mp3";
-import escena1sra from "../assets/audio/escena1sra.mp3";
-import ash from "../assets/audio/escena2ash.mp3";
-import kristo from "../assets/audio/escena2kristo.mp3";
-import wawas from "../assets/audio/wawas.mp3";
-import es3 from "../assets/audio/escena3.mp3";
-import sonido3 from "../assets/audio/sonido3.mp3";
-import audio4s from "../assets/audio/audio4s.mp3";
-import audio6 from "../assets/audio/audio6.mp3";
-import robo from "../assets/audio/robo.mp3";
-import Escenas7 from "../assets/audio/Escenas7.mp3";
-import audio7 from "../assets/audio/audio7.mp3";
-import fondo8 from "../assets/audio/fondo8.mp3";
-import audio8 from "../assets/audio/audio8.mp3";
-import audio9 from "../assets/audio/audio9.mp3";
+import song1 from "../assets/audio/song1.mp3"; 
+import gallina from "../assets/audio/gallina.mp3"; 
+import grillos from "../assets/audio/grillos.mp3"; 
+import escena1 from "../assets/audio/escena1.mp3"; 
+import escena1sra from "../assets/audio/escena1sra.mp3"; 
+import ash from "../assets/audio/escena2ash.mp3"; 
+import kristo from "../assets/audio/escena2kristo.mp3"; 
+import wawas from "../assets/audio/wawas.mp3"; 
+import es3 from "../assets/audio/escena3.mp3"; 
+import sonido3 from "../assets/audio/sonido3.mp3"; 
+import audio4s from "../assets/audio/audio4s.mp3"; 
+import audio6 from "../assets/audio/audio6.mp3"; 
+import robo from "../assets/audio/robo.mp3"; 
+import Escenas7 from "../assets/audio/Escenas7.mp3"; 
+import audio7 from "../assets/audio/audio7.mp3"; 
+import fondo8 from "../assets/audio/fondo8.mp3"; 
+import audio8 from "../assets/audio/audio8.mp3"; 
+import audio9 from "../assets/audio/audio9.mp3"; 
 
-import pintura from "../assets/svg/pintura.svg";
-import manzana from "../assets/manzana.svg";
-import huella from "../assets/svg/huella.svg";
-import tomate from "../assets/svg/tomate.svg";
+import pintura from "../assets/svg/pintura.svg"; 
+import manzana from "../assets/manzana.svg"; 
+import huella from "../assets/svg/huella.svg"; 
+import tomate from "../assets/svg/tomate.svg"; 
 
 
 // =========================================================
@@ -85,6 +86,7 @@ const siluetasPorCapitulo = {
 // =========================================================
 
 const capitulos = [
+
   {
     numero: 1,
     titulo: "LA FAMILIA FOX",
@@ -100,6 +102,7 @@ const capitulos = [
     escenaFin: 24,
     objetos: 4
   }
+
 ];
 
 
@@ -117,11 +120,12 @@ const obtenerCapituloPorEscena = (numeroEscena) =>
 
 const InterfazCap = () => {
 
+
   // =========================================================
   // ESCENA ACTUAL
   // =========================================================
 
-  const [escena, setEscena] = useState(1);
+  const [escena, setEscena] = useState(13);
 
 
   // =========================================================
@@ -143,6 +147,13 @@ const InterfazCap = () => {
     setPortadaVisible
   ] = useState(false);
 
+  const [
+    numeroCapituloAnterior,
+    setNumeroCapituloAnterior
+  ] = useState(null);
+
+  const capituloAnteriorRef = useRef(null);
+
 
   useEffect(() => {
 
@@ -154,12 +165,14 @@ const InterfazCap = () => {
       escena === capitulo.escenaInicio
     ) {
 
-      setPortadaVisible(true);
+      setNumeroCapituloAnterior(
+        capituloAnteriorRef.current
+      );
 
-      // Al entrar a un capítulo nuevo (distinto del primero)
-      // se cierra la descripción de objeto que pudiera haber
-      // quedado abierta. El inventario YA NO se borra: cada
-      // capítulo mantiene su propio inventario independiente.
+      capituloAnteriorRef.current =
+        capitulo.numero;
+
+      setPortadaVisible(true);
 
       if (capitulo.numero > 1) {
 
@@ -221,7 +234,7 @@ const InterfazCap = () => {
 
     12: "Bean, un hombre alto, huesudo y flaco, tan flaco como un lápiz enfermizo de 60 años, vestido de forma austera con ropa que le cuelga por lo esquelético que es huele a sidra de manzana, consigue pavos y barriles de sidra.",
 
-    13: "Aquí va el texto de la escena 13.",
+    13: "Siempre regresa antes del amanecer cargado de comida para que la Sra. Fox prepare el banquete familiar, y lo hace con tal astucia que los granjeros nunca logran atraparlo.",
     14: "Aquí va el texto de la escena 14.",
     15: "Aquí va el texto de la escena 15.",
     16: "Aquí va el texto de la escena 16.",
@@ -801,7 +814,7 @@ const InterfazCap = () => {
 
         audio
           .play()
-          .catch(() => { });
+          .catch(() => {});
 
       } catch (error) {
 
@@ -925,14 +938,14 @@ const InterfazCap = () => {
 
           ashAudio
             .play()
-            .catch(() => { });
+            .catch(() => {});
 
         };
 
 
       kristoAudio
         .play()
-        .catch(() => { });
+        .catch(() => {});
 
     };
 
@@ -994,7 +1007,7 @@ const InterfazCap = () => {
 
               await musica.play();
 
-            } catch { }
+            } catch {}
 
           }
 
@@ -1035,7 +1048,7 @@ const InterfazCap = () => {
 
             await musica.play();
 
-          } catch { }
+          } catch {}
 
         }
 
@@ -1159,14 +1172,18 @@ const InterfazCap = () => {
   const pausarAudioActual = () => {
 
     if (musicaRef.current) {
+
       musicaRef.current.pause();
+
     }
 
     efectosRefs.current.forEach(
       audio => {
 
         if (audio) {
+
           audio.pause();
+
         }
 
       }
@@ -1240,7 +1257,7 @@ const InterfazCap = () => {
 
         }
 
-      } catch { }
+      } catch {}
 
     };
 
@@ -1285,9 +1302,13 @@ const InterfazCap = () => {
   const escena9Ref =
     useRef(null);
 
+  // NUEVA ESCENA 13
+  const escena10Ref =
+    useRef(null);
+
 
   // =========================================================
-  // OBJETOS (inventario independiente por capítulo)
+  // OBJETOS
   // =========================================================
 
   const [
@@ -1299,18 +1320,14 @@ const InterfazCap = () => {
   });
 
 
-  // Capítulo al que pertenece la escena actual, y el
-  // inventario correspondiente a ese capítulo. Al volver a un
-  // capítulo anterior, se muestran de nuevo sus propios objetos
-  // recogidos; al avanzar a uno nuevo, se muestran los suyos,
-  // sin perder lo que ya se había recogido en el otro.
-
   const capituloActual =
     obtenerCapituloPorEscena(escena);
 
 
   const objetos =
-    objetosPorCapitulo[capituloActual?.numero] ||
+    objetosPorCapitulo[
+      capituloActual?.numero
+    ] ||
     [null, null, null, null];
 
 
@@ -1511,10 +1528,6 @@ const InterfazCap = () => {
       }
 
 
-      // El objeto se guarda en el inventario del capítulo al
-      // que pertenece la escena en la que se recogió, no en un
-      // inventario global compartido entre capítulos.
-
       const capitulo =
         obtenerCapituloPorEscena(escena);
 
@@ -1529,8 +1542,6 @@ const InterfazCap = () => {
           [null, null, null, null];
 
 
-        // Evitar duplicados
-
         if (inventarioActual.includes(objeto)) {
 
           console.log(
@@ -1543,15 +1554,11 @@ const InterfazCap = () => {
         }
 
 
-        // Buscar espacio vacío
-
         const indiceVacio =
           inventarioActual.findIndex(
             (slot) => slot === null
           );
 
-
-        // Inventario lleno
 
         if (indiceVacio === -1) {
 
@@ -1564,13 +1571,9 @@ const InterfazCap = () => {
         }
 
 
-        // Crear copia
-
         const nuevoInventario =
           [...inventarioActual];
 
-
-        // Insertar objeto
 
         nuevoInventario[indiceVacio] =
           objeto;
@@ -1663,6 +1666,10 @@ const InterfazCap = () => {
 
         case 12:
           return escena9Ref;
+
+        // ESCENA 13
+        case 13:
+          return escena10Ref;
 
         default:
           return null;
@@ -1760,7 +1767,7 @@ const InterfazCap = () => {
 
           musicaRef.current
             .play()
-            .catch(() => { });
+            .catch(() => {});
 
         }
 
@@ -1772,7 +1779,7 @@ const InterfazCap = () => {
 
               audio
                 .play()
-                .catch(() => { });
+                .catch(() => {});
 
             }
 
@@ -2039,6 +2046,10 @@ const InterfazCap = () => {
 
           numero={
             obtenerCapituloPorEscena(escena)?.numero
+          }
+
+          numeroAnterior={
+            numeroCapituloAnterior
           }
 
           titulo={
@@ -2501,10 +2512,46 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENAS 13 - 24
+                        ESCENA 13
                     ================================================= */}
 
-                    {escena >= 13 && (
+                    {escena === 13 && (
+
+                      <motion.div
+                        key="escena13"
+                        {...transicionEscena}
+                      >
+
+                        <Escena10
+
+                          ref={escena10Ref}
+
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+
+                          onRecoger={
+                            recogerObjeto
+                          }
+
+                          objetoRecogido={
+                            objetos.includes(
+                              "tomate"
+                            )
+                          }
+
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENAS 14 - 24
+                    ================================================= */}
+
+                    {escena >= 14 && (
 
                       <motion.div
 

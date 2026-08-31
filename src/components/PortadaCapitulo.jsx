@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 import "../stylesheets/PortadaCapitulo.css";
 
+import audio9 from "../assets/audio/cap2.mp3";
+import cap1 from "../assets/audio/Cap1.mp3";
+
 export const PortadaCapitulo = ({
   visible,
   numero,
+  numeroAnterior,
   titulo,
   totalObjetos,
   objetos = [],
@@ -13,11 +17,233 @@ export const PortadaCapitulo = ({
 }) => {
 
   // =========================================================
-  // CANTIDAD DE CASILLAS
+  // AUDIO
   // =========================================================
 
-  // La cantidad de casillas depende de totalObjetos.
-  // Los objetos que sí tengan imagen se muestran dentro.
+  const audioRef = useRef(null);
+
+
+  // =========================================================
+  // NÚMERO MOSTRADO (permite animar 1 -> 2 aunque el
+  // componente se remonte al cambiar de capítulo)
+  // =========================================================
+
+  const [numeroMostrado, setNumeroMostrado] = useState(
+    () => (numeroAnterior != null ? numeroAnterior : numero)
+  );
+
+  // Controla el momento en que el número "aterriza", para
+  // disparar el aro de impacto y el rebote de aplastamiento
+  // justo cuando termina de caer/subir.
+
+  const [numeroAterrizo, setNumeroAterrizo] = useState(false);
+
+  useEffect(() => {
+
+    setNumeroAterrizo(false);
+
+  }, [numeroMostrado]);
+
+
+  useEffect(() => {
+
+    if (!visible) {
+      return;
+    }
+
+
+    // Si venimos de un capítulo distinto, primero mostramos el
+    // número anterior (quieto) y luego, tras un pequeño retraso
+    // -para que ya se vea la caja/sello en pantalla-, lo hacemos
+    // caer mientras sube el número nuevo.
+
+    if (
+      numeroAnterior != null &&
+      numeroAnterior !== numero
+    ) {
+
+      setNumeroMostrado(numeroAnterior);
+
+      const timer = setTimeout(() => {
+
+        setNumeroMostrado(numero);
+
+      }, 1400);
+
+      return () => clearTimeout(timer);
+
+    }
+
+
+    // Primer capítulo / sin anterior: se muestra directo.
+
+    setNumeroMostrado(numero);
+
+  }, [visible, numero, numeroAnterior]);
+
+
+  // =========================================================
+  // AUDIO AUTOMÁTICO
+  // =========================================================
+
+  useEffect(() => {
+
+    if (!visible) {
+      return;
+    }
+
+
+    // =========================================================
+    // SELECCIONAR AUDIO
+    // =========================================================
+
+    let audioSource = null;
+
+    if (numero === 1) {
+      audioSource = cap1;
+    }
+
+    if (numero === 2) {
+      audioSource = audio9;
+    }
+
+
+    if (!audioSource) {
+      return;
+    }
+
+
+    // =========================================================
+    // CREAR AUDIO
+    // =========================================================
+
+    const audio = new Audio();
+
+    audio.src = audioSource;
+
+    audio.loop = true;
+
+    audio.preload = "auto";
+
+    // =========================================================
+    // VOLUMEN
+    // =========================================================
+
+    if (numero === 1) {
+
+      // CAPÍTULO 1
+      audio.volume = 1.0;
+
+    } else {
+
+      // CAPÍTULO 2
+      audio.volume = 0.8;
+
+    }
+
+
+    // =========================================================
+    // GUARDAR REFERENCIA
+    // =========================================================
+
+    audioRef.current = audio;
+
+
+    // =========================================================
+    // CARGAR AUDIO
+    // =========================================================
+
+    audio.load();
+
+
+    // =========================================================
+    // INTENTAR REPRODUCCIÓN AUTOMÁTICA
+    // =========================================================
+
+    const iniciarAudio = async () => {
+
+      try {
+
+        await audio.play();
+
+        console.log(
+          `🎵 Capítulo ${numero}: música iniciada automáticamente`
+        );
+
+      } catch (error) {
+
+        console.warn(
+          `⚠️ El navegador bloqueó el autoplay del capítulo ${numero}.`,
+          error
+        );
+
+      }
+
+    };
+
+
+    // =========================================================
+    // ESPERAR A QUE EL AUDIO ESTÉ LISTO
+    // =========================================================
+
+    if (audio.readyState >= 3) {
+
+      iniciarAudio();
+
+    } else {
+
+      audio.addEventListener(
+        "canplay",
+        iniciarAudio,
+        { once: true }
+      );
+
+    }
+
+
+    // =========================================================
+    // LIMPIEZA
+    // =========================================================
+
+    return () => {
+
+      audio.removeEventListener(
+        "canplay",
+        iniciarAudio
+      );
+
+      audio.pause();
+
+      audio.currentTime = 0;
+
+      audio.src = "";
+
+      if (audioRef.current === audio) {
+        audioRef.current = null;
+      }
+
+    };
+
+  }, [visible, numero]);
+
+
+  // =========================================================
+  // COMENZAR CAPÍTULO
+  // =========================================================
+
+  const manejarComenzar = () => {
+
+    if (onComenzar) {
+      onComenzar();
+    }
+
+  };
+
+
+  // =========================================================
+  // CANTIDAD DE OBJETOS
+  // =========================================================
+
   const cantidadObjetos =
     totalObjetos || objetos.length || 0;
 
@@ -26,6 +252,10 @@ export const PortadaCapitulo = ({
     (_, i) => i
   );
 
+
+  // =========================================================
+  // RENDER
+  // =========================================================
 
   return (
 
@@ -52,7 +282,7 @@ export const PortadaCapitulo = ({
             duration: 0.4,
           }}
 
-          onClick={onComenzar}
+          onClick={manejarComenzar}
         >
 
           {/* =====================================================
@@ -143,8 +373,6 @@ export const PortadaCapitulo = ({
               delay: 0.55,
               ease: [0.17, 0.89, 0.32, 1.25],
             }}
-
-            onClick={onComenzar}
           >
 
             {/* =================================================
@@ -221,35 +449,130 @@ export const PortadaCapitulo = ({
 
 
             {/* =================================================
-                NÚMERO
+                NÚMERO (cae/sube al cambiar de capítulo, con
+                aro de impacto y rebote al aterrizar)
             ================================================= */}
 
-            <motion.h1
-              className="portada-capitulo-numero"
-
-              initial={{
-                opacity: 0,
-                scale: 2.6,
-                rotate: 8,
-              }}
-
-              animate={{
-                opacity: 1,
-                scale: 1,
-                rotate: 0,
-              }}
-
-              transition={{
-                type: "spring",
-                stiffness: 140,
-                damping: 11,
-                delay: 1.15,
-              }}
+            <div
+              className="portada-capitulo-numero-envoltura"
+              style={{ perspective: 800 }}
             >
 
-              {numero}
+              {/* ARO DE IMPACTO */}
 
-            </motion.h1>
+              <motion.div
+
+                key={`impacto-${numeroMostrado}`}
+
+                className="portada-capitulo-numero-impacto"
+
+                initial={{
+                  scale: 0.3,
+                  opacity: 0,
+                }}
+
+                animate={
+                  numeroAterrizo
+                    ? {
+                        scale: 1.7,
+                        opacity: [0, 0.55, 0],
+                      }
+                    : {
+                        scale: 0.3,
+                        opacity: 0,
+                      }
+                }
+
+                transition={{
+                  duration: 0.55,
+                  ease: "easeOut",
+                }}
+              />
+
+
+              {/* ENVOLTURA DE REBOTE (squash & stretch al
+                  aterrizar) — envuelve al número, no lo duplica */}
+
+              <motion.div
+
+                key={`rebote-${numeroMostrado}`}
+
+                className="portada-capitulo-numero-rebote"
+
+                animate={
+                  numeroAterrizo
+                    ? {
+                        scaleX: [1, 1.14, 0.94, 1.03, 1],
+                        scaleY: [1, 0.86, 1.06, 0.98, 1],
+                      }
+                    : {
+                        scaleX: 1,
+                        scaleY: 1,
+                      }
+                }
+
+                transition={{
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
+
+                style={{
+                  transformOrigin: "bottom center",
+                }}
+              >
+
+                <AnimatePresence mode="popLayout">
+
+                  <motion.h1
+                    key={numeroMostrado}
+                    className="portada-capitulo-numero"
+
+                    style={{ transformStyle: "preserve-3d" }}
+
+                    initial={{
+                      opacity: 0,
+                      y: 160,
+                      rotateX: 65,
+                      scale: 0.6,
+                    }}
+
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      rotateX: 0,
+                      scale: 1,
+                    }}
+
+                    exit={{
+                      opacity: 0,
+                      y: 170,
+                      rotateX: -50,
+                      scale: 0.75,
+                    }}
+
+                    transition={{
+                      type: "spring",
+                      stiffness: 170,
+                      damping: 11,
+                      mass: 0.9,
+                    }}
+
+                    onAnimationComplete={() => {
+
+                      setNumeroAterrizo(true);
+
+                    }}
+                  >
+
+                    {numeroMostrado}
+
+                  </motion.h1>
+
+                </AnimatePresence>
+
+              </motion.div>
+
+            </div>
 
 
             {/* =================================================
@@ -451,7 +774,6 @@ export const PortadaCapitulo = ({
 
                       ) : (
 
-                        /* Casilla sin objeto */
                         <div
                           style={{
                             width: "70%",
@@ -525,6 +847,3 @@ export const PortadaCapitulo = ({
   );
 
 };
-
-
-export default PortadaCapitulo;
