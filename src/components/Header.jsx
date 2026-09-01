@@ -1,3 +1,4 @@
+
 import { useNavigate } from 'react-router-dom';
 import '../stylesheets/Fuentes.css';
 
@@ -10,94 +11,85 @@ const Header = () => {
 
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({
-          behavior: 'smooth'
+          behavior: 'smooth',
+          block: 'start'
         });
       }, 100);
     } else {
       document.getElementById(id)?.scrollIntoView({
-        behavior: 'smooth'
+        behavior: 'smooth',
+        block: 'start'
       });
     }
   };
 
   return (
-    <nav
-      className="navbar navbar-expand-lg p-0 inlec-header"
-    >
-      <div className="container-fluid px-3 py-2">
+    <nav className="inlec-header">
 
-        {/* LOGO */}
+      <div className="inlec-navbar-pill">
+
+     
+
+        <button
+          className="inlec-navbar-btn"
+          onClick={() => scrollTo('inicio')}
+        >
+          Inicio
+        </button>
+
+        <button
+          className="inlec-navbar-btn"
+          onClick={() => scrollTo('capitulos')}
+        >
+          Capítulos
+        </button>
+
+        <button
+          className="inlec-navbar-btn"
+          onClick={() => scrollTo('personajes')}
+        >
+          Personajes
+        </button>
+
+
+        {/* LOGO CENTRAL */}
+
         <img
-          src="/logo.png"
-          alt="Inlec logo"
+          src="/LogoIcon.png"
+          alt="INLEC"
           className="inlec-logo"
           onClick={() => navigate('/')}
         />
 
-        {/* BOTÓN HAMBURGUESA */}
+
+        {/* BOTONES DERECHA */}
+
         <button
-          className="navbar-toggler ms-auto"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#inlec-navbar"
-          aria-controls="inlec-navbar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          className="inlec-navbar-btn"
+          onClick={() => scrollTo('autor')}
         >
-          <span className="navbar-toggler-icon"></span>
+          Autor
         </button>
 
-        {/* MENÚ */}
-        <div
-          className="collapse navbar-collapse justify-content-end"
-          id="inlec-navbar"
+        <button
+          className="inlec-navbar-btn"
+          onClick={() => navigate('/galeria')}
         >
+          Ver más
+        </button>
 
-          {/* CONTENEDOR TIPO PÍLDORA */}
-          <div className="inlec-navbar-pill">
-
-            <button
-              className="inlec-navbar-btn"
-              onClick={() => scrollTo('inicio')}
-            >
-              Inicio
-            </button>
-
-            <button
-              className="inlec-navbar-btn"
-              onClick={() => scrollTo('capitulos')}
-            >
-              Capítulos
-            </button>
-
-            <button
-              className="inlec-navbar-btn"
-              onClick={() => scrollTo('personajes')}
-            >
-              Personajes
-            </button>
-
-            <button
-              className="inlec-navbar-btn"
-              onClick={() => navigate('/galeria')}
-            >
-              Ver más
-            </button>
-
-            <button
-              className="inlec-navbar-btn"
-              onClick={() => scrollTo('contacto')}
-            >
-              Contacto
-            </button>
-
-          </div>
-
-        </div>
+        <button
+          className="inlec-navbar-btn"
+          onClick={() => scrollTo('contacto')}
+        >
+          Contacto
+        </button>
 
       </div>
+
     </nav>
   );
 };
 
 export default Header;
+

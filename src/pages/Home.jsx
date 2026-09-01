@@ -97,11 +97,24 @@ const Home = () => {
 
       {/* ================= PROYECTO ================= */}
 
+
+
       <section
+
         className="scroll-section proyecto-wrapper"
         id="proyecto"
       >
-        <div className="container proyecto-container">
+        <div className="mt-2 video-pro" id="inicio">
+          < video
+            className="header"
+            src="/bono.webm"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        </div>
+        <div className=" mt-5 container proyecto-container">
           <div className="row align-items-center g-5">
 
             <div className="col-12 col-md-6 text-md-start text-center">
@@ -798,185 +811,55 @@ const Home = () => {
       {/* ==================== RESEÑAS ==================== */}
       {/* ================================================= */}
 
-      <section
-        className="scroll-section resenas-wrapper"
-        id="resenas"
-      >
 
-        <div className="resenas-container">
-
-          {/* ENCABEZADO */}
-
-          <div className="resenas-encabezado">
-
-            <h1 className="resenas-titulo">
-              Déjanos tu reseña
-            </h1>
-
-            <p className="resenas-subtitulo">
-              ¿Qué te pareció la experiencia de Inlec?
-              Cuéntanos qué piensas y ayúdanos a seguir mejorando.
-            </p>
-
-          </div>
-
-          {/* TARJETA */}
-
-          <div className="resenas-card">
-
-            {/* FORMULARIO */}
-
-            <div className="resenas-formulario">
-
-              {/* NOMBRE */}
-
-              <div className="resenas-campo">
-
-                <label htmlFor="nombreResena">
-                  Tu nombre
-                </label>
-
-                <input
-                  id="nombreResena"
-                  type="text"
-                  placeholder="Escribe tu nombre"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                />
-
-              </div>
-
-              {/* ESTRELLAS */}
-
-              <div className="resenas-campo">
-
-                <label>
-                  ¿Cómo calificarías Inlec?
-                </label>
-
-                <div className="estrellas">
-
-                  {[1, 2, 3, 4, 5].map((estrella) => (
-
-                    <button
-                      key={estrella}
-                      type="button"
-                      className={`estrella ${
-                        calificacion >= estrella
-                          ? "estrella-activa"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        setCalificacion(estrella)
-                      }
-                    >
-                      ★
-                    </button>
-
-                  ))}
-
-                </div>
-
-              </div>
-
-              {/* COMENTARIO */}
-
-              <div className="resenas-campo">
-
-                <label htmlFor="comentarioResena">
-                  Tu comentario
-                </label>
-
-                <textarea
-                  id="comentarioResena"
-                  placeholder="Cuéntanos qué te pareció..."
-                  rows="5"
-                  value={comentario}
-                  onChange={(e) =>
-                    setComentario(e.target.value)
-                  }
-                />
-
-              </div>
-
-              {/* BOTON */}
-
-              <button
-                type="button"
-                className="resenas-btn"
-                onClick={agregarResena}
-              >
-                Publicar reseña
-              </button>
-
-            </div>
-
-            {/* RESEÑAS PUBLICADAS */}
-
-            <div className="resenas-publicadas">
-
-              <h2>
-                Lo que dicen nuestros lectores
-              </h2>
-
-              {resenas.length === 0 ? (
-
-                <p className="sin-resenas">
-                  Sé el primero en dejar una reseña ✨
-                </p>
-
-              ) : (
-
-                resenas.map((resena) => (
-
-                  <div
-                    className="resena-item"
-                    key={resena.id}
-                  >
-
-                    <div className="resena-cabecera">
-
-                      <div>
-
-                        <h3>
-                          {resena.nombre}
-                        </h3>
-
-                        <div className="resena-estrellas">
-
-                          {"★".repeat(
-                            resena.calificacion
-                          )}
-
-                          {"☆".repeat(
-                            5 - resena.calificacion
-                          )}
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                    <p className="resena-comentario">
-                      {resena.comentario}
-                    </p>
-
-                  </div>
-
-                ))
-
-              )}
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
 
       {/* ================= FOOTER ================= */}
+```jsx
+<section className="autor-section" id="autor">
+
+  <div className="container">
+
+    <div className="autor-contenido">
+
+      <div className="autor-imagen">
+        <img
+          src="/autor.png"
+          alt="Autor"
+        />
+      </div>
+
+      <div className="autor-texto">
+
+        <h2>El Autor</h2>
+
+        <h3>Roald Dahl</h3>
+
+        <p>
+          Roald Dahl fue un reconocido escritor británico de literatura
+          infantil y juvenil. Sus historias se caracterizan por tener
+          personajes únicos, situaciones divertidas y mundos llenos de
+          imaginación.
+        </p>
+
+        <p>
+          Entre sus obras más conocidas se encuentran Charlie y la fábrica
+          de chocolate, Matilda, Las brujas y El Superzorro.
+        </p>
+
+        <p>
+          Su forma de contar historias ha inspirado a generaciones de
+          lectores y continúa siendo reconocida por su creatividad y
+          particular sentido del humor.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+```
 
       <section
         className="scroll-section footer-container"

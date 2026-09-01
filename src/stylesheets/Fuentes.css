@@ -1,10 +1,12 @@
+
 @font-face {
   font-family: 'School';
-  src: url(../assets/school.ttf);
+  src: url('../assets/school.ttf');
 }
+
 @font-face {
   font-family: 'pepe';
-  src: url(../assets/abalon.otf);
+  src: url('../assets/abalon.otf');
 }
 
 body {
@@ -13,10 +15,219 @@ body {
 
 html,
 body {
-  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* ===================== NAV ===================== */
+/* =========================
+   SECCIÓN AUTOR
+   ========================= */
+
+.autor-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f3ded0;
+  padding: 80px 20px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.autor-contenido {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 50px;
+  box-sizing: border-box;
+  border: 4px solid #934E24;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* IMAGEN DEL AUTOR */
+
+.autor-imagen {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+}
+
+.autor-imagen img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+/* TEXTO */
+
+.autor-texto {
+  width: 60%;
+}
+
+.autor-texto h2 {
+  font-family: 'pepe', sans-serif;
+  font-size: 3.5rem;
+  color: #934E24;
+  margin-bottom: 10px;
+}
+
+.autor-texto h3 {
+  font-family: 'school', sans-serif;
+  font-size: 2rem;
+  color: #e89255;
+  margin-bottom: 25px;
+}
+
+.autor-texto p {
+  font-family: 'TT', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #2b1a0e;
+  text-align: justify;
+  margin-bottom: 15px;
+}
+
+/* =========================
+   AUTOR EN CELULAR
+   ========================= */
+
+@media (max-width: 768px) {
+  .autor-section {
+    padding: 50px 15px;
+  }
+
+  .autor-contenido {
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px 20px;
+  }
+
+  .autor-imagen,
+  .autor-texto {
+    width: 100%;
+  }
+
+  .autor-imagen img {
+    max-width: 250px;
+  }
+
+  .autor-texto h2 {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .autor-texto h3 {
+    text-align: center;
+  }
+
+  .autor-texto p {
+    font-size: 1rem;
+  }
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.inlec-header {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+  margin-left: 300px;
+  margin-top: 20px;
+ 
+
+ 
+
+  width: 100%;
+
+  /* CAMBIO: ahora queda fijo al hacer scroll */
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* Siempre encima del contenido */
+  z-index: 9999;
+
+  height: 20%;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.inlec-logo {
+  height: 100px;
+  width: auto;
+  margin-left: 25px;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   CONTENEDOR DEL MENÚ
+   ========================================================= */
+
+.inlec-navbar-pill {
+  background: linear-gradient(90deg, #e89255, #ebbb59);
+  border-radius: 50rem;
+  padding: 0.9rem 4rem;
+  gap: 0.5rem;
+  display: flex;
+  justify-content: center;
+  font-family: 'pepe', sans-serif;
+  -webkit-text-stroke: 12px #934E24;
+  paint-order: stroke fill;
+  width: 70%;
+  height: 106px;
+}
+
+
+/* =========================================================
+   BOTONES DEL MENÚ
+   ========================================================= */
+
+.inlec-navbar-btn {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 60px;
+  background: transparent;
+  color: #ecd9cb;
+  font-size: 34px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+/* HOVER */
+
+.inlec-navbar-btn:hover {
+  background: #ebbb59;
+  transform: translateY(-2px);
+}
+
+
+/* BOTÓN ACTIVO */
+
+.inlec-navbar-btn:active {
+  transform: scale(0.95);
+}
+
+
+/* =========================================================
+   NAV
+   ========================================================= */
+
 .inlec-nav-btn {
   color: #ffffff;
   font-family: 'School';
@@ -29,6 +240,11 @@ body {
 .inlec-nav-btn:hover {
   background-color: rgba(194, 97, 19, 0.555);
 }
+
+
+/* =========================================================
+   HAMBURGUESA
+   ========================================================= */
 
 .inlec-toggler {
   background: none;
@@ -47,14 +263,133 @@ body {
   border-radius: 2px;
 }
 
-/* ===================== GALERÍA ===================== */
+.navbar-toggler {
+  border: 2px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 12px;
+  padding: 7px 10px;
+}
+
+.navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .inlec-navbar-pill {
+    gap: 4px;
+    padding: 8px 12px;
+  }
+
+  .inlec-navbar-btn {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+
+  .inlec-logo {
+    width: 75px;
+    height: 75px;
+    margin: 0 5px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+  .inlec-logo {
+    height: 65px;
+    margin-left: 5px;
+  }
+
+  .inlec-navbar-pill {
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+    margin: 10px 0 0 0;
+    padding: 12px;
+    border-radius: 25px;
+  }
+
+  .inlec-navbar-btn {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+  }
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .inlec-header {
+    padding: 10px;
+  }
+
+  .inlec-navbar-pill {
+    width: 100%;
+    min-height: auto;
+    flex-wrap: wrap;
+    border-radius: 25px;
+    padding: 10px;
+  }
+
+  .inlec-logo {
+    order: -1;
+    width: 70px;
+    height: 70px;
+    margin: 0 100%;
+  }
+
+  .inlec-navbar-btn {
+    font-size: 15px;
+    padding: 7px 10px;
+  }
+}
+
+
+/* ===================== NAV ===================== */
+
+#inicio {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.header {
+  display: block;
+  width: 100%;
+  max-width: 2000px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   GALERÍA
+   ========================================================= */
+
 .galeria-wrapper {
   background: linear-gradient(135deg, #eeb243, #feb47b);
   padding: 3rem 1rem;
   overflow: hidden;
 }
 
-/* 🔥 contenedor scroll horizontal */
+
+/* contenedor scroll horizontal */
+
 .galeria-scroll {
   display: flex;
   gap: 1.5rem;
@@ -63,35 +398,42 @@ body {
   padding-bottom: 1rem;
 }
 
-/* quitar scrollbar feo */
+
+/* quitar scrollbar */
+
 .galeria-scroll::-webkit-scrollbar {
   height: 6px;
 }
+
 .galeria-scroll::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
 
-/* 🧩 cada card */
+
+/* cada card */
+
 .galeria-item {
   flex: 0 0 auto;
   scroll-snap-align: center;
-
   background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-
   transition: transform 0.3s ease;
 }
 
+
 /* animación hover */
+
 .galeria-item:hover {
   transform: scale(1.05) rotate(-1deg);
 }
 
-/* 🖼️ marco */
+
+/* marco */
+
 .marco {
   background-color: #b07a2a;
   padding: 12px;
@@ -99,18 +441,21 @@ body {
   border-radius: 8px;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
   background-image: url('https://www.transparenttextures.com/patterns/wood.png');
-
   width: 350px;
 }
 
+
 /* interior */
+
 .marco-inner {
   background-color: #fff;
   padding: 6px;
   border: 2px solid #d9c5a1;
 }
 
+
 /* imagen */
+
 .marco-img {
   height: auto;
   aspect-ratio: 1 / 1;
@@ -118,30 +463,36 @@ body {
   background-position: center;
   max-height: 700px;
 }
+
+
 /* texto */
+
 .galeria-texto {
- font-family: TT,sans-serif;
+  font-family: TT, sans-serif;
   font-size: 0.95rem;
   color: #934e24;
   text-align: center;
   max-width: 400px;
   line-height: 1.4;
-
 }
 
+
+/* =========================================================
+   SUPERZORRO
+   ========================================================= */
 
 .superzorro-section {
-  overflow: hidden;
+  overflow: visible;
 }
 
-/* NUEVO: contenedor que agrupa imagen + overlay + controles.
-   Todo lo que estaba "position-absolute" respecto a la sección
-   ahora es relativo a ESTE frame, así se achica junto con la imagen */
+
+/* contenedor */
+
 .superzorro-frame {
   position: relative;
   width: 70%;
   max-width: 1800px;
-  margin: 0 auto; /* centra y deja espacio a los dos lados */
+  margin: 0 auto;
 }
 
 .superzorro-img {
@@ -150,14 +501,16 @@ body {
   object-fit: cover;
   max-height: 700px;
   height: auto;
-  width: 100%; /* ahora 100% del frame, no de toda la página */
+  width: 100%;
 }
 
 .superzorro-overlay {
   padding-top: 2rem;
 }
 
-/* Título "El SuperZorro" */
+
+/* Título */
+
 .superzorro-titulo {
   font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
   font-size: clamp(2.2rem, 6vw, 4.5rem);
@@ -169,7 +522,9 @@ body {
   margin-bottom: 1rem;
 }
 
-/* Caja blanca que contiene el botón y los capítulos */
+
+/* Caja capítulos */
+
 .fondo-capitulos {
   max-width: 520px;
   background: rgba(255, 250, 240, 0.15);
@@ -178,10 +533,12 @@ body {
   backdrop-filter: blur(2px);
 }
 
-/* Botón "Empezar Historia" */
+
+/* Botón */
+
 .superzorro-btn {
   display: inline-block;
-  background:#e89255;
+  background: #e89255;
   border: 2px solid #fff;
   color: #fff;
   font-weight: 700;
@@ -192,12 +549,14 @@ body {
 }
 
 .superzorro-btn:hover {
-  background:#e89255;
+  background: #e89255;
   color: #fff;
   transform: scale(1.03);
 }
 
-/* Texto "Selecciona un capitulo" */
+
+/* Texto capítulo */
+
 .s-cap {
   color: #fff;
   font-weight: 700;
@@ -205,7 +564,9 @@ body {
   margin-bottom: 0;
 }
 
+
 /* Botones numerados */
+
 .btn-numero {
   aspect-ratio: 1 / 1;
   max-width: 64px;
@@ -232,7 +593,9 @@ body {
   border-bottom-width: 2px;
 }
 
-/* Grupos de botones inferiores (subtítulos, volumen, pausa / pantalla completa) */
+
+/* Botones inferiores */
+
 .botones {
   background: #e89255;
   border: 2px solid rgba(210, 140, 60, 0.6);
@@ -249,110 +612,27 @@ body {
 .botones .btn img {
   display: block;
 }
-/* ===================== HOME ===================== */
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
 .home-wrapper {
   width: 100%;
-  min-height: 200vh;
-
+  min-height: 100vh;
+  background-color: #f3ded0;
   background-image: url('/Header.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center top;
-
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 0%;
-}
-/* ===== Sección Inicio ===== */
-.home-wrapper {
-  background-color: #f3ded0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
 }
 
-.home-titulo {
-  font-family: "Baloo 2", "Comic Sans MS", cursive;
-  color: #a1622f;
-  -webkit-text-stroke: 1.5px #7a4623;
-  font-weight: 700;
-  text-align: center;
-}
-
-.home-texto {
-  color: #5c3a22;
-  text-align: justify;
-  font-family: "Poppins", sans-serif;
-  line-height: 1.6;
-}
-
-.home-btn {
-  background-color: #e2a04e;
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  padding: 10px 28px;
-  font-weight: 600;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.home-btn:hover {
-  background-color: #cf8b38;
-  transform: translateY(-2px);
-}
-
-/* ===== Sección Nuestro Proyecto ===== */
-.proyecto-wrapper {
-  background-color: #f3ded0;
-  padding: 60px 0;
-}
-
-.proyecto-titulo {
-font-family: 'pepe', sans-serif;
-  color: #eee9e6;
-  -webkit-text-stroke: 12px #934E24;
-  paint-order: stroke fill;
-  font-weight: 700;
-  font-size: 3rem;
-  margin-bottom: 20px;
-  
-  
-}
-
-.proyecto-descripcion {
-  color: #934e24;
-  font-family: TT,sans-serif;
-  text-align: justify;
-  line-height: 1.7;
-  font-size: 1.25rem;
-}
-
-.proyecto-img-frame {
-  background-color: #f3ded0;
-  border: 8px solid #e8b23d;
-  border-radius: 28px;
-  overflow: hidden;
-  display: inline-block;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-}
-
-.proyecto-img {
-  width: 100%;
-  height: 100%;
-  max-height: 260px;
-  object-fit: cover;
-  display: block;
-}
-
-@media (max-width: 767px) {
-  .proyecto-titulo,
-  .proyecto-descripcion {
-    text-align: center;
-  }
-}
 .home-card {
   position: relative;
   background-color: white;
@@ -405,14 +685,70 @@ font-family: 'pepe', sans-serif;
   color: #ffffff;
 }
 
-/* ===================== DETRÁS ===================== */
+
+/* =========================================================
+   NUESTRO PROYECTO
+   ========================================================= */
+
+.proyecto-wrapper {
+  background-color: #EAD8CC;
+  padding: 60px 0;
+}
+
+.proyecto-titulo {
+  font-family: 'pepe', sans-serif;
+  color: #eee9e6;
+  -webkit-text-stroke: 12px #934E24;
+  paint-order: stroke fill;
+  font-weight: 700;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.proyecto-descripcion {
+  color: #934e24;
+  font-family: TT, sans-serif;
+  text-align: justify;
+  line-height: 1.7;
+  font-size: 1.25rem;
+}
+
+.proyecto-img-frame {
+  background-color: #f3ded0;
+  border: 8px solid #e8b23d;
+  border-radius: 28px;
+  overflow: hidden;
+  display: inline-block;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.proyecto-img {
+  width: 100%;
+  height: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 767px) {
+
+  .proyecto-titulo,
+  .proyecto-descripcion {
+    text-align: center;
+  }
+}
+
+
+/* =========================================================
+   DETRÁS
+   ========================================================= */
+
 .detras-title {
-font-family: 'pepe', sans-serif;
+  font-family: 'pepe', sans-serif;
   color: #eee9e6;
   -webkit-text-stroke: 12px #934E24;
   paint-order: stroke fill;
   font-size: clamp(1.3rem, 3vw, 2.4rem);
-  
   letter-spacing: 1px;
 }
 
@@ -422,7 +758,7 @@ font-family: 'pepe', sans-serif;
 }
 
 .detras-text {
-  font-family: TT,sans-serif;
+  font-family: TT, sans-serif;
   font-size: clamp(0.95rem, 2.5vw, 2.05rem);
   color: #2b1a0e;
   line-height: 1.6;
@@ -443,7 +779,7 @@ font-family: 'pepe', sans-serif;
 }
 
 .detras-btn {
- font-family: TT,sans-serif;
+  font-family: TT, sans-serif;
   font-size: clamp(0.85rem, 2vw, 1.15rem);
   background-color: #995210;
   color: #ffffff;
@@ -451,14 +787,20 @@ font-family: 'pepe', sans-serif;
   border-radius: 30px;
   letter-spacing: 1px;
   transition: all 0.3s ease;
-  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 0 -3px 0 rgba(0, 0, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .detras-btn:hover {
   background-color: #6b3a0a;
 }
 
-/* ===================== PRESENTACIÓN ===================== */
+
+/* =========================================================
+   PRESENTACIÓN
+   ========================================================= */
+
 .presentacion-wrapper {
   min-height: 100vh;
   margin-top: 3rem;
@@ -548,6 +890,11 @@ font-family: 'pepe', sans-serif;
   color: #ffffff;
 }
 
+
+/* =========================================================
+   MÁS INLEC
+   ========================================================= */
+
 .masinlec-section {
   background-color: #ecd9cb;
   padding-bottom: 2rem;
@@ -599,10 +946,14 @@ font-family: 'pepe', sans-serif;
   border-color: #934E24 !important;
 }
 
-/* ===================== PERSONAJES ===================== */
+
+/* =========================================================
+   PERSONAJES
+   ========================================================= */
+
 .personajes-wrapper {
   background-color: #ecd9cb;
-  min-height: 180vh;
+  min-height: 100vh;
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
@@ -610,18 +961,16 @@ font-family: 'pepe', sans-serif;
 .personajes-titulo-row {
   margin-left: clamp(1rem, 8vw, 100px);
   margin-bottom: 1rem;
-  
 }
 
 .personajes-titulo {
-font-family: 'pepe', sans-serif;
+  font-family: 'pepe', sans-serif;
   color: #eee9e6;
   -webkit-text-stroke: 12px #934E24;
   paint-order: stroke fill;
 }
 
 .personajes-badge-row {
-  
   margin-top: 20px;
   margin-bottom: 0.5rem;
 }
@@ -642,7 +991,9 @@ font-family: 'pepe', sans-serif;
   line-height: 1.4;
 }
 
-/* Flechas de navegación — debajo de la card */
+
+/* Flechas */
+
 .personajes-flechas-nav {
   margin-top: 1.5rem;
   padding-bottom: 1rem;
@@ -678,6 +1029,9 @@ font-family: 'pepe', sans-serif;
   min-width: 50px;
   text-align: center;
 }
+
+
+/* Card */
 
 .personajes-card {
   background-color: #1a1a1a;
@@ -716,6 +1070,9 @@ font-family: 'pepe', sans-serif;
   flex-direction: column;
   gap: 12px;
 }
+
+
+/* Foto */
 
 .personajes-foto-card {
   border: 3px solid #000;
@@ -766,6 +1123,9 @@ font-family: 'pepe', sans-serif;
   margin: 0;
 }
 
+
+/* Sinopsis */
+
 .personajes-sinopsis {
   border: 3px solid #000;
   padding: 12px;
@@ -791,7 +1151,9 @@ font-family: 'pepe', sans-serif;
   margin: 3px auto 0;
 }
 
-/* Nota: sale del absolute para que en móvil no se solape */
+
+/* Nota */
+
 .personajes-nota {
   position: static;
   background-color: #c8922a;
@@ -807,7 +1169,7 @@ font-family: 'pepe', sans-serif;
 
 .personajes-nota-titulo {
   font-family: 'school', sans-serif;
-  font-size: clamp(0.82rem, 1.5vw, 1.0rem);
+  font-size: clamp(0.82rem, 1.5vw, 1rem);
   color: #000;
   margin: 0;
   text-align: center;
@@ -833,11 +1195,18 @@ font-family: 'pepe', sans-serif;
   padding-top: clamp(0.8rem, 4vw, 50px);
 }
 
+
+/* Atributos */
+
 .personajes-atributo {
   position: relative;
   background-color: #ffffff;
   border: 3px solid #000;
-  padding: clamp(26px, 4vw, 40px) clamp(8px, 2vw, 12px) clamp(14px, 3vw, 50px);
+  padding:
+    clamp(26px, 4vw, 40px)
+    clamp(8px, 2vw, 12px)
+    clamp(14px, 3vw, 50px);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -850,7 +1219,10 @@ font-family: 'pepe', sans-serif;
   transform: translateX(-50%);
   background-color: #c8922a;
   border: 2px solid #000;
-  padding: clamp(5px, 1.5vw, 10px) clamp(10px, 2.5vw, 25px);
+  padding:
+    clamp(5px, 1.5vw, 10px)
+    clamp(10px, 2.5vw, 25px);
+
   white-space: nowrap;
 }
 
@@ -871,7 +1243,11 @@ font-family: 'pepe', sans-serif;
   margin-top: clamp(8px, 2vw, 20px);
 }
 
-/* ===================== CREADORES ===================== */
+
+/* =========================================================
+   CREADORES
+   ========================================================= */
+
 .creadores-wrapper {
   background-image: url('/otoños.png');
   background-size: cover;
@@ -950,10 +1326,13 @@ font-family: 'pepe', sans-serif;
 }
 
 
+/* =========================================================
+   BURBUJA
+   ========================================================= */
 
 .burbuja {
-  position: absolute; 
-  bottom: 100%; 
+  position: absolute;
+  bottom: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
   background-color: #ffffff;
@@ -966,10 +1345,12 @@ font-family: 'pepe', sans-serif;
 }
 
 @keyframes aparecer {
+
   from {
     opacity: 0;
     transform: translateX(-50%) translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(-10px);
@@ -983,7 +1364,6 @@ font-family: 'pepe', sans-serif;
   margin: 0;
   text-align: center;
 }
-
 
 .burbuja::after {
   content: "";
@@ -1007,27 +1387,30 @@ font-family: 'pepe', sans-serif;
   border-top: 9px solid #ffffff;
 }
 
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
 .footer-container {
   background-color: #f1f1ef;
   padding: clamp(2rem, 5vw, 60px) 0;
 }
 
 .footer-title {
- font-family: 'pepe', sans-serif;
+  font-family: 'pepe', sans-serif;
   color: #eee9e6;
   -webkit-text-stroke: 12px #934E24;
   paint-order: stroke fill;
 }
 
 .footer-text {
- color: #934e24;
- margin: 0;
- padding-left: .2rem;
- font-family: TT,sans-serif;
- font-size: 18px;
+  color: #934e24;
+  margin: 0;
+  padding-left: .2rem;
+  font-family: TT, sans-serif;
+  font-size: 18px;
 }
-
-
 
 .footer-spacing {
   margin-top: 10px;
@@ -1052,158 +1435,11 @@ font-family: 'pepe', sans-serif;
 }
 
 
+/* =========================================================
+   VIDEO
+   ========================================================= */
 
-
-
-
-
-/* matheo*/
-
-/* =========================================
-   HEADER
-========================================= */
-
-.inlec-header {
-
-    background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center top;
-  width: 100%;
-  padding-bottom: 30%;
+.video-pro {
   position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 20%;
-}
-
-
-/* =========================================
-   LOGO
-========================================= */
-
-.inlec-logo {
-  height: 100px;
-  width: auto;
-  margin-left: 25px;
-  cursor: pointer;
-  object-fit: contain;
-}
-
-
-/* =========================================
-   CONTENEDOR DEL MENÚ
-========================================= */
-
-.inlec-navbar-pill {
-  
-  background: linear-gradient(90deg, #e89255, #ebbb59);
-  border-radius: 50rem;
-  padding: 0.9rem 4rem;
-  gap: 0.5rem;
-  display: flex;
-  justify-content: center;
-  font-family: 'pepe', sans-serif;
-  -webkit-text-stroke: 12px #934E24;
-  paint-order: stroke fill;
-  width: 70%;
-  height: 106px;
-}
-
-
-
-
-/* =========================================
-   BOTONES DEL MENÚ
-========================================= */
-
-.inlec-navbar-btn {
-  border: none;
-
-  padding: 10px 20px;
-
-  border-radius: 60px;
-
-  background: transparent;
-
-  color: #ecd9cb;
-
-  font-size: 34px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  transition: all 0.3s ease;
-}
-
-
-/* HOVER */
-
-.inlec-navbar-btn:hover {
-  background: #ebbb59;
- 
-
-  transform: translateY(-2px);
-}
-
-
-/* BOTÓN ACTIVO / PRESIONADO */
-
-.inlec-navbar-btn:active {
-  transform: scale(0.95);
-}
-
-
-/* =========================================
-   HAMBURGUESA
-========================================= */
-
-.navbar-toggler {
-  border: 2px solid rgba(255, 255, 255, 0.6) !important;
-
-  border-radius: 12px;
-
-  padding: 7px 10px;
-}
-
-.navbar-toggler-icon {
-  filter: brightness(0) invert(1);
-}
-
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 991px) {
-
-  .inlec-logo {
-    height: 65px;
-    margin-left: 5px;
-  }
-
-  .inlec-navbar-pill {
-    width: 100%;
-
-    flex-direction: column;
-
-    gap: 5px;
-
-    margin: 10px 0 0 0;
-
-    padding: 12px;
-
-    border-radius: 25px;
-  }
-
-  .inlec-navbar-btn {
-    width: 100%;
-
-    padding: 12px;
-
-    text-align: center;
-
-    font-size: 18px;
-  }
-
+  bottom: 70px;
 }
