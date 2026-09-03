@@ -95,29 +95,42 @@ const Home = () => {
   return (
     <div className="scroll-container">
 
-      {/* ================= PROYECTO ================= */}
+      {/* ================= PROYECTO + DETRAS ================= */}
 
+      <div className="proyecto-detras-wrapper">
 
+        {/* ================= PROYECTO ================= */}
 
-      <section
+        <section
+          className="scroll-section proyecto-wrapper"
+          id="proyecto"
+        >
 
-        className="scroll-section proyecto-wrapper"
-        id="proyecto"
-      >
-        <div className="mt-2 video-pro" id="inicio">
-          < video
-            className="header"
-            src="/bene.webm"
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        </div>
-        <div className=" mt-5 container proyecto-container">
-          <div className="row align-items-center g-5">
+          <div className="mt-2 video-pro" id="inicio">
+            <video
+              className="header"
+              src="/bene.webm"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          </div>
 
-            <div className="col-12 col-md-6 text-md-start text-center">
+          <div className="mt-5 container proyecto-container">
+
+            {/* FOX IZQUIERDO */}
+
+            <img
+              src="/fu2.png"
+              alt="Fox lateral izquierdo"
+              className="fox-lateral fox-lateral-izq"
+            />
+
+            {/* TEXTO CENTRAL */}
+
+            <div className="proyecto-texto">
+
               <h1 className="proyecto-titulo">
                 Nuestro Proyecto
               </h1>
@@ -130,92 +143,99 @@ const Home = () => {
                 actividades dinámicas, queremos que descubras el placer
                 de leer a tu manera.
               </p>
-            </div>
-
-            <div className="col-12 col-md-6 text-center">
-              <div className="proyecto-img-frame">
-                <img
-                  src="./sv.png"
-                  alt="Nuestro proyecto"
-                  className="proyecto-img"
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ================= DETRAS DE LA HISTORIA ================= */}
-
-      <section
-        className="scroll-section detras-container container-fluid py-4"
-        id="sinopsis"
-      >
-        <div className="row justify-content-center">
-
-          <div className="col-11 col-sm-10 col-md-8 col-lg-7">
-
-            <h1 className="detras-title text-center mb-4 mt-4">
-              Detras de la historia
-            </h1>
-
-            <div className="detras-box rounded-5 px-3 px-md-4 py-4">
-
-              <div className="row align-items-center g-0">
-
-                <div className="col-2 col-sm-1 d-flex align-items-center justify-content-center">
-                  <img
-                    src="/per1.png"
-                    alt="muñeco izquierda"
-                    className="detras-img-left img-fluid"
-                  />
-                </div>
-
-                <div className="col-8 col-sm-10 px-2 px-sm-3">
-
-                  <p className="detras-text mb-0">
-                    El Superzorro es un cuento infantil publicado en 1970
-                    por el escritor británico Roald Dahl. La historia sigue
-                    a un astuto zorro que roba comida a tres granjeros que
-                    intentaran cazarlo con desesperación.
-                  </p>
-
-                </div>
-
-                <div className="col-2 col-sm-1 d-flex align-items-center justify-content-center">
-
-                  <img
-                    src="/per2.png"
-                    alt="muñeco derecha"
-                    className="detras-img-right img-fluid"
-                  />
-
-                </div>
-
-              </div>
-
-              <div className="row mt-2">
-
-                <div className="col-12 d-flex justify-content-center">
-
-                  <button
-                    className="detras-btn btn px-4 px-md-5 py-2 py-md-3"
-                    onClick={() => navigate("/galeria")}
-                  >
-                    Conoce mas
-                  </button>
-
-                </div>
-
-              </div>
 
             </div>
+
+            {/* FOX DERECHO */}
+
+            <img
+              src="/fu1.png"
+              alt="Fox lateral derecho"
+              className="fox-lateral fox-lateral-der"
+            />
 
           </div>
 
-        </div>
-      </section>
+        </section>
+
+
+        {/* ================= DETRAS DE LA HISTORIA ================= */}
+
+        <section
+          className="scroll-section detras-container container-fluid py-4"
+          id="sinopsis"
+        >
+
+          <div className="row justify-content-center">
+
+            <div className="col-11 col-sm-10 col-md-8 col-lg-7">
+
+              <h1 className="detras-title text-center mb-4 mt-4">
+                Detras de la historia
+              </h1>
+
+              <div className="detras-box rounded-5 px-3 px-md-4 py-4">
+
+                <div className="row align-items-center g-0">
+
+                  <div className="col-2 col-sm-1 d-flex align-items-center justify-content-center">
+
+                    <img
+                      src="/per1.png"
+                      alt="muñeco izquierda"
+                      className="detras-img-left img-fluid"
+                    />
+
+                  </div>
+
+                  <div className="col-8 col-sm-10 px-2 px-sm-3">
+
+                    <p className="detras-text mb-0">
+                      El Superzorro es un cuento infantil publicado en 1970
+                      por el escritor británico Roald Dahl. La historia sigue
+                      a un astuto zorro que roba comida a tres granjeros que
+                      intentaran cazarlo con desesperación.
+                    </p>
+
+                  </div>
+
+                  <div className="col-2 col-sm-1 d-flex align-items-center justify-content-center">
+
+                    <img
+                      src="/per2.png"
+                      alt="muñeco derecha"
+                      className="detras-img-right img-fluid"
+                    />
+
+                  </div>
+
+                </div>
+
+                <div className="row mt-2">
+
+                  <div className="col-12 d-flex justify-content-center">
+
+                    <button
+                      className="detras-btn btn px-4 px-md-5 py-2 py-md-3"
+                      onClick={() => navigate("/galeria")}
+                    >
+                      Conoce mas
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
 
       {/* ================= PRESENTACION ================= */}
 
@@ -293,27 +313,33 @@ const Home = () => {
             >
 
               <button type="button" className="btn">
+
                 <img
                   src="./T.png"
                   alt=""
                   height="35px"
                 />
+
               </button>
 
               <button type="button" className="btn">
+
                 <img
                   src="./Volumen.png"
                   alt=""
                   height="35px"
                 />
+
               </button>
 
               <button type="button" className="btn">
+
                 <img
                   src="./Pausa.png"
                   alt=""
                   height="35px"
                 />
+
               </button>
 
             </div>
@@ -324,11 +350,13 @@ const Home = () => {
             >
 
               <button type="button" className="btn">
+
                 <img
                   src="./Full.png"
                   alt=""
                   height="35px"
                 />
+
               </button>
 
             </div>
@@ -338,6 +366,7 @@ const Home = () => {
         </div>
 
       </section>
+
 
       {/* ================= MAS SOBRE INLEC ================= */}
 
@@ -390,30 +419,36 @@ const Home = () => {
           <div className="row justify-content-center g-2 pb-4">
 
             <div className="col-12 col-sm-auto">
+
               <a
                 href="https://link.com"
                 className="btn rounded-pill masinlec-btn w-100"
               >
                 Pitchbook
               </a>
+
             </div>
 
             <div className="col-12 col-sm-auto">
+
               <a
                 href="https://no-encontramos-el-manual.com"
                 className="btn rounded-pill masinlec-btn w-100"
               >
                 Manual de Marca
               </a>
+
             </div>
 
             <div className="col-12 col-sm-auto">
+
               <a
                 href="https://drive.google.com/file/d/1e5cmCOQF_4gsQkQozgmIcsRdFBAx2dAW/view?usp=sharing"
                 className="btn rounded-pill masinlec-btn w-100"
               >
                 Moodboard
               </a>
+
             </div>
 
           </div>
@@ -421,6 +456,7 @@ const Home = () => {
         </div>
 
       </section>
+
 
       {/* ================= PERSONAJES ================= */}
 
@@ -482,7 +518,11 @@ const Home = () => {
                       <div className="personajes-foto-card">
 
                         <div className="personajes-foto-header">
-                          <p>ASALTA GALLINAS</p>
+
+                          <p>
+                            ASALTA GALLINAS
+                          </p>
+
                         </div>
 
                         <div className="personajes-foto-img">
@@ -533,6 +573,7 @@ const Home = () => {
 
                   </div>
 
+
                   {/* BARRA SEPARADORA */}
 
                   <div className="col-auto d-none d-md-flex justify-content-center px-0">
@@ -540,6 +581,7 @@ const Home = () => {
                     <div className="personajes-barra" />
 
                   </div>
+
 
                   {/* SEPARADOR MOVIL */}
 
@@ -553,6 +595,7 @@ const Home = () => {
                     />
 
                   </div>
+
 
                   {/* DERECHA */}
 
@@ -604,6 +647,7 @@ const Home = () => {
 
               </div>
 
+
               {/* FLECHAS */}
 
               <div className="d-flex justify-content-center align-items-center gap-4 personajes-flechas-nav">
@@ -636,6 +680,7 @@ const Home = () => {
 
       </section>
 
+
       {/* ================= CREADORES ================= */}
 
       <section
@@ -651,6 +696,7 @@ const Home = () => {
 
         </div>
 
+
         {/* MOVIL */}
 
         <div className="container-fluid">
@@ -660,11 +706,15 @@ const Home = () => {
             <div className="col-4 d-flex flex-column align-items-center">
 
               {activo === "sneyder" && (
+
                 <div className="burbuja">
+
                   <p>
                     Un Prime debe hacer lo que un Prime debe hacer
                   </p>
+
                 </div>
+
               )}
 
               <p className="creadores-nombre">
@@ -680,14 +730,19 @@ const Home = () => {
 
             </div>
 
+
             <div className="col-4 d-flex flex-column align-items-center">
 
               {activo === "luis" && (
+
                 <div className="burbuja">
+
                   <p>
                     Captan las poderosas Señales
                   </p>
+
                 </div>
+
               )}
 
               <p className="creadores-nombre">
@@ -703,14 +758,19 @@ const Home = () => {
 
             </div>
 
+
             <div className="col-4 d-flex flex-column align-items-center">
 
               {activo === "matheo" && (
+
                 <div className="burbuja">
+
                   <p>
                     Entiendes el Concepto
                   </p>
+
                 </div>
+
               )}
 
               <p className="creadores-nombre">
@@ -730,6 +790,7 @@ const Home = () => {
 
         </div>
 
+
         {/* DESKTOP */}
 
         <div className="d-none d-md-block">
@@ -737,11 +798,15 @@ const Home = () => {
           <div className="creadores-persona creadores-persona--izq">
 
             {activo === "sneyder" && (
+
               <div className="burbuja">
+
                 <p>
                   Un Prime debe hacer lo que un Prime debe hacer
                 </p>
+
               </div>
+
             )}
 
             <p className="creadores-nombre">
@@ -757,14 +822,19 @@ const Home = () => {
 
           </div>
 
+
           <div className="creadores-persona creadores-persona--centro">
 
             {activo === "luis" && (
+
               <div className="burbuja">
+
                 <p>
                   Captan las poderosas Señales
                 </p>
+
               </div>
+
             )}
 
             <p className="creadores-nombre">
@@ -780,14 +850,19 @@ const Home = () => {
 
           </div>
 
+
           <div className="creadores-persona creadores-persona--der">
 
             {activo === "matheo" && (
+
               <div className="burbuja">
+
                 <p>
                   Entiendes el Concepto
                 </p>
+
               </div>
+
             )}
 
             <p className="creadores-nombre">
@@ -807,59 +882,65 @@ const Home = () => {
 
       </section>
 
+
       {/* ================================================= */}
       {/* ==================== RESEÑAS ==================== */}
       {/* ================================================= */}
 
 
-
       {/* ================= FOOTER ================= */}
-```jsx
-<section className="autor-section" id="autor">
 
-  <div className="container">
+      <section className="autor-section" id="autor">
 
-    <div className="autor-contenido">
+        <div className="container">
 
-      <div className="autor-imagen">
-        <img
-          src="/autor.png"
-          alt="Autor"
-        />
-      </div>
+          <div className="autor-contenido">
 
-      <div className="autor-texto">
+            <div className="autor-imagen">
 
-        <h2>El Autor</h2>
+              <img
+                src="/autor.png"
+                alt="Autor"
+              />
 
-        <h3>Roald Dahl</h3>
+            </div>
 
-        <p>
-          Roald Dahl fue un reconocido escritor británico de literatura
-          infantil y juvenil. Sus historias se caracterizan por tener
-          personajes únicos, situaciones divertidas y mundos llenos de
-          imaginación.
-        </p>
+            <div className="autor-texto">
 
-        <p>
-          Entre sus obras más conocidas se encuentran Charlie y la fábrica
-          de chocolate, Matilda, Las brujas y El Superzorro.
-        </p>
+              <h2>
+                El Autor
+              </h2>
 
-        <p>
-          Su forma de contar historias ha inspirado a generaciones de
-          lectores y continúa siendo reconocida por su creatividad y
-          particular sentido del humor.
-        </p>
+              <h3>
+                Roald Dahl
+              </h3>
 
-      </div>
+              <p>
+                Roald Dahl fue un reconocido escritor británico de literatura
+                infantil y juvenil. Sus historias se caracterizan por tener
+                personajes únicos, situaciones divertidas y mundos llenos de
+                imaginación.
+              </p>
 
-    </div>
+              <p>
+                Entre sus obras más conocidas se encuentran Charlie y la fábrica
+                de chocolate, Matilda, Las brujas y El Superzorro.
+              </p>
 
-  </div>
+              <p>
+                Su forma de contar historias ha inspirado a generaciones de
+                lectores y continúa siendo reconocida por su creatividad y
+                particular sentido del humor.
+              </p>
 
-</section>
-```
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
 
       <section
         className="scroll-section footer-container"
@@ -890,6 +971,7 @@ const Home = () => {
 
             </div>
 
+
             {/* REDES */}
 
             <div className="col-12 col-sm-6 col-md-3">
@@ -907,6 +989,7 @@ const Home = () => {
               </p>
 
             </div>
+
 
             {/* NAVEGACION */}
 
@@ -978,6 +1061,7 @@ const Home = () => {
 
             </div>
 
+
             {/* CONTACTO */}
 
             <div className="col-12 col-sm-6 col-md-3">
@@ -997,6 +1081,7 @@ const Home = () => {
             </div>
 
           </div>
+
 
           <div className="footer-zorro">
 
