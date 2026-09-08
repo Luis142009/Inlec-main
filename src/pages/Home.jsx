@@ -119,11 +119,14 @@ const Home = () => {
 
           <div className="mt-5 container proyecto-container">
 
-            {/* FOX IZQUIERDO */}
+            {/* VIDEO IZQUIERDO */}
 
-            <img
-              src="/fu2.png"
-              alt="Fox lateral izquierdo"
+            <video
+              src="/vodo.webm"
+              autoPlay
+              muted
+              loop
+              playsInline
               className="fox-lateral fox-lateral-izq"
             />
 
@@ -146,18 +149,20 @@ const Home = () => {
 
             </div>
 
-            {/* FOX DERECHO */}
+            {/* VIDEO DERECHO */}
 
-            <img
-              src="/fu1.png"
-              alt="Fox lateral derecho"
+            <video
+              src="/vede.webm"
+              autoPlay
+              muted
+              loop
+              playsInline
               className="fox-lateral fox-lateral-der"
             />
 
           </div>
 
         </section>
-
 
         {/* ================= DETRAS DE LA HISTORIA ================= */}
 
@@ -457,231 +462,90 @@ const Home = () => {
 
       </section>
 
+      
+      <section className="personajes-section" id="personajes">
 
-      {/* ================= PERSONAJES ================= */}
-
-      <section
-        className="scroll-section personajes-wrapper"
-        id="personajes"
-      >
-
-        <div className="personajes-titulo-row text-center">
-
-          <h1 className="personajes-titulo">
-            Personajes
-          </h1>
-
+        {/* TÍTULO */}
+        <div className="personajes-header">
+          <h2>Personajes</h2>
         </div>
 
-        <div className="personajes-badge-row text-center">
+        {/* CONTENEDOR DE PERSONAJES */}
+        <div className="personajes-container">
 
-          <div className="personajes-badge text-center">
+          {/* PADRE 1 */}
+          <div className="personaje">
+            <img
+              src="/fox.png"
+              alt="Personaje 1"
+              className="personaje-img"
+            />
+          </div>
 
-            <p>
-              Expediente
-              <br />
-              Criminal
-            </p>
+          {/* PADRE 2 */}
+          <div className="personaje">
+            <img
+              src="/señora.png"
+              alt="Personaje 2"
+              className="personaje-img"
+            />
+          </div>
 
+          {/* PERSONAJE 3 */}
+          <div className="personaje">
+            <img
+              src="/junior.png"
+              alt="Personaje 3"
+              className="personaje-img"
+            />
+          </div>
+
+          {/* PERSONAJE 4 */}
+          <div className="personaje">
+            <img
+              src="/Kris.png"
+              alt="Personaje 4"
+              className="personaje-img"
+            />
+          </div>
+
+          {/* PERSONAJE 5 */}
+          <div className="personaje">
+            <img
+              src="/Ash.png"
+              alt="Personaje 5"
+              className="personaje-img"
+            />
+          </div>
+
+          {/* PERSONAJE 6 */}
+          <div className="personaje">
+            <img
+              src="/char.png"
+              alt="Personaje 6"
+              className="personaje-img"
+            />
           </div>
 
         </div>
 
-        <div className="container-fluid px-2 px-sm-3">
-
-          <div className="row justify-content-center">
-
-            <div className="col-12 col-sm-11 col-md-10 col-lg-8">
-
-              <div className="personajes-card">
-
-                <div className="personajes-rol-row">
-
-                  <div className="personajes-rol">
-
-                    <p>
-                      {personaje.rol}
-                    </p>
-
-                  </div>
-
-                </div>
-
-                <div className="row g-3 g-md-4 align-items-start">
-
-                  {/* IZQUIERDA */}
-
-                  <div className="col-12 col-md-5">
-
-                    <div className="personajes-izq">
-
-                      <div className="personajes-foto-card">
-
-                        <div className="personajes-foto-header">
-
-                          <p>
-                            ASALTA GALLINAS
-                          </p>
-
-                        </div>
-
-                        <div className="personajes-foto-img">
-
-                          <img
-                            src={personaje.imagen}
-                            alt={personaje.nombre}
-                            className="img-fluid"
-                          />
-
-                        </div>
-
-                        <div className="personajes-foto-footer">
-
-                          <p>
-                            {personaje.nombre}
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                      <div className="personajes-sinopsis">
-
-                        <p className="personajes-sinopsis-titulo">
-                          Sinopsis de personaje
-                        </p>
-
-                        <p className="personajes-sinopsis-texto">
-                          {personaje.sinopsis}
-                        </p>
-
-                      </div>
-
-                      <div className="personajes-nota">
-
-                        <p className="personajes-nota-titulo">
-                          NOTA
-                        </p>
-
-                        <p className="personajes-nota-texto">
-                          {personaje.nota}
-                        </p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-
-                  {/* BARRA SEPARADORA */}
-
-                  <div className="col-auto d-none d-md-flex justify-content-center px-0">
-
-                    <div className="personajes-barra" />
-
-                  </div>
-
-
-                  {/* SEPARADOR MOVIL */}
-
-                  <div className="col-12 d-md-none">
-
-                    <hr
-                      style={{
-                        borderColor: "currentColor",
-                        opacity: 0.2,
-                      }}
-                    />
-
-                  </div>
-
-
-                  {/* DERECHA */}
-
-                  <div className="col-12 col-md d-flex flex-column personajes-der">
-
-                    {[
-                      {
-                        titulo: "Personalidad",
-                        contenido: personaje.personalidad,
-                      },
-                      {
-                        titulo: "Edad",
-                        contenido: personaje.edad,
-                      },
-                      {
-                        titulo: "Atributos",
-                        contenido: personaje.atributos,
-                      },
-                      {
-                        titulo: "Objetivo",
-                        contenido: personaje.objetivo,
-                      },
-                    ].map((item) => (
-
-                      <div
-                        key={item.titulo}
-                        className="personajes-atributo"
-                      >
-
-                        <div className="personajes-atributo-label">
-
-                          <p>
-                            {item.titulo}
-                          </p>
-
-                        </div>
-
-                        <p className="personajes-atributo-texto">
-                          {item.contenido}
-                        </p>
-
-                      </div>
-
-                    ))}
-
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              {/* FLECHAS */}
-
-              <div className="d-flex justify-content-center align-items-center gap-4 personajes-flechas-nav">
-
-                <img
-                  src="/flecha.png"
-                  onClick={anterior}
-                  className="personajes-flecha-nav personajes-flecha-nav--izq"
-                  alt="anterior"
-                />
-
-                <span className="personajes-nav-indicador">
-                  {index + 1} / {personajes.length}
-                </span>
-
-                <img
-                  src="/flecha.png"
-                  onClick={siguiente}
-                  className="personajes-flecha-nav personajes-flecha-nav--der"
-                  alt="siguiente"
-                />
-
-              </div>
-
-            </div>
-
-          </div>
-
+        {/* PARTE INFERIOR */}
+        <div className="personajes-footer">
+          <h2>Más sobre INLEC</h2>
         </div>
 
       </section>
+      ```
+
+
+
+      {/* ================= PERSONAJES ================= */}
 
 
       {/* ================= CREADORES ================= */}
+
+
+
 
       <section
         className="scroll-section creadores-wrapper"
@@ -722,7 +586,7 @@ const Home = () => {
               </p>
 
               <img
-                src="/er.png"
+                src="/se.png"
                 onClick={() => toggle("sneyder")}
                 className="creadores-img img-fluid"
                 alt="Sneyder"
@@ -899,7 +763,7 @@ const Home = () => {
             <div className="autor-imagen">
 
               <img
-                src="/autor.png"
+                src="/autor.jpg"
                 alt="Autor"
               />
 
@@ -908,11 +772,11 @@ const Home = () => {
             <div className="autor-texto">
 
               <h2>
-                El Autor
+                Roald Dahl
               </h2>
 
               <h3>
-                Roald Dahl
+                Autor
               </h3>
 
               <p>

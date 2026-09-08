@@ -1437,6 +1437,334 @@ body {
     transform: translateX(-50%) translateY(-10px);
   }
 }
+/* =========================
+   SECCIÓN PERSONAJES
+========================= */
+
+.personajes-section {
+  width: 100%;
+  overflow: hidden;
+  background: #945018;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.personajes-header {
+  width: 100%;
+  height: 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f1bd55;
+}
+
+.personajes-header h2 {
+  margin: 0;
+
+  font-family: "pepe", sans-serif;
+  font-size: 42px;
+  font-weight: bold;
+
+  color: #fff1d2;
+
+  /* borde del texto */
+  -webkit-text-stroke: 3px #9b4f1e;
+
+  text-shadow:
+    3px 3px 0 #9b4f1e,
+    -1px -1px 0 #9b4f1e;
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.personajes-container {
+
+  width: 100%;
+  min-height: 400px;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 350px);
+
+  justify-content: center;
+  align-items: center;
+
+  column-gap: 5px;
+  row-gap: 10px;
+
+  padding: 50px 20px;
+
+  /* Fondo tipo madera */
+  background-color: #945018;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(70, 35, 10, 0.15) 0px,
+      rgba(70, 35, 10, 0.15) 2px,
+      transparent 2px,
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(70, 35, 10, 0.12) 0px,
+      rgba(70, 35, 10, 0.12) 2px,
+      transparent 2px,
+      transparent 45px
+    );
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   CENTRAR CADA PERSONAJE
+   ========================= */
+
+.personaje {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* =========================
+   PADRES — PRIMERA FILA
+   ========================= */
+
+.personaje:nth-child(1) {
+  grid-column: 2;
+}
+
+.personaje:nth-child(2) {
+  grid-column: 3;
+}
+
+
+/* =========================
+   HIJOS — SEGUNDA FILA
+   ========================= */
+
+.personaje:nth-child(3) {
+  grid-column: 1;
+}
+
+.personaje:nth-child(4) {
+  grid-column: 2;
+}
+
+.personaje:nth-child(5) {
+  grid-column: 3;
+}
+
+.personaje:nth-child(6) {
+  grid-column: 4;
+}
+
+
+/* =========================
+   TAMAÑO INDIVIDUAL
+   ========================= */
+
+.personaje:nth-child(1) .personaje-img {
+  height: 450px;
+  width: auto;
+}
+
+.personaje:nth-child(2) .personaje-img {
+  height: 450px;
+  width: auto;
+}
+
+.personaje:nth-child(3) .personaje-img {
+  height: 350px;
+  width: auto;
+}
+
+.personaje:nth-child(4) .personaje-img {
+  height: 400px;
+  width: auto;
+}
+
+.personaje:nth-child(5) .personaje-img {
+  height: 400px;
+  width: auto;
+}
+
+.personaje:nth-child(6) .personaje-img {
+  height: 350px;
+  width: auto;
+}
+
+/* Centrar el contenido de cada personaje */
+.personaje {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* =========================
+   PERSONAJE
+========================= */
+
+.personaje {
+  width: 180px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+/* =========================
+   IMAGEN
+========================= */
+
+.personaje-img {
+  width: 420px;
+  height: 420px;
+  object-fit: contain;
+}
+
+.personaje-img:hover {
+  transform: translateY(-8px) scale(1.03);
+}
+
+/* Imagen */
+
+.personaje-img img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+/* =========================
+   NOMBRE
+========================= */
+
+.personaje h3 {
+  margin: -2px 0 0;
+
+  position: relative;
+
+  font-family: "pepe", sans-serif;
+
+  font-size: 28px;
+
+  color: #fff0cf;
+
+  -webkit-text-stroke: 2px #f08d48;
+
+  text-shadow:
+    2px 2px 0 #f08d48;
+
+  text-align: center;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.personajes-footer {
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f1bd55;
+}
+
+.personajes-footer h2 {
+  margin: 0;
+
+  font-family: "pepe", sans-serif;
+
+  font-size: 35px;
+
+  color: #fff0cf;
+
+  -webkit-text-stroke: 2px #9b4f1e;
+
+  text-shadow:
+    2px 2px 0 #9b4f1e;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+  .personajes-container {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .personajes-container::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .personajes-container::-webkit-scrollbar-thumb {
+    background: #f1bd55;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .personajes-header {
+    height: 65px;
+  }
+
+  .personajes-header h2 {
+    font-size: 32px;
+  }
+
+  .personajes-container {
+    gap: 20px;
+    padding: 40px 20px;
+  }
+
+  .personaje {
+    width: 150px;
+  }
+
+  .personaje-img {
+    width: 145px;
+    height: 205px;
+  }
+
+  .personaje h3 {
+    font-size: 23px;
+  }
+
+  .personajes-footer {
+    height: 60px;
+  }
+
+  .personajes-footer h2 {
+    font-size: 28px;
+  }
+}
 
 .burbuja p {
   font-family: 'snoopy', sans-serif;
