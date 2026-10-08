@@ -122,7 +122,7 @@ const Home = () => {
             {/* VIDEO IZQUIERDO */}
 
             <video
-              src="/vodo.webm"
+              src="/ani2.webm"
               autoPlay
               muted
               loop
@@ -152,7 +152,7 @@ const Home = () => {
             {/* VIDEO DERECHO */}
 
             <video
-              src="/vede.webm"
+              src="/ani1.webm"
               autoPlay
               muted
               loop
@@ -467,7 +467,7 @@ const Home = () => {
 
         {/* TÍTULO */}
         <div className="personajes-header">
-          <h2>Personajes</h2>
+          <h2 className="per-texto">Personajes</h2>
         </div>
 
         {/* CONTENEDOR DE PERSONAJES */}
@@ -806,160 +806,258 @@ const Home = () => {
       </section>
 
 
-      <section
-        className="scroll-section footer-container"
-        id="contacto"
-      >
+<section
+  className="scroll-section footer-container"
+  id="contacto"
+>
+  <div className="container-fluid px-3 px-md-5">
 
-        <div className="container-fluid px-3 px-md-4">
+    {/* DECORACIÓN SUPERIOR */}
+    <div className="footer-top-decoration">
+      <span></span>
+      <img src="/logo.png" alt="Inlec" />
+      <span></span>
+    </div>
 
-          <div className="row text-center text-md-start g-4">
+    <div className="row footer-content">
 
-            {/* IDENTIDAD */}
+      {/* IDENTIDAD */}
+      <div className="col-12 col-sm-6 col-lg-3">
+        <div className="footer-box footer-identidad">
 
-            <div className="col-12 col-sm-6 col-md-3">
+          <h5 className="footer-title">
+            Identidad
+          </h5>
 
-              <h5 className="footer-title">
-                Identidad
-              </h5>
-
-              <img
-                src="/logo.png"
-                alt="logo"
-                className="footer-logo"
-              />
-
-              <p className="footer-text footer-slogan">
-                Del libro al mundo digital
-              </p>
-
-            </div>
-
-
-            {/* REDES */}
-
-            <div className="col-12 col-sm-6 col-md-3">
-
-              <h5 className="footer-title">
-                Redes Sociales
-              </h5>
-
-              <p className="footer-text footer-spacing">
-                Tik Tok
-              </p>
-
-              <p className="footer-text">
-                Instagram
-              </p>
-
-            </div>
-
-
-            {/* NAVEGACION */}
-
-            <div className="col-12 col-sm-6 col-md-3">
-
-              <h5 className="footer-title">
-                Navegación rápida
-              </h5>
-
-              <p
-                className="footer-text footer-spacing"
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  document
-                    .getElementById("inicio")
-                    ?.scrollIntoView({
-                      behavior: "smooth",
-                    })
-                }
-              >
-                Inicio
-              </p>
-
-              <p
-                className="footer-text"
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  navigate("/capitulos/1")
-                }
-              >
-                Capítulos
-              </p>
-
-              <p
-                className="footer-text"
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  document
-                    .getElementById("personajes")
-                    ?.scrollIntoView({
-                      behavior: "smooth",
-                    })
-                }
-              >
-                Personajes
-              </p>
-
-              <p
-                className="footer-text"
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  document
-                    .getElementById("resenas")
-                    ?.scrollIntoView({
-                      behavior: "smooth",
-                    })
-                }
-              >
-                Reseñas
-              </p>
-
-              <p
-                className="footer-text"
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate("/galeria")}
-              >
-                Ver Más
-              </p>
-
-            </div>
-
-
-            {/* CONTACTO */}
-
-            <div className="col-12 col-sm-6 col-md-3">
-
-              <h5 className="footer-title">
-                Contacto
-              </h5>
-
-              <p className="footer-text footer-spacing">
-                Inlec5670@gmail.com
-              </p>
-
-              <p className="footer-text">
-                3235868923
-              </p>
-
-            </div>
-
+          <div className="footer-logo-container">
+            <img
+              src="/logo.png"
+              alt="logo"
+              className="footer-logo"
+            />
           </div>
 
+          <p className="footer-text footer-slogan">
+            Del libro al mundo digital
+          </p>
 
-          <div className="footer-zorro">
+          <div className="footer-line"></div>
 
-            <img
-              src="/per4.png"
-              alt="zorro"
-            />
+          <p className="footer-small-text">
+            Una nueva forma de descubrir,
+            imaginar y disfrutar la lectura.
+          </p>
+
+        </div>
+      </div>
+
+
+      {/* REDES SOCIALES */}
+      <div className="col-12 col-sm-6 col-lg-3">
+        <div className="footer-box">
+
+          <h5 className="footer-title">
+            Redes Sociales
+          </h5>
+
+          <p className="footer-subtitle">
+            Síguenos y descubre más
+          </p>
+
+          <div className="footer-social">
+
+            <a
+              href="#"
+              className="social-button"
+            >
+              <span className="social-icon">♪</span>
+              Tik Tok
+              <span className="social-arrow">→</span>
+            </a>
+
+            <a
+              href="#"
+              className="social-button"
+            >
+              <span className="social-icon">◎</span>
+              Instagram
+              <span className="social-arrow">→</span>
+            </a>
 
           </div>
 
         </div>
+      </div>
 
-      </section>
 
+      {/* NAVEGACIÓN */}
+      <div className="col-12 col-sm-6 col-lg-3">
+        <div className="footer-box">
+
+          <h5 className="footer-title">
+            Navegación rápida
+          </h5>
+
+          <div className="footer-navigation">
+
+            <p
+              className="footer-link"
+              onClick={() =>
+                document
+                  .getElementById("inicio")
+                  ?.scrollIntoView({
+                    behavior: "smooth",
+                  })
+              }
+            >
+              <span>01</span>
+              Inicio
+            </p>
+
+            <p
+              className="footer-link"
+              onClick={() =>
+                navigate("/capitulos/1")
+              }
+            >
+              <span>02</span>
+              Capítulos
+            </p>
+
+            <p
+              className="footer-link"
+              onClick={() =>
+                document
+                  .getElementById("personajes")
+                  ?.scrollIntoView({
+                    behavior: "smooth",
+                  })
+              }
+            >
+              <span>03</span>
+              Personajes
+            </p>
+
+            <p
+              className="footer-link"
+              onClick={() =>
+                document
+                  .getElementById("resenas")
+                  ?.scrollIntoView({
+                    behavior: "smooth",
+                  })
+              }
+            >
+              <span>04</span>
+              Reseñas
+            </p>
+
+            <p
+              className="footer-link"
+              onClick={() =>
+                navigate("/galeria")
+              }
+            >
+              <span>05</span>
+              Ver más
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+
+
+      {/* CONTACTO */}
+      <div className="col-12 col-sm-6 col-lg-3">
+        <div className="footer-box">
+
+          <h5 className="footer-title">
+            Contacto
+          </h5>
+
+          <p className="footer-subtitle">
+            ¿Quieres hablar con nosotros?
+          </p>
+
+          <div className="footer-contact">
+
+            <div className="contact-item">
+              <span className="contact-symbol">@</span>
+
+              <div>
+                <small>Correo</small>
+                <p>Inlec5670@gmail.com</p>
+              </div>
+            </div>
+
+
+            <div className="contact-item">
+              <span className="contact-symbol">☎</span>
+
+              <div>
+                <small>Teléfono</small>
+                <p>3235868923</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    {/* ZORRO + FRASE */}
+    <div className="footer-bottom">
+
+      <div className="footer-track">
+
+        <span className="paw">•</span>
+        <span className="paw">•</span>
+        <span className="paw">•</span>
+        <span className="paw">•</span>
+
+      </div>
+
+
+      <div className="footer-character">
+
+        <div className="character-glow"></div>
+
+        <img
+          src="/per4.png"
+          alt="Personaje de Inlec"
+        />
+
+      </div>
+
+
+      <div className="footer-final-text">
+
+        <h4 className="abo-texto">
+          Del libro al mundo digital
+        </h4>
+
+        <p>
+          Explora. Imagina. Lee.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    {/* COPYRIGHT */}
+    <div className="footer-copyright">
+      <span>INLEC</span>
+      <span>•</span>
+      <span>Un mundo de historias por descubrir</span>
+    </div>
+
+  </div>
+</section>
     </div>
   );
 };

@@ -1,0 +1,324 @@
+/* ===================================================
+   Galería de cables — todo está limitado a .gc-wrapper
+   y las clases llevan prefijo gc- para no chocar con
+   Bootstrap ni con tus otros estilos.
+   =================================================== */
+
+.gc-wrapper {
+  --gc-bg: transparent;     /* cámbialo si quieres un fondo propio */
+  --gc-ink: #000;
+  --gc-card: #e39e65;       /* naranja del wireframe */
+  --gc-line: 3px;
+
+  /* Unidad base del tamaño de las fotos y altura de cada cable */
+  --gc-u: min(18vw, 320px);
+  --gc-row-h: calc(var(--gc-u) * 1.75);
+
+  position: relative;
+  width: 100%;
+  padding: 0 0 4vh;
+  background: var(--gc-bg);
+  color: var(--gc-ink);
+  font-family: inherit;
+  overflow-x: clip;
+}
+
+.gc-wrapper *,
+.gc-wrapper *::before,
+.gc-wrapper *::after { box-sizing: border-box; }
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .gc-wrapper { --gc-u: 22vw; }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+  .gc-wrapper {
+    --gc-u: 34vw;
+    --gc-line: 2.5px;
+  }
+}
+
+/* ===== Barra superior ===== */
+.gc-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 16px;
+  padding: clamp(14px, 2.5vh, 28px) 5vw 0;
+}
+
+.gc-hint {
+  flex-basis: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  opacity: 0.75;
+}
+
+.gc-btn {
+  font: inherit;
+  font-weight: 700;
+  padding: 8px 18px;
+  background: var(--gc-card);
+  color: var(--gc-ink);
+  border: var(--gc-line) solid var(--gc-ink);
+  box-shadow: 3px 3px 0 var(--gc-ink);
+  border-radius: 0;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gc-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--gc-ink); }
+.gc-btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--gc-ink); }
+
+.gc-fav-count {
+  min-width: 3.5ch;
+  font-weight: 700;
+  color: #d6263b;
+}
+
+/* ===== Galería y cables ===== */
+.gc-gallery {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.gc-row {
+  position: relative;
+  width: 100%;
+  height: var(--gc-row-h);
+}
+
+.gc-cable {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.gc-cable path {
+  fill: none;
+  stroke: var(--gc-ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;   /* grosor constante aunque el SVG se estire */
+}
+
+/* ===== Fotos ===== */
+.gc-photo {
+  position: absolute;
+  margin: 0;
+  cursor: zoom-in;
+  touch-action: manipulation;          /* evita el zoom por doble toque */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  will-change: transform;
+  outline: none;
+}
+
+/* Capa interna que se mece con la física del péndulo */
+.gc-breeze {
+  position: relative;
+  will-change: transform;
+}
+
+/* Foto oculta mientras está ampliada en el visor */
+.gc-photo.gc-is-away { opacity: 0 !important; }
+
+.gc-frame {
+  position: relative;
+  background: var(--gc-card);
+  border: var(--gc-line) solid var(--gc-ink);
+  padding: clamp(6px, 0.8vw, 12px);
+  transition: filter 0.3s ease;
+}
+
+.gc-photo:hover .gc-frame,
+.gc-photo:focus-visible .gc-frame {
+  filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.28));
+}
+
+.gc-photo:focus-visible .gc-frame {
+  outline: 3px dashed var(--gc-ink);
+  outline-offset: 4px;
+}
+
+.gc-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  aspect-ratio: var(--gc-ar, 1);
+  object-fit: cover;
+  background: #f2d3b5;
+  border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 0;
+  pointer-events: none;
+}
+
+/* Pinza sobre el cable */
+.gc-pin {
+  position: absolute;
+  top: calc(var(--gc-line) * -1 - 11px);
+  left: 50%;
+  width: clamp(8px, 0.8vw, 12px);
+  height: clamp(18px, 1.7vw, 26px);
+  transform: translateX(-50%);
+  background: var(--gc-card);
+  border: var(--gc-line) solid var(--gc-ink);
+  z-index: 2;
+}
+
+/* Sello de favorita */
+.gc-fav {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 50%;
+  color: #d6263b;
+  font-size: 16px;
+  line-height: 1;
+  animation: gc-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes gc-pop {
+  from { transform: scale(0) rotate(-40deg); }
+  to   { transform: scale(1) rotate(0); }
+}
+
+/* ===== Visor ampliado ===== */
+.gc-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;                       /* por encima de navbars de Bootstrap */
+  display: none;
+  place-items: center;
+  background: rgba(24, 14, 6, 0.85);
+  cursor: zoom-out;
+  touch-action: none;
+}
+
+.gc-lightbox.gc-is-open { display: grid; }
+
+.gc-lb-frame {
+  position: relative;
+  background: var(--gc-card);
+  border: var(--gc-line) solid var(--gc-ink);
+  padding: clamp(10px, 1.4vw, 22px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  will-change: transform;
+}
+
+.gc-lb-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  aspect-ratio: var(--gc-ar, 1);
+  object-fit: cover;
+  background: #f2d3b5;
+  border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 0;
+}
+
+.gc-lb-text {
+  margin: 12px 4px 2px;
+  text-align: center;
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  line-height: 1.35;
+  color: var(--gc-ink);
+}
+
+/* Brillo que sigue al mouse */
+.gc-lb-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--gc-gx, 50%) var(--gc-gy, 50%), rgba(255, 255, 255, 0.3), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gc-lb-frame:hover::after { opacity: 1; }
+
+.gc-lb-close,
+.gc-lb-fav {
+  position: absolute;
+  top: -16px;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 50%;
+  background: var(--gc-card);
+  color: var(--gc-ink);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.gc-lb-close { right: -16px; font-size: 24px; }
+.gc-lb-close:hover { background: #fff; }
+
+.gc-lb-fav { left: -16px; font-size: 18px; opacity: 0.9; }
+.gc-lb-fav[aria-pressed="true"] { background: #fff; color: #d6263b; opacity: 1; }
+
+.gc-lb-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  padding: 0 0 5px;
+  border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 50%;
+  background: var(--gc-card);
+  color: var(--gc-ink);
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, scale 0.2s ease;
+}
+
+.gc-lb-nav:hover { background: #fff; scale: 1.08; }
+.gc-lb-prev { left: 3vw; }
+.gc-lb-next { right: 3vw; }
+
+.gc-lb-count {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 3vh;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .gc-lb-close { right: -6px; top: -14px; }
+  .gc-lb-fav { left: -6px; top: -14px; }
+  .gc-lb-nav { top: auto; bottom: 2.5vh; transform: none; width: 46px; height: 46px; }
+  .gc-lb-prev { left: 6vw; }
+  .gc-lb-next { right: 6vw; }
+}
+
+/* ===== Accesibilidad ===== */
+@media (prefers-reduced-motion: reduce) {
+  .gc-frame { transition: none; }
+  .gc-fav { animation: none; }
+}
