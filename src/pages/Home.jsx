@@ -1,57 +1,145 @@
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "motion/react";
 
 import "../stylesheets/Fuentes.css";
 import "../stylesheets/Textos.css";
+import "../stylesheets/PersonajesCarrusel.css";
+import "../stylesheets/LibroPersonajes.css";
 
 const Home = () => {
   const navigate = useNavigate();
 
   /* ================= PERSONAJES ================= */
 
+  /*
+    Los campos que no existan (o estén vacíos) no se muestran
+    en la ventana. Completa la info de Junior, Kris, Ash, etc.
+    cuando la tengas.
+  */
+
+  const textosModal = {
+    especie: "ESPECIE",
+    edad: "EDAD",
+    rol: "ROL",
+    sinInfo: "Próximamente más información sobre este personaje.",
+  };
+
   const personajes = [
     {
-      nombre: "Sr.Fox",
+      nombre: "Sr. Fox",
+      etiqueta: "PERSONAJE PRINCIPAL",
+      imagen: "/fox.png",
+      personalidad: "Audaz · Astuto · Elegante",
+      descripcion:
+        "Un zorro elegante, atleta, audaz y brillante, con un toque de perspicacia en la mirada.",
+      especie: "Zorro",
+      edad: "4 años",
       rol: "Protagonista",
-      sinopsis:
-        "El astuto y carismático Señor Fox vive junto a su familia en una tranquila madriguera, aparentemente lejos de los peligros del mundo exterior.",
-      personalidad:
-        "Suele ser muy astuto, siempre piensa antes de actuar y rara vez toma decisiones impulsivas. Mantiene la seguridad y la confianza en sí mismo incluso en situaciones complicadas.",
-      edad:
-        "El Sr. Fox, con sus ya 4 años zorrunos (48 meses de experiencia y vivencias), ha desarrollado una astucia notable que lo caracteriza en cada una de sus decisiones.",
-      atributos:
-        "Habilidoso en cada movimiento que realiza, demuestra un dominio natural de su entorno. Es perspicaz y nota detalles que otros pasan por alto.",
-      objetivo: "Proteger, salvar y proveer alimento a su familia.",
-      nota:
-        "Tiene una fascinación por el número 4, de pequeño ganó la copa zorruna 4 veces consecutivas.",
-      imagen: "/robo.png",
+      frase: "Nunca subestimes a un zorro con un buen plan.",
+      detalle: "El protagonista de esta historia.",
     },
-
     {
-      nombre: "Sra.Fox",
-      rol: "Aliada",
-      sinopsis:
-        "Una figura inteligente y fuerte que acompaña y apoya cada decisión importante dentro de la familia.",
+      nombre: "Sra. Fox",
+      etiqueta: "ALIADA",
+      imagen: "/señora.png",
       personalidad: "Calmada, estratégica y siempre un paso adelante.",
-      edad: "3 años zorrunos.",
-      atributos:
-        "Analítica, observadora e intuitiva una persona muy perspicaz grandes ojos de color azul.",
+      descripcion:
+        "Una figura inteligente y fuerte que acompaña y apoya cada decisión importante dentro de la familia. Analítica, observadora e intuitiva, una persona muy perspicaz con grandes ojos de color azul.",
+      especie: "Zorro",
+      edad: "3 años zorrunos",
+      rol: "Aliada",
       objetivo:
-        "Mantener la estabilidad y seguridad del hogar ser una esposa responsable y proteger a sus hijos.",
-      nota: "Siempre detecta el peligro antes que los demás.",
-      imagen: "/lady.png",
+        "Mantener la estabilidad y seguridad del hogar, ser una esposa responsable y proteger a sus hijos.",
+      detalle: "Siempre detecta el peligro antes que los demás.",
+    },
+    {
+      nombre: "Junior",
+      imagen: "/junior.png",
+    },
+    {
+      nombre: "Kris",
+      imagen: "/Kris.png",
+    },
+    {
+      nombre: "Ash",
+      imagen: "/Ash.png",
+    },
+    {
+      nombre: "Personaje 6",
+      imagen: "/char.png",
     },
   ];
 
-  const [index, setIndex] = useState(0);
+  /* ===== VENTANA DEL PERSONAJE ===== */
 
-  const personaje = personajes[index];
+  const [seleccionado, setSeleccionado] = useState(null);
 
-  const siguiente = () =>
-    setIndex((prev) => (prev + 1) % personajes.length);
+  const cerrarPersonaje = () => setSeleccionado(null);
 
-  const anterior = () =>
-    setIndex((prev) => (prev - 1 + personajes.length) % personajes.length);
+  useEffect(() => {
+    if (!seleccionado) return;
+
+    const onKey = (e) => {
+      if (e.key === "Escape") setSeleccionado(null);
+    };
+
+    const overflowAnterior = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = overflowAnterior;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [seleccionado]);
+
+  /* ===== BOTONES AVANZAR / RETROCEDER ===== */
+
+  const pistaRef = useRef(null);
+  const [puedeAnterior, setPuedeAnterior] = useState(false);
+  const [puedeSiguiente, setPuedeSiguiente] = useState(false);
+
+  const actualizarBotones = useCallback(() => {
+    const el = pistaRef.current;
+    if (!el) return;
+    setPuedeAnterior(el.scrollLeft > 4);
+    setPuedeSiguiente(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = pistaRef.current;
+    if (!el) return;
+
+    actualizarBotones();
+    el.addEventListener("scroll", actualizarBotones, { passive: true });
+    window.addEventListener("resize", actualizarBotones);
+
+    let observer;
+    if (typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(actualizarBotones);
+      observer.observe(el);
+    }
+
+    return () => {
+      el.removeEventListener("scroll", actualizarBotones);
+      window.removeEventListener("resize", actualizarBotones);
+      if (observer) observer.disconnect();
+    };
+  }, [actualizarBotones]);
+
+  const moverPersonajes = (direccion) => {
+    const el = pistaRef.current;
+    if (!el) return;
+
+    const tarjeta = el.querySelector(".personaje");
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+    const paso = tarjeta
+      ? tarjeta.getBoundingClientRect().width + gap
+      : el.clientWidth * 0.8;
+
+    el.scrollBy({ left: direccion * paso, behavior: "smooth" });
+  };
 
   /* ================= CREADORES ================= */
 
@@ -462,7 +550,9 @@ const Home = () => {
 
       </section>
 
-      
+
+      {/* ================= PERSONAJES (CARRUSEL) ================= */}
+
       <section className="personajes-section" id="personajes">
 
         {/* TÍTULO */}
@@ -470,62 +560,55 @@ const Home = () => {
           <h2 className="per-texto">Personajes</h2>
         </div>
 
-        {/* CONTENEDOR DE PERSONAJES */}
-        <div className="personajes-container">
+        {/* CARRUSEL: botones + contenedor de personajes */}
+        <div className="personajes-carrusel">
 
-          {/* PADRE 1 */}
-          <div className="personaje">
-            <img
-              src="/fox.png"
-              alt="Personaje 1"
-              className="personaje-img"
-            />
+          <button
+            type="button"
+            className="personajes-flecha personajes-flecha--izq"
+            onClick={() => moverPersonajes(-1)}
+            disabled={!puedeAnterior}
+            aria-label="Personaje anterior"
+          >
+            ‹
+          </button>
+
+          {/* CONTENEDOR DE PERSONAJES */}
+          <div className="personajes-container" ref={pistaRef}>
+
+            {personajes.map((p) => (
+              <div
+                key={p.nombre}
+                className="personaje"
+                role="button"
+                tabIndex={0}
+                onClick={() => setSeleccionado(p)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSeleccionado(p);
+                  }
+                }}
+              >
+                <img
+                  src={p.imagen}
+                  alt={p.nombre}
+                  className="personaje-img"
+                />
+              </div>
+            ))}
+
           </div>
 
-          {/* PADRE 2 */}
-          <div className="personaje">
-            <img
-              src="/señora.png"
-              alt="Personaje 2"
-              className="personaje-img"
-            />
-          </div>
-
-          {/* PERSONAJE 3 */}
-          <div className="personaje">
-            <img
-              src="/junior.png"
-              alt="Personaje 3"
-              className="personaje-img"
-            />
-          </div>
-
-          {/* PERSONAJE 4 */}
-          <div className="personaje">
-            <img
-              src="/Kris.png"
-              alt="Personaje 4"
-              className="personaje-img"
-            />
-          </div>
-
-          {/* PERSONAJE 5 */}
-          <div className="personaje">
-            <img
-              src="/Ash.png"
-              alt="Personaje 5"
-              className="personaje-img"
-            />
-          </div>
-
-          {/* PERSONAJE 6 */}
-          <div className="personaje">
-            <img
-              src="/char.png"
-              alt="Personaje 6"
-              className="personaje-img"
-            />
-          </div>
+          <button
+            type="button"
+            className="personajes-flecha personajes-flecha--der"
+            onClick={() => moverPersonajes(1)}
+            disabled={!puedeSiguiente}
+            aria-label="Personaje siguiente"
+          >
+            ›
+          </button>
 
         </div>
 
@@ -535,17 +618,147 @@ const Home = () => {
         </div>
 
       </section>
-      ```
 
 
+      {/* ================= VENTANA DEL PERSONAJE ================= */}
 
-      {/* ================= PERSONAJES ================= */}
+      <AnimatePresence>
+
+        {seleccionado && (
+
+          <motion.div
+            className="personaje-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={cerrarPersonaje}
+          >
+
+            <motion.div
+              className="personaje-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-label={seleccionado.nombre}
+              initial={{ opacity: 0, scale: 0.75, rotateZ: -2, y: 40 }}
+              animate={{ opacity: 1, scale: 1, rotateZ: 0, y: 0 }}
+              exit={{ opacity: 0, scale: 0.75, rotateZ: 2, y: 40 }}
+              transition={{ type: "spring", stiffness: 260, damping: 21 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+
+              {/* CERRAR */}
+
+              <motion.button
+                type="button"
+                className="personaje-modal-cerrar"
+                onClick={cerrarPersonaje}
+                whileHover={{ rotate: 90, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Cerrar"
+              >
+                ×
+              </motion.button>
+
+              {/* IMAGEN */}
+
+              <div className="personaje-modal-imagen-contenedor">
+
+                <div className="modal-halo" />
+
+                <img
+                  src={seleccionado.imagen}
+                  alt={seleccionado.nombre}
+                  className="personaje-modal-imagen"
+                />
+
+              </div>
+
+              {/* INFORMACIÓN */}
+
+              <div className="personaje-modal-info">
+
+                {seleccionado.etiqueta && (
+                  <span className="personaje-modal-etiqueta">
+                    {seleccionado.etiqueta}
+                  </span>
+                )}
+
+                <h2>{seleccionado.nombre}</h2>
+
+                {seleccionado.personalidad && (
+                  <div className="personaje-subtitulo">
+                    {seleccionado.personalidad}
+                  </div>
+                )}
+
+                <p>{seleccionado.descripcion || textosModal.sinInfo}</p>
+
+                {(seleccionado.especie ||
+                  seleccionado.edad ||
+                  seleccionado.rol) && (
+
+                  <div className="personaje-datos">
+
+                    {seleccionado.especie && (
+                      <div className="dato">
+                        <small>{textosModal.especie}</small>
+                        <strong>{seleccionado.especie}</strong>
+                      </div>
+                    )}
+
+                    {seleccionado.edad && (
+                      <div className="dato">
+                        <small>{textosModal.edad}</small>
+                        <strong>{seleccionado.edad}</strong>
+                      </div>
+                    )}
+
+                    {seleccionado.rol && (
+                      <div className="dato">
+                        <small>{textosModal.rol}</small>
+                        <strong>{seleccionado.rol}</strong>
+                      </div>
+                    )}
+
+                  </div>
+
+                )}
+
+                {seleccionado.frase && (
+                  <div className="personaje-frase">
+                    <span className="frase-comilla">“</span>
+                    <p>{seleccionado.frase}</p>
+                  </div>
+                )}
+
+                {seleccionado.objetivo && (
+                  <div className="personaje-modal-detalle">
+                    <span>✦</span>
+                    <div>
+                      <b>Objetivo:</b> {seleccionado.objetivo}
+                    </div>
+                  </div>
+                )}
+
+                {seleccionado.detalle && (
+                  <div className="personaje-modal-detalle">
+                    <span>✦</span>
+                    <div>{seleccionado.detalle}</div>
+                  </div>
+                )}
+
+              </div>
+
+            </motion.div>
+
+          </motion.div>
+
+        )}
+
+      </AnimatePresence>
 
 
       {/* ================= CREADORES ================= */}
-
-
-
 
       <section
         className="scroll-section creadores-wrapper"
@@ -752,32 +965,33 @@ const Home = () => {
       {/* ================================================= */}
 
 
-      {/* ================= FOOTER ================= */}
+      {/* ================= AUTOR ================= */}
 
       <section className="autor-section" id="autor">
+        {/* Círculos decorativos de fondo */}
+        <span className="autor-circulo-fondo circulo-1" aria-hidden="true" />
+        <span className="autor-circulo-fondo circulo-2" aria-hidden="true" />
 
         <div className="container">
-
           <div className="autor-contenido">
 
             <div className="autor-imagen">
+              <div className="autor-blob" aria-hidden="true" />
+              <div className="autor-anillo" aria-hidden="true" />
 
-              <img
-                src="/autor.jpg"
-                alt="Autor"
-              />
+              <div className="autor-orbita" aria-hidden="true">
+                <img src="/manzana.svg" alt="" className="autor-orbita-manzana" />
+              </div>
 
+              <div className="autor-foto">
+                <img src="/autor.jpg" alt="Roald Dahl" />
+              </div>
             </div>
 
             <div className="autor-texto">
+              <h2>Roald Dahl</h2>
 
-              <h2>
-                Roald Dahl
-              </h2>
-
-              <h3>
-                Autor
-              </h3>
+              <h3>Autor</h3>
 
               <p>
                 Roald Dahl fue un reconocido escritor británico de literatura
@@ -796,268 +1010,270 @@ const Home = () => {
                 lectores y continúa siendo reconocida por su creatividad y
                 particular sentido del humor.
               </p>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
 
-<section
-  className="scroll-section footer-container"
-  id="contacto"
->
-  <div className="container-fluid px-3 px-md-5">
+      {/* ================= FOOTER ================= */}
 
-    {/* DECORACIÓN SUPERIOR */}
-    <div className="footer-top-decoration">
-      <span></span>
-      <img src="/logo.png" alt="Inlec" />
-      <span></span>
-    </div>
+      <section
+        className="scroll-section footer-container"
+        id="contacto"
+      >
+        <div className="container-fluid px-3 px-md-5">
 
-    <div className="row footer-content">
-
-      {/* IDENTIDAD */}
-      <div className="col-12 col-sm-6 col-lg-3">
-        <div className="footer-box footer-identidad">
-
-          <h5 className="footer-title">
-            Identidad
-          </h5>
-
-          <div className="footer-logo-container">
-            <img
-              src="/logo.png"
-              alt="logo"
-              className="footer-logo"
-            />
+          {/* DECORACIÓN SUPERIOR */}
+          <div className="footer-top-decoration">
+            <span></span>
+            <img src="/loge.png" alt="Inlec" />
+            <span></span>
           </div>
 
-          <p className="footer-text footer-slogan">
-            Del libro al mundo digital
-          </p>
+          <div className="row footer-content">
 
-          <div className="footer-line"></div>
+            {/* IDENTIDAD */}
+            <div className="col-12 col-sm-6 col-lg-3">
+              <div className="footer-box footer-identidad">
 
-          <p className="footer-small-text">
-            Una nueva forma de descubrir,
-            imaginar y disfrutar la lectura.
-          </p>
+                <h5 className="footer-title">
+                  Identidad
+                </h5>
 
-        </div>
-      </div>
+                <div className="footer-logo-container">
+                  <img
+                    src="/loge.png"
+                    alt="logo"
+                    className="footer-logo"
+                  />
+                </div>
 
+                <p className="footer-text footer-slogan">
+                  Del libro al mundo digital
+                </p>
 
-      {/* REDES SOCIALES */}
-      <div className="col-12 col-sm-6 col-lg-3">
-        <div className="footer-box">
+                <div className="footer-line"></div>
 
-          <h5 className="footer-title">
-            Redes Sociales
-          </h5>
+                <p className="footer-small-text">
+                  Una nueva forma de descubrir,
+                  imaginar y disfrutar la lectura.
+                </p>
 
-          <p className="footer-subtitle">
-            Síguenos y descubre más
-          </p>
-
-          <div className="footer-social">
-
-            <a
-              href="#"
-              className="social-button"
-            >
-              <span className="social-icon">♪</span>
-              Tik Tok
-              <span className="social-arrow">→</span>
-            </a>
-
-            <a
-              href="#"
-              className="social-button"
-            >
-              <span className="social-icon">◎</span>
-              Instagram
-              <span className="social-arrow">→</span>
-            </a>
-
-          </div>
-
-        </div>
-      </div>
-
-
-      {/* NAVEGACIÓN */}
-      <div className="col-12 col-sm-6 col-lg-3">
-        <div className="footer-box">
-
-          <h5 className="footer-title">
-            Navegación rápida
-          </h5>
-
-          <div className="footer-navigation">
-
-            <p
-              className="footer-link"
-              onClick={() =>
-                document
-                  .getElementById("inicio")
-                  ?.scrollIntoView({
-                    behavior: "smooth",
-                  })
-              }
-            >
-              <span>01</span>
-              Inicio
-            </p>
-
-            <p
-              className="footer-link"
-              onClick={() =>
-                navigate("/capitulos/1")
-              }
-            >
-              <span>02</span>
-              Capítulos
-            </p>
-
-            <p
-              className="footer-link"
-              onClick={() =>
-                document
-                  .getElementById("personajes")
-                  ?.scrollIntoView({
-                    behavior: "smooth",
-                  })
-              }
-            >
-              <span>03</span>
-              Personajes
-            </p>
-
-            <p
-              className="footer-link"
-              onClick={() =>
-                document
-                  .getElementById("resenas")
-                  ?.scrollIntoView({
-                    behavior: "smooth",
-                  })
-              }
-            >
-              <span>04</span>
-              Reseñas
-            </p>
-
-            <p
-              className="footer-link"
-              onClick={() =>
-                navigate("/galeria")
-              }
-            >
-              <span>05</span>
-              Ver más
-            </p>
-
-          </div>
-
-        </div>
-      </div>
-
-
-      {/* CONTACTO */}
-      <div className="col-12 col-sm-6 col-lg-3">
-        <div className="footer-box">
-
-          <h5 className="footer-title">
-            Contacto
-          </h5>
-
-          <p className="footer-subtitle">
-            ¿Quieres hablar con nosotros?
-          </p>
-
-          <div className="footer-contact">
-
-            <div className="contact-item">
-              <span className="contact-symbol">@</span>
-
-              <div>
-                <small>Correo</small>
-                <p>Inlec5670@gmail.com</p>
               </div>
             </div>
 
 
-            <div className="contact-item">
-              <span className="contact-symbol">☎</span>
+            {/* REDES SOCIALES */}
+            <div className="col-12 col-sm-6 col-lg-3">
+              <div className="footer-box">
 
-              <div>
-                <small>Teléfono</small>
-                <p>3235868923</p>
+                <h5 className="footer-title">
+                  Redes Sociales
+                </h5>
+
+                <p className="footer-subtitle">
+                  Síguenos y descubre más
+                </p>
+
+                <div className="footer-social">
+
+                  <a
+                    href="https://www.tiktok.com/@inlec1?_r=1"
+                    className="social-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="social-icon">♪</span>
+                    TikTok
+                    <span className="social-arrow">→</span>
+                  </a>
+
+                  <a
+                    href="https://www.instagram.com/inlec.co/"
+                    className="social-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="social-icon">◎</span>
+                    Instagram
+                    <span className="social-arrow">→</span>
+                  </a>
+
+                </div>
+
+              </div>
+            </div>
+
+
+            {/* NAVEGACIÓN */}
+            <div className="col-12 col-sm-6 col-lg-3">
+              <div className="footer-box">
+
+                <h5 className="footer-title">
+                  Navegación rápida
+                </h5>
+
+                <div className="footer-navigation">
+
+                  <p
+                    className="footer-link"
+                    onClick={() =>
+                      document
+                        .getElementById("inicio")
+                        ?.scrollIntoView({
+                          behavior: "smooth",
+                        })
+                    }
+                  >
+                    <span>01</span>
+                    Inicio
+                  </p>
+
+                  <p
+                    className="footer-link"
+                    onClick={() =>
+                      navigate("/capitulos/1")
+                    }
+                  >
+                    <span>02</span>
+                    Capítulos
+                  </p>
+
+                  <p
+                    className="footer-link"
+                    onClick={() =>
+                      document
+                        .getElementById("personajes")
+                        ?.scrollIntoView({
+                          behavior: "smooth",
+                        })
+                    }
+                  >
+                    <span>03</span>
+                    Personajes
+                  </p>
+
+                  <p
+                    className="footer-link"
+                    onClick={() =>
+                      document
+                        .getElementById("resenas")
+                        ?.scrollIntoView({
+                          behavior: "smooth",
+                        })
+                    }
+                  >
+                    <span>04</span>
+                    Autor
+                  </p>
+
+                  <p
+                    className="footer-link"
+                    onClick={() =>
+                      navigate("/galeria")
+                    }
+                  >
+                    <span>05</span>
+                    Ver más
+                  </p>
+
+                </div>
+
+              </div>
+            </div>
+
+
+            {/* CONTACTO */}
+            <div className="col-12 col-sm-6 col-lg-3">
+              <div className="footer-box">
+
+                <h5 className="footer-title">
+                  Contacto
+                </h5>
+
+                <p className="footer-subtitle">
+                  ¿Quieres hablar con nosotros?
+                </p>
+
+                <div className="footer-contact">
+
+                  <div className="contact-item">
+                    <span className="contact-symbol">@</span>
+
+                    <div>
+                      <small>Correo</small>
+                      <p>Inlec5670@gmail.com</p>
+                    </div>
+                  </div>
+
+
+                  <div className="contact-item">
+                    <span className="contact-symbol">☎</span>
+
+                    <div>
+                      <small>Teléfono</small>
+                      <p>3235868923</p>
+                    </div>
+                  </div>
+
+                </div>
+
               </div>
             </div>
 
           </div>
 
+
+          {/* ZORRO + FRASE */}
+          <div className="footer-bottom">
+
+            <div className="footer-track">
+
+              <span className="paw">•</span>
+              <span className="paw">•</span>
+              <span className="paw">•</span>
+              <span className="paw">•</span>
+
+            </div>
+
+
+            <div className="footer-character">
+
+              <div className="character-glow"></div>
+
+              <img
+                src="/per4.png"
+                alt="Personaje de Inlec"
+              />
+
+            </div>
+
+
+            <div className="footer-final-text">
+
+              <h4 className="abo-texto">
+                Del libro al mundo digital
+              </h4>
+
+              <p>
+                Explora. Imagina. Lee.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          {/* COPYRIGHT */}
+          <div className="footer-copyright">
+            <span>INLEC</span>
+            <span>•</span>
+            <span>Un mundo de historias por descubrir</span>
+          </div>
+
         </div>
-      </div>
-
-    </div>
-
-
-    {/* ZORRO + FRASE */}
-    <div className="footer-bottom">
-
-      <div className="footer-track">
-
-        <span className="paw">•</span>
-        <span className="paw">•</span>
-        <span className="paw">•</span>
-        <span className="paw">•</span>
-
-      </div>
-
-
-      <div className="footer-character">
-
-        <div className="character-glow"></div>
-
-        <img
-          src="/per4.png"
-          alt="Personaje de Inlec"
-        />
-
-      </div>
-
-
-      <div className="footer-final-text">
-
-        <h4 className="abo-texto">
-          Del libro al mundo digital
-        </h4>
-
-        <p>
-          Explora. Imagina. Lee.
-        </p>
-
-      </div>
-
-    </div>
-
-
-    {/* COPYRIGHT */}
-    <div className="footer-copyright">
-      <span>INLEC</span>
-      <span>•</span>
-      <span>Un mundo de historias por descubrir</span>
-    </div>
-
-  </div>
-</section>
+      </section>
     </div>
   );
 };

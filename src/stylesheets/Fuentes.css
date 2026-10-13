@@ -22,65 +22,258 @@ body {
    ========================= */
 
 .autor-section {
+  position: relative;
   width: 100%;
   min-height: 100vh;
   background-color: #f3ded0;
-  padding: 80px 20px;
+  padding: 100px 20px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* ========== CÍRCULOS DE FONDO ========== */
+
+.autor-circulo-fondo {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: respirar 6s ease-in-out infinite alternate;
+}
+
+.circulo-1 {
+  width: 520px;
+  height: 520px;
+  top: -200px;
+  left: -160px;
+  background-color: #e89255;
+  opacity: 0.22;
+}
+
+.circulo-2 {
+  width: 420px;
+  height: 420px;
+  bottom: -170px;
+  right: -120px;
+  background-color: #934e24;
+  opacity: 0.16;
+  animation-delay: 1.5s;
+}
+
+.circulo-3 {
+  width: 200px;
+  height: 200px;
+  top: 55%;
+  left: 4%;
+  border: 4px dashed #e89255;
+  opacity: 0.5;
+  animation-delay: 3s;
+}
+
+.autor-section .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* ========== TARJETA PRINCIPAL ========== */
+
 .autor-contenido {
+  position: relative;
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 60px;
+  gap: 70px;
   background-color: #ffffff;
-  border-radius: 30px;
-  padding: 50px;
+  border-radius: 160px 60px 160px 60px;
+  padding: 70px 80px;
   box-sizing: border-box;
-  border: 4px solid #934E24;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 4px solid #934e24;
+  box-shadow: 0 8px 0 #934e24, 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: tarjeta-entrada 0.9s cubic-bezier(0.34, 1.4, 0.64, 1) both;
 }
 
-/* IMAGEN DEL AUTOR */
+/* ========== DECORACIONES (manzanas y huellas) ========== */
+
+.autor-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  height: auto;
+  /* entra con pop y luego flota */
+  animation:
+    deco-entrada 0.7s cubic-bezier(0.34, 1.8, 0.64, 1) backwards,
+    flotar 3s ease-in-out 1.4s infinite alternate;
+}
+
+.huella-1 {
+  width: 95px;
+  top: -45px;
+  left: 28%;
+  rotate: -18deg;
+  animation-delay: 0.6s, 1.4s;
+}
+
+.huella-2 {
+  width: 85px;
+  bottom: -40px;
+  right: 14%;
+  rotate: 24deg;
+  animation-delay: 0.75s, 2s;
+  animation-duration: 0.7s, 3.6s;
+}
+
+.huella-3 {
+  width: 60px;
+  bottom: 14%;
+  left: -34px;
+  rotate: -35deg;
+  animation-delay: 0.9s, 1.7s;
+  animation-duration: 0.7s, 2.6s;
+}
+
+.manzana-1 {
+  width: 80px;
+  top: -38px;
+  right: 8%;
+  rotate: 12deg;
+  animation-delay: 1.05s, 2.2s;
+  animation-duration: 0.7s, 3.2s;
+}
+
+.manzana-2 {
+  width: 62px;
+  bottom: -30px;
+  left: 18%;
+  rotate: -14deg;
+  animation-delay: 1.2s, 1.9s;
+  animation-duration: 0.7s, 2.8s;
+}
+
+/* ========== IMAGEN DEL AUTOR ========== */
 
 .autor-imagen {
-  width: 40%;
+  position: relative;
+  flex-shrink: 0;
+  width: 340px;
+  height: 340px;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.autor-imagen img {
-  width: 100%;
-  max-width: 350px;
-  height: auto;
-  border-radius: 20px;
-  object-fit: cover;
+.autor-blob {
+  position: absolute;
+  inset: -22px;
+  background-color: #e89255;
+  opacity: 0.35;
+  border-radius: 60% 40% 45% 55% / 45% 55% 45% 55%;
+  z-index: 0;
+  animation: blob 7s ease-in-out infinite alternate;
 }
 
-/* TEXTO */
+.autor-anillo {
+  position: absolute;
+  inset: -16px;
+  border: 3px dashed #934e24;
+  border-radius: 50%;
+  z-index: 1;
+  animation: girar 30s linear infinite;
+}
+
+.autor-orbita {
+  position: absolute;
+  inset: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 3;
+  pointer-events: none;
+  animation: girar 16s linear infinite;
+}
+
+.autor-orbita-manzana {
+  width: 62px;
+  height: auto;
+  margin-top: -6px;
+  /* gira al revés para que la manzana siempre quede derecha */
+  animation: girar 16s linear infinite reverse;
+}
+
+.autor-foto {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid #934e24;
+  background-color: #f3ded0;
+  z-index: 2;
+  box-shadow: 0 10px 25px rgba(147, 78, 36, 0.35);
+  animation: foto-entrada 1.1s cubic-bezier(0.34, 1.5, 0.64, 1) 0.3s both;
+}
+
+.autor-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.autor-foto:hover img {
+  transform: scale(1.08);
+}
+
+/* ========== TEXTO ========== */
 
 .autor-texto {
-  width: 60%;
+  flex: 1;
+  min-width: 0;
 }
+
+.autor-texto > * {
+  animation: subir 0.7s ease-out both;
+}
+
+.autor-texto > :nth-child(1) { animation-delay: 0.5s; }
+.autor-texto > :nth-child(2) { animation-delay: 0.65s; }
+.autor-texto > :nth-child(3) { animation-delay: 0.8s; }
+.autor-texto > :nth-child(4) { animation-delay: 0.95s; }
+.autor-texto > :nth-child(5) { animation-delay: 1.1s; }
 
 .autor-texto h2 {
   font-family: 'pepe', sans-serif;
   font-size: 3.5rem;
-  color: #934E24;
-  margin-bottom: 10px;
+  color: #934e24;
+  margin: 0 0 10px;
 }
 
 .autor-texto h3 {
+  position: relative;
+  display: inline-block;
   font-family: 'school', sans-serif;
   font-size: 2rem;
   color: #e89255;
-  margin-bottom: 25px;
+  margin: 0 0 30px;
+  padding-bottom: 12px;
+}
+
+.autor-texto h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 6px;
+  border-radius: 10px;
+  background-color: #e89255;
+  opacity: 0.45;
 }
 
 .autor-texto p {
@@ -89,7 +282,101 @@ body {
   line-height: 1.7;
   color: #2b1a0e;
   text-align: justify;
-  margin-bottom: 15px;
+  margin: 0 0 15px;
+}
+
+/* ========== ANIMACIONES ========== */
+
+@keyframes tarjeta-entrada {
+  from { opacity: 0; scale: 0.85; }
+  to   { opacity: 1; scale: 1; }
+}
+
+@keyframes foto-entrada {
+  from { scale: 0; rotate: -30deg; }
+  to   { scale: 1; rotate: 0deg; }
+}
+
+@keyframes subir {
+  from { opacity: 0; translate: 0 30px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes deco-entrada {
+  from { opacity: 0; scale: 0; }
+  to   { opacity: 1; scale: 1; }
+}
+
+@keyframes flotar {
+  from { translate: 0 0; }
+  to   { translate: 0 -18px; }
+}
+
+@keyframes girar {
+  to { rotate: 360deg; }
+}
+
+@keyframes blob {
+  0%   { border-radius: 60% 40% 45% 55% / 45% 55% 45% 55%; rotate: 0deg; }
+  100% { border-radius: 38% 62% 55% 45% / 55% 38% 62% 45%; rotate: 25deg; }
+}
+
+@keyframes respirar {
+  from { scale: 1; }
+  to   { scale: 1.08; }
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 960px) {
+  .autor-contenido {
+    flex-direction: column;
+    gap: 60px;
+    padding: 70px 40px 60px;
+    border-radius: 120px 50px 120px 50px;
+  }
+
+  .autor-texto,
+  .autor-texto p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .autor-section {
+    padding: 70px 14px;
+  }
+
+  .autor-contenido {
+    padding: 60px 24px 50px;
+    border-radius: 80px 40px 80px 40px;
+  }
+
+  .autor-imagen {
+    width: 250px;
+    height: 250px;
+  }
+
+  .autor-texto h2 {
+    font-size: 2.6rem;
+  }
+
+  .autor-texto p {
+    font-size: 1.05rem;
+  }
+
+  .huella-1 { width: 65px; }
+  .huella-2 { width: 60px; }
+  .manzana-1 { width: 56px; }
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .autor-section *,
+  .autor-section *::before,
+  .autor-section *::after {
+    animation: none !important;
+  }
 }
 
 /* =========================
@@ -1856,7 +2143,7 @@ body {
 }
 
 .footer-top-decoration img {
-  width: 80px;
+  width: 200px;
   height: auto;
 
   object-fit: contain;
