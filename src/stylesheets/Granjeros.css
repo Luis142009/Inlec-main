@@ -1,0 +1,190 @@
+/* =========================================================
+   PERSONAJES — SLIDES (Personajes / Granjeros)
+========================================================= */
+
+.personajes-slides {
+    top: 50%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.personajes-pista-slides {
+  display: flex;
+  width: 100%;
+  transition: transform 0.65s cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: transform;
+}
+
+.personajes-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  transition: visibility 0s linear 0s;
+}
+
+/* El slide que no se ve no recibe foco ni clicks */
+.personajes-slide--oculta {
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 0.65s;
+}
+
+/* =========================================================
+   SELECTOR (botón + puntos)
+========================================================= */
+
+.personajes-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.personajes-cambiar {
+  padding: 0.7rem 1.8rem;
+  border: 3px solid #5a321f;
+  border-radius: 999px;
+  background: #e49454;
+  color: #fff1d0;
+  font-family: "abalon", cursive;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #5a321f;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.personajes-cambiar:hover {
+  background: #f7931e;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #5a321f;
+}
+
+.personajes-cambiar:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #5a321f;
+}
+
+.personajes-puntos {
+  display: flex;
+  gap: 10px;
+}
+
+.personajes-punto {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 2px solid #5a321f;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.personajes-punto:hover {
+  transform: scale(1.2);
+}
+
+.personajes-punto--activo {
+  background: #e49454;
+  transform: scale(1.2);
+}
+
+/* =========================================================
+   GRANJEROS
+========================================================= */
+
+.granjeros {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(12px, 3vw, 50px);
+  top: 50%;
+  padding: 80px 16px 0; /* 80px = separación con el título, cámbiala a tu gusto */
+}
+
+.granjeros-titulo {
+  font-family: "abalon", cursive;
+  color: #5a321f;
+  text-align: center;
+  margin: 0;
+}
+
+/* Bean arriba */
+/* Los 3 en una sola línea: Bunce · Bean · Boggis */
+.granjeros-arriba,
+.granjeros-abajo {
+  display: contents;
+}
+
+.granjero--bunce {
+  order: 1;
+}
+
+.granjero--bean {
+  order: 2;
+
+  /* Ajuste fino: mueve a Bean a los lados (+ derecha, - izquierda) */
+  position: relative;
+  left: 0px;
+}
+
+.granjero--boggis {
+  order: 3;
+}
+
+.granjero {
+  display: flex;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.granjero:hover {
+  transform: translateY(-8px) rotate(-1.5deg);
+}
+
+.granjero-img {
+  display: block;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 0 rgba(90, 50, 31, 0.35));
+}
+
+/* ---- TAMAÑO DE CADA CUADRO (edita solo el valor del medio/máximo) ---- */
+
+.granjero--bean .granjero-img {
+  width: clamp(300px, 24vw, 900px);
+}
+
+.granjero--bunce .granjero-img {
+  width: clamp(160px, 20vw, 450px);
+}
+
+.granjero--boggis .granjero-img {
+  width: clamp(160px, 20vw, 450px);
+}
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width: 576px) {
+  .granjeros {
+    gap: 6px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .granjero--bean .granjero-img {
+    width: 31vw;
+  }
+
+  .granjero--bunce .granjero-img {
+    width: 29vw;
+  }
+
+  .granjero--boggis .granjero-img {
+    width: 29vw;
+  }
+}

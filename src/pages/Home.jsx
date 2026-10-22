@@ -6,9 +6,41 @@ import "../stylesheets/Fuentes.css";
 import "../stylesheets/Textos.css";
 import "../stylesheets/PersonajesCarrusel.css";
 import "../stylesheets/LibroPersonajes.css";
+import "../stylesheets/Capitulos.css";
+import "../stylesheets/Granjeros.css";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  /* ================= CAPÍTULOS ================= */
+
+  /*
+    El título y la descripción del fondo son FIJOS (no cambian al
+    cambiar de capítulo). El selector solo cambia la tarjeta.
+    Para meter las imágenes de cada tarjeta llena "imagen"
+    (ej: "/cap1.png"). Vacío = recuadro de marcador.
+  */
+
+  const tituloCapitulos = "El SuperZorro";
+
+  const descripcionCapitulos =
+    "Descripción de la historia: aquí va el texto que acompaña el fondo animado de la sección.";
+
+  const capitulos = [
+    { numero: 1, imagen: "" },
+    { numero: 2, imagen: "" },
+    { numero: 3, imagen: "" },
+    { numero: 4, imagen: "" },
+    { numero: 5, imagen: "" },
+  ];
+
+  const [capActual, setCapActual] = useState(0);
+
+  const capAnterior = () =>
+    setCapActual((i) => (i - 1 + capitulos.length) % capitulos.length);
+
+  const capSiguiente = () =>
+    setCapActual((i) => (i + 1) % capitulos.length);
 
   /* ================= PERSONAJES ================= */
 
@@ -70,6 +102,24 @@ const Home = () => {
       imagen: "/char.png",
     },
   ];
+
+  /* ===== SLIDES: PERSONAJES / GRANJEROS ===== */
+
+  /*
+    0 = carrusel de personajes, 1 = granjeros.
+    Bean va arriba; Bunce y Boggis abajo.
+    Cambia las rutas de "imagen" por las de tus archivos.
+  */
+
+  const granjeros = {
+    bean: { nombre: "Bean", imagen: "/cuadrobean.png" },
+    abajo: [
+      { nombre: "Bunce", imagen: "/cuadrobunce.png" },
+      { nombre: "Boggis", imagen: "/cuadroboggis.png" },
+    ],
+  };
+
+  const [vistaPersonajes, setVistaPersonajes] = useState(0);
 
   /* ===== VENTANA DEL PERSONAJE ===== */
 
@@ -229,9 +279,7 @@ const Home = () => {
               <p className="proyecto-descripcion">
                 Inlec es una plataforma digital que transforma la lectura
                 en una experiencia interactiva, creativa y emocionante.
-                Aquí no se trata de leer por obligación, sino de conectar
-                con historias que realmente disfrutas. Con animaciones y
-                actividades dinámicas, queremos que descubras el placer
+                Con animaciones y actividades dinámicas, queremos que descubras el gusto
                 de leer a tu manera.
               </p>
 
@@ -330,127 +378,108 @@ const Home = () => {
       </div>
 
 
-      {/* ================= PRESENTACION ================= */}
+      {/* ================= CAPÍTULOS ================= */}
 
       <section
         id="animacion"
-        className="superzorro-section mt-5"
+        className="capitulos-section mt-5"
       >
 
-        <div className="superzorro-frame">
+        <div className="capitulos-frame">
+
+          {/* FONDO GENERAL (aquí va la animación: cambia la imagen por un <video>) */}
 
           <img
-            className="superzorro-img"
+            className="capitulos-fondo"
             src="./capi.jpg"
             alt=""
           />
 
-          <div className="superzorro-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center px-2">
+          <div className="capitulos-overlay">
 
-            <h1 className="superzorro-titulo text-center">
-              El SuperZorro
-            </h1>
+            {/* TÍTULO + DESCRIPCIÓN (fijos) */}
 
-            <div className="fondo-capitulos w-100 px-3 py-3">
+            <div className="capitulos-texto">
 
-              <div className="text-center">
+              <h1 className="capitulos-titulo">
+                {tituloCapitulos}
+              </h1>
 
-                <a
-                  href="#personajes"
-                  className="rounded-4 superzorro-btn px-3 py-2"
-                >
-                  Empezar Historia
-                </a>
-
-              </div>
-
-              <p className="s-cap mt-3 text-center">
-                Selecciona un capitulo:
+              <p className="capitulos-descripcion">
+                {descripcionCapitulos}
               </p>
 
-              <div className="container-fluid">
+            </div>
 
-                <div className="row justify-content-center g-2 mt-1">
+            {/* SELECTOR DE CAPÍTULO */}
 
-                  {[1, 2, 3, 4, 5].map((num) => (
+            <div className="capitulos-selector">
 
-                    <div
-                      key={num}
-                      className="col-4 col-sm-2 text-center"
-                    >
+              <div className="capitulos-selector-fila">
 
-                      <button
-                        type="button"
-                        className="btn-numero w-100"
-                      >
-                        {num}
-                      </button>
+                <button
+                  type="button"
+                  className="capitulos-flecha"
+                  onClick={capAnterior}
+                  aria-label="Capítulo anterior"
+                >
+                  ‹
+                </button>
 
+                <button
+                  type="button"
+                  key={capActual}
+                  className="capitulo-tarjeta capitulo-anim"
+                  onClick={() =>
+                    navigate(`/capitulos/${capitulos[capActual].numero}`)
+                  }
+                  aria-label={`Ir al capítulo ${capitulos[capActual].numero}`}
+                >
+
+                  {capitulos[capActual].imagen ? (
+                    <img
+                      src={capitulos[capActual].imagen}
+                      alt={`Capítulo ${capitulos[capActual].numero}`}
+                    />
+                  ) : (
+                    <div className="capitulo-tarjeta-vacia">
+                      Imagen del capítulo {capitulos[capActual].numero}
                     </div>
+                  )}
 
-                  ))}
+                  <span className="capitulo-tarjeta-etiqueta">
+                    CAPÍTULO {capitulos[capActual].numero}
+                  </span>
 
-                </div>
+                </button>
+
+                <button
+                  type="button"
+                  className="capitulos-flecha"
+                  onClick={capSiguiente}
+                  aria-label="Capítulo siguiente"
+                >
+                  ›
+                </button>
 
               </div>
 
-            </div>
+              <div className="capitulos-puntos">
 
-          </div>
+                {capitulos.map((c, i) => (
+                  <button
+                    key={c.numero}
+                    type="button"
+                    className={
+                      "capitulos-punto" +
+                      (i === capActual ? " capitulos-punto--activo" : "")
+                    }
+                    onClick={() => setCapActual(i)}
+                    aria-label={`Capítulo ${c.numero}`}
+                  />
+                ))}
 
-          <div className="d-flex justify-content-between align-items-center px-3 pb-2 position-absolute bottom-0 start-0 w-100">
-
-            <div
-              className="btn-group botones rounded-4"
-              role="group"
-            >
-
-              <button type="button" className="btn">
-
-                <img
-                  src="./T.png"
-                  alt=""
-                  height="35px"
-                />
-
-              </button>
-
-              <button type="button" className="btn">
-
-                <img
-                  src="./Volumen.png"
-                  alt=""
-                  height="35px"
-                />
-
-              </button>
-
-              <button type="button" className="btn">
-
-                <img
-                  src="./Pausa.png"
-                  alt=""
-                  height="35px"
-                />
-
-              </button>
-
-            </div>
-
-            <div
-              className="btn-group botones rounded-4"
-              role="group"
-            >
-
-              <button type="button" className="btn">
-
-                <img
-                  src="./Full.png"
-                  alt=""
-                  height="35px"
-                />
-
-              </button>
+              </div>
 
             </div>
 
@@ -557,58 +586,155 @@ const Home = () => {
 
         {/* TÍTULO */}
         <div className="personajes-header">
-          <h2 className="per-texto">Personajes</h2>
+          <h2 className="per-texto">
+            {vistaPersonajes === 0 ? "Personajes" : "Los Granjeros"}
+          </h2>
         </div>
 
-        {/* CARRUSEL: botones + contenedor de personajes */}
-        <div className="personajes-carrusel">
+        {/* SLIDES: personajes -> granjeros */}
+        <div className="personajes-slides">
 
-          <button
-            type="button"
-            className="personajes-flecha personajes-flecha--izq"
-            onClick={() => moverPersonajes(-1)}
-            disabled={!puedeAnterior}
-            aria-label="Personaje anterior"
+          <div
+            className="personajes-pista-slides"
+            style={{ transform: `translateX(-${vistaPersonajes * 100}%)` }}
           >
-            ‹
-          </button>
 
-          {/* CONTENEDOR DE PERSONAJES */}
-          <div className="personajes-container" ref={pistaRef}>
+            {/* ---------- SLIDE 1: PERSONAJES ---------- */}
 
-            {personajes.map((p) => (
-              <div
-                key={p.nombre}
-                className="personaje"
-                role="button"
-                tabIndex={0}
-                onClick={() => setSeleccionado(p)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSeleccionado(p);
-                  }
-                }}
-              >
-                <img
-                  src={p.imagen}
-                  alt={p.nombre}
-                  className="personaje-img"
-                />
+            <div
+              className={
+                "personajes-slide" +
+                (vistaPersonajes !== 0 ? " personajes-slide--oculta" : "")
+              }
+              aria-hidden={vistaPersonajes !== 0}
+            >
+
+              {/* CARRUSEL: botones + contenedor de personajes */}
+              <div className="personajes-carrusel">
+
+                <button
+                  type="button"
+                  className="personajes-flecha personajes-flecha--izq"
+                  onClick={() => moverPersonajes(-1)}
+                  disabled={!puedeAnterior}
+                  aria-label="Personaje anterior"
+                >
+                  ‹
+                </button>
+
+                {/* CONTENEDOR DE PERSONAJES */}
+                <div className="personajes-container" ref={pistaRef}>
+
+                  {personajes.map((p) => (
+                    <div
+                      key={p.nombre}
+                      className="personaje"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setSeleccionado(p)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSeleccionado(p);
+                        }
+                      }}
+                    >
+                      <img
+                        src={p.imagen}
+                        alt={p.nombre}
+                        className="personaje-img"
+                      />
+                    </div>
+                  ))}
+
+                </div>
+
+                <button
+                  type="button"
+                  className="personajes-flecha personajes-flecha--der"
+                  onClick={() => moverPersonajes(1)}
+                  disabled={!puedeSiguiente}
+                  aria-label="Personaje siguiente"
+                >
+                  ›
+                </button>
+
               </div>
-            ))}
+
+            </div>
+
+            {/* ---------- SLIDE 2: GRANJEROS ---------- */}
+
+            <div
+              className={
+                "personajes-slide" +
+                (vistaPersonajes !== 1 ? " personajes-slide--oculta" : "")
+              }
+              aria-hidden={vistaPersonajes !== 1}
+            >
+
+              <div className="granjeros">
+
+                {/* BEAN ARRIBA */}
+                <div className="granjeros-arriba">
+                  <div className="granjero granjero--bean">
+                    <img
+                      src={granjeros.bean.imagen}
+                      alt={granjeros.bean.nombre}
+                      className="granjero-img"
+                    />
+                  </div>
+                </div>
+
+                {/* BUNCE Y BOGGIS ABAJO */}
+                <div className="granjeros-abajo">
+                  {granjeros.abajo.map((g) => (
+                    <div
+                      key={g.nombre}
+                      className={`granjero granjero--${g.nombre.toLowerCase()}`}
+                    >
+                      <img
+                        src={g.imagen}
+                        alt={g.nombre}
+                        className="granjero-img"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
+        </div>
+
+        {/* SELECTOR: botón + puntos */}
+        <div className="personajes-selector">
+
           <button
             type="button"
-            className="personajes-flecha personajes-flecha--der"
-            onClick={() => moverPersonajes(1)}
-            disabled={!puedeSiguiente}
-            aria-label="Personaje siguiente"
+            className="personajes-cambiar"
+            onClick={() => setVistaPersonajes((v) => (v === 0 ? 1 : 0))}
           >
-            ›
+            {vistaPersonajes === 0 ? "Conoce a los granjeros ›" : "‹ Volver a los personajes"}
           </button>
+
+          <div className="personajes-puntos">
+            {[0, 1].map((i) => (
+              <button
+                key={i}
+                type="button"
+                className={
+                  "personajes-punto" +
+                  (i === vistaPersonajes ? " personajes-punto--activo" : "")
+                }
+                onClick={() => setVistaPersonajes(i)}
+                aria-label={i === 0 ? "Ver personajes" : "Ver granjeros"}
+              />
+            ))}
+          </div>
 
         </div>
 
@@ -733,7 +859,7 @@ const Home = () => {
 
                 {seleccionado.objetivo && (
                   <div className="personaje-modal-detalle">
-                    <span>✦</span>
+                    <span></span>
                     <div>
                       <b>Objetivo:</b> {seleccionado.objetivo}
                     </div>
@@ -742,7 +868,7 @@ const Home = () => {
 
                 {seleccionado.detalle && (
                   <div className="personaje-modal-detalle">
-                    <span>✦</span>
+                    <span></span>
                     <div>{seleccionado.detalle}</div>
                   </div>
                 )}
@@ -1268,7 +1394,7 @@ const Home = () => {
           {/* COPYRIGHT */}
           <div className="footer-copyright">
             <span>INLEC</span>
-            <span>•</span>
+            <span></span>
             <span>Un mundo de historias por descubrir</span>
           </div>
 
