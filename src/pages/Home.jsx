@@ -15,32 +15,14 @@ const Home = () => {
   /* ================= CAPÍTULOS ================= */
 
   /*
-    El título y la descripción del fondo son FIJOS (no cambian al
-    cambiar de capítulo). El selector solo cambia la tarjeta.
-    Para meter las imágenes de cada tarjeta llena "imagen"
-    (ej: "/cap1.png"). Vacío = recuadro de marcador.
+    Título y descripción fijos sobre el video de fondo.
+    El botón lleva directo a la animación (ruta /capitulos/1).
   */
 
   const tituloCapitulos = "El SuperZorro";
 
   const descripcionCapitulos =
-    "Descripción de la historia: aquí va el texto que acompaña el fondo animado de la sección.";
-
-  const capitulos = [
-    { numero: 1, imagen: "" },
-    { numero: 2, imagen: "" },
-    { numero: 3, imagen: "" },
-    { numero: 4, imagen: "" },
-    { numero: 5, imagen: "" },
-  ];
-
-  const [capActual, setCapActual] = useState(0);
-
-  const capAnterior = () =>
-    setCapActual((i) => (i - 1 + capitulos.length) % capitulos.length);
-
-  const capSiguiente = () =>
-    setCapActual((i) => (i + 1) % capitulos.length);
+    "Descubre las aventuras del superzorro y sus animaciones. Cada capítulo te sumerge en un mundo lleno de acción, ingenio y diversión, donde podras interactuar y adentrarte mas con nuestras animaciónes";
 
   /* ================= PERSONAJES ================= */
 
@@ -303,77 +285,52 @@ const Home = () => {
         {/* ================= DETRAS DE LA HISTORIA ================= */}
 
         <section
-          className="scroll-section detras-container container-fluid py-4"
-          id="sinopsis"
-        >
+  className="scroll-section historia-section container-fluid py-4"
+  id="sinopsis"
+>
 
-          <div className="row justify-content-center">
+  <div className="row justify-content-center">
 
-            <div className="col-11 col-sm-10 col-md-8 col-lg-7">
+    <div className="col-11 col-sm-10 col-md-8 col-lg-7">
 
-              <h1 className="detras-title text-center mb-4 mt-4">
-                Detras de la historia
-              </h1>
+      {/* CARTEL DE MADERA */}
 
-              <div className="detras-box rounded-5 px-3 px-md-4 py-4">
+      <div className="historia-cartel-wrap">
+        <h1 className="historia-titulo">
+          Detras de la historia
+        </h1>
+      </div>
 
-                <div className="row align-items-center g-0">
+      {/* TARJETA */}
 
-                  <div className="col-2 col-sm-1 d-flex align-items-center justify-content-center">
+      <div className="historia-caja">
 
-                    <img
-                      src="/per1.png"
-                      alt="muñeco izquierda"
-                      className="detras-img-left img-fluid"
-                    />
+       
 
-                  </div>
+        <p className="historia-texto">
+          El Superzorro es un cuento infantil publicado en 1970
+          por el escritor británico Roald Dahl. La historia sigue
+          a un astuto zorro que roba comida a tres granjeros que
+          intentaran cazarlo con desesperación.
+        </p>
 
-                  <div className="col-8 col-sm-10 px-2 px-sm-3">
+        <div className="historia-acciones">
+          <button
+            type="button"
+            className="historia-btn"
+            onClick={() => navigate("/galeria")}
+          >
+            Conoce mas
+          </button>
+        </div>
 
-                    <p className="detras-text mb-0">
-                      El Superzorro es un cuento infantil publicado en 1970
-                      por el escritor británico Roald Dahl. La historia sigue
-                      a un astuto zorro que roba comida a tres granjeros que
-                      intentaran cazarlo con desesperación.
-                    </p>
+      </div>
 
-                  </div>
+    </div>
 
-                  <div className="col-2 col-sm-1 d-flex align-items-center justify-content-center">
+  </div>
 
-                    <img
-                      src="/per2.png"
-                      alt="muñeco derecha"
-                      className="detras-img-right img-fluid"
-                    />
-
-                  </div>
-
-                </div>
-
-                <div className="row mt-2">
-
-                  <div className="col-12 d-flex justify-content-center">
-
-                    <button
-                      className="detras-btn btn px-4 px-md-5 py-2 py-md-3"
-                      onClick={() => navigate("/galeria")}
-                    >
-                      Conoce mas
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
+</section>
 
       </div>
 
@@ -387,12 +344,18 @@ const Home = () => {
 
         <div className="capitulos-frame">
 
-          {/* FONDO GENERAL (aquí va la animación: cambia la imagen por un <video>) */}
+          {/* FONDO GENERAL (video) */}
 
-          <img
+          <video
             className="capitulos-fondo"
-            src="./capi.jpg"
-            alt=""
+            src="/Disparo.mp4"
+            poster="/capi.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
           />
 
           <div className="capitulos-overlay">
@@ -411,75 +374,20 @@ const Home = () => {
 
             </div>
 
-            {/* SELECTOR DE CAPÍTULO */}
+            {/* BOTÓN A LA ANIMACIÓN */}
 
-            <div className="capitulos-selector">
+            <div className="capitulos-accion">
 
-              <div className="capitulos-selector-fila">
-
-                <button
-                  type="button"
-                  className="capitulos-flecha"
-                  onClick={capAnterior}
-                  aria-label="Capítulo anterior"
-                >
-                  ‹
-                </button>
-
-                <button
-                  type="button"
-                  key={capActual}
-                  className="capitulo-tarjeta capitulo-anim"
-                  onClick={() =>
-                    navigate(`/capitulos/${capitulos[capActual].numero}`)
-                  }
-                  aria-label={`Ir al capítulo ${capitulos[capActual].numero}`}
-                >
-
-                  {capitulos[capActual].imagen ? (
-                    <img
-                      src={capitulos[capActual].imagen}
-                      alt={`Capítulo ${capitulos[capActual].numero}`}
-                    />
-                  ) : (
-                    <div className="capitulo-tarjeta-vacia">
-                      Imagen del capítulo {capitulos[capActual].numero}
-                    </div>
-                  )}
-
-                  <span className="capitulo-tarjeta-etiqueta">
-                    CAPÍTULO {capitulos[capActual].numero}
-                  </span>
-
-                </button>
-
-                <button
-                  type="button"
-                  className="capitulos-flecha"
-                  onClick={capSiguiente}
-                  aria-label="Capítulo siguiente"
-                >
-                  ›
-                </button>
-
-              </div>
-
-              <div className="capitulos-puntos">
-
-                {capitulos.map((c, i) => (
-                  <button
-                    key={c.numero}
-                    type="button"
-                    className={
-                      "capitulos-punto" +
-                      (i === capActual ? " capitulos-punto--activo" : "")
-                    }
-                    onClick={() => setCapActual(i)}
-                    aria-label={`Capítulo ${c.numero}`}
-                  />
-                ))}
-
-              </div>
+              <button
+                type="button"
+                className="capitulos-boton"
+                onClick={() => navigate("/capitulos/1")}
+                aria-label="Ver la animación"
+              >
+                <span className="capitulos-boton-icono" aria-hidden="true">▶</span>
+                <span className="capitulos-boton-texto">Ver la animación</span>
+                <span className="capitulos-boton-flecha" aria-hidden="true"></span>
+              </button>
 
             </div>
 
@@ -1284,7 +1192,7 @@ const Home = () => {
                     className="footer-link"
                     onClick={() =>
                       document
-                        .getElementById("resenas")
+                        .getElementById("autor")
                         ?.scrollIntoView({
                           behavior: "smooth",
                         })
