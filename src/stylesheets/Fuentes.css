@@ -8,6 +8,12 @@
   src: url('../assets/abalon.otf');
 }
 
+@font-face {
+  font-family: 'redonda';
+  src: url('../assets/redonda.ttf');
+}
+
+
 body {
   font-family: 'School';
 }
@@ -137,24 +143,6 @@ body {
   animation-duration: 0.7s, 2.6s;
 }
 
-.manzana-1 {
-  width: 80px;
-  top: -38px;
-  right: 8%;
-  rotate: 12deg;
-  animation-delay: 1.05s, 2.2s;
-  animation-duration: 0.7s, 3.2s;
-}
-
-.manzana-2 {
-  width: 62px;
-  bottom: -30px;
-  left: 18%;
-  rotate: -14deg;
-  animation-delay: 1.2s, 1.9s;
-  animation-duration: 0.7s, 2.8s;
-}
-
 /* ========== IMAGEN DEL AUTOR ========== */
 
 .autor-imagen {
@@ -197,13 +185,6 @@ body {
   animation: girar 16s linear infinite;
 }
 
-.autor-orbita-manzana {
-  width: 62px;
-  height: auto;
-  margin-top: -6px;
-  /* gira al revés para que la manzana siempre quede derecha */
-  animation: girar 16s linear infinite reverse;
-}
 
 .autor-foto {
   position: relative;
@@ -1005,7 +986,7 @@ body {
 }
 
 .proyecto-titulo {
-  font-family: 'pepe', sans-serif;
+  font-family: 'abalon';
   color: #eee9e6;
   -webkit-text-stroke: 12px #934E24;
   paint-order: stroke fill;
@@ -1019,16 +1000,16 @@ body {
 
 .proyecto-descripcion {
   color: #934e24;
-  font-family: TT, sans-serif;
+  font-family: "redonda";
 
   text-align: center;
 
   line-height: 1.7;
-  font-size: 1.25rem;
+  font-size: 1.65rem;
 
   margin: 0 auto;
 
-  max-width: 800px;
+  max-width: 600px;
 }
 
 
@@ -1041,7 +1022,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
 
-  width: clamp(240px, 28vw, 480px);
+  width: clamp(500px, 28vw, 480px);
 
   height: auto;
 
@@ -1052,11 +1033,11 @@ body {
 }
 
 .fox-lateral-izq {
-  left: -70px;
+  left: -160px;
 }
 
 .fox-lateral-der {
-  right: -70px;
+  right: -160px;
 }
 
 
@@ -2805,3 +2786,5 @@ body {
   }
 
 }
+
+

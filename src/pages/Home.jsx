@@ -8,9 +8,48 @@ import "../stylesheets/PersonajesCarrusel.css";
 import "../stylesheets/LibroPersonajes.css";
 import "../stylesheets/Capitulos.css";
 import "../stylesheets/Granjeros.css";
+import "../stylesheets/ProyectoCarrusel.css";
+import "../stylesheets/MasInlec.css";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  /* ================= PROYECTO (TEXTOS ROTATIVOS) ================= */
+
+  /*
+    Los 3 textos de "Nuestro Proyecto". Cambia el contenido a tu gusto.
+    Se pasan solos cada TIEMPO_PROYECTO ms y también con los puntitos.
+  */
+
+  const textosProyecto = [
+    "Inlec es una plataforma digital que transforma la lectura en una experiencia interactiva, creativa y emocionante. Con animaciones y actividades dinámicas, queremos que descubras el gusto de leer a tu manera.",
+    "Combinamos tecnología, interactividad y animación para que cada lector explore las historias de una forma más libre y diversa, con total control sobre lo que ve, hace y descubre.",
+    "Nuestro propósito es que la lectura deje de sentirse como una carga y se convierta en algo opcional, libre y divertido: del libro al mundo digital.",
+  ];
+
+  const TIEMPO_PROYECTO = 5000;
+
+  /* Tamaño de los puntitos en píxeles (se aplica directo en el JSX,
+     así ningún CSS externo lo puede pisar). Cámbialo y guarda. */
+  const TAMANO_PUNTO = 10;
+
+  /* Colores de los puntitos (café para que se vean sobre el fondo beige) */
+  const COLOR_PUNTO = "rgba(139, 69, 19, 0.35)";
+  const COLOR_PUNTO_ACTIVO = "#8b4513";
+
+  const [textoProyecto, setTextoProyecto] = useState(0);
+
+  /*
+    Avanza solo. Como depende de "textoProyecto", cuando el usuario
+    hace clic en un punto el temporizador se reinicia.
+  */
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setTextoProyecto((prev) => (prev + 1) % textosProyecto.length);
+    }, TIEMPO_PROYECTO);
+
+    return () => clearTimeout(id);
+  }, [textoProyecto, textosProyecto.length]);
 
   /* ================= CAPÍTULOS ================= */
 
@@ -258,12 +297,60 @@ const Home = () => {
                 Nuestro Proyecto
               </h1>
 
-              <p className="proyecto-descripcion">
-                Inlec es una plataforma digital que transforma la lectura
-                en una experiencia interactiva, creativa y emocionante.
-                Con animaciones y actividades dinámicas, queremos que descubras el gusto
-                de leer a tu manera.
-              </p>
+              {/* TEXTOS ROTATIVOS + PUNTOS */}
+
+              <div className="proyecto-carrusel">
+
+                <p
+                  key={textoProyecto}
+                  className="proyecto-descripcion proyecto-fade"
+                  aria-live="polite"
+                >
+                  {textosProyecto[textoProyecto]}
+                </p>
+
+                <div
+                  className="proyecto-dots"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: TAMANO_PUNTO / 2,
+                  }}
+                >
+                  {textosProyecto.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      className={
+                        "proyecto-dot" +
+                        (i === textoProyecto ? " activo" : "")
+                      }
+                      style={{
+                        width: TAMANO_PUNTO,
+                        height: TAMANO_PUNTO,
+                        minWidth: TAMANO_PUNTO,
+                        minHeight: TAMANO_PUNTO,
+                        flex: `0 0 ${TAMANO_PUNTO}px`,
+                        borderRadius: "50%",
+                        border: "none",
+                        padding: 0,
+                        cursor: "pointer",
+                        background:
+                          i === textoProyecto
+                            ? COLOR_PUNTO_ACTIVO
+                            : COLOR_PUNTO,
+                        transform:
+                          i === textoProyecto ? "scale(1.15)" : "scale(1)",
+                        transition: "background 0.3s ease, transform 0.3s ease",
+                      }}
+                      onClick={() => setTextoProyecto(i)}
+                      aria-label={`Ver texto ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+              </div>
 
             </div>
 
@@ -285,52 +372,52 @@ const Home = () => {
         {/* ================= DETRAS DE LA HISTORIA ================= */}
 
         <section
-  className="scroll-section historia-section container-fluid py-4"
-  id="sinopsis"
->
+          className="scroll-section historia-section container-fluid py-4"
+          id="sinopsis"
+        >
 
-  <div className="row justify-content-center">
+          <div className="row justify-content-center">
 
-    <div className="col-11 col-sm-10 col-md-8 col-lg-7">
+            <div className="col-11 col-sm-10 col-md-8 col-lg-7">
 
-      {/* CARTEL DE MADERA */}
+              {/* CARTEL DE MADERA */}
 
-      <div className="historia-cartel-wrap">
-        <h1 className="historia-titulo">
-          Detras de la historia
-        </h1>
-      </div>
+              <div className="historia-cartel-wrap">
+                <h1 className="historia-titulo">
+                  Detras de la historia
+                </h1>
+              </div>
 
-      {/* TARJETA */}
+              {/* TARJETA */}
 
-      <div className="historia-caja">
+              <div className="historia-caja">
 
-       
 
-        <p className="historia-texto">
-          El Superzorro es un cuento infantil publicado en 1970
-          por el escritor británico Roald Dahl. La historia sigue
-          a un astuto zorro que roba comida a tres granjeros que
-          intentaran cazarlo con desesperación.
-        </p>
 
-        <div className="historia-acciones">
-          <button
-            type="button"
-            className="historia-btn"
-            onClick={() => navigate("/galeria")}
-          >
-            Conoce mas
-          </button>
-        </div>
+                <p className="historia-texto">
+                  El Superzorro es un cuento infantil publicado en 1970
+                  por el escritor británico Roald Dahl. La historia sigue
+                  a un astuto zorro que roba comida a tres granjeros que
+                  intentaran cazarlo con desesperación.
+                </p>
 
-      </div>
+                <div className="historia-acciones">
+                  <button
+                    type="button"
+                    className="historia-btn"
+                    onClick={() => navigate("/galeria")}
+                  >
+                    Conoce mas
+                  </button>
+                </div>
 
-    </div>
+              </div>
 
-  </div>
+            </div>
 
-</section>
+          </div>
+
+        </section>
 
       </div>
 
@@ -400,86 +487,100 @@ const Home = () => {
 
       {/* ================= MAS SOBRE INLEC ================= */}
 
-      <section
-        id="inlec"
-        className="masinlec-section mt-5"
-      >
+      <section id="inlec" className="mi-section">
 
-        <h1 className="personajes-titulo text-center">
-          Mas sobre Inlec
-        </h1>
+        {/* Círculos decorativos de fondo */}
+        <span className="mi-circulo mi-circulo--1" aria-hidden="true" />
+        <span className="mi-circulo mi-circulo--2" aria-hidden="true" />
 
-        <div className="container">
+        <div className="mi-contenedor">
 
-          <div className="row align-items-center g-4 py-4">
+          {/* CARTEL DE MADERA */}
 
-            <div className="col-12 col-md-5 text-center">
+          <div className="mi-cartel-wrap">
+            <h2 className="mi-titulo">Más sobre Inlec</h2>
+          </div>
 
-              <img
-                className="img-fluid rounded-3"
-                src="./per2.png"
-                alt=""
-                style={{ maxHeight: "300px" }}
-              />
+          {/* TARJETA */}
 
-            </div>
+          <div className="mi-card">
 
-            <div className="col-12 col-md-7">
+            <div className="mi-card-grid">
 
-              <p className="masinlec-descripcion">
-                Transformar la lectura en una experiencia innovadora es
-                el objetivo principal de Inlec, la tecnología se combina
-                con la interactividad y las animaciones para invitarte a
-                explorar de una manera más libre y diversa. Nuestro
-                objetivo es crear un espacio digital en el que cada
-                usuario se sienta cómodo y con total control sobre lo que
-                ve, hace y desea descubrir que la lectura deje de sentirse
-                como una carga y ahora se transforme en algo opcional algo
-                libre.
-              </p>
+              {/* JUNIOR ANIMADO (capas: cuerpo, cabeza, orejas, cola, manos) */}
+
+              <div className="mi-card-junior">
+
+                <div
+                  className="mi-junior"
+                  role="img"
+                  aria-label="Junior, el zorro de Inlec"
+                >
+                  <span className="mi-junior-halo" aria-hidden="true" />
+
+                  <div className="mi-junior-figura">
+
+                    <img className="mi-capa mi-cola" src="/junior-tail.png" alt="" draggable="false" />
+                    <img className="mi-capa" src="/junior-cuerpo.png" alt="" draggable="false" />
+                    <img className="mi-capa mi-mano mi-mano--izq" src="/junior-handL.png" alt="" draggable="false" />
+                    <img className="mi-capa mi-mano mi-mano--der" src="/junior-handR.png" alt="" draggable="false" />
+
+                    {/* La cabeza lleva las orejas dentro */}
+                    <div className="mi-capa mi-cabeza">
+                      <img className="mi-capa mi-oreja mi-oreja--izq" src="/junior-earL.png" alt="" draggable="false" />
+                      <img className="mi-capa mi-oreja mi-oreja--der" src="/junior-earR.png" alt="" draggable="false" />
+                      <img className="mi-capa" src="/junior-cabeza.png" alt="" draggable="false" />
+                    </div>
+
+                  </div>
+
+                  <span className="mi-junior-sombra" aria-hidden="true" />
+                </div>
+
+              </div>
+
+              {/* TEXTO */}
+
+              <div className="mi-card-texto">
+
+                <p className="mi-descripcion">
+                  Transformar la lectura en una experiencia innovadora es el
+                  objetivo principal de Inlec. La tecnología se combina con la
+                  interactividad y las animaciones para invitarte a explorar de
+                  una manera más libre y diversa.
+                </p>
+
+                <p className="mi-descripcion">
+                  Queremos crear un espacio digital donde cada usuario se sienta
+                  cómodo y con total control sobre lo que ve, hace y desea
+                  descubrir, para que la lectura deje de sentirse como una carga
+                  y se vuelva algo opcional, algo libre.
+                </p>
+
+              </div>
 
             </div>
 
           </div>
 
-        </div>
+          {/* BOTONES */}
 
-        <div className="container">
+          <div className="mi-acciones">
 
-          <div className="row justify-content-center g-2 pb-4">
+            <a href="https://link.com" className="mi-btn">
+              Pitchbook
+            </a>
 
-            <div className="col-12 col-sm-auto">
+            <a href="https://no-encontramos-el-manual.com" className="mi-btn">
+              Manual de Marca
+            </a>
 
-              <a
-                href="https://link.com"
-                className="btn rounded-pill masinlec-btn w-100"
-              >
-                Pitchbook
-              </a>
-
-            </div>
-
-            <div className="col-12 col-sm-auto">
-
-              <a
-                href="https://no-encontramos-el-manual.com"
-                className="btn rounded-pill masinlec-btn w-100"
-              >
-                Manual de Marca
-              </a>
-
-            </div>
-
-            <div className="col-12 col-sm-auto">
-
-              <a
-                href="https://drive.google.com/file/d/1e5cmCOQF_4gsQkQozgmIcsRdFBAx2dAW/view?usp=sharing"
-                className="btn rounded-pill masinlec-btn w-100"
-              >
-                Moodboard
-              </a>
-
-            </div>
+            <a
+              href="https://drive.google.com/file/d/1e5cmCOQF_4gsQkQozgmIcsRdFBAx2dAW/view?usp=sharing"
+              className="mi-btn"
+            >
+              Moodboard
+            </a>
 
           </div>
 
@@ -731,32 +832,32 @@ const Home = () => {
                   seleccionado.edad ||
                   seleccionado.rol) && (
 
-                  <div className="personaje-datos">
+                    <div className="personaje-datos">
 
-                    {seleccionado.especie && (
-                      <div className="dato">
-                        <small>{textosModal.especie}</small>
-                        <strong>{seleccionado.especie}</strong>
-                      </div>
-                    )}
+                      {seleccionado.especie && (
+                        <div className="dato">
+                          <small>{textosModal.especie}</small>
+                          <strong>{seleccionado.especie}</strong>
+                        </div>
+                      )}
 
-                    {seleccionado.edad && (
-                      <div className="dato">
-                        <small>{textosModal.edad}</small>
-                        <strong>{seleccionado.edad}</strong>
-                      </div>
-                    )}
+                      {seleccionado.edad && (
+                        <div className="dato">
+                          <small>{textosModal.edad}</small>
+                          <strong>{seleccionado.edad}</strong>
+                        </div>
+                      )}
 
-                    {seleccionado.rol && (
-                      <div className="dato">
-                        <small>{textosModal.rol}</small>
-                        <strong>{seleccionado.rol}</strong>
-                      </div>
-                    )}
+                      {seleccionado.rol && (
+                        <div className="dato">
+                          <small>{textosModal.rol}</small>
+                          <strong>{seleccionado.rol}</strong>
+                        </div>
+                      )}
 
-                  </div>
+                    </div>
 
-                )}
+                  )}
 
                 {seleccionado.frase && (
                   <div className="personaje-frase">
@@ -1010,12 +1111,6 @@ const Home = () => {
           <div className="autor-contenido">
 
             <div className="autor-imagen">
-              <div className="autor-blob" aria-hidden="true" />
-              <div className="autor-anillo" aria-hidden="true" />
-
-              <div className="autor-orbita" aria-hidden="true">
-                <img src="/manzana.svg" alt="" className="autor-orbita-manzana" />
-              </div>
 
               <div className="autor-foto">
                 <img src="/autor.jpg" alt="Roald Dahl" />
