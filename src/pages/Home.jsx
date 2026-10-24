@@ -554,7 +554,7 @@ const Home = () => {
                   Queremos crear un espacio digital donde cada usuario se sienta
                   cómodo y con total control sobre lo que ve, hace y desea
                   descubrir, para que la lectura deje de sentirse como una carga
-                  y se vuelva algo opcional, algo libre.
+                  y se vuelva algo opcional, algo libre. ggg
                 </p>
 
               </div>
