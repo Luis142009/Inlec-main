@@ -1,0 +1,68 @@
+/* =========================================================
+   ESCENA 18 (componente Escena15)
+   Todo en % sobre un escenario de 1920x1080:
+     left  = x / 1920
+     top   = y / 1080
+     width = ancho_del_video / 1920
+   ========================================================= */
+
+.escena15-wrapper {
+  position: relative;
+  width: 125%;
+  height: 100%;
+    bottom: 0px;
+  overflow: hidden;
+  
+}
+
+.escena15 {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  
+}
+
+.fondo15 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Periódico (video de 324x224 px) sobre la mesa.
+   El periódico dibujado mide ~220 px de ancho dentro del video
+   y queda en x 636 -> 856, y 895 -> 1027 del escenario.
+   Si no coincide con el del fondo, ajusta left / top. */
+.periodico15 {
+  position: absolute;
+  width: 22%;      /* 324 / 1920 */
+  height: auto;
+  left: 26.38%;        /* 564 / 1920 */
+  top: 80.06%;         /* 843 / 1080 */
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Brillo pulsante mientras se espera el click */
+.periodico15-activo {
+  animation: periodico15-brillo 1.4s ease-in-out infinite;
+}
+
+@keyframes periodico15-brillo {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(255, 240, 180, 0.4)); }
+  50%      { filter: drop-shadow(0 0 14px rgba(255, 240, 180, 1)); }
+}
+
+/* El periódico desaparece (con un fundido corto) al terminar su video */
+.periodico15 {
+  transition: opacity 0.35s ease;
+}
+
+.periodico15-oculto {
+  opacity: 0;
+  pointer-events: none;
+}

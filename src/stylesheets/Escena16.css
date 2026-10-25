@@ -1,0 +1,34 @@
+/* =========================================================
+   ESCENA 19 (componente Escena16)
+   Los dos videos son de pantalla completa (1924x1082).
+   ========================================================= */
+
+.escena16-wrapper {
+  position: relative;
+  width: 125%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.escena16 {
+  position: absolute;
+  inset: 0;
+}
+
+.fondo16,
+.caminando16 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.fondo16 {
+  z-index: 1;
+}
+
+.caminando16 {
+  z-index: 2;
+}

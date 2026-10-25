@@ -1,4 +1,3 @@
-
 import React, {
   useRef,
   forwardRef,
@@ -17,6 +16,11 @@ import huella from "../assets/svg/huella.svg";
 import tocar from "../assets/audio/tocar.mp3";
 
 import "../stylesheets/Escena9.css";
+
+
+// Pasar a la siguiente escena cuando termine el último movimiento de cámara
+const AVANZAR_AL_TERMINAR = true;
+const ESCENA_SIGUIENTE = 13;
 
 
 export const Escena9 = forwardRef(
@@ -45,6 +49,10 @@ export const Escena9 = forwardRef(
     const lapizRef = useRef(null);
 
     const huellasRef = useRef(null);
+
+    // Siempre apunta a la versión más reciente de cambiarEscena
+    const cambiarEscenaRef = useRef(cambiarEscena);
+    cambiarEscenaRef.current = cambiarEscena;
 
 
     // =========================================================
@@ -623,7 +631,7 @@ export const Escena9 = forwardRef(
 
 
       // =======================================================
-      // 6. VOLVER
+      // 6. VOLVER (ÚLTIMO MOVIMIENTO)
       // =======================================================
 
       tl.to(escena, {
@@ -640,12 +648,23 @@ export const Escena9 = forwardRef(
 
 
       // =======================================================
-      // FINAL
+      // FINAL: PASAR A LA SIGUIENTE ESCENA
+      // Está colgado de la timeline, así que si se pausa
+      // la escena, no avanza hasta que se reanude.
       // =======================================================
 
       tl.call(() => {
 
-        // Final de la animación
+        if (
+          AVANZAR_AL_TERMINAR &&
+          cambiarEscenaRef.current
+        ) {
+
+          cambiarEscenaRef.current(
+            ESCENA_SIGUIENTE
+          );
+
+        }
 
       });
 
@@ -864,4 +883,3 @@ export const Escena9 = forwardRef(
 
   }
 );
-

@@ -1,4 +1,3 @@
-
 import React, {
   useState,
   useRef,
@@ -14,6 +13,11 @@ import luz from "../assets/luz.webm";
 import fondo10 from "../assets/cocina10.webm";
 
 import "../stylesheets/Escena10.css";
+
+
+// Pasar a la siguiente escena cuando termine la animación del Sr. Fox
+const AVANZAR_AL_TERMINAR = true;
+const ESCENA_SIGUIENTE = 14;
 
 
 export const Escena10 = forwardRef(
@@ -301,6 +305,7 @@ export const Escena10 = forwardRef(
 
     // =========================================================
     // CUANDO TERMINA FOX
+    // (la animación del Sr. Fox marca el final de la escena)
     // =========================================================
 
     const terminarFox = () => {
@@ -316,6 +321,15 @@ export const Escena10 = forwardRef(
         } catch {}
 
       });
+
+
+      // PASAR A LA SIGUIENTE ESCENA
+
+      if (AVANZAR_AL_TERMINAR && cambiarEscena) {
+
+        cambiarEscena(ESCENA_SIGUIENTE);
+
+      }
 
     };
 
@@ -536,5 +550,3 @@ export const Escena10 = forwardRef(
 
   }
 );
-
-

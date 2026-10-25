@@ -1,65 +1,87 @@
-import React, { 
-  useState, 
-  useRef, 
-  useEffect 
-} from "react"; 
+import React, {
+  useState,
+  useRef,
+  useEffect
+} from "react";
 
-import { LuisPlugin } from "../components/LuisPlugin"; 
-import { Parte2dela1 } from "../components/Parte2dela1"; 
-import { Parte3dela1 } from "../components/Parte3dela1"; 
-import { Escena2alfa } from "../components/Escena2alfa"; 
-import { Escena2beta } from "../components/Escena2beta"; 
-import { Escena3 } from "../components/Escena3"; 
-import { Escena4 } from "../components/Escena4"; 
-import { Escena5 } from "../components/Escena5"; 
-import { Escena6 } from "../components/Escena6"; 
-import { Escena7 } from "../components/Escena7"; 
-import { Escena8 } from "../components/Escena8"; 
-import { Escena9 } from "../components/Escena9"; 
-import { Escena10 } from "../components/Escena10"; 
+import { LuisPlugin } from "../components/LuisPlugin";
+import { Parte2dela1 } from "../components/Parte2dela1";
+import { Parte3dela1 } from "../components/Parte3dela1";
+import { Escena2alfa } from "../components/Escena2alfa";
+import { Escena2beta } from "../components/Escena2beta";
+import { Escena3 } from "../components/Escena3";
+import { Escena4 } from "../components/Escena4";
+import { Escena5 } from "../components/Escena5";
+import { Escena6 } from "../components/Escena6";
+import { Escena7 } from "../components/Escena7";
+import { Escena8 } from "../components/Escena8";
+import { Escena9 } from "../components/Escena9";
+import { Escena10 } from "../components/Escena10";
+import { Escena11 } from "../components/Escena11";
+import { Escena12 } from "../components/Escena12";
+import { Escena13 } from "../components/Escena13";
+import { Escena15 } from "../components/Escena15";
+import { Escena16 } from "../components/Escena16";
+import { Escena17 } from "../components/Escena17";
 
-import LibroPersonajes from "../components/LibroPersonajes"; 
-import { PortadaCapitulo } from "../components/PortadaCapitulo"; 
+import LibroPersonajes from "../components/LibroPersonajes";
+import { PortadaCapitulo } from "../components/PortadaCapitulo";
 
-import "../stylesheets/Textos.css"; 
-import "../stylesheets/ObjetosModal.css"; 
-import "../stylesheets/noticia-objetos.css"; 
+import "../stylesheets/Textos.css";
+import "../stylesheets/ObjetosModal.css";
+import "../stylesheets/noticia-objetos.css";
 
-import { 
-  motion, 
-  AnimatePresence 
-} from "motion/react"; 
+import {
+  motion,
+  AnimatePresence
+} from "motion/react";
 
-import song1 from "../assets/audio/song1.mp3"; 
-import gallina from "../assets/audio/gallina.mp3"; 
-import grillos from "../assets/audio/grillos.mp3"; 
-import escena1 from "../assets/audio/escena1.mp3"; 
-import escena1sra from "../assets/audio/escena1sra.mp3"; 
-import ash from "../assets/audio/escena2ash.mp3"; 
-import kristo from "../assets/audio/escena2kristo.mp3"; 
-import wawas from "../assets/audio/wawas.mp3"; 
-import es3 from "../assets/audio/escena3.mp3"; 
-import sonido3 from "../assets/audio/sonido3.mp3"; 
-import audio4s from "../assets/audio/audio4s.mp3"; 
-import audio6 from "../assets/audio/audio6.mp3"; 
-import robo from "../assets/audio/robo.mp3"; 
-import Escenas7 from "../assets/audio/Escenas7.mp3"; 
-import audio7 from "../assets/audio/audio7.mp3"; 
-import fondo8 from "../assets/audio/fondo8.mp3"; 
-import audio8 from "../assets/audio/audio8.mp3"; 
-import audio9 from "../assets/audio/audio9.mp3"; 
+import song1 from "../assets/audio/song1.mp3";
+import gallina from "../assets/audio/gallina.mp3";
+import grillos from "../assets/audio/grillos.mp3";
+import escena1 from "../assets/audio/escena1.mp3";
+import escena1sra from "../assets/audio/escena1sra.mp3";
+import ash from "../assets/audio/escena2ash.mp3";
+import kristo from "../assets/audio/escena2kristo.mp3";
+import wawas from "../assets/audio/wawas.mp3";
+import es3 from "../assets/audio/escena3.mp3";
+import sonido3 from "../assets/audio/sonido3.mp3";
+import audio4s from "../assets/audio/audio4s.mp3";
+import audio6 from "../assets/audio/audio6.mp3";
+import robo from "../assets/audio/robo.mp3";
+import Escenas7 from "../assets/audio/Escenas7.mp3";
+import audio7 from "../assets/audio/audio7.mp3";
+import fondo8 from "../assets/audio/fondo8.mp3";
+import audio8 from "../assets/audio/audio8.mp3";
+import audio9 from "../assets/audio/audio9.mp3";
+import audio11 from "../assets/audio/audio11.mp3";
+import musica12 from "../assets/audio/musica12.mp3";
+import musica13 from "../assets/audio/musica13.mp3";
+import musica10 from "../assets/audio/musica10.mp3";
+import musica8   from "../assets/audio/musica8.mp3";
+import musica16 from "../assets/audio/musica16.MP3";
+import musica18   from "../assets/audio/musica18.mp3";
+import musica17 from "../assets/audio/musica17.mp3";
 
-import pintura from "../assets/svg/pintura.svg"; 
-import manzana from "../assets/manzana.svg"; 
-import huella from "../assets/svg/huella.svg"; 
-import tomate from "../assets/svg/tomate.svg"; 
+import pintura from "../assets/svg/pintura.svg";
+import manzana from "../assets/manzana.svg";
+import huella from "../assets/svg/huella.svg";
+import tomate from "../assets/svg/tomate.svg";
+import bellota from "../assets/svg/Bellota.svg";
 
 
 // =========================================================
 // TOTAL DE ESCENAS
 // =========================================================
 
-const TOTAL_ESCENAS = 24;
+const TOTAL_ESCENAS = 23;
+
+
+// =========================================================
+// CLAVE PARA GUARDAR LA ESCENA ACTUAL (solo para desarrollo)
+// =========================================================
+
+const CLAVE_ESCENA_GUARDADA = "escenaActual";
 
 
 // =========================================================
@@ -71,12 +93,18 @@ const siluetasPorCapitulo = {
   1: [
     manzana,
     pintura,
+    bellota,
     huella
   ],
 
   2: [
     tomate
-  ]
+  ],
+
+  // Capítulo 3 y 4: todavía sin objetos
+  3: [],
+
+  4: []
 
 };
 
@@ -99,6 +127,24 @@ const capitulos = [
     numero: 2,
     titulo: "EL PLAN DE LOS GRANJEROS",
     escenaInicio: 13,
+    escenaFin: 15,
+    objetos: 4
+  },
+
+  // El capítulo 3 empieza en la escena 16
+  {
+    numero: 3,
+    titulo: "TÍTULO DEL CAPÍTULO 3",
+    escenaInicio: 16,
+    escenaFin: 19,
+    objetos: 4
+  },
+
+  // El capítulo 4 empieza en la escena 20
+  {
+    numero: 4,
+    titulo: "TÍTULO DEL CAPÍTULO 4",
+    escenaInicio: 20,
     escenaFin: 24,
     objetos: 4
   }
@@ -122,10 +168,46 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // ESCENA ACTUAL
+  // ESCENA ACTUAL (se recuerda al recargar la página)
   // =========================================================
 
-  const [escena, setEscena] = useState(1);
+  const [escena, setEscena] = useState(() => {
+
+    try {
+
+      const guardada = Number(
+        localStorage.getItem(CLAVE_ESCENA_GUARDADA)
+      );
+
+      if (
+        guardada >= 14 &&
+        guardada <= TOTAL_ESCENAS
+      ) {
+
+        return guardada;
+
+      }
+
+    } catch {}
+
+    return 1;
+
+  });
+
+
+  // Guardar la escena cada vez que cambie
+  useEffect(() => {
+
+    try {
+
+      localStorage.setItem(
+        CLAVE_ESCENA_GUARDADA,
+        String(escena)
+      );
+
+    } catch {}
+
+  }, [escena]);
 
 
   // =========================================================
@@ -366,7 +448,7 @@ const InterfazCap = () => {
     },
 
     8: {
-      musica: audio4s,
+      musica: musica8,
       grupoMusica: "escena7",
       grupoEfectos: "escena8",
       efectos: []
@@ -416,6 +498,79 @@ const InterfazCap = () => {
       musica: audio9,
       grupoMusica: "escena12",
       grupoEfectos: "escena12",
+
+      efectos: []
+    },
+
+    13: {
+      musica: musica10,
+      grupoMusica: "escena12",
+      grupoEfectos: "escena12",
+
+      efectos: []
+    },
+
+    // ESCENA 14: sin música y sin efectos automáticos.
+    // El único audio suena al hacer click en los personajes
+    // (ver audiosPersonajes14 y reproducirAudioPersonaje)
+    14: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena14",
+
+      efectos: []
+    },
+
+    // ESCENA 15 (componente Escena12): sin música y sin efectos automáticos.
+    // El único audio (musica12) suena al hacer click en un granjero
+    // (ver audiosPersonajes15 y reproducirAudioPersonaje)
+    15: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena15",
+
+      efectos: []
+    },
+
+    // ESCENA 16 (componente Escena13): sin música y sin efectos por ahora.
+    // Cuando tengas audio, ponlo en audiosPersonajes16
+    16: {
+      musica: musica13,
+      grupoMusica: "escena16",
+      grupoEfectos: "escena16",
+
+      efectos: []
+    },
+
+    // ESCENA 17: la pones tú después (mientras tanto usa el audio fallback)
+
+    // ESCENA 18 (componente Escena15): sin música y sin efectos por ahora.
+    // Cuando tengas audio, ponlo en audiosPersonajes18 o aquí
+    18: {
+      musica: musica18,
+      grupoMusica: "escena18",
+      grupoEfectos: "escena18",
+
+      efectos: []
+    },
+
+    // ESCENA 19 (componente Escena16): la música suena de fondo y la
+    // animación avanza con las teclas D / flecha derecha
+    19: {
+      musica: musica16,
+      grupoMusica: "escena19",
+      grupoEfectos: "escena19",
+
+      efectos: []
+    },
+
+    // ESCENA 20 (componente Escena17): sin música automática.
+    // La canción suena al hacer click en el sol
+    // (ver audiosPersonajes20 y reproducirAudioPersonaje)
+    20: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena20",
 
       efectos: []
     }
@@ -1055,6 +1210,22 @@ const InterfazCap = () => {
       }
 
 
+      // Escenas sin música (musica: null):
+      // se detiene la que estuviera sonando
+      else if (
+        musicaRef.current &&
+        !config.musica
+      ) {
+
+        musicaRef.current.pause();
+        musicaRef.current.currentTime = 0;
+
+        grupoMusicaRef.current =
+          config.grupoMusica ?? null;
+
+      }
+
+
       // =======================================================
       // EFECTOS
       // =======================================================
@@ -1105,6 +1276,200 @@ const InterfazCap = () => {
       );
 
     };
+
+
+  // =========================================================
+  // AUDIO POR CLICK EN PERSONAJE (ESCENAS 14, 15 Y 16)
+  // Cambia aquí el audio de cada personaje si luego tienes uno distinto
+  // =========================================================
+
+  const audiosPersonajes14 = {
+    boggis: { src: audio11, volumen: 3 },
+    bunce:  { src: audio11, volumen: 3 },
+    bean:   { src: audio11, volumen: 3 }
+  };
+
+
+  // Escena 15 (componente Escena12): el audio suena al hacer
+  // click en cualquiera de los granjeros
+  const audiosPersonajes15 = {
+    boggis: { src: musica12, volumen: 1 },
+    bunce:  { src: musica12, volumen: 1 },
+    bean:   { src: musica12, volumen: 1 }
+  };
+
+
+  // Escena 16 (componente Escena13): todavía sin audio.
+  // Cuando lo tengas, importa el mp3 arriba y descomenta, por ejemplo:
+  //   srFox:  { src: miAudio, volumen: 1 },
+  //   sraFox: { src: miAudio, volumen: 1 },
+  //   junior: { src: miAudio, volumen: 1 }
+  const audiosPersonajes16 = {};
+
+
+  // Escena 18 (componente Escena15): click en el periódico.
+  // Todavía sin audio. Ejemplo:
+  //   periodico: { src: miAudio, volumen: 1 }
+  const audiosPersonajes18 = {};
+
+
+  // Escena 20 (componente Escena17): al dar click en el sol
+  // suena la canción mientras se va el sol y llega la luna
+  const audiosPersonajes20 = {
+    sol: { src: musica17, volumen: 1 }
+  };
+
+
+  const reproducirAudioPersonaje =
+    async (personaje) => {
+
+      const audiosPersonajes =
+        escena === 20
+          ? audiosPersonajes20
+          : escena === 18
+          ? audiosPersonajes18
+          : escena === 16
+          ? audiosPersonajes16
+          : escena === 15
+            ? audiosPersonajes15
+            : audiosPersonajes14;
+
+      const config =
+        audiosPersonajes[personaje];
+
+      // Las escenas 14, 15 y 16 no usan efectos automáticos,
+      // así que el canal 0 está libre
+      const indice = 0;
+
+      const audio =
+        efectosRefs.current[indice];
+
+      if (!config || !audio) {
+        return;
+      }
+
+
+      // Si ya está sonando, no lo reinicia
+      if (
+        !audio.paused &&
+        !audio.ended &&
+        audio.currentTime > 0
+      ) {
+        return;
+      }
+
+
+      try {
+
+        const ctx =
+          obtenerAudioContext();
+
+        if (
+          ctx &&
+          ctx.state === "suspended"
+        ) {
+
+          await ctx.resume();
+
+        }
+
+
+        audio.pause();
+
+        audio.src =
+          config.src;
+
+        audio.loop =
+          false;
+
+        audio.currentTime =
+          0;
+
+
+        efectosVolumenBaseRef.current[indice] =
+          config.volumen;
+
+        efectosPersistentesRef.current[indice] =
+          null;
+
+
+        const gain =
+          configurarGanancia(
+            audio,
+            "efecto",
+            indice
+          );
+
+        if (gain) {
+
+          gain.gain.value =
+            config.volumen *
+            volumenEfectos;
+
+        } else {
+
+          audio.volume =
+            Math.min(
+              config.volumen *
+              volumenEfectos,
+              1
+            );
+
+        }
+
+
+        await audio.play();
+
+      } catch (error) {
+
+        console.log(
+          "⚠️ Error reproduciendo audio del personaje:",
+          error
+        );
+
+      }
+
+    };
+
+
+  // =========================================================
+  // PAUSAR / REANUDAR EL AUDIO DEL PERSONAJE (ESCENA 15)
+  // La escena se detiene en el segundo 20 esperando la escopeta;
+  // el audio se detiene con ella y sigue cuando se clica la escopeta
+  // =========================================================
+
+  const pausarAudioPersonaje = () => {
+
+    const audio =
+      efectosRefs.current[0];
+
+    if (audio) {
+
+      audio.pause();
+
+    }
+
+  };
+
+
+  const reanudarAudioPersonaje = () => {
+
+    const audio =
+      efectosRefs.current[0];
+
+    if (
+      audio &&
+      audio.currentTime > 0 &&
+      !audio.ended
+    ) {
+
+      audio
+        .play()
+        .catch(() => {});
+
+    }
+
+  };
 
 
   // =========================================================
@@ -1227,7 +1592,6 @@ const InterfazCap = () => {
       escena
     );
 
-
     setIsPlaying(true);
 
   };
@@ -1302,8 +1666,32 @@ const InterfazCap = () => {
   const escena9Ref =
     useRef(null);
 
-  // NUEVA ESCENA 13
+  // ESCENA 13
   const escena10Ref =
+    useRef(null);
+
+  // ESCENA 14
+  const escena11Ref =
+    useRef(null);
+
+  // ESCENA 15
+  const escena12Ref =
+    useRef(null);
+
+  // ESCENA 16
+  const escena13Ref =
+    useRef(null);
+
+  // ESCENA 18
+  const escena15Ref =
+    useRef(null);
+
+  // ESCENA 19
+  const escena16Ref =
+    useRef(null);
+
+  // ESCENA 20
+  const escena17Ref =
     useRef(null);
 
 
@@ -1316,7 +1704,9 @@ const InterfazCap = () => {
     setObjetosPorCapitulo
   ] = useState({
     1: [null, null, null, null],
-    2: [null, null, null, null]
+    2: [null, null, null, null],
+    3: [null, null, null, null],
+    4: [null, null, null, null]
   });
 
 
@@ -1378,6 +1768,21 @@ const InterfazCap = () => {
 
       detalle:
         "Objeto encontrado al lado de la señora Fox"
+
+    },
+
+
+    bellota: {
+
+      nombre: "Bellota",
+
+      descripcion:
+        "Una bellota caída del gran árbol. Es pequeña, pero parece esconder algo más que una simple semilla.",
+
+      imagen: bellota,
+
+      detalle:
+        "Objeto encontrado cerca del gran árbol"
 
     },
 
@@ -1671,6 +2076,30 @@ const InterfazCap = () => {
         case 13:
           return escena10Ref;
 
+        // ESCENA 14
+        case 14:
+          return escena11Ref;
+
+        // ESCENA 15
+        case 15:
+          return escena12Ref;
+
+        // ESCENA 16
+        case 16:
+          return escena13Ref;
+
+        // ESCENA 18
+        case 18:
+          return escena15Ref;
+
+        // ESCENA 19
+        case 19:
+          return escena16Ref;
+
+        // ESCENA 20
+        case 20:
+          return escena17Ref;
+
         default:
           return null;
 
@@ -1763,7 +2192,18 @@ const InterfazCap = () => {
         }
 
 
-        if (musicaRef.current) {
+        const configActual =
+          obtenerAudioEscena(
+            escena
+          );
+
+
+        // La música solo se reanuda si esta escena tiene música
+        // (en las escenas 14, 15 y 16 no, para que no suene la anterior)
+        if (
+          musicaRef.current &&
+          configActual.musica
+        ) {
 
           musicaRef.current
             .play()
@@ -1772,10 +2212,30 @@ const InterfazCap = () => {
         }
 
 
+        // Solo se reanudan los efectos que pertenecen a esta escena
+        // (o los persistentes), no los que quedaron de escenas anteriores
         efectosRefs.current.forEach(
-          audio => {
+          (audio, i) => {
 
-            if (audio) {
+            if (!audio) {
+              return;
+            }
+
+            // Audio de un personaje (escenas 14, 15 y 16) que quedó a medias
+            const audioPersonajeEnCurso =
+              (escena === 14 || escena === 15 || escena === 16 || escena === 18 || escena === 20) &&
+              i === 0 &&
+              audio.currentTime > 0;
+
+            const perteneceAEscena =
+              i < (configActual.efectos?.length ?? 0) ||
+              !!efectosPersistentesRef.current[i] ||
+              audioPersonajeEnCurso;
+
+            if (
+              perteneceAEscena &&
+              !audio.ended
+            ) {
 
               audio
                 .play()
@@ -2416,6 +2876,16 @@ const InterfazCap = () => {
                             cambiarEscena
                           }
 
+                          onRecoger={
+                            recogerObjeto
+                          }
+
+                          objetoRecogido={
+                            objetos.includes(
+                              "bellota"
+                            )
+                          }
+
                         />
 
                       </motion.div>
@@ -2548,10 +3018,194 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENAS 14 - 24
+                        ESCENA 14
                     ================================================= */}
 
-                    {escena >= 14 && (
+                    {escena === 14 && (
+
+                      <motion.div
+                        key="escena14"
+                        {...transicionEscena}
+                      >
+
+                        <Escena11
+
+                          ref={escena11Ref}
+
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+
+                          onPersonajeClick={
+                            reproducirAudioPersonaje
+                          }
+
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 15
+                    ================================================= */}
+
+                    {escena === 15 && (
+
+                      <motion.div
+                        key="escena15"
+                        {...transicionEscena}
+                      >
+
+                        <Escena12
+
+                          ref={escena12Ref}
+
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+
+                          onPersonajeClick={
+                            reproducirAudioPersonaje
+                          }
+
+                          onPausaAudio={
+                            pausarAudioPersonaje
+                          }
+
+                          onContinuarAudio={
+                            reanudarAudioPersonaje
+                          }
+
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 16
+                    ================================================= */}
+
+                    {escena === 16 && (
+
+                      <motion.div
+                        key="escena16"
+                        {...transicionEscena}
+                      >
+
+                        <Escena13
+
+                          ref={escena13Ref}
+
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+
+                          onPersonajeClick={
+                            reproducirAudioPersonaje
+                          }
+
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 18
+                    ================================================= */}
+
+                    {escena === 18 && (
+
+                      <motion.div
+                        key="escena18"
+                        {...transicionEscena}
+                      >
+
+                        <Escena15
+
+                          ref={escena15Ref}
+
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+
+                          onPersonajeClick={
+                            reproducirAudioPersonaje
+                          }
+
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 19
+                    ================================================= */}
+
+                    {escena === 19 && (
+
+                      <motion.div
+                        key="escena19"
+                        {...transicionEscena}
+                      >
+
+                        <Escena16
+
+                          ref={escena16Ref}
+
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 20
+                    ================================================= */}
+
+                    {escena === 20 && (
+
+                      <motion.div
+                        key="escena20"
+                        {...transicionEscena}
+                      >
+
+                        <Escena17
+
+                          ref={escena17Ref}
+
+                          cambiarEscena={
+                            cambiarEscena
+                          }
+
+                          onPersonajeClick={
+                            reproducirAudioPersonaje
+                          }
+
+                        />
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 17 (la pones tú) Y ESCENAS 21 - 24
+                    ================================================= */}
+
+                    {(escena === 17 || escena >= 21) && (
 
                       <motion.div
 
