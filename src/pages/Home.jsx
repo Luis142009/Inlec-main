@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 
+import Creadores from "../components/Creadores";
+
 import "../stylesheets/Fuentes.css";
 import "../stylesheets/Textos.css";
 import "../stylesheets/PersonajesCarrusel.css";
@@ -10,6 +12,7 @@ import "../stylesheets/Capitulos.css";
 import "../stylesheets/Granjeros.css";
 import "../stylesheets/ProyectoCarrusel.css";
 import "../stylesheets/MasInlec.css";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -210,14 +213,6 @@ const Home = () => {
       : el.clientWidth * 0.8;
 
     el.scrollBy({ left: direccion * paso, behavior: "smooth" });
-  };
-
-  /* ================= CREADORES ================= */
-
-  const [activo, setActivo] = useState(null);
-
-  const toggle = (nombre) => {
-    setActivo(activo === nombre ? null : nombre);
   };
 
   /* ================= RESEÑAS ================= */
@@ -895,204 +890,7 @@ const Home = () => {
 
       {/* ================= CREADORES ================= */}
 
-      <section
-        className="scroll-section creadores-wrapper"
-        id="creadores"
-      >
-
-        <div className="creadores-encabezado">
-
-          <h2>
-            Creadores de Inlec
-          </h2>
-
-        </div>
-
-
-        {/* MOVIL */}
-
-        <div className="container-fluid">
-
-          <div className="row justify-content-center align-items-end g-3 d-md-none">
-
-            <div className="col-4 d-flex flex-column align-items-center">
-
-              {activo === "sneyder" && (
-
-                <div className="burbuja">
-
-                  <p>
-                    Un Prime debe hacer lo que un Prime debe hacer
-                  </p>
-
-                </div>
-
-              )}
-
-              <p className="creadores-nombre">
-                Sneyder
-              </p>
-
-              <img
-                src="/se.png"
-                onClick={() => toggle("sneyder")}
-                className="creadores-img img-fluid"
-                alt="Sneyder"
-              />
-
-            </div>
-
-
-            <div className="col-4 d-flex flex-column align-items-center">
-
-              {activo === "luis" && (
-
-                <div className="burbuja">
-
-                  <p>
-                    Captan las poderosas Señales
-                  </p>
-
-                </div>
-
-              )}
-
-              <p className="creadores-nombre">
-                Luis
-              </p>
-
-              <img
-                src="/jefes.png"
-                onClick={() => toggle("luis")}
-                className="creadores-img creadores-img--grande img-fluid"
-                alt="Luis"
-              />
-
-            </div>
-
-
-            <div className="col-4 d-flex flex-column align-items-center">
-
-              {activo === "matheo" && (
-
-                <div className="burbuja">
-
-                  <p>
-                    Entiendes el Concepto
-                  </p>
-
-                </div>
-
-              )}
-
-              <p className="creadores-nombre">
-                Matheo
-              </p>
-
-              <img
-                src="/as.png"
-                onClick={() => toggle("matheo")}
-                className="creadores-img img-fluid"
-                alt="Matheo"
-              />
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        {/* DESKTOP */}
-
-        <div className="d-none d-md-block">
-
-          <div className="creadores-persona creadores-persona--izq">
-
-            {activo === "sneyder" && (
-
-              <div className="burbuja">
-
-                <p>
-                  Un Prime debe hacer lo que un Prime debe hacer
-                </p>
-
-              </div>
-
-            )}
-
-            <p className="creadores-nombre">
-              Sneyder
-            </p>
-
-            <img
-              src="/er.png"
-              onClick={() => toggle("sneyder")}
-              className="creadores-img"
-              alt="Sneyder"
-            />
-
-          </div>
-
-
-          <div className="creadores-persona creadores-persona--centro">
-
-            {activo === "luis" && (
-
-              <div className="burbuja">
-
-                <p>
-                  Captan las poderosas Señales
-                </p>
-
-              </div>
-
-            )}
-
-            <p className="creadores-nombre">
-              Luis
-            </p>
-
-            <img
-              src="/jefes.png"
-              onClick={() => toggle("luis")}
-              className="creadores-img creadores-img--grande"
-              alt="Luis"
-            />
-
-          </div>
-
-
-          <div className="creadores-persona creadores-persona--der">
-
-            {activo === "matheo" && (
-
-              <div className="burbuja">
-
-                <p>
-                  Entiendes el Concepto
-                </p>
-
-              </div>
-
-            )}
-
-            <p className="creadores-nombre">
-              Matheo
-            </p>
-
-            <img
-              src="/as.png"
-              onClick={() => toggle("matheo")}
-              className="creadores-img"
-              alt="Matheo"
-            />
-
-          </div>
-
-        </div>
-
-      </section>
+      <Creadores />
 
 
       {/* ================================================= */}
@@ -1103,306 +901,218 @@ const Home = () => {
       {/* ================= AUTOR ================= */}
 
       <section className="autor-section" id="autor">
-        {/* Círculos decorativos de fondo */}
-        <span className="autor-circulo-fondo circulo-1" aria-hidden="true" />
-        <span className="autor-circulo-fondo circulo-2" aria-hidden="true" />
 
-        <div className="container">
-          <div className="autor-contenido">
+  {/* DECORACIONES */}
+  <span className="autor-deco deco-m1"><img src="/manzana.svg" alt="" draggable="false" /></span>
+  <span className="autor-deco deco-m2"><img src="/manzana.svg" alt="" draggable="false" /></span>
+  <span className="autor-deco deco-m3"><img src="/manzana.svg" alt="" draggable="false" /></span>
+  <span className="autor-deco deco-h1"><img src="/huella.svg" alt="" draggable="false" /></span>
+  <span className="autor-deco deco-h2"><img src="/huella.svg" alt="" draggable="false" /></span>
+  <span className="autor-deco deco-h3"><img src="/huella.svg" alt="" draggable="false" /></span>
+  <span className="autor-deco deco-h4"><img src="/huella.svg" alt="" draggable="false" /></span>
 
-            <div className="autor-imagen">
+  <div className="container">
+    <div className="autor-wrap">
 
-              <div className="autor-foto">
-                <img src="/autor.jpg" alt="Roald Dahl" />
-              </div>
+      {/* KRISTOFER ASOMÁNDOSE */}
+      <img src="/kristofer.png" alt="Kristofer" className="autor-peek" draggable="false" />
+
+      <div className="autor-contenido">
+
+        {/* FOTO TIPO POLAROID */}
+        <div className="autor-imagen">
+          <div className="autor-foto">
+            <span className="autor-cinta cinta-izq" />
+            <span className="autor-cinta cinta-der" />
+
+            <div className="autor-marco">
+              <img src="/autor.jpg" alt="Roald Dahl" />
             </div>
 
-            <div className="autor-texto">
-              <h2>Roald Dahl</h2>
-
-              <h3>Autor</h3>
-
-              <p>
-                Roald Dahl fue un reconocido escritor británico de literatura
-                infantil y juvenil. Sus historias se caracterizan por tener
-                personajes únicos, situaciones divertidas y mundos llenos de
-                imaginación.
-              </p>
-
-              <p>
-                Entre sus obras más conocidas se encuentran Charlie y la fábrica
-                de chocolate, Matilda, Las brujas y El Superzorro.
-              </p>
-
-              <p>
-                Su forma de contar historias ha inspirado a generaciones de
-                lectores y continúa siendo reconocida por su creatividad y
-                particular sentido del humor.
-              </p>
-            </div>
+            <span className="autor-caption">Roald Dahl</span>
           </div>
+
+          <span className="autor-sticker">¡Hola, lector!</span>
         </div>
-      </section>
+
+        {/* TEXTO */}
+        <div className="autor-texto">
+          <h2>Roald Dahl</h2>
+
+          <h3>Autor</h3>
+
+          <p>
+            Roald Dahl fue un reconocido escritor británico de literatura
+            infantil y juvenil. Sus historias se caracterizan por tener
+            personajes únicos, situaciones divertidas y mundos llenos de
+            imaginación.
+          </p>
+
+          <p>
+            Entre sus obras más conocidas se encuentran Charlie y la fábrica
+            de chocolate, Matilda, Las brujas y El Superzorro.
+          </p>
+
+          <p>
+            Su forma de contar historias ha inspirado a generaciones de
+            lectores y continúa siendo reconocida por su creatividad y
+            particular sentido del humor.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
 
       {/* ================= FOOTER ================= */}
+<section className="scroll-section ft-container" id="contacto">
 
-      <section
-        className="scroll-section footer-container"
-        id="contacto"
-      >
-        <div className="container-fluid px-3 px-md-5">
+  {/* DECORACIONES */}
+  <span className="ft-deco ft-d1"><img src="/manzana.svg" alt="" draggable="false" /></span>
+  <span className="ft-deco ft-d2"><img src="/manzana.svg" alt="" draggable="false" /></span>
+  <span className="ft-deco ft-d3"><img src="/cubo.svg" alt="" draggable="false" /></span>
+  <span className="ft-deco ft-d4"><img src="/cubo.svg" alt="" draggable="false" /></span>
+  <span className="ft-deco ft-d5"><img src="/huella.svg" alt="" draggable="false" /></span>
+  <span className="ft-deco ft-d6"><img src="/huella.svg" alt="" draggable="false" /></span>
 
-          {/* DECORACIÓN SUPERIOR */}
-          <div className="footer-top-decoration">
-            <span></span>
-            <img src="/loge.png" alt="Inlec" />
-            <span></span>
-          </div>
+  {/* PERSONAJES LATERALES */}
+  <img src="/ash.png" alt="Ash" className="ft-char ft-ash" />
+  <img src="/charles.png" alt="Charles" className="ft-char ft-charles" />
 
-          <div className="row footer-content">
+  <div className="container-fluid px-3 px-md-5">
 
-            {/* IDENTIDAD */}
-            <div className="col-12 col-sm-6 col-lg-3">
-              <div className="footer-box footer-identidad">
+    <div className="ft-stage">
 
-                <h5 className="footer-title">
-                  Identidad
-                </h5>
+      {/* NAVEGACIÓN */}
+      <div className="ft-circle ft-nav">
+        <h5 className="ft-title">Navegación</h5>
 
-                <div className="footer-logo-container">
-                  <img
-                    src="/loge.png"
-                    alt="logo"
-                    className="footer-logo"
-                  />
-                </div>
+        <div className="ft-links">
+          <p
+            className="ft-link"
+            onClick={() =>
+              document.getElementById("inicio")?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            <span>01</span> Inicio
+          </p>
 
-                <p className="footer-text footer-slogan">
-                  Del libro al mundo digital
-                </p>
+          <p className="ft-link" onClick={() => navigate("/capitulos/1")}>
+            <span>02</span> Capítulos
+          </p>
 
-                <div className="footer-line"></div>
+          <p
+            className="ft-link"
+            onClick={() =>
+              document.getElementById("personajes")?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            <span>03</span> Personajes
+          </p>
 
-                <p className="footer-small-text">
-                  Una nueva forma de descubrir,
-                  imaginar y disfrutar la lectura.
-                </p>
+          <p
+            className="ft-link"
+            onClick={() =>
+              document.getElementById("autor")?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            <span>04</span> Autor
+          </p>
 
-              </div>
-            </div>
-
-
-            {/* REDES SOCIALES */}
-            <div className="col-12 col-sm-6 col-lg-3">
-              <div className="footer-box">
-
-                <h5 className="footer-title">
-                  Redes Sociales
-                </h5>
-
-                <p className="footer-subtitle">
-                  Síguenos y descubre más
-                </p>
-
-                <div className="footer-social">
-
-                  <a
-                    href="https://www.tiktok.com/@inlec1?_r=1"
-                    className="social-button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="social-icon">♪</span>
-                    TikTok
-                    <span className="social-arrow">→</span>
-                  </a>
-
-                  <a
-                    href="https://www.instagram.com/inlec.co/"
-                    className="social-button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="social-icon">◎</span>
-                    Instagram
-                    <span className="social-arrow">→</span>
-                  </a>
-
-                </div>
-
-              </div>
-            </div>
-
-
-            {/* NAVEGACIÓN */}
-            <div className="col-12 col-sm-6 col-lg-3">
-              <div className="footer-box">
-
-                <h5 className="footer-title">
-                  Navegación rápida
-                </h5>
-
-                <div className="footer-navigation">
-
-                  <p
-                    className="footer-link"
-                    onClick={() =>
-                      document
-                        .getElementById("inicio")
-                        ?.scrollIntoView({
-                          behavior: "smooth",
-                        })
-                    }
-                  >
-                    <span>01</span>
-                    Inicio
-                  </p>
-
-                  <p
-                    className="footer-link"
-                    onClick={() =>
-                      navigate("/capitulos/1")
-                    }
-                  >
-                    <span>02</span>
-                    Capítulos
-                  </p>
-
-                  <p
-                    className="footer-link"
-                    onClick={() =>
-                      document
-                        .getElementById("personajes")
-                        ?.scrollIntoView({
-                          behavior: "smooth",
-                        })
-                    }
-                  >
-                    <span>03</span>
-                    Personajes
-                  </p>
-
-                  <p
-                    className="footer-link"
-                    onClick={() =>
-                      document
-                        .getElementById("autor")
-                        ?.scrollIntoView({
-                          behavior: "smooth",
-                        })
-                    }
-                  >
-                    <span>04</span>
-                    Autor
-                  </p>
-
-                  <p
-                    className="footer-link"
-                    onClick={() =>
-                      navigate("/galeria")
-                    }
-                  >
-                    <span>05</span>
-                    Ver más
-                  </p>
-
-                </div>
-
-              </div>
-            </div>
-
-
-            {/* CONTACTO */}
-            <div className="col-12 col-sm-6 col-lg-3">
-              <div className="footer-box">
-
-                <h5 className="footer-title">
-                  Contacto
-                </h5>
-
-                <p className="footer-subtitle">
-                  ¿Quieres hablar con nosotros?
-                </p>
-
-                <div className="footer-contact">
-
-                  <div className="contact-item">
-                    <span className="contact-symbol">@</span>
-
-                    <div>
-                      <small>Correo</small>
-                      <p>Inlec5670@gmail.com</p>
-                    </div>
-                  </div>
-
-
-                  <div className="contact-item">
-                    <span className="contact-symbol">☎</span>
-
-                    <div>
-                      <small>Teléfono</small>
-                      <p>3235868923</p>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-
-
-          {/* ZORRO + FRASE */}
-          <div className="footer-bottom">
-
-            <div className="footer-track">
-
-              <span className="paw">•</span>
-              <span className="paw">•</span>
-              <span className="paw">•</span>
-              <span className="paw">•</span>
-
-            </div>
-
-
-            <div className="footer-character">
-
-              <div className="character-glow"></div>
-
-              <img
-                src="/per4.png"
-                alt="Personaje de Inlec"
-              />
-
-            </div>
-
-
-            <div className="footer-final-text">
-
-              <h4 className="abo-texto">
-                Del libro al mundo digital
-              </h4>
-
-              <p>
-                Explora. Imagina. Lee.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          {/* COPYRIGHT */}
-          <div className="footer-copyright">
-            <span>INLEC</span>
-            <span></span>
-            <span>Un mundo de historias por descubrir</span>
-          </div>
-
+          <p className="ft-link" onClick={() => navigate("/galeria")}>
+            <span>05</span> Ver más
+          </p>
         </div>
-      </section>
+      </div>
+
+      {/* CONTACTO */}
+      <div className="ft-circle ft-contact">
+        <h5 className="ft-title">Contacto</h5>
+        <p className="ft-subtitle">¿Quieres hablar con nosotros?</p>
+
+        <div className="ft-contact-list">
+          <div className="ft-contact-item">
+            <span className="ft-contact-symbol">@</span>
+            <div>
+              <small>Correo</small>
+              <p>Inlec5670@gmail.com</p>
+            </div>
+          </div>
+
+          <div className="ft-contact-item">
+            <span className="ft-contact-symbol">☎</span>
+            <div>
+              <small>Teléfono</small>
+              <p>3235868923</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* REDES SOCIALES */}
+      <div className="ft-circle ft-social">
+        <h5 className="ft-title">Redes Sociales</h5>
+        <p className="ft-subtitle">Síguenos y descubre más</p>
+
+        <div className="ft-social-list">
+          <a
+            href="https://www.tiktok.com/@inlec1?_r=1"
+            className="ft-social-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="ft-social-icon">♪</span>
+            TikTok
+            <span className="ft-social-arrow">→</span>
+          </a>
+
+          <a
+            href="https://www.instagram.com/inlec.co/"
+            className="ft-social-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="ft-social-icon">◎</span>
+            Instagram
+            <span className="ft-social-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      {/* KRISTOFER */}
+      <img src="/kristofer.png" alt="Kristofer" className="ft-kristofer" />
+    </div>
+
+    {/* MARCA + HUELLAS */}
+    <div className="ft-bottom">
+      <div className="ft-paw-trail">
+        <img src="/huella.svg" alt="" draggable="false" className="ft-paw" />
+        <img src="/huella.svg" alt="" draggable="false" className="ft-paw" />
+        <img src="/huella.svg" alt="" draggable="false" className="ft-paw" />
+        <img src="/huellla.svg" alt="" draggable="false" className="ft-paw" />
+        <img src="/huella.svg" alt="" draggable="false" className="ft-paw" />
+        <img src="/huella.svg" alt="" draggable="false" className="ft-paw" />
+      </div>
+
+      <div className="ft-brand">
+        <img src="/loge.png" alt="Inlec" />
+        <div>
+          <h4 className="ft-slogan">Del libro al mundo digital</h4>
+          <p>Explora. Imagina. Lee.</p>
+        </div>
+      </div>
+    </div>
+
+    <div className="ft-copyright">
+      <span></span>
+      <span>·</span>
+      <span></span>
+    </div>
+
+  </div>
+</section>
     </div>
   );
 };

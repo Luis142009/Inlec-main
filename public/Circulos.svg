@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1873 1042">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f6b761;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: url(#Degradado_sin_nombre_6-3);
+      }
+
+      .cls-8 {
+        isolation: isolate;
+      }
+
+      .cls-3 {
+        fill: url(#Degradado_sin_nombre_6-2);
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+
+      .cls-5 {
+        fill: #1d1d1b;
+      }
+
+      .cls-6 {
+        fill: url(#_10_ppp_20_);
+        mix-blend-mode: soft-light;
+        opacity: .5;
+      }
+
+      .cls-7 {
+        fill: url(#Degradado_sin_nombre_6);
+      }
+    </style>
+    <linearGradient id="Degradado_sin_nombre_6" data-name="Degradado sin nombre 6" x1="814.4" y1="772.2" x2="1296.1" y2="772.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3b05f"/>
+      <stop offset="1" stop-color="#e79355"/>
+    </linearGradient>
+    <pattern id="_10_ppp_20_" data-name="10 ppp 20%" x="0" y="0" width="28.8" height="28.8" patternTransform="translate(336 -228)" patternUnits="userSpaceOnUse" viewBox="0 0 28.8 28.8">
+      <g>
+        <rect class="cls-4" x="0" y="0" width="28.8" height="28.8"/>
+        <g>
+          <path class="cls-5" d="M28.8,30.2c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M14.4,30.2c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M28.8,15.8c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M14.4,15.8c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M7.2,23c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M21.6,23c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M7.2,8.6c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M21.6,8.6c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+        </g>
+        <g>
+          <path class="cls-5" d="M0,30.2c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M0,15.8c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+        </g>
+        <g>
+          <path class="cls-5" d="M28.8,1.4c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+          <path class="cls-5" d="M14.4,1.4c.8,0,1.4-.6,1.4-1.4s-.6-1.4-1.4-1.4-1.4.6-1.4,1.4.6,1.4,1.4,1.4Z"/>
+        </g>
+        <path class="cls-5" d="M0,1.4c.8,0,1.4-.6,1.4-1.4S.8-1.4,0-1.4-1.4-.8-1.4,0-.8,1.4,0,1.4Z"/>
+      </g>
+    </pattern>
+    <linearGradient id="Degradado_sin_nombre_6-2" data-name="Degradado sin nombre 6" x1="212.4" y1="737.6" x2="561.4" y2="133.2" xlink:href="#Degradado_sin_nombre_6"/>
+    <linearGradient id="Degradado_sin_nombre_6-3" data-name="Degradado sin nombre 6" x1="1041.9" y1="220.5" x2="1419.8" y2="220.5" xlink:href="#Degradado_sin_nombre_6"/>
+  </defs>
+  <g class="cls-8">
+    <g id="Capa_1" data-name="Capa 1">
+      <g id="Capa_5" data-name="Capa 5">
+        <g>
+          <circle class="cls-7" cx="1055.2" cy="772.2" r="240.8"/>
+          <circle class="cls-6" cx="1054.4" cy="772.2" r="240.8"/>
+        </g>
+      </g>
+    </g>
+    <g id="Capa_4" data-name="Capa 4">
+      <g>
+        <circle class="cls-1" cx="1498.4" cy="621.8" r="337.1"/>
+        <circle class="cls-6" cx="1498.7" cy="622" r="337.1"/>
+      </g>
+    </g>
+    <g id="Capa_3" data-name="Capa 3">
+      <g>
+        <circle class="cls-3" cx="386.9" cy="435.4" r="348.9"/>
+        <circle class="cls-6" cx="386" cy="435.4" r="348.9"/>
+      </g>
+    </g>
+    <g id="Capa_2" data-name="Capa 2">
+      <g>
+        <circle class="cls-2" cx="1230.8" cy="220.5" r="188.9"/>
+        <circle class="cls-6" cx="1229.8" cy="220.5" r="188.9"/>
+      </g>
+    </g>
+  </g>
+</svg>

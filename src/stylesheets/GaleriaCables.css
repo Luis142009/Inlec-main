@@ -5,22 +5,31 @@
    =================================================== */
 
 .gc-wrapper {
-  --gc-bg: transparent;     /* cámbialo si quieres un fondo propio */
-  --gc-ink: #000;
-  --gc-card: #e39e65;       /* naranja del wireframe */
+  --gc-bg: #f2f2f2;         /* color del papel (por si la hoja tarda en pintar) */
+  --gc-ink: #6b3a16;        /* marrón de la marca (bordes, cable, textos) */
+  --gc-card: #e89255;       /* color base de los marcos */
   --gc-line: 3px;
 
   /* Unidad base del tamaño de las fotos y altura de cada cable */
-  --gc-u: min(18vw, 320px);
-  --gc-row-h: calc(var(--gc-u) * 1.75);
+  --gc-u: min(17vw, 300px);                    /* 3 fotos por tramo */
+  --gc-rowk: 1.9;                              /* alto de cada tramo de cuerda = u × este valor */
+  --gc-row-h: calc(var(--gc-u) * var(--gc-rowk));
+
+  /* Escala de los bordes rotos y la cinta de la hoja (1 = tamaño original) */
+  --gc-ek: 1;
+  --gc-edge: calc(140px * var(--gc-ek));
+
+  /* Cuerda: naranja de la marca con borde marrón y torzal crema */
+  --gc-rope: #e89255;
+  --gc-rope-twist: #fdf6e3;
 
   position: relative;
   width: 100%;
-  padding: 0 0 4vh;
+  padding: 0 0 clamp(100px, 13vw, 170px);   /* espacio para que Kristofer se asome abajo */
   background: var(--gc-bg);
   color: var(--gc-ink);
   font-family: inherit;
-  overflow-x: clip;
+  overflow: hidden;
 }
 
 .gc-wrapper *,
@@ -29,25 +38,132 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .gc-wrapper { --gc-u: 22vw; }
+  .gc-wrapper {
+    --gc-u: 17vw;
+    --gc-ek: 0.6;
+  }
 }
 
 /* Celular */
 @media (max-width: 600px) {
   .gc-wrapper {
-    --gc-u: 34vw;
+    --gc-u: 26vw;
+    --gc-rowk: 2.1;
+    --gc-ek: 0.3;
     --gc-line: 2.5px;
   }
 }
 
+
+/* ===================================================
+   DECORACIONES (manzanas, cubos y huellas)
+   =================================================== */
+
+.gc-deco {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  cursor: pointer;
+
+  filter: drop-shadow(0 6px 6px rgba(75, 59, 47, 0.28));
+  animation: gcFlotar 4.5s ease-in-out infinite alternate;
+  transition: scale 0.3s cubic-bezier(.3, 1.8, .5, 1), filter 0.3s ease;
+}
+
+.gc-deco img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* al pasar el mouse: crece y brilla */
+.gc-deco:hover {
+  scale: 1.3;
+  filter:
+    drop-shadow(0 8px 10px rgba(75, 59, 47, 0.35))
+    drop-shadow(0 0 14px rgba(232, 146, 85, 0.95));
+  animation-play-state: paused;
+}
+
+/* al mantener el clic: giro completo */
+.gc-deco:active {
+  animation: gcGiro 0.6s linear infinite;
+}
+
+.gc-d1  { top: 5%;   left: 6%;    width: 72px; rotate: -12deg; }
+.gc-d2  { top: 7%;   right: 7%;   width: 80px; rotate: 10deg;  animation-delay: 0.5s; animation-duration: 5.2s; }
+.gc-d3  { top: 22%;  left: 15%;   width: 40px; rotate: -24deg; animation-delay: 0.3s; animation-duration: 3.6s; }
+.gc-d4  { top: 33%;  right: 6%;   width: 60px; rotate: 16deg;  animation-delay: 1s;   animation-duration: 5s; }
+.gc-d5  { top: 47%;  left: 5%;    width: 66px; rotate: -16deg; animation-delay: 1.4s; animation-duration: 5.8s; }
+.gc-d6  { top: 58%;  right: 14%;  width: 40px; rotate: 24deg;  animation-delay: 0.9s; animation-duration: 3.9s; }
+.gc-d7  { top: 70%;  left: 13%;   width: 38px; rotate: 18deg;  animation-delay: 0.6s; animation-duration: 3.4s; }
+.gc-d8  { top: 76%;  right: 5%;   width: 64px; rotate: -10deg; animation-delay: 1.2s; animation-duration: 4.6s; }
+.gc-d9  { top: 86%;  left: 6%;    width: 60px; rotate: 12deg;  animation-delay: 0.2s; animation-duration: 5.4s; }
+.gc-d10 { top: 90%;  right: 24%;  width: 36px; rotate: -20deg; animation-delay: 0.8s; animation-duration: 4s; }
+
+@keyframes gcFlotar {
+  from { translate: 0 0; }
+  to   { translate: 0 -16px; }
+}
+
+@keyframes gcGiro {
+  from { transform: rotate(0deg)   scale(1.3); }
+  to   { transform: rotate(360deg) scale(1.3); }
+}
+
+
+/* ===================================================
+   PERSONAJES (se asoman por los bordes)
+   =================================================== */
+
+.gc-char {
+  position: absolute;
+  z-index: 1;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(0 8px 10px rgba(75, 59, 47, 0.25));
+  transition: translate 0.45s cubic-bezier(.3, 1.6, .5, 1), rotate 0.45s ease;
+}
+
+.gc-char-ash {
+  top: 24%;
+  left: -70px;
+  width: clamp(130px, 15vw, 240px);
+  rotate: 4deg;
+}
+
+.gc-char-charles {
+  top: 57%;
+  right: -62px;
+  width: clamp(120px, 13vw, 210px);
+  rotate: -4deg;
+}
+
+.gc-char-kristofer {
+  bottom: 0;
+  left: 50%;
+  width: clamp(120px, 13vw, 190px);
+  transform: translate(-50%, 46%);        /* solo se ve de la cintura para arriba */
+  transition: transform 0.45s cubic-bezier(.3, 1.6, .5, 1);
+}
+
+.gc-char-ash:hover     { translate: 22px 0; rotate: 0deg; }
+.gc-char-charles:hover { translate: -22px 0; rotate: 0deg; }
+.gc-char-kristofer:hover { transform: translate(-50%, 34%); }
+
+
 /* ===== Barra superior ===== */
 .gc-tools {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 12px 16px;
-  padding: clamp(14px, 2.5vh, 28px) 5vw 0;
+  padding: calc(clamp(14px, 2.5vh, 28px) + 90px * var(--gc-ek)) 5vw 0;   /* debajo de la cinta */
 }
 
 .gc-hint {
@@ -55,38 +171,98 @@
   margin: 0;
   text-align: center;
   font-size: clamp(0.85rem, 1.1vw, 1rem);
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .gc-btn {
   font: inherit;
   font-weight: 700;
-  padding: 8px 18px;
-  background: var(--gc-card);
-  color: var(--gc-ink);
+  padding: 8px 22px;
+  background: #e89255;
+  color: #fff;
   border: var(--gc-line) solid var(--gc-ink);
-  box-shadow: 3px 3px 0 var(--gc-ink);
-  border-radius: 0;
+  box-shadow: 3px 4px 0 var(--gc-ink);
+  border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
 }
 
-.gc-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--gc-ink); }
-.gc-btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--gc-ink); }
+.gc-btn:hover { transform: translate(-1px, -2px); box-shadow: 5px 6px 0 var(--gc-ink); background: #ebbb59; }
+.gc-btn:active { transform: translate(3px, 4px); box-shadow: 0 0 0 var(--gc-ink); }
 
 .gc-fav-count {
   min-width: 3.5ch;
+  padding: 6px 14px;
   font-weight: 700;
   color: #d6263b;
+  background: #fdf6e3;
+  border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 999px;
+  box-shadow: 3px 4px 0 var(--gc-ink);
+  text-align: center;
 }
+
 
 /* ===== Galería y cables ===== */
 .gc-gallery {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  max-width: 1920px;
+  max-width: 1760px;
   margin: 0 auto;
+  padding: clamp(28px, 4vw, 64px) clamp(20px, 6vw, 120px) clamp(24px, 3vw, 48px);
 }
 
+
+/* ===================================================
+   HOJA DE FONDO (una sola, cubre toda la sección)
+   Usa /public/hoja.png: los bordes rotos y la cinta salen de
+   la imagen, el centro cuadriculado se dibuja con CSS para que
+   no se deforme al estirarse.
+   =================================================== */
+
+.gc-sheet {
+  position: absolute;
+  inset: 0;                                 /* toda la sección, de borde a borde */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* papel cuadriculado en todo el fondo (celdas como las de la imagen: 33.5 × 48 px) */
+.gc-sheet-grid {
+  position: absolute;
+  inset: 0;
+  background-color: #f2f2f2;
+  background-image:
+    linear-gradient(to right, rgba(130, 200, 222, 0.75) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(130, 200, 222, 0.75) 1px, transparent 1px);
+  background-size: 33.5px 48px;
+}
+
+/* cintas de la imagen, recortadas a su forma, pegando la hoja arriba */
+.gc-tape {
+  position: absolute;
+  top: calc(-3px * var(--gc-ek));
+  height: calc(120px * var(--gc-ek));
+  width: calc(250px * var(--gc-ek));
+  background-image: url('/hoja.png');
+  background-repeat: no-repeat;
+  background-size: calc(1200px * var(--gc-ek)) auto;
+}
+
+.gc-tape-l {
+  left: 12%;
+  background-position: calc(-145px * var(--gc-ek)) 0;
+  clip-path: polygon(7.2% 2.6%, 95.2% 4.3%, 98.8% 39%, 96.4% 61%, 97.2% 97%, 8.8% 97%, 5.2% 78%, 1.2% 48%, 6% 9%);
+}
+
+.gc-tape-r {
+  right: 12%;
+  background-position: calc(-775px * var(--gc-ek)) 0;
+  clip-path: polygon(6.8% 0, 96.8% 6.7%, 98% 50%, 100% 75%, 98.8% 100%, 8% 95.8%, 1.2% 62.5%, 4% 50%, 5.2% 25%);
+}
+
+/* Cada cuerda va sobre la hoja única de fondo */
 .gc-row {
   position: relative;
   width: 100%;
@@ -102,15 +278,54 @@
   pointer-events: none;
 }
 
+/* el SVG se dibuja en píxeles reales (viewBox = tamaño del tramo), sin deformarse */
 .gc-cable path {
   fill: none;
-  stroke: var(--gc-ink);
-  stroke-width: 4;
   stroke-linecap: round;
-  vector-effect: non-scaling-stroke;   /* grosor constante aunque el SVG se estire */
+  stroke-linejoin: round;
 }
 
-/* ===== Fotos ===== */
+/* borde marrón */
+.gc-cable .gc-cable-edge { stroke: var(--gc-ink); stroke-width: 11; }
+
+/* cuerpo naranja */
+.gc-cable .gc-cable-fill { stroke: var(--gc-rope); stroke-width: 6.5; }
+
+/* torzal crema, como una cuerda trenzada; aparece al mismo ritmo que la cuerda (máscara) */
+.gc-cable .gc-cable-twist {
+  stroke: var(--gc-rope-twist);
+  stroke-width: 6.5;
+  stroke-linecap: butt;
+  stroke-dasharray: 4 11;
+  opacity: 0.8;
+}
+
+/* trazo blanco de la máscara: el scroll lo "dibuja" */
+.gc-cable .gc-mask-path {
+  stroke: #fff;
+  stroke-width: 16;
+  stroke-linecap: butt;
+}
+
+/* chinchetas que clavan los extremos de la cuerda en la hoja */
+.gc-nail {
+  position: absolute;
+  z-index: 1;
+  width: clamp(14px, 1.5vw, 22px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background: radial-gradient(circle at 35% 30%, #fdf6e3 0 14%, #ebbb59 15% 100%);
+  border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 50%;
+  box-shadow: 2px 3px 0 rgba(107, 58, 22, 0.35);
+  pointer-events: none;
+}
+
+
+/* ===================================================
+   FOTOS
+   =================================================== */
+
 .gc-photo {
   position: absolute;
   margin: 0;
@@ -121,6 +336,21 @@
   will-change: transform;
   outline: none;
 }
+
+/* Cada marco tiene su color de la paleta */
+.gc-photo:nth-of-type(3n + 1) { --gc-card: #e89255; }   /* naranja */
+.gc-photo:nth-of-type(3n + 2) { --gc-card: #ebbb59; }   /* amarillo */
+.gc-photo:nth-of-type(3n + 3) { --gc-card: #fdf6e3; }   /* crema */
+
+/* Cada marco tiene su sticker (manzana, huella o cubo) */
+.gc-photo:nth-of-type(3n + 1) { --gc-sticker: url('/manzana.svg'); }
+.gc-photo:nth-of-type(3n + 2) { --gc-sticker: url('/huella.svg'); }
+.gc-photo:nth-of-type(3n + 3) { --gc-sticker: url('/Cubo_Pintura_Escena_3.svg'); }
+
+/* en las filas pares los stickers cambian de lugar */
+.gc-row:nth-of-type(even) .gc-photo:nth-of-type(3n + 1) { --gc-sticker: url('/Cubo_Pintura_Escena_3.svg'); }
+.gc-row:nth-of-type(even) .gc-photo:nth-of-type(3n + 2) { --gc-sticker: url('/manzana.svg'); }
+.gc-row:nth-of-type(even) .gc-photo:nth-of-type(3n + 3) { --gc-sticker: url('/huella.svg'); }
 
 /* Capa interna que se mece con la física del péndulo */
 .gc-breeze {
@@ -135,7 +365,11 @@
   position: relative;
   background: var(--gc-card);
   border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 14px;
   padding: clamp(6px, 0.8vw, 12px);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.45),
+    5px 6px 0 rgba(107, 58, 22, 0.35);
   transition: filter 0.3s ease;
 }
 
@@ -149,6 +383,43 @@
   outline-offset: 4px;
 }
 
+/* cinta adhesiva en la esquina */
+.gc-frame::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -16px;
+  z-index: 3;
+  width: clamp(34px, 3.6vw, 56px);
+  height: clamp(13px, 1.4vw, 20px);
+  rotate: -36deg;
+  background: rgba(235, 187, 89, 0.88);
+  border: 2px dashed rgba(107, 58, 22, 0.5);
+  pointer-events: none;
+}
+
+/* sticker en la esquina inferior */
+.gc-frame::after {
+  content: "";
+  position: absolute;
+  left: clamp(-22px, -1.6vw, -12px);
+  bottom: clamp(-22px, -1.6vw, -12px);
+  z-index: 3;
+  width: clamp(30px, 3.6vw, 56px);
+  aspect-ratio: 1;
+  background: var(--gc-sticker, none) center / contain no-repeat;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.3));
+  rotate: -12deg;
+  pointer-events: none;
+  transition: rotate 0.35s cubic-bezier(.3, 1.8, .5, 1), scale 0.35s cubic-bezier(.3, 1.8, .5, 1);
+}
+
+.gc-photo:hover .gc-frame::after,
+.gc-photo:focus-visible .gc-frame::after {
+  rotate: 14deg;
+  scale: 1.25;
+}
+
 .gc-frame img {
   display: block;
   width: 100%;
@@ -158,21 +429,34 @@
   object-fit: cover;
   background: #f2d3b5;
   border: var(--gc-line) solid var(--gc-ink);
-  border-radius: 0;
+  border-radius: 8px;
   pointer-events: none;
 }
 
-/* Pinza sobre el cable */
+/* Pinza de ropa sobre el cable */
 .gc-pin {
   position: absolute;
-  top: calc(var(--gc-line) * -1 - 11px);
+  top: calc(var(--gc-line) * -1 - 13px);
   left: 50%;
-  width: clamp(8px, 0.8vw, 12px);
-  height: clamp(18px, 1.7vw, 26px);
+  width: clamp(10px, 1vw, 15px);
+  height: clamp(22px, 2.1vw, 32px);
   transform: translateX(-50%);
-  background: var(--gc-card);
+  background: #ebbb59;
   border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 4px 4px 7px 7px;
   z-index: 2;
+}
+
+.gc-pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  width: 70%;
+  height: 2px;
+  transform: translateX(-50%);
+  background: var(--gc-ink);
+  opacity: 0.55;
 }
 
 /* Sello de favorita */
@@ -180,6 +464,7 @@
   position: absolute;
   right: -10px;
   bottom: -10px;
+  z-index: 4;
   width: 30px;
   height: 30px;
   display: grid;
@@ -198,7 +483,11 @@
   to   { transform: scale(1) rotate(0); }
 }
 
-/* ===== Visor ampliado ===== */
+
+/* ===================================================
+   VISOR AMPLIADO
+   =================================================== */
+
 .gc-lightbox {
   position: fixed;
   inset: 0;
@@ -216,6 +505,7 @@
   position: relative;
   background: var(--gc-card);
   border: var(--gc-line) solid var(--gc-ink);
+  border-radius: 18px;
   padding: clamp(10px, 1.4vw, 22px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
   will-change: transform;
@@ -230,7 +520,7 @@
   object-fit: cover;
   background: #f2d3b5;
   border: var(--gc-line) solid var(--gc-ink);
-  border-radius: 0;
+  border-radius: 10px;
 }
 
 .gc-lb-text {
@@ -238,7 +528,7 @@
   text-align: center;
   font-size: clamp(0.9rem, 1.2vw, 1.1rem);
   line-height: 1.35;
-  color: var(--gc-ink);
+  color: var(--gc-on-card, var(--gc-ink));   /* se adapta a marcos oscuros */
 }
 
 /* Brillo que sigue al mouse */
@@ -246,6 +536,7 @@
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: 18px;
   pointer-events: none;
   background: radial-gradient(circle at var(--gc-gx, 50%) var(--gc-gy, 50%), rgba(255, 255, 255, 0.3), transparent 55%);
   opacity: 0;
@@ -254,23 +545,40 @@
 
 .gc-lb-frame:hover::after { opacity: 1; }
 
+/* cinta adhesiva en el visor */
+.gc-lb-frame::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  z-index: 3;
+  width: 90px;
+  height: 26px;
+  translate: -50% 0;
+  rotate: -3deg;
+  background: rgba(235, 187, 89, 0.88);
+  border: 2px dashed rgba(107, 58, 22, 0.5);
+  pointer-events: none;
+}
+
 .gc-lb-close,
 .gc-lb-fav {
   position: absolute;
   top: -16px;
+  z-index: 4;
   width: 38px;
   height: 38px;
   padding: 0;
   border: var(--gc-line) solid var(--gc-ink);
   border-radius: 50%;
   background: var(--gc-card);
-  color: var(--gc-ink);
+  color: var(--gc-on-card, var(--gc-ink));
   line-height: 1;
   cursor: pointer;
 }
 
 .gc-lb-close { right: -16px; font-size: 24px; }
-.gc-lb-close:hover { background: #fff; }
+.gc-lb-close:hover { background: #fff; color: var(--gc-ink); }
 
 .gc-lb-fav { left: -16px; font-size: 18px; opacity: 0.9; }
 .gc-lb-fav[aria-pressed="true"] { background: #fff; color: #d6263b; opacity: 1; }
@@ -285,14 +593,14 @@
   border: var(--gc-line) solid var(--gc-ink);
   border-radius: 50%;
   background: var(--gc-card);
-  color: var(--gc-ink);
+  color: var(--gc-on-card, var(--gc-ink));
   font-size: 34px;
   line-height: 1;
   cursor: pointer;
   transition: background 0.2s ease, scale 0.2s ease;
 }
 
-.gc-lb-nav:hover { background: #fff; scale: 1.08; }
+.gc-lb-nav:hover { background: #fff; color: var(--gc-ink); scale: 1.08; }
 .gc-lb-prev { left: 3vw; }
 .gc-lb-next { right: 3vw; }
 
@@ -309,16 +617,32 @@
   pointer-events: none;
 }
 
+
+/* ===================================================
+   RESPONSIVE
+   =================================================== */
+
 @media (max-width: 600px) {
   .gc-lb-close { right: -6px; top: -14px; }
   .gc-lb-fav { left: -6px; top: -14px; }
   .gc-lb-nav { top: auto; bottom: 2.5vh; transform: none; width: 46px; height: 46px; }
   .gc-lb-prev { left: 6vw; }
   .gc-lb-next { right: 6vw; }
+
+  /* personajes más pequeños y decoraciones reducidas */
+  .gc-char-ash     { width: 96px; left: -34px; }
+  .gc-char-charles { width: 88px; right: -30px; }
+  .gc-char-kristofer { width: 100px; }
+
+  .gc-d1, .gc-d2, .gc-d4, .gc-d8 { width: 46px; }
+  .gc-d5, .gc-d9 { width: 42px; }
+  .gc-d3, .gc-d6, .gc-d7, .gc-d10 { display: none; }
 }
+
 
 /* ===== Accesibilidad ===== */
 @media (prefers-reduced-motion: reduce) {
   .gc-frame { transition: none; }
   .gc-fav { animation: none; }
+  .gc-deco { animation: none; }
 }
