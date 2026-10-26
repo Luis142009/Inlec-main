@@ -9,6 +9,7 @@ import AppMain from './AppMain.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+ 
     <AppMain />
   </StrictMode>
 );

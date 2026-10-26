@@ -5,6 +5,7 @@ import InterfazCap from "./pages/InterfazCap";
 export const AppMain = () => {
   return (
     <>
+     
       <InterfazCap />
     </>
   );
