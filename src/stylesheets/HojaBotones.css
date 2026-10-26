@@ -1,0 +1,282 @@
+/* =========================================================
+   HOJA DE FONDO (desde "Nuestro Proyecto" hasta "Más sobre Inlec")
+   Guarda la imagen de la hoja en /public/hoja.png
+   ========================================================= */
+
+.hoja-fondo {
+  position: relative;
+  width: 100%;
+
+  /* Hoja cuadriculada hecha con CSS (mismos colores y medidas de hoja.png),
+     sin cintas, sin bordes rasgados y sin sombra: cubre todo el bloque. */
+  background-color: #f3f2f2;
+  background-image:
+    linear-gradient(to right,  rgba(178, 219, 234, 0.95) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(178, 219, 234, 0.95) 1px, transparent 1px);
+  background-size: 33.4px 47.8px, 33.4px 47.8px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  padding-bottom: 60px;             /* aire debajo de los botones */
+  overflow-x: clip;                 /* evita scroll horizontal */
+
+  /* Contiene los márgenes de las secciones de adentro (mt-2, mt-5, etc.).
+     Sin esto, esos márgenes "se salen" de la hoja y dejan franjas sin
+     cuadrícula arriba y abajo. */
+  display: flow-root;
+}
+
+/* Las secciones dentro de la hoja no tapan el fondo */
+.hoja-fondo .proyecto-wrapper,
+.hoja-fondo .historia-section,
+.hoja-fondo .proyecto-detras-wrapper,
+.hoja-fondo .mi-section,
+.hoja-fondo .cr-seccion,
+.hoja-fondo .cr-pared,
+.hoja-fondo .autor-section,
+.hoja-fondo .ft-container {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* Segunda hoja: Creadores + Autor + Footer (después de Personajes).
+   Sin espacio extra abajo para que termine pegada al final del sitio. */
+.hoja-fondo--final {
+  padding-bottom: 0;
+}
+
+
+/* =========================================================
+   BOTONES TIPO CURITA (referente)
+   Naranja con puntitos + texto con la tipografía de títulos
+   (Abalone, relleno crema y contorno café, igual que
+   "Nuestro proyecto")
+   ========================================================= */
+
+.historia-btn,
+.capitulos-boton,
+.mi-btn,
+.personajes-cambiar,
+.personajes-flecha,
+.ft-social-btn,
+.personaje-modal-cerrar,
+.btn-numero,
+.superzorro-btn,
+.detras-btn,
+.masinlec-btn,
+.presentacion-btn,
+.home-btn {
+  /* Puntitos en dos capas (intercalados). Todo va en "em" para que el
+     patrón crezca junto con el tamaño del botón: igual de bonito en
+     botones chicos y grandes. */
+  background-color: #f7a04e !important;
+  background-image:
+    radial-gradient(circle, rgba(222, 120, 40, 0.7) 0.18em, transparent 0.22em),
+    radial-gradient(circle, rgba(222, 120, 40, 0.7) 0.18em, transparent 0.22em) !important;
+  background-size: 1.6em 1.6em, 1.6em 1.6em !important;
+  background-position: 0 0, 0.8em 0.8em !important;
+  background-repeat: repeat !important;
+
+  /* TIPOGRAFÍA DE TÍTULO (igual que "Nuestro proyecto") */
+  font-family: 'pepe', sans-serif !important;
+  font-weight: 700 !important;
+  color: #eee9e6 !important;
+  -webkit-text-stroke: 0.25em #934E24 !important;
+  paint-order: stroke fill !important;
+  text-shadow: none !important;
+  letter-spacing: 1px;
+
+  border: none !important;
+  border-radius: 0.5em !important;
+  box-shadow: 0 0.2em 0 rgba(165, 42, 36, 0.35) !important;
+  outline: none;
+
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Quita brillos/adornos propios de los botones grandes para que todos
+   se vean igual que el referente */
+.historia-btn::before,
+.historia-btn::after,
+.capitulos-boton::before,
+.capitulos-boton::after,
+.mi-btn::before,
+.mi-btn::after,
+.personajes-cambiar::before,
+.personajes-cambiar::after {
+  display: none !important;
+}
+
+.capitulos-boton-icono,
+.capitulos-boton-texto,
+.capitulos-boton-flecha {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* textos internos heredan el estilo de título */
+.capitulos-boton *,
+.ft-social-btn *,
+.mi-btn *,
+.historia-btn * {
+  font-family: 'pepe', sans-serif !important;
+  font-weight: 700 !important;
+  color: #eee9e6 !important;
+  -webkit-text-stroke: 0.25em #934E24 !important;
+  paint-order: stroke fill !important;
+  text-shadow: none !important;
+}
+
+/* hover */
+.historia-btn:hover,
+.capitulos-boton:hover,
+.mi-btn:hover,
+.personajes-cambiar:hover,
+.personajes-flecha:hover:not(:disabled),
+.ft-social-btn:hover,
+.personaje-modal-cerrar:hover,
+.btn-numero:hover,
+.superzorro-btn:hover,
+.detras-btn:hover,
+.masinlec-btn:hover,
+.presentacion-btn:hover,
+.home-btn:hover {
+  background-color: #ffad5e !important;
+  color: #eee9e6 !important;
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgba(165, 42, 36, 0.35) !important;
+}
+
+/* click */
+.historia-btn:active,
+.capitulos-boton:active,
+.mi-btn:active,
+.personajes-cambiar:active,
+.personajes-flecha:active:not(:disabled),
+.ft-social-btn:active,
+.personaje-modal-cerrar:active,
+.btn-numero:active,
+.superzorro-btn:active,
+.detras-btn:active,
+.masinlec-btn:active,
+.presentacion-btn:active,
+.home-btn:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 1px 0 rgba(165, 42, 36, 0.35) !important;
+}
+
+/* flechas desactivadas */
+.personajes-flecha:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* el social-btn del footer: los iconos circulares quedan claros
+   (sin contorno, para que no hereden el del texto) */
+.ft-social-btn .ft-social-icon {
+  background: #ffffff !important;
+  color: #a52a24 !important;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 !important;
+}
+
+
+/* =========================================================
+   PUNTITOS DE LOS CARRUSELES (tamaño controlado desde aquí)
+   Cambia SOLO este número para agrandar o achicar todos los puntos.
+   Todo lleva !important, así que gana sobre cualquier otro CSS
+   y también sobre los estilos en línea de Home.jsx.
+   ========================================================= */
+
+:root {
+  --punto-tam: 8px;
+}
+
+html body .proyecto-dots .proyecto-dot,
+html body .proyecto-dots button,
+html body button.proyecto-dot,
+html body .personajes-punto,
+html body .personajes-puntos > *,
+html body .personajes-dots > *,
+html body [class*="carrusel"] [class*="dot"],
+html body [class*="carrusel"] [class*="punto"] {
+  width: var(--punto-tam) !important;
+  height: var(--punto-tam) !important;
+  min-width: var(--punto-tam) !important;
+  min-height: var(--punto-tam) !important;
+  max-width: var(--punto-tam) !important;
+  max-height: var(--punto-tam) !important;
+  flex: 0 0 var(--punto-tam) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+}
+
+html body .proyecto-dots .proyecto-dot::before,
+html body .proyecto-dots .proyecto-dot::after,
+html body .personajes-punto::before,
+html body .personajes-punto::after {
+  display: none !important;
+}
+
+html body .proyecto-dots {
+  gap: 6px !important;
+}
+
+
+/* =========================================================
+   CARTELES GRANDES ("Detras de la historia", "Más sobre Inlec",
+   letrero de creadores) con el MISMO diseño de los botones chicos.
+   Solo cambia el diseño: no se toca tamaño, padding ni posición.
+   ========================================================= */
+
+.historia-cartel-wrap,
+.mi-cartel-wrap,
+.cr-letrero,
+.cr-cartel {
+  background-color: #f7a04e !important;
+  background-image:
+    radial-gradient(circle, rgba(222, 120, 40, 0.7) 3.5px, transparent 4.2px),
+    radial-gradient(circle, rgba(222, 120, 40, 0.7) 3.5px, transparent 4.2px) !important;
+  background-size: 30px 30px, 30px 30px !important;
+  background-position: 0 0, 15px 15px !important;
+  background-repeat: repeat !important;
+
+  /* el borde se vuelve transparente (no desaparece) para no cambiar el tamaño */
+  border-color: transparent !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;     /* sin raya/sombra debajo: solo el cartel */
+}
+
+/* Textos de los carteles: tipografía de título
+   (Abalone, relleno crema y contorno café, igual que "Nuestro proyecto") */
+.historia-titulo,
+.mi-titulo,
+.cr-letrero h2,
+.cr-cartel {
+  background: transparent !important;
+  background-image: none !important;
+  font-family: 'pepe', sans-serif !important;
+  font-weight: 700 !important;
+  color: #eee9e6 !important;
+  -webkit-text-stroke: 0.25em #934E24 !important;
+  paint-order: stroke fill !important;
+  text-shadow: none !important;
+}
+
+/* el cartel de nombre (cr-cartel) es a la vez fondo y texto */
+.cr-cartel {
+  background-color: #f7a04e !important;
+  background-image:
+    radial-gradient(circle, rgba(222, 120, 40, 0.7) 2px, transparent 2.6px),
+    radial-gradient(circle, rgba(222, 120, 40, 0.7) 2px, transparent 2.6px) !important;
+  background-size: 18px 18px, 18px 18px !important;
+  background-position: 0 0, 9px 9px !important;
+}

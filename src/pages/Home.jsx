@@ -12,6 +12,7 @@ import "../stylesheets/Capitulos.css";
 import "../stylesheets/Granjeros.css";
 import "../stylesheets/ProyectoCarrusel.css";
 import "../stylesheets/MasInlec.css";
+import "../stylesheets/HojaBotones.css";
 
 
 const Home = () => {
@@ -34,7 +35,7 @@ const Home = () => {
 
   /* Tamaño de los puntitos en píxeles (se aplica directo en el JSX,
      así ningún CSS externo lo puede pisar). Cámbialo y guarda. */
-  const TAMANO_PUNTO = 10;
+  const TAMANO_PUNTO = 8;
 
   /* Colores de los puntitos (café para que se vean sobre el fondo beige) */
   const COLOR_PUNTO = "rgba(139, 69, 19, 0.35)";
@@ -249,6 +250,13 @@ const Home = () => {
   return (
     <div className="scroll-container">
 
+      {/* =====================================================
+          HOJA DE FONDO: desde "Nuestro Proyecto"
+          hasta "Más sobre Inlec" (Personajes queda igual)
+          ===================================================== */}
+
+      <div className="hoja-fondo">
+
       {/* ================= PROYECTO + DETRAS ================= */}
 
       <div className="proyecto-detras-wrapper">
@@ -304,42 +312,58 @@ const Home = () => {
                   {textosProyecto[textoProyecto]}
                 </p>
 
+                {/* Puntitos con clases propias (pz-*) para que ningún otro CSS
+                    los pueda agrandar. El tamaño se cambia arriba con
+                    TAMANO_PUNTO. */}
                 <div
-                  className="proyecto-dots"
+                  className="pz-puntos"
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: TAMANO_PUNTO / 2,
+                    gap: TAMANO_PUNTO,
+                    marginTop: 16,
                   }}
                 >
+                  <style>{`
+                    .pz-puntos .pz-punto {
+                      display: block !important;
+                      box-sizing: border-box !important;
+                      width: ${TAMANO_PUNTO}px !important;
+                      height: ${TAMANO_PUNTO}px !important;
+                      min-width: ${TAMANO_PUNTO}px !important;
+                      min-height: ${TAMANO_PUNTO}px !important;
+                      max-width: ${TAMANO_PUNTO}px !important;
+                      max-height: ${TAMANO_PUNTO}px !important;
+                      flex: 0 0 ${TAMANO_PUNTO}px !important;
+                      padding: 0 !important;
+                      margin: 0 !important;
+                      border: 0 !important;
+                      border-radius: 50% !important;
+                      background-image: none !important;
+                      box-shadow: none !important;
+                      overflow: hidden !important;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease, transform 0.3s ease;
+                    }
+                    .pz-puntos .pz-punto { background-color: ${COLOR_PUNTO} !important; }
+                    .pz-puntos .pz-punto.pz-activo {
+                      background-color: ${COLOR_PUNTO_ACTIVO} !important;
+                      transform: scale(1.25);
+                    }
+                  `}</style>
                   {textosProyecto.map((_, i) => (
-                    <button
+                    <span
                       key={i}
-                      type="button"
+                      role="button"
+                      tabIndex={0}
                       className={
-                        "proyecto-dot" +
-                        (i === textoProyecto ? " activo" : "")
+                        "pz-punto" + (i === textoProyecto ? " pz-activo" : "")
                       }
-                      style={{
-                        width: TAMANO_PUNTO,
-                        height: TAMANO_PUNTO,
-                        minWidth: TAMANO_PUNTO,
-                        minHeight: TAMANO_PUNTO,
-                        flex: `0 0 ${TAMANO_PUNTO}px`,
-                        borderRadius: "50%",
-                        border: "none",
-                        padding: 0,
-                        cursor: "pointer",
-                        background:
-                          i === textoProyecto
-                            ? COLOR_PUNTO_ACTIVO
-                            : COLOR_PUNTO,
-                        transform:
-                          i === textoProyecto ? "scale(1.15)" : "scale(1)",
-                        transition: "background 0.3s ease, transform 0.3s ease",
-                      }}
                       onClick={() => setTextoProyecto(i)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") setTextoProyecto(i);
+                      }}
                       aria-label={`Ver texto ${i + 1}`}
                     />
                   ))}
@@ -582,6 +606,9 @@ const Home = () => {
         </div>
 
       </section>
+
+      </div>
+      {/* ============ FIN HOJA DE FONDO ============ */}
 
 
       {/* ================= PERSONAJES (CARRUSEL) ================= */}
@@ -888,6 +915,10 @@ const Home = () => {
       </AnimatePresence>
 
 
+      {/* ===== HOJA DE FONDO FINAL: Creadores + Autor + Footer ===== */}
+
+      <div className="hoja-fondo hoja-fondo--final">
+
       {/* ================= CREADORES ================= */}
 
       <Creadores />
@@ -1037,7 +1068,7 @@ const Home = () => {
             <span className="ft-contact-symbol">@</span>
             <div>
               <small>Correo</small>
-              <p>Inlec5670@gmail.com</p>
+              <p>inlec.co@gmail.com</p>
             </div>
           </div>
 
@@ -1045,7 +1076,7 @@ const Home = () => {
             <span className="ft-contact-symbol">☎</span>
             <div>
               <small>Teléfono</small>
-              <p>3235868923</p>
+              <p>3246583815</p>
             </div>
           </div>
         </div>
@@ -1113,6 +1144,10 @@ const Home = () => {
 
   </div>
 </section>
+
+      </div>
+      {/* ============ FIN HOJA DE FONDO FINAL ============ */}
+
     </div>
   );
 };

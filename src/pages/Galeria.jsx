@@ -10,20 +10,20 @@ gsap.registerPlugin(ScrollTrigger);
    ratio = ancho / alto de la foto (300x200 = 1.5, 300x270 = 1.11)
    Las últimas 6 reutilizan tus imágenes: cambia el "src" por las nuevas cuando las tengas. */
 const PHOTOS = [
-  { src: '/12.png', ratio: 300 / 200, texto: 'El Super Zorro fue escrito por Roald Dahl en 1970.' },
-  { src: '/13.png', ratio: 300 / 200, texto: 'El personaje del Sr. Fox destaca por su inteligencia sobre la fuerza.' },
-  { src: '/14.png', ratio: 300 / 200, texto: 'Es super zorro es un libro infantil donde se relata de la historia de un zorro quedara todo para salvar' },
-  { src: '/vista.png', ratio: 300 / 270, texto: 'Los tres granjeros representan distintos tipos de villanos.' },
-  { src: '/tunel.png', ratio: 300 / 270, texto: 'La historia resalta el valor de la familia y el trabajo en equipo.' },
-  { src: '/pieza.png', ratio: 300 / 270, texto: 'El libro tiene una adaptación animada muy famosa.' },
+  { src: '/12.png', ratio: 300 / 200, texto: 'Casa bean, tenebrosa y construida en los años 1960' },
+  { src: '/13.png', ratio: 300 / 200, texto: 'Casa de bunce, que abarca una perverza crianza de gansos' },
+  { src: '/14.png', ratio: 300 / 200, texto: 'Casa de boggis, que abarca una perverza crianza de pollos' },
+  { src: '/vista.png', ratio: 300 / 270, texto: 'conoce un campo donde se esconden las 3 granjas' },
+  { src: '/tunel.png', ratio: 300 / 270, texto: 'Una cueva que abarca terrores y pronfundidades.' },
+  { src: '/pieza.png', ratio: 300 / 270, texto: 'Habitacion del  señor y la señora fox' },
 
   /* ===== 6 cuadros nuevos ===== */
-  { src: '/excavadora.png', ratio: 300 / 200, texto: 'Los granjeros se llaman Boggis, Bunce y Bean.' },
-  { src: '/entrada.png', ratio: 300 / 200, texto: 'Los zorros cavan túneles bajo tierra para escapar de los granjeros.' },
-  { src: '/Cocina.png', ratio: 300 / 270, texto: 'El Sr. Fox busca comida para alimentar a toda su familia.' },
-  { src: '/casa.png', ratio: 300 / 200, texto: 'La historia se desarrolla en un bosque cercano a las tres granjas.' },
-  { src: '/camino.png', ratio: 300 / 270, texto: 'Wes Anderson llevó esta historia al cine en 2009.' },
-  { src: '/Atardecer.png', ratio: 300 / 270, texto: 'Los animales del bosque se unen para sobrevivir juntos bajo tierra.' },
+  { src: '/excavadora.png', ratio: 300 / 200, texto: 'Cueva tenebrosa y profundidades sin camino.' },
+  { src: '/entrada.png', ratio: 300 / 200, texto: 'un sotana que esconde al sidra del granjero bean' },
+  { src: '/Cocina.png', ratio: 300 / 270, texto: 'la cocina de la señora y el señor fox' },
+  { src: '/casa.png', ratio: 300 / 200, texto: 'la sala que atrevesara por muchos caos' },
+  { src: '/camino.png', ratio: 300 / 270, texto: 'atajos donde se movia el maravilloso sñeor fox' },
+  { src: '/Atardecer.png', ratio: 300 / 270, texto: 'el gran arbol que esconde la madriguera' },
 ];
 
 // Fotos por tramo de la cuerda. La cuerda es una sola y va en zigzag (culebra):
