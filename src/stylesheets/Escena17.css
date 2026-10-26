@@ -107,9 +107,39 @@
 
   background: #fff;
 
-  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.7);
+  /* Sombra pequeña: es estática, se pinta una sola vez por grupo */
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.6);
+}
+
+/* Cada grupo es una sola capa que titila (opacidad = barato).
+   Quedan pausados hasta que las estrellas aparecen. */
+
+.estrellas17-grupo {
+  position: absolute;
+  inset: 0;
+
+  will-change: opacity;
 
   animation: titilar17 2.4s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.estrellas17-grupo--1 {
+  animation-duration: 3.1s;
+  animation-delay: -1s;
+}
+
+.estrellas17-grupo--2 {
+  animation-duration: 2.7s;
+  animation-delay: -2s;
+}
+
+.estrellas17--on .estrellas17-grupo {
+  animation-play-state: running;
+}
+
+.estrellas17--on.estrellas17--pausa .estrellas17-grupo {
+  animation-play-state: paused;
 }
 
 @keyframes titilar17 {
@@ -126,8 +156,11 @@
 .luna17 {
   position: absolute;
 
-  left: 88%;
-  top: 58%;
+  /* Posición FINAL. GSAP la mueve con transform desde abajo-derecha */
+  left: 68%;
+  top: 14%;
+
+  will-change: transform, opacity;
 
   width: 9%;
   aspect-ratio: 1;
@@ -149,8 +182,8 @@
     );
 
   box-shadow:
-    0 0 40px 12px rgba(255, 244, 200, 0.35),
-    0 0 120px 40px rgba(255, 244, 200, 0.15);
+    0 0 30px 10px rgba(255, 244, 200, 0.35),
+    0 0 70px 24px rgba(255, 244, 200, 0.15);
 }
 
 /* Cráteres */
@@ -204,12 +237,39 @@
   pointer-events: none;
 
   user-select: none;
+}
 
-  /* Se anima a modo noche desde GSAP */
-  filter:
-    brightness(1)
-    contrast(1)
-    saturate(1);
+
+/* Capa oscura con la silueta de los personajes (la máscara se pone
+   desde el JSX). Reemplaza al filter animado, que era muy pesado. */
+
+.personajes17-noche {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 5;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  background: #060a26;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  will-change: opacity;
 }
 
 

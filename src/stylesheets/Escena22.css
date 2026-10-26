@@ -1,0 +1,90 @@
+/* =========================================================
+   ESCENA 25 del reproductor (componente Escena22)
+   Escenario de 1920x1080, todo en %.
+   primero24 es de pantalla completa (1920x1080).
+   fox24 mide 1920x784 (784 / 1080 = 72.6 % del alto) y va pegado
+   abajo, así que ocupa todo el ancho.
+   Si ves al Sr. Fox muy arriba o muy abajo, ajusta "bottom".
+   ========================================================= */
+
+.escena22-wrapper {
+  position: relative;
+  width: 137%;
+  left: -12.5%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  outline: none;
+}
+
+
+
+ 
+/* primero24 desaparece cuando termina la animación del Sr. Fox */
+.primero22--oculto {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+}
+
+/* Antes del click toda la escena se puede tocar */
+.escena22-wrapper--lista {
+  cursor: pointer;
+}
+
+.escena22 {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Cámara: todo lo que está dentro se mueve junto */
+.camara22 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* Capa de abajo: se ve a través de las partes transparentes de primero24 */
+.segundo22 {
+  position: absolute;
+  inset: 0;
+  width: 125%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Encima de segundo22 */
+.primero22 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  z-index: 2;
+  pointer-events: none;
+
+    /* Fundido al desaparecer (cambia 0.5s para más o menos tiempo) */
+  opacity: 1;
+  transition: opacity 0.5s ease, visibility 0s linear 0s;
+}
+
+
+/* Sr. Fox: 1920 px de ancho (todo el escenario) */
+.fox22 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+  z-index: 3;
+  pointer-events: none;
+}

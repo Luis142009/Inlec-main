@@ -23,6 +23,12 @@ import { Escena13 } from "../components/Escena13";
 import { Escena15 } from "../components/Escena15";
 import { Escena16 } from "../components/Escena16";
 import { Escena17 } from "../components/Escena17";
+import { EscenaVideo } from "../components/EscenaVideo";
+import { Escena18 } from "../components/Escena18";
+import { Escena19 } from "../components/Escena19";
+import { Escena20 } from "../components/Escena20";
+import { Escena21 } from "../components/Escena21";
+import { Escena22 } from "../components/Escena22";
 
 import LibroPersonajes from "../components/LibroPersonajes";
 import { PortadaCapitulo } from "../components/PortadaCapitulo";
@@ -76,10 +82,90 @@ import bellota from "../assets/svg/Bellota.svg";
 
 
 // =========================================================
+// MUESTRA EN PANTALLA EL ERROR REAL DE UNA ESCENA
+// (si una escena falla, en vez de romper toda la interfaz
+//  se ve aquí el mensaje exacto y también sale en la consola)
+// =========================================================
+
+class ErrorEscena extends React.Component {
+
+  constructor(props) {
+
+    super(props);
+
+    this.state = { error: null };
+
+  }
+
+  static getDerivedStateFromError(error) {
+
+    return { error };
+
+  }
+
+  componentDidCatch(error, info) {
+
+    console.error(
+      `Error en la escena ${this.props.escena}:`,
+      error,
+      info?.componentStack
+    );
+
+  }
+
+  render() {
+
+    if (this.state.error) {
+
+      return (
+
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "12px",
+            padding: "30px",
+            boxSizing: "border-box",
+            textAlign: "center",
+            color: "#fff",
+            background: "rgba(120, 20, 20, 0.92)",
+            fontFamily: "monospace"
+          }}
+        >
+
+          <strong style={{ fontSize: "22px" }}>
+            Error en la escena {this.props.escena}
+          </strong>
+
+          <span style={{ fontSize: "16px" }}>
+            {String(
+              this.state.error?.message ||
+              this.state.error
+            )}
+          </span>
+
+        </div>
+
+      );
+
+    }
+
+    return this.props.children;
+
+  }
+
+}
+
+
+// =========================================================
 // TOTAL DE ESCENAS
 // =========================================================
 
-const TOTAL_ESCENAS = 23;
+const TOTAL_ESCENAS = 26;
 
 
 // =========================================================
@@ -150,7 +236,7 @@ const capitulos = [
     numero: 4,
     titulo: "TÍTULO DEL CAPÍTULO 4",
     escenaInicio: 20,
-    escenaFin: 24,
+    escenaFin: 25,
     objetos: 4
   }
 
@@ -569,7 +655,15 @@ const InterfazCap = () => {
       }]
     },
 
-    // ESCENA 17: la pones tú después (mientras tanto usa el audio fallback)
+    // ESCENA 17 (componente EscenaVideo): el video trae su propio audio,
+    // así que no hay música ni efectos automáticos (y se corta la de la 16)
+    17: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena17",
+
+      efectos: []
+    },
 
     // ESCENA 18 (componente Escena15): sin música y sin efectos por ahora.
     // Cuando tengas audio, ponlo en audiosPersonajes18 o aquí
@@ -604,6 +698,60 @@ const InterfazCap = () => {
       musica: null,
       grupoMusica: "sinMusica",
       grupoEfectos: "escena20",
+
+      efectos: []
+    },
+
+    // ESCENA 21 (componente Escena18): sin música ni efectos por ahora.
+    // Los videos de la escena arrancan al hacer click en el Sr. o la
+    // Sra. Fox. Cuando tengas audio, ponlo en audiosPersonajes21.
+    21: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena21",
+
+      efectos: []
+    },
+
+    // ESCENA 22 (componente Escena19): sin música ni efectos por ahora.
+    // Los videos de la escena arrancan al hacer click en el Sr. Fox.
+    // Cuando tengas audio, ponlo en audiosPersonajes22.
+    22: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena22",
+
+      efectos: []
+    },
+
+    // ESCENA 23 (componente Escena20): sin música ni efectos por ahora.
+    // La escena avanza manteniendo presionada D / flecha derecha.
+    23: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena23",
+
+      efectos: []
+    },
+
+    // ESCENA 24 (componente Escena21): sin música ni efectos automáticos.
+    // El video de la gallina trae su propio audio y arranca al hacer
+    // click en la gallina.
+    24: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena24",
+
+      efectos: []
+    },
+
+    // ESCENA 25 (componente Escena22): sin música ni efectos por ahora.
+    // Los videos (sin audio) arrancan al hacer click en la escena.
+    // Cuando tengas audio, ponlo aquí en "musica" o en "efectos".
+    25: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena25",
 
       efectos: []
     }
@@ -1312,7 +1460,7 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // AUDIO POR CLICK EN PERSONAJE (ESCENAS 14, 15 Y 16)
+  // AUDIO POR CLICK EN PERSONAJE (ESCENAS 14, 15, 16, 18, 20, 21 Y 22)
   // Cambia aquí el audio de cada personaje si luego tienes uno distinto
   // =========================================================
 
@@ -1353,11 +1501,28 @@ const InterfazCap = () => {
   };
 
 
+  // Escena 21 (componente Escena18): click en el Sr. Fox ("fox") o
+  // en la Sra. Fox ("sra"). Todavía sin audio. Ejemplo:
+  //   fox: { src: miAudio, volumen: 1 },
+  //   sra: { src: miAudio, volumen: 1 }
+  const audiosPersonajes21 = {};
+
+
+  // Escena 22 (componente Escena19): click en el Sr. Fox ("fox").
+  // Todavía sin audio. Ejemplo:
+  //   fox: { src: miAudio, volumen: 1 }
+  const audiosPersonajes22 = {};
+
+
   const reproducirAudioPersonaje =
     async (personaje) => {
 
       const audiosPersonajes =
-        escena === 20
+        escena === 22
+          ? audiosPersonajes22
+          : escena === 21
+          ? audiosPersonajes21
+          : escena === 20
           ? audiosPersonajes20
           : escena === 18
           ? audiosPersonajes18
@@ -1370,7 +1535,7 @@ const InterfazCap = () => {
       const config =
         audiosPersonajes[personaje];
 
-      // Las escenas 14, 15 y 16 no usan efectos automáticos,
+      // Estas escenas no usan efectos automáticos,
       // así que el canal 0 está libre
       const indice = 0;
 
@@ -1725,6 +1890,30 @@ const InterfazCap = () => {
 
   // ESCENA 20
   const escena17Ref =
+    useRef(null);
+
+  // ESCENA 17 (video)
+  const escenaVideoRef =
+    useRef(null);
+
+  // ESCENA 21
+  const escena18Ref =
+    useRef(null);
+
+  // ESCENA 22
+  const escena19Ref =
+    useRef(null);
+
+  // ESCENA 23
+  const escena20Ref =
+    useRef(null);
+
+  // ESCENA 24
+  const escena21Ref =
+    useRef(null);
+
+  // ESCENA 25
+  const escena22Ref =
     useRef(null);
 
 
@@ -2121,6 +2310,10 @@ const InterfazCap = () => {
         case 16:
           return escena13Ref;
 
+        // ESCENA 17 (video)
+        case 17:
+          return escenaVideoRef;
+
         // ESCENA 18
         case 18:
           return escena15Ref;
@@ -2132,6 +2325,26 @@ const InterfazCap = () => {
         // ESCENA 20
         case 20:
           return escena17Ref;
+
+        // ESCENA 21
+        case 21:
+          return escena18Ref;
+
+        // ESCENA 22
+        case 22:
+          return escena19Ref;
+
+        // ESCENA 23
+        case 23:
+          return escena20Ref;
+
+        // ESCENA 24
+        case 24:
+          return escena21Ref;
+
+        // ESCENA 25
+        case 25:
+          return escena22Ref;
 
         default:
           return null;
@@ -2232,7 +2445,7 @@ const InterfazCap = () => {
 
 
         // La música solo se reanuda si esta escena tiene música
-        // (en las escenas 14, 15 y 16 no, para que no suene la anterior)
+        // (en las escenas sin música no, para que no suene la anterior)
         if (
           musicaRef.current &&
           configActual.musica
@@ -2254,9 +2467,9 @@ const InterfazCap = () => {
               return;
             }
 
-            // Audio de un personaje (escenas 14, 15 y 16) que quedó a medias
+            // Audio de un personaje que quedó a medias
             const audioPersonajeEnCurso =
-              (escena === 14 || escena === 15 || escena === 16 || escena === 18 || escena === 20) &&
+              (escena === 14 || escena === 15 || escena === 16 || escena === 18 || escena === 20 || escena === 21 || escena === 22) &&
               i === 0 &&
               audio.currentTime > 0;
 
@@ -3149,6 +3362,40 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
+                        ESCENA 17 (VIDEO)
+                    ================================================= */}
+
+                    {escena === 17 && (
+
+                      <motion.div
+                        key="escena17video"
+                        {...transicionEscena}
+                      >
+
+                        <ErrorEscena escena={17}>
+
+                          <EscenaVideo
+
+                            ref={escenaVideoRef}
+
+                            cambiarEscena={
+                              cambiarEscena
+                            }
+
+                            volumen={
+                              volumenEfectos
+                            }
+
+                          />
+
+                        </ErrorEscena>
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
                         ESCENA 18
                     ================================================= */}
 
@@ -3235,10 +3482,172 @@ const InterfazCap = () => {
 
 
                     {/* =================================================
-                        ESCENA 17 (la pones tú) Y ESCENAS 21 - 24
+                        ESCENA 21
                     ================================================= */}
 
-                    {(escena === 17 || escena >= 21) && (
+                    {escena === 21 && (
+
+                      <motion.div
+                        key="escena21"
+                        {...transicionEscena}
+                      >
+
+                        <ErrorEscena escena={21}>
+
+                          <Escena18
+
+                            ref={escena18Ref}
+
+                            cambiarEscena={
+                              cambiarEscena
+                            }
+
+                            onPersonajeClick={
+                              reproducirAudioPersonaje
+                            }
+
+                          />
+
+                        </ErrorEscena>
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 22
+                    ================================================= */}
+
+                    {escena === 22 && (
+
+                      <motion.div
+                        key="escena22"
+                        {...transicionEscena}
+                      >
+
+                        <ErrorEscena escena={22}>
+
+                          <Escena19
+
+                            ref={escena19Ref}
+
+                            cambiarEscena={
+                              cambiarEscena
+                            }
+
+                            onPersonajeClick={
+                              reproducirAudioPersonaje
+                            }
+
+                          />
+
+                        </ErrorEscena>
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 23
+                    ================================================= */}
+
+                    {escena === 23 && (
+
+                      <motion.div
+                        key="escena23"
+                        {...transicionEscena}
+                      >
+
+                        <ErrorEscena escena={23}>
+
+                          <Escena20
+
+                            ref={escena20Ref}
+
+                            cambiarEscena={
+                              cambiarEscena
+                            }
+
+                          />
+
+                        </ErrorEscena>
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 24
+                    ================================================= */}
+
+                    {escena === 24 && (
+
+                      <motion.div
+                        key="escena24"
+                        {...transicionEscena}
+                      >
+
+                        <ErrorEscena escena={24}>
+
+                          <Escena21
+
+                            ref={escena21Ref}
+
+                            cambiarEscena={
+                              cambiarEscena
+                            }
+
+                            volumen={
+                              volumenEfectos
+                            }
+
+                          />
+
+                        </ErrorEscena>
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 25
+                    ================================================= */}
+
+                    {escena === 25 && (
+
+                      <motion.div
+                        key="escena25"
+                        {...transicionEscena}
+                      >
+
+                        <ErrorEscena escena={25}>
+
+                          <Escena22
+
+                            ref={escena22Ref}
+
+                            cambiarEscena={
+                              cambiarEscena
+                            }
+
+                          />
+
+                        </ErrorEscena>
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* =================================================
+                        ESCENA 26 EN ADELANTE (pendiente)
+                    ================================================= */}
+
+                    {escena >= 26 && (
 
                       <motion.div
 

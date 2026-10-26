@@ -1,0 +1,81 @@
+/* =========================================================
+   ESCENA VIDEO (escena 17)
+   ========================================================= */
+
+.escena-video {
+  position: relative;
+  width: 125%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* El video (1920x1080, 16:9) rellena toda el área de la escena */
+.escena-video-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Botón de play (solo aparece si el navegador bloquea el autoplay) */
+.escena-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+
+  width: 90px;
+  height: 90px;
+  padding-left: 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 36px;
+  line-height: 1;
+  color: #fff;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  cursor: pointer;
+
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.escena-video-play:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.escena-video-play:active {
+  transform: translate(-50%, -50%) scale(0.92);
+}
+
+/* Mensaje si el video no carga */
+.escena-video-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  max-width: 80%;
+  padding: 16px 24px;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  background: rgba(150, 30, 30, 0.9);
+  border-radius: 12px;
+}

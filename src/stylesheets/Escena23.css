@@ -1,0 +1,79 @@
+/* =========================================================
+   ESCENA 26 (componente Escena23)
+   Escenario de 1920x1080, todo en %.
+
+   fondo23    1920x1080 -> pantalla completa
+   banquete23 1596x984  -> 83.1 % de ancho, 91.1 % de alto
+                           (con transparencia)
+   fox23      1920x784  -> 100 % de ancho, 72.6 % de alto
+                           (con transparencia)
+   ========================================================= */
+
+.escena23-wrapper {
+  position: relative;
+  width: 125%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.escena23 {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Cámara: todo lo que está dentro se mueve junto */
+.camara23 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.fondo23 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* La mesa queda entre los dos grupos de personajes.
+   left = 181 / 1920 = 9.4 %  (ajusta si la quieres más a un lado) */
+.banquete23 {
+  position: absolute;
+  left: 9.4%;
+  top: 0;
+  width: 83.1%;
+  height: auto;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* El Sr. Fox ocupa todo el ancho y va pegado abajo */
+.srfox23 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Capa invisible para dar click y arrancar (solo antes de iniciar) */
+.inicio23 {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  cursor: pointer;
+  outline: none;
+}
+
+.inicio23:focus-visible {
+  box-shadow: inset 0 0 0 4px #3b1602;
+}

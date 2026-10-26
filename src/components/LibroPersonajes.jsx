@@ -1,1040 +1,417 @@
+
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-
 import "../stylesheets/LibroPersonajes.css";
 
+const personajes = [
+  {
+    id: "srFox",
+    nombre: "Sr. Fox",
+    imagen: "/H.png",
+    especie: "Zorro",
+    edad: "Adulto",
+    rol: "Protagonista",
+    etiqueta: "PERSONAJE PRINCIPAL",
+    personalidad: "Astuto · Audaz · Elegante",
+    descripcion:
+      "Un zorro brillante, carismático y estratega. Siempre tiene un plan, incluso cuando todo parece salir mal. Su ingenio lo convierte en un adversario difícil de vencer.",
+    frase: "Nunca subestimes a un zorro con un buen plan.",
+    detalle: "El héroe de una aventura llena de ingenio y peligros.",
+    principal: true,
+  },
+  {
+    id: "sraFox",
+    nombre: "Sra. Fox",
+    imagen: "/personajes/sra-fox.png",
+    especie: "Zorra",
+    edad: "Adulta",
+    rol: "Madre y compañera",
+    etiqueta: "FAMILIA FOX",
+    personalidad: "Inteligente · Cariñosa · Valiente",
+    descripcion:
+      "Una zorra de gran carácter que protege a su familia con determinación. Es sensata, afectuosa y capaz de mantener la calma cuando las aventuras de su esposo ponen a todos en peligro.",
+    frase: "La familia siempre encuentra la manera de salir adelante.",
+    detalle: "El corazón y la fortaleza de la familia Fox.",
+  },
+  {
+    id: "kristofferson",
+    nombre: "Kristofferson",
+    imagen: "/personajes/kristofferson.png",
+    especie: "Zorro",
+    edad: "Joven",
+    rol: "Primo de Ash",
+    etiqueta: "NUEVO PERSONAJE",
+    personalidad: "Disciplinado · Tranquilo · Hábil",
+    descripcion:
+      "El primo de Ash destaca por su serenidad, su disciplina y sus habilidades físicas. Su talento natural despierta admiración y también cierta rivalidad familiar.",
+    frase: "La verdadera fuerza también necesita paciencia.",
+    detalle: "Un joven habilidoso que llega para cambiar la dinámica familiar.",
+  },
+  {
+    id: "ash",
+    nombre: "Ash",
+    imagen: "/personajes/ash.png",
+    especie: "Zorro",
+    edad: "Joven",
+    rol: "Hijo de los Fox",
+    etiqueta: "FAMILIA FOX",
+    personalidad: "Rebelde · Ingenioso · Determinado",
+    descripcion:
+      "Ash es un zorro inquieto, creativo y de personalidad intensa. Quiere demostrar que puede hacer grandes cosas por sí mismo, aunque a veces su orgullo lo lleve a meterse en problemas.",
+    frase: "No necesito ser como los demás para ser extraordinario.",
+    detalle: "Un joven que busca su propio lugar dentro de la familia.",
+  },
+  {
+    id: "junior",
+    nombre: "Junior",
+    imagen: "/personajes/junior.png",
+    especie: "Por definir",
+    edad: "Por definir",
+    rol: "Por descubrir",
+    etiqueta: "PERSONAJE EN DESARROLLO",
+    personalidad: "Su historia está por descubrirse",
+    descripcion:
+      "Este espacio está reservado para Junior. Aquí podrás incorporar su apariencia, personalidad, relación con los demás personajes y los acontecimientos que marcarán su historia.",
+    frase: "Cada personaje tiene una historia que contar.",
+    detalle: "Ficha preparada para completar con su diseño definitivo.",
+  },
+  {
+    id: "bean",
+    nombre: "Bean",
+    imagen: "/Foto Bean-1024.jpg",
+    especie: "Humano",
+    edad: "Adulto",
+    rol: "Granjero",
+    etiqueta: "LOS GRANJEROS",
+    personalidad: "Frío · Calculador · Obstinado",
+    descripcion:
+      "Bean es uno de los tres granjeros que quieren acabar con los planes del Sr. Fox. Astuto a su manera y obsesionado con proteger sus intereses, participa en una persecución que pone en peligro a toda la comunidad animal.",
+    frase: "Un zorro nunca deja de causar problemas.",
+    detalle: "Uno de los principales adversarios de la familia Fox.",
+  },
+  {
+    id: "boggis",
+    nombre: "Boggis",
+    imagen: "/Foto Boggis-1024.jpg",
+    especie: "Humano",
+    edad: "Adulto",
+    rol: "Granjero",
+    etiqueta: "LOS GRANJEROS",
+    personalidad: "Codicioso · Terco · Agresivo",
+    descripcion:
+      "Boggis es un granjero corpulento y obstinado que no tolera que nadie se aproveche de sus propiedades. Su enfrentamiento con el Sr. Fox lo convierte en una pieza clave de la historia.",
+    frase: "¡Esta vez el zorro no se saldrá con la suya!",
+    detalle: "Uno de los tres granjeros que persiguen al Sr. Fox.",
+  },
+  {
+    id: "bunce",
+    nombre: "Bunce",
+    imagen: "/Foto Bunce-1024.jpg",
+    especie: "Humano",
+    edad: "Adulto",
+    rol: "Granjero",
+    etiqueta: "LOS GRANJEROS",
+    personalidad: "Gruñón · Desconfiado · Persistente",
+    descripcion:
+      "Bunce es un granjero de carácter severo que se une a Bean y Boggis para perseguir al Sr. Fox. Su determinación y su mal humor alimentan el conflicto entre los granjeros y los animales.",
+    frase: "¡No pienso dejar que ese zorro gane!",
+    detalle: "El tercer integrante del grupo de granjeros.",
+  },
+  {
+    id: "charles",
+    nombre: "Charles",
+    imagen: "/Foto Charles-1024.jpg",
+    especie: "Zorro",
+    edad: "Joven",
+    rol: "Por confirmar",
+    etiqueta: "RETRATO RECIBIDO",
+    personalidad: "Curioso · Expresivo · Decidido",
+    descripcion:
+      "Este retrato muestra a un joven zorro de camiseta verde y una estrella amarilla. Puedes conservarlo como Charles o cambiar su nombre y ficha si la ilustración corresponde a Ash.",
+    frase: "Cada aventura es una oportunidad para crecer.",
+    detalle: "Retrato incorporado a partir de la imagen compartida.",
+  },
+];
 
-// =========================================================
-// COMPONENTE
-// =========================================================
+const textos = {
+  etiqueta: "ARCHIVOS DE LA HISTORIA",
+  titulo: "Libro de personajes",
+  subtitulo: "Descubre a quienes forman parte de Super Zorro",
+  footer: "Adéntrate en la historia de cada personaje",
+  cerrar: "Cerrar libro",
+  abrirFicha: "Abrir ficha",
+};
 
-const LibroPersonajes = () => {
-
-
-  // =========================================================
-  // ESTADOS
-  // =========================================================
-
+export default function LibroPersonajes() {
   const [libroAbierto, setLibroAbierto] = useState(false);
-
   const [personajeSeleccionado, setPersonajeSeleccionado] =
     useState(null);
 
-
-  // =========================================================
-  // TEXTOS GENERALES
-  // EDITA AQUÍ LOS TEXTOS DEL LIBRO
-  // =========================================================
-
-  const textos = {
-
-    libro: {
-
-      etiqueta:
-        "ARCHIVOS DE LA HISTORIA",
-
-      titulo:
-        "Libro de personajes",
-
-      subtitulo:
-        "Conoce los que hacen parte del Super Zorro",
-
-      footer:
-        "Adentrate en la historia del personaje",
-
-      cerrar:
-        "Cerrar libro"
-
-    },
-
-
-    srFox: {
-
-      ribbon:
-        "PRINCIPAL",
-
-      especieCard:
-        "ZORRO",
-
-      abrirFicha:
-        "Abrir ficha"
-
-    },
-
-
-    futuro1: {
-
-      icono:
-        "+",
-
-      titulo:
-        "¿Quién será?",
-
-      texto:
-        "Próximamente..."
-
-    },
-
-
-    futuro2: {
-
-      icono:
-        "?",
-
-      titulo:
-        "Página vacía",
-
-      texto:
-        "La historia continúa..."
-
-    },
-
-
-    datos: {
-
-      especie:
-        "ESPECIE",
-
-      edad:
-        "EDAD",
-
-      rol:
-        "ROL",
-
-      frase:
-        "FRASE",
-
-      detalle:
-        "DETALLE"
-
-    }
-
-  };
-
-
-  // =========================================================
-  // PERSONAJES
-  // EDITA AQUÍ TODA LA INFORMACIÓN DEL PERSONAJE
-  // =========================================================
-
-  const personajes = {
-
-    srFox: {
-
-      nombre:
-        "Sr. Fox",
-
-      imagen:
-        "./H.png",
-
-      descripcion:
-        "Un zorro elegante, atleta, audaz y brillante, con un toque de perspicacia en la mirada.",
-
-      detalle:
-        "El protagonista de esta historia.",
-
-      edad:
-        ": 4 años",
-
-      especie:
-        ": Zorro",
-
-      rol:
-        ": Protagonista",
-
-      personalidad:
-        "Audaz · Astuto · Elegante",
-
-      frase:
-        "Nunca subestimes a un zorro con un buen plan.",
-
-      etiqueta:
-        "PERSONAJE PRINCIPAL"
-
-    }
-
-  };
-
-
-  // =========================================================
-  // ABRIR PERSONAJE
-  // =========================================================
-
-  const abrirPersonaje = (personaje) => {
-
-    setPersonajeSeleccionado(personaje);
-
-  };
-
-
-  // =========================================================
-  // CERRAR PERSONAJE
-  // =========================================================
-
-  const cerrarPersonaje = () => {
-
-    setPersonajeSeleccionado(null);
-
-  };
-
-
-  // =========================================================
-  // ABRIR LIBRO
-  // =========================================================
-
-  const abrirLibro = () => {
-
-    setLibroAbierto(true);
-
-  };
-
-
-  // =========================================================
-  // CERRAR LIBRO
-  // =========================================================
+  const personajeActual =
+    personajes.find((p) => p.id === personajeSeleccionado) ?? null;
 
   const cerrarLibro = () => {
-
     setPersonajeSeleccionado(null);
-
     setLibroAbierto(false);
-
   };
 
+  useEffect(() => {
+    const manejarTecla = (event) => {
+      if (event.key === "Escape") {
+        if (personajeSeleccionado) {
+          setPersonajeSeleccionado(null);
+        } else {
+          setLibroAbierto(false);
+        }
+      }
+    };
 
-  // =========================================================
-  // TECLA ESC
-  // =========================================================
+    window.addEventListener("keydown", manejarTecla);
+    return () => window.removeEventListener("keydown", manejarTecla);
+  }, [personajeSeleccionado]);
 
   useEffect(() => {
-
-    const manejarTecla = (event) => {
-
-      if (event.key === "Escape") {
-
-        if (personajeSeleccionado) {
-
-          cerrarPersonaje();
-
-        } else if (libroAbierto) {
-
-          cerrarLibro();
-
-        }
-
-      }
-
-    };
-
-    window.addEventListener(
-      "keydown",
-      manejarTecla
-    );
+    document.body.style.overflow =
+      libroAbierto || personajeSeleccionado ? "hidden" : "";
 
     return () => {
-
-      window.removeEventListener(
-        "keydown",
-        manejarTecla
-      );
-
+      document.body.style.overflow = "";
     };
-
-  }, [
-    libroAbierto,
-    personajeSeleccionado
-  ]);
-
-
-  // =========================================================
-  // PERSONAJE ACTUAL
-  // =========================================================
-
-  const personajeActual =
-    personajeSeleccionado
-      ? personajes[personajeSeleccionado]
-      : null;
-
-
-  // =========================================================
-  // RENDER
-  // =========================================================
+  }, [libroAbierto, personajeSeleccionado]);
 
   return (
-
     <>
-
-
-      {/* =====================================================
-          BOTÓN DEL LIBRO
-      ===================================================== */}
-
       <motion.button
-
         className="libro-personajes-boton"
-
-        onClick={abrirLibro}
-
-        whileHover={{
-          scale: 1.08,
-          rotate: -2,
-          y: -3
-        }}
-
-        whileTap={{
-          scale: 0.92
-        }}
-
-        title={textos.libro.titulo}
-
+        onClick={() => setLibroAbierto(true)}
+        whileHover={{ scale: 1.08, rotate: -2, y: -3 }}
+        whileTap={{ scale: 0.92 }}
+        title={textos.titulo}
+        aria-label={textos.titulo}
       >
-
         <span className="libro-icono">
-
-          <img
-            src="/L.png"
-            alt="Personajes"
-          />
-
+          <img src="/L.png" alt="" />
         </span>
-
         <span className="libro-boton-brillo" />
-
       </motion.button>
 
-
-      {/* =====================================================
-          LIBRO
-      ===================================================== */}
-
       <AnimatePresence>
-
         {libroAbierto && (
-
           <motion.div
-
             className="libro-overlay"
-
-            initial={{
-              opacity: 0
-            }}
-
-            animate={{
-              opacity: 1
-            }}
-
-            exit={{
-              opacity: 0
-            }}
-
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={cerrarLibro}
-
           >
-
-
-            {/* DECORACIONES */}
-
-            <div className="libro-particula libro-particula-1">
-
-              ✦
-
-            </div>
-
-            <div className="libro-particula libro-particula-2">
-
-              ✧
-
-            </div>
-
-            <div className="libro-particula libro-particula-3">
-
-              ✦
-
-            </div>
-
-
-            {/* =================================================
-                CONTENEDOR
-            ================================================= */}
+            <div className="libro-particula libro-particula-1">✦</div>
+            <div className="libro-particula libro-particula-2">✧</div>
+            <div className="libro-particula libro-particula-3">✦</div>
 
             <motion.div
-
               className="libro-contenedor"
-
               initial={{
                 opacity: 0,
-                scale: 0.65,
-                rotateY: -25,
-                rotateZ: -2,
-                y: 60
+                scale: 0.75,
+                rotateY: -20,
+                y: 40,
               }}
-
               animate={{
                 opacity: 1,
                 scale: 1,
                 rotateY: 0,
-                rotateZ: 0,
-                y: 0
+                y: 0,
               }}
-
               exit={{
                 opacity: 0,
-                scale: 0.65,
-                rotateY: 20,
-                rotateZ: 2,
-                y: 60
+                scale: 0.8,
+                y: 30,
               }}
-
               transition={{
                 type: "spring",
                 stiffness: 240,
-                damping: 20
+                damping: 22,
               }}
-
-              onClick={(event) =>
-                event.stopPropagation()
-              }
-
+              onClick={(event) => event.stopPropagation()}
             >
-
-
-              {/* =================================================
-                  CERRAR
-              ================================================= */}
-
-              <motion.button
-
+              <button
                 className="libro-cerrar"
-
                 onClick={cerrarLibro}
-
-                whileHover={{
-                  rotate: 90,
-                  scale: 1.1
-                }}
-
-                whileTap={{
-                  scale: 0.9
-                }}
-
-                aria-label={textos.libro.cerrar}
-
+                aria-label={textos.cerrar}
               >
-
                 ×
+              </button>
 
-              </motion.button>
-
-
-              {/* =================================================
-                  ENCABEZADO
-              ================================================= */}
-
-              <div className="libro-header">
-
-
-                <motion.div
-
-                  className="libro-header-icon"
-
-                  animate={{
-                    rotate: [-5, 5, -5],
-                    y: [0, -4, 0]
-                  }}
-
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-
-                >
-
-                </motion.div>
-
-
+              <header className="libro-header">
+                <div className="libro-header-icon">✦</div>
                 <div>
-
-
                   <span className="libro-etiqueta">
-
-                    {textos.libro.etiqueta}
-
+                    {textos.etiqueta}
                   </span>
-
-
-                  <h2>
-
-                    {textos.libro.titulo}
-
-                  </h2>
-
-
-                  <p>
-
-                    {textos.libro.subtitulo}
-
-                  </p>
-
-
+                  <h2>{textos.titulo}</h2>
+                  <p>{textos.subtitulo}</p>
                 </div>
-
-              </div>
-
-
-              {/* =================================================
-                  SEPARADOR
-              ================================================= */}
+              </header>
 
               <div className="libro-separador">
-
-                <span>
-                  ✦
-                </span>
-
+                <span>✦</span>
                 <div />
-
-                <span>
-                  ✦
-                </span>
-
+                <span>✦</span>
               </div>
-
-
-              {/* =================================================
-                  GRID DE PERSONAJES
-              ================================================= */}
 
               <div className="personajes-grid">
-
-
-                {/* =================================================
-                    SR FOX
-                ================================================= */}
-
-                <motion.button
-
-                  className="personaje-card personaje-principal"
-
-                  onClick={() =>
-                    abrirPersonaje("srFox")
-                  }
-
-                  initial={{
-                    opacity: 0,
-                    y: 35
-                  }}
-
-                  animate={{
-                    opacity: 1,
-                    y: 0
-                  }}
-
-                  transition={{
-                    delay: 0.15,
-                    duration: 0.5
-                  }}
-
-                  whileHover={{
-                    scale: 1.045,
-                    y: -7
-                  }}
-
-                  whileTap={{
-                    scale: 0.96
-                  }}
-
-                >
-
-
-                  {/* ETIQUETA */}
-
-                  <div className="personaje-ribbon">
-
-                    {textos.srFox.ribbon}
-
-                  </div>
-
-
-                  {/* IMAGEN */}
-
-                  <div className="personaje-imagen-contenedor">
-
-                    <div className="personaje-halo" />
-
-                    <img
-
-                      src={personajes.srFox.imagen}
-
-                      alt={personajes.srFox.nombre}
-
-                      className="personaje-imagen"
-
-                    />
-
-                  </div>
-
-
-                  {/* INFORMACIÓN */}
-
-                  <div className="personaje-card-info">
-
-
-                    <div className="personaje-card-especie">
-
-                      {textos.srFox.especieCard}
-
+                {personajes.map((personaje, index) => (
+                  <motion.button
+                    key={personaje.id}
+                    className={`personaje-card ${
+                      personaje.principal ? "personaje-principal" : ""
+                    }`}
+                    onClick={() =>
+                      setPersonajeSeleccionado(personaje.id)
+                    }
+                    initial={{ opacity: 0, y: 25 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: Math.min(index * 0.05, 0.35),
+                      duration: 0.35,
+                    }}
+                    whileHover={{ scale: 1.035, y: -5 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <div className="personaje-ribbon">
+                      {personaje.etiqueta}
                     </div>
 
-
-                    <div className="personaje-nombre">
-
-                      {personajes.srFox.nombre}
-
-                    </div>
-
-
-                    <div className="personaje-ver">
-
-                      {textos.srFox.abrirFicha}
-
-                      <span>
-
-                        →
-
+                    <div className="personaje-imagen-contenedor">
+                      <div className="personaje-halo" />
+                      <img
+                        src={personaje.imagen}
+                        alt={personaje.nombre}
+                        className="personaje-imagen"
+                        loading="lazy"
+                        onError={(event) => {
+                          event.currentTarget.style.visibility = "hidden";
+                          event.currentTarget.parentElement.classList.add(
+                            "personaje-sin-imagen"
+                          );
+                        }}
+                      />
+                      <span className="personaje-placeholder">
+                        ✦
                       </span>
-
                     </div>
 
-
-                  </div>
-
-                </motion.button>
-
-
-                {/* =================================================
-                    TARJETA FUTURA 1
-                ================================================= */}
-
-                <motion.div
-
-                  className="personaje-card personaje-vacio"
-
-                  initial={{
-                    opacity: 0,
-                    y: 35
-                  }}
-
-                  animate={{
-                    opacity: 1,
-                    y: 0
-                  }}
-
-                  transition={{
-                    delay: 0.25,
-                    duration: 0.5
-                  }}
-
-                >
-
-
-                  <div className="vacio-icono">
-
-                    {textos.futuro1.icono}
-
-                  </div>
-
-
-                  <div className="vacio-titulo">
-
-                    {textos.futuro1.titulo}
-
-                  </div>
-
-
-                  <small>
-
-                    {textos.futuro1.texto}
-
-                  </small>
-
-
-                </motion.div>
-
-
-                {/* =================================================
-                    TARJETA FUTURA 2
-                ================================================= */}
-
-                <motion.div
-
-                  className="personaje-card personaje-vacio"
-
-                  initial={{
-                    opacity: 0,
-                    y: 35
-                  }}
-
-                  animate={{
-                    opacity: 1,
-                    y: 0
-                  }}
-
-                  transition={{
-                    delay: 0.35,
-                    duration: 0.5
-                  }}
-
-                >
-
-
-                  <div className="vacio-icono">
-
-                    {textos.futuro2.icono}
-
-                  </div>
-
-
-                  <div className="vacio-titulo">
-
-                    {textos.futuro2.titulo}
-
-                  </div>
-
-
-                  <small>
-
-                    {textos.futuro2.texto}
-
-                  </small>
-
-
-                </motion.div>
-
-
+                    <div className="personaje-card-info">
+                      <div className="personaje-card-especie">
+                        {personaje.especie}
+                      </div>
+                      <div className="personaje-nombre">
+                        {personaje.nombre}
+                      </div>
+                      <div className="personaje-ver">
+                        {textos.abrirFicha}
+                        <span>→</span>
+                      </div>
+                    </div>
+                  </motion.button>
+                ))}
               </div>
 
-
-              {/* =================================================
-                  FOOTER
-              ================================================= */}
-
-              <div className="libro-footer">
-
-                <span>
-                  ✦
-                </span>
-
-                {textos.libro.footer}
-
-                <span>
-                  ✦
-                </span>
-
-              </div>
-
-
+              <footer className="libro-footer">
+                <span>✦</span>
+                {textos.footer}
+                <span>✦</span>
+              </footer>
             </motion.div>
-
           </motion.div>
-
         )}
-
       </AnimatePresence>
-
-
-      {/* =====================================================
-          MODAL DEL PERSONAJE
-      ===================================================== */}
 
       <AnimatePresence>
-
         {personajeActual && (
-
           <motion.div
-
             className="personaje-modal-overlay"
-
-            initial={{
-              opacity: 0
-            }}
-
-            animate={{
-              opacity: 1
-            }}
-
-            exit={{
-              opacity: 0
-            }}
-
-            onClick={cerrarPersonaje}
-
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPersonajeSeleccionado(null)}
           >
-
-
             <motion.div
-
               className="personaje-modal"
-
-              initial={{
-                opacity: 0,
-                scale: 0.75,
-                rotateZ: -2,
-                y: 40
-              }}
-
-              animate={{
-                opacity: 1,
-                scale: 1,
-                rotateZ: 0,
-                y: 0
-              }}
-
-              exit={{
-                opacity: 0,
-                scale: 0.75,
-                rotateZ: 2,
-                y: 40
-              }}
-
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="personaje-modal-titulo"
+              initial={{ opacity: 0, scale: 0.8, y: 35 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 25 }}
               transition={{
                 type: "spring",
-                stiffness: 260,
-                damping: 21
+                stiffness: 250,
+                damping: 22,
               }}
-
-              onClick={(event) =>
-                event.stopPropagation()
-              }
-
+              onClick={(event) => event.stopPropagation()}
             >
-
-
-              {/* =================================================
-                  CERRAR
-              ================================================= */}
-
-              <motion.button
-
+              <button
                 className="personaje-modal-cerrar"
-
-                onClick={cerrarPersonaje}
-
-                whileHover={{
-                  rotate: 90,
-                  scale: 1.1
-                }}
-
-                whileTap={{
-                  scale: 0.9
-                }}
-
-                aria-label={textos.datos.cerrar}
-
+                onClick={() => setPersonajeSeleccionado(null)}
+                aria-label="Cerrar ficha"
               >
-
                 ×
-
-              </motion.button>
-
-
-              {/* =================================================
-                  IMAGEN
-              ================================================= */}
+              </button>
 
               <div className="personaje-modal-imagen-contenedor">
-
                 <div className="modal-halo" />
-
                 <img
-
                   src={personajeActual.imagen}
-
                   alt={personajeActual.nombre}
-
                   className="personaje-modal-imagen"
-
                 />
-
               </div>
-
-
-              {/* =================================================
-                  INFORMACIÓN
-              ================================================= */}
 
               <div className="personaje-modal-info">
-
-
-                {/* ETIQUETA */}
-
                 <span className="personaje-modal-etiqueta">
-
                   {personajeActual.etiqueta}
-
                 </span>
 
-
-                {/* NOMBRE */}
-
-                <h2>
-
+                <h2 id="personaje-modal-titulo">
                   {personajeActual.nombre}
-
                 </h2>
 
-
-                {/* PERSONALIDAD */}
-
                 <div className="personaje-subtitulo">
-
                   {personajeActual.personalidad}
-
                 </div>
 
-
-                {/* DESCRIPCIÓN */}
-
-                <p>
-
-                  {personajeActual.descripcion}
-
-                </p>
-
-
-                {/* =================================================
-                    DATOS
-                ================================================= */}
+                <p>{personajeActual.descripcion}</p>
 
                 <div className="personaje-datos">
-
-
-                  {/* ESPECIE */}
-
                   <div className="dato">
-
-                    <div>
-
-                      <small>
-
-                        {textos.datos.especie}
-
-                      </small>
-
-                      <strong>
-
-                        {personajeActual.especie}
-
-                      </strong>
-
-                    </div>
-
+                    <small>ESPECIE</small>
+                    <strong>{personajeActual.especie}</strong>
                   </div>
-
-
-                  {/* EDAD */}
-
                   <div className="dato">
-
-                    <div>
-
-                      <small>
-
-                        {textos.datos.edad}
-
-                      </small>
-
-                      <strong>
-
-                        {personajeActual.edad}
-
-                      </strong>
-
-                    </div>
-
+                    <small>EDAD</small>
+                    <strong>{personajeActual.edad}</strong>
                   </div>
-
-
-                  {/* ROL */}
-
                   <div className="dato">
-
-                    <div>
-
-                      <small>
-
-                        {textos.datos.rol}
-
-                      </small>
-
-                      <strong>
-
-                        {personajeActual.rol}
-
-                      </strong>
-
-                    </div>
-
+                    <small>ROL</small>
+                    <strong>{personajeActual.rol}</strong>
                   </div>
-
-
                 </div>
-
-
-                {/* =================================================
-                    FRASE
-                ================================================= */}
 
                 <div className="personaje-frase">
-
-                  <span className="frase-comilla">
-
-                    “
-
-                  </span>
-
-                  <p>
-
-                    {personajeActual.frase}
-
-                  </p>
-
+                  <span className="frase-comilla">“</span>
+                  <p>{personajeActual.frase}</p>
                 </div>
-
-
-                {/* =================================================
-                    DETALLE
-                ================================================= */}
 
                 <div className="personaje-modal-detalle">
-
-                  <span>
-
-                    ✦
-
-                  </span>
-
+                  <span>✦</span>
                   {personajeActual.detalle}
-
                 </div>
-
-
               </div>
-
             </motion.div>
-
           </motion.div>
-
         )}
-
       </AnimatePresence>
-
-
     </>
-
   );
-
-};
-
-
-export default LibroPersonajes;
+}

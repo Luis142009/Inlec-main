@@ -39,9 +39,15 @@ const DURACION_ZOOM_SOL = 2.6;
 
 // =========================================================
 // ESTRELLAS (posiciones fijas, generadas una sola vez)
+// Rendimiento: las estrellas NO se animan una por una.
+// Se reparten en 3 grupos y solo se anima la opacidad de cada
+// grupo (3 animaciones en vez de 45).
 // =========================================================
 
-const ESTRELLAS = Array.from({ length: 45 }, (_, i) => {
+const CANTIDAD_ESTRELLAS = 36;
+const GRUPOS_ESTRELLAS = 3;
+
+const ESTRELLAS = Array.from({ length: CANTIDAD_ESTRELLAS }, (_, i) => {
 
   const r = (n) => {
     const x = Math.sin(i * 97.13 + n * 31.7) * 10000;
@@ -51,11 +57,15 @@ const ESTRELLAS = Array.from({ length: 45 }, (_, i) => {
   return {
     left: r(1) * 100,
     top: r(2) * 55,
-    size: 1.5 + r(3) * 2.5,
-    delay: r(4) * 3
+    size: 1.5 + r(3) * 2.5
   };
 
 });
+
+const GRUPOS = Array.from(
+  { length: GRUPOS_ESTRELLAS },
+  (_, g) => ESTRELLAS.filter((_, i) => i % GRUPOS_ESTRELLAS === g)
+);
 
 
 export const Escena17 = forwardRef(
@@ -97,6 +107,7 @@ export const Escena17 = forwardRef(
     const estrellas17Ref = useRef(null);
     const luna17Ref = useRef(null);
     const personajes17Ref = useRef(null);
+    const nochePersonajes17Ref = useRef(null);
 
     // Timeline activo (zoom inicial o timeline maestro)
     const camaraRef = useRef(null);
@@ -194,7 +205,7 @@ export const Escena17 = forwardRef(
           noche17Ref.current,
           estrellas17Ref.current,
           luna17Ref.current,
-          personajes17Ref.current
+          nochePersonajes17Ref.current
         ]);
 
         obtenerMedios().forEach((medio) => {
@@ -276,15 +287,22 @@ export const Escena17 = forwardRef(
       gsap.set(noche17Ref.current, { opacity: 0 });
       gsap.set(estrellas17Ref.current, { opacity: 0 });
 
+      // La luna ya está en su posición final (CSS). Se anima solo con
+      // transform (x / y), que es barato, en lugar de left / top
+      // que obligan al navegador a recalcular el layout en cada cuadro.
+
+      const stage = stage17Ref.current;
+
+      const lunaDx = stage ? stage.offsetWidth * 0.20 : 0;
+      const lunaDy = stage ? stage.offsetHeight * 0.44 : 0;
+
       gsap.set(luna17Ref.current, {
         opacity: 0,
-        left: "88%",
-        top: "58%"
+        x: lunaDx,
+        y: lunaDy
       });
 
-      gsap.set(personajes17Ref.current, {
-        filter: "brightness(1) contrast(1) saturate(1)"
-      });
+      gsap.set(nochePersonajes17Ref.current, { opacity: 0 });
 
 
       // =======================================================
@@ -332,11 +350,13 @@ export const Escena17 = forwardRef(
       }, T_SOL_EMPIEZA_A_BAJAR);
 
 
-      // Los personajes también se oscurecen (mismo efecto de noche de la escena 10)
+      // Los personajes también se oscurecen. Antes se animaba un CSS filter
+      // sobre una imagen enorme (muy pesado); ahora es una capa oscura con la
+      // silueta de los personajes cuya opacidad se anima (barato).
 
-      tl.to(personajes17Ref.current, {
+      tl.to(nochePersonajes17Ref.current, {
 
-        filter: "brightness(0.48) contrast(1.15) saturate(0.7)",
+        opacity: 1,
 
         duration: 2.6,
 
@@ -355,7 +375,12 @@ export const Escena17 = forwardRef(
 
         duration: 3,
 
-        ease: "sine.inOut"
+        ease: "sine.inOut",
+
+        // los destellos solo empiezan cuando las estrellas se ven
+        onStart: () => {
+          estrellas17Ref.current?.classList.add("estrellas17--on");
+        }
 
       }, T_LUNA_ENTRA);
 
@@ -363,8 +388,8 @@ export const Escena17 = forwardRef(
 
         opacity: 1,
 
-        left: "68%",
-        top: "14%",
+        x: 0,
+        y: 0,
 
         duration: 5,
 
@@ -461,6 +486,8 @@ export const Escena17 = forwardRef(
 
       }
 
+      estrellas17Ref.current?.classList.add("estrellas17--pausa");
+
     };
 
 
@@ -495,6 +522,8 @@ export const Escena17 = forwardRef(
         camaraRef.current.resume();
 
       }
+
+      estrellas17Ref.current?.classList.remove("estrellas17--pausa");
 
     };
 
@@ -579,19 +608,29 @@ export const Escena17 = forwardRef(
             className="estrellas17"
           >
 
-            {ESTRELLAS.map((estrella, i) => (
+            {GRUPOS.map((grupo, g) => (
 
-              <span
-                key={i}
-                className="estrella17"
-                style={{
-                  left: `${estrella.left}%`,
-                  top: `${estrella.top}%`,
-                  width: `${estrella.size}px`,
-                  height: `${estrella.size}px`,
-                  animationDelay: `${estrella.delay}s`
-                }}
-              />
+              <div
+                key={g}
+                className={`estrellas17-grupo estrellas17-grupo--${g}`}
+              >
+
+                {grupo.map((estrella, i) => (
+
+                  <span
+                    key={i}
+                    className="estrella17"
+                    style={{
+                      left: `${estrella.left}%`,
+                      top: `${estrella.top}%`,
+                      width: `${estrella.size}px`,
+                      height: `${estrella.size}px`
+                    }}
+                  />
+
+                ))}
+
+              </div>
 
             ))}
 
@@ -618,6 +657,22 @@ export const Escena17 = forwardRef(
             src={personajes17}
             alt=""
             draggable={false}
+          />
+
+
+          {/* =====================================================
+              NOCHE SOBRE LOS PERSONAJES
+              (capa oscura con la forma de la imagen; solo cambia
+              su opacidad, sin filtros pesados)
+          ===================================================== */}
+
+          <div
+            ref={nochePersonajes17Ref}
+            className="personajes17-noche"
+            style={{
+              WebkitMaskImage: `url(${personajes17})`,
+              maskImage: `url(${personajes17})`
+            }}
           />
 
 

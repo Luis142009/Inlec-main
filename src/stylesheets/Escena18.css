@@ -1,0 +1,107 @@
+/* =========================================================
+   ESCENA 21 (componente Escena18)
+   Todo en % sobre un escenario de 1920x1080:
+     left   = x / 1920
+     bottom = (1080 - y_del_pie) / 1080
+     width  = ancho_del_video / 1920
+   Los valores de posición son una ESTIMACIÓN: ajústalos.
+   ========================================================= */
+
+.escena18-wrapper {
+  position: relative;
+  width: 125%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.escena18 {
+  position: absolute;
+  inset: 0;
+}
+
+.fondo18 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.srfox18,
+.srafox18,
+.dialogo18 {
+  position: absolute;
+  height: auto;
+  outline: none;
+}
+
+
+/* Sr. Fox: 734 px de ancho (734 / 1920) */
+.srfox18 {
+  width: 38.2%;
+  left: 17.5%;
+  bottom: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Sra. Fox: 816 px de ancho (816 / 1920) */
+.srafox18 {
+  width: 42.5%;
+  left: 50.2%;
+  bottom: 0;
+  z-index: 3;
+  cursor: pointer;
+}
+
+/* Globo de diálogo: 722 px de ancho. Oculto hasta el click (GSAP lo
+   muestra). El "pop" crece desde la colita del globo. */
+.dialogo18 {
+  width: 28%;
+  left: 40%;
+  top: 0;
+  z-index: 4;
+  opacity: 0;
+  transform-origin: 62% 100%;
+  pointer-events: none;
+}
+
+
+/* Solo se puede tocar antes del click.
+   Después los personajes dejan de responder. */
+
+.srfox18,
+.srafox18 {
+  pointer-events: none;
+}
+
+.srfox18--listo,
+.srafox18--listo {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Contorno al pasar el mouse (el filtro solo se aplica antes del click,
+   cuando el video está quieto, así no pesa mientras se reproduce) */
+
+.srfox18--listo:hover,
+.srfox18--listo:focus-visible,
+.srafox18--listo:hover,
+.srafox18--listo:focus-visible {
+  filter: drop-shadow(4px 0 0 #3b1602)
+          drop-shadow(-4px 0 0 #3b1602)
+          drop-shadow(0 4px 0 #3b1602);
+          
+}
+
+
+.camara18 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
