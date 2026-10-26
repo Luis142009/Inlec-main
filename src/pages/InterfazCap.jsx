@@ -207,7 +207,7 @@ const capitulos = [
 
   {
     numero: 3,
-    titulo: "TÍTULO DEL CAPÍTULO 3",
+    titulo: "La destrucción de la Madriguera",
     escenaInicio: 16,
     escenaFin: 19,
     objetos: 4
@@ -216,7 +216,7 @@ const capitulos = [
   // El capítulo 4 va de la escena 20 a la 22
   {
     numero: 4,
-    titulo: "TÍTULO DEL CAPÍTULO 4",
+    titulo: "La salvación de la Familia Fox",
     escenaInicio: 20,
     escenaFin: 22,
     objetos: 4
@@ -225,7 +225,7 @@ const capitulos = [
   // El capítulo 5 empieza en la escena 23 y llega hasta la 26 (última)
   {
     numero: 5,
-    titulo: "TÍTULO DEL CAPÍTULO 5",
+    titulo: "EL gran Banquete",
     escenaInicio: 23,
     escenaFin: 26,
     objetos: 4
