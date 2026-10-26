@@ -1,3 +1,9 @@
+/* =========================================================
+   FUENTES
+   - pepe    = Abalone (títulos)
+   - redonda = Redonda (todos los textos)
+   ========================================================= */
+
 @font-face {
   font-family: 'School';
   src: url('../assets/school.ttf');
@@ -6,26 +12,25 @@
 @font-face {
   font-family: 'pepe';
   src: url('../assets/abalon.otf');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'redonda';
   src: url('../assets/redonda.ttf');
+  font-display: swap;
 }
 
 
+/* TODOS LOS TEXTOS usan Redonda */
 body {
-  font-family: 'School';
+  font-family: 'redonda', sans-serif;
 }
 
 html,
 body {
   overflow-y: auto;
 }
-
-/* =========================
-   SECCIÓN AUTOR
-   ========================= */
 
 /* =========================================
    SECCIÓN AUTOR
@@ -208,6 +213,7 @@ body {
   transform: scale(1.1);
 }
 
+/* título (estilo Abalone: ver bloque de títulos al final) */
 .autor-caption {
   position: absolute;
   left: 0;
@@ -215,9 +221,7 @@ body {
   bottom: 12px;
 
   text-align: center;
-  font-family: 'pepe', sans-serif;
   font-size: 1.5rem;
-  color: #934e24;
 }
 
 /* cintas adhesivas */
@@ -244,9 +248,7 @@ body {
 
   padding: 8px 16px;
 
-  font-family: 'pepe', sans-serif;
   font-size: 1.1rem;
-  color: #fff;
 
   background: #e89255;
   border: 3px solid #934e24;
@@ -289,9 +291,7 @@ body {
   display: inline-block;
   margin: 0 0 14px;
 
-  font-family: 'pepe', sans-serif;
   font-size: 3.5rem;
-  color: #934e24;
 
   background: linear-gradient(transparent 62%, rgba(232, 146, 85, 0.5) 62%);
   background-size: 100% 100%;
@@ -309,9 +309,7 @@ body {
   margin: 0 0 26px;
   padding: 8px 40px 8px 22px;
 
-  font-family: 'school', sans-serif;
   font-size: 1.6rem;
-  color: #fff;
 
   background: #e89255;
   clip-path: polygon(0 0, 88% 0, 100% 50%, 88% 100%, 0 100%);
@@ -329,10 +327,10 @@ body {
   margin: 0 0 14px;
   padding: 10px 16px;
 
-  font-family: 'TT', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: 1.15rem;
   line-height: 1.7;
-  color: #2b1a0e;
+  color: #934e24;
   text-align: left;
 
   border-left: 5px solid rgba(232, 146, 85, 0.5);
@@ -557,13 +555,10 @@ body {
   background-position: center top;
   margin-left: 300px;
   margin-top: 20px;
- 
-
- 
 
   width: 100%;
 
-  /* CAMBIO: ahora queda fijo al hacer scroll */
+  /* queda fijo al hacer scroll */
   position: fixed;
   top: 0;
   left: 0;
@@ -617,6 +612,7 @@ body {
   border-radius: 60px;
   background: transparent;
   color: #ecd9cb;
+  font-family: 'pepe', sans-serif;   /* menú = título, igual que "Nuestro proyecto" */
   font-size: 34px;
   font-weight: bold;
   cursor: pointer;
@@ -645,7 +641,7 @@ body {
 
 .inlec-nav-btn {
   color: #ffffff;
-  font-family: 'School';
+  font-family: 'redonda', sans-serif;
   font-size: 0.9rem;
   padding: 6px 18px;
   border-radius: 50px;
@@ -883,7 +879,7 @@ body {
 /* texto */
 
 .galeria-texto {
-  font-family: TT, sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: 0.95rem;
   color: #934e24;
   text-align: center;
@@ -924,16 +920,10 @@ body {
 }
 
 
-/* Título */
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 
 .superzorro-titulo {
-  font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
   font-size: clamp(2.2rem, 6vw, 4.5rem);
-  color: #fff8ec;
-  -webkit-text-stroke: 3px #d97b2f;
-  text-shadow:
-    0 3px 0 #d97b2f,
-    0 6px 10px rgba(0, 0, 0, 0.35);
   margin-bottom: 1rem;
 }
 
@@ -957,7 +947,7 @@ body {
   border: 2px solid #fff;
   color: #fff;
   font-weight: 700;
-  font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
+  font-family: 'redonda', sans-serif;
   text-decoration: none;
   font-size: 1.1rem;
   transition: transform 0.15s ease, background 0.15s ease;
@@ -975,7 +965,7 @@ body {
 .s-cap {
   color: #fff;
   font-weight: 700;
-  font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
+  font-family: 'redonda', sans-serif;
   margin-bottom: 0;
 }
 
@@ -990,7 +980,7 @@ body {
   border-bottom: 4px solid #b97a2f;
   border-radius: 14px;
   color: #fff;
-  font-family: "Baloo 2", "Fredoka", cursive, sans-serif;
+  font-family: 'redonda', sans-serif;
   font-weight: 800;
   font-size: 1.6rem;
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
@@ -1067,16 +1057,15 @@ body {
   right: -10px;
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .home-titulo {
-  font-family: 'school', sans-serif;
   font-size: clamp(1.5rem, 5vw, 3.5rem);
-  color: #000000;
   text-align: center;
   margin-bottom: 1.5rem;
 }
 
 .home-texto {
-  font-family: 'snoopy', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.95rem, 2.5vw, 2.1rem);
   color: #1a0a00;
   line-height: 1.7;
@@ -1085,7 +1074,7 @@ body {
 .home-btn {
   background-color: #2a0d00;
   color: #ffffff;
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   border-radius: 50px;
   font-size: clamp(0.9rem, 2vw, 1.25rem);
   max-width: 250px;
@@ -1133,8 +1122,9 @@ body {
   z-index: 2;
 }
 
+/* Título de referencia: todos los demás títulos se ven igual que este */
 .proyecto-titulo {
-  font-family: 'abalon';
+  font-family: 'pepe', sans-serif;
   color: #eee9e6;
   -webkit-text-stroke: 12px #934E24;
   paint-order: stroke fill;
@@ -1148,7 +1138,7 @@ body {
 
 .proyecto-descripcion {
   color: #934e24;
-  font-family: "redonda";
+  font-family: 'redonda', sans-serif;
 
   text-align: center;
 
@@ -1240,11 +1230,8 @@ body {
 
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .detras-title {
-  font-family: 'pepe', sans-serif;
-  color: #eee9e6;
-  -webkit-text-stroke: 12px #934E24;
-  paint-order: stroke fill;
   font-size: clamp(1.3rem, 3vw, 2.4rem);
   letter-spacing: 1px;
 }
@@ -1255,7 +1242,7 @@ body {
 }
 
 .detras-text {
-  font-family: TT, sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.95rem, 2.5vw, 2.05rem);
   color: #2b1a0e;
   line-height: 1.6;
@@ -1276,7 +1263,7 @@ body {
 }
 
 .detras-btn {
-  font-family: TT, sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.85rem, 2vw, 1.15rem);
   background-color: #995210;
   color: #ffffff;
@@ -1313,11 +1300,9 @@ body {
   left: 6%;
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .presentacion-titulo h1 {
-  font-family: 'school', sans-serif;
   font-size: clamp(1.6rem, 5vw, 4rem);
-  color: #ffffff;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
 
 .presentacion-frase {
@@ -1327,7 +1312,7 @@ body {
 }
 
 .presentacion-frase p {
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(1rem, 2.5vw, 2.2rem);
   color: #ffffff;
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
@@ -1341,11 +1326,9 @@ body {
   left: 7%;
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .presentacion-capitulo h2 {
-  font-family: 'school', sans-serif;
   font-size: clamp(1.4rem, 3vw, 2.8rem);
-  color: #ffffff;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
 
 .presentacion-descripcion {
@@ -1355,7 +1338,7 @@ body {
 }
 
 .presentacion-descripcion p {
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(1.1rem, 1.5vw, 1.7rem);
   color: #ffffff;
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
@@ -1371,7 +1354,7 @@ body {
 .presentacion-btn {
   background-color: #8B0000;
   color: #ffffff;
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   border-radius: 50px;
   font-size: clamp(0.6rem, 2vw, 1.2rem);
   border: 2px solid #000000;
@@ -1413,7 +1396,7 @@ body {
 }
 
 .masinlec-descripcion {
-  font-family: 'TT', sans-serif;
+  font-family: 'redonda', sans-serif;
   color: #934E24;
   text-align: justify;
   font-size: 20px;
@@ -1430,7 +1413,7 @@ body {
 .masinlec-btn {
   background-color: #e89255;
   color: #ffffff;
-  font-family: 'Abalone', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: 20px;
   border: 3px solid #934E24;
   padding: 0.4rem 1.5rem;
@@ -1455,23 +1438,11 @@ body {
   padding-bottom: 3rem;
 }
 
-.per-texto{
-  -webkit-text-stroke: 12px #934E24;
-  color: #eee9e6;
-  font-family: 'pepe', sans-serif;
-  paint-order: stroke fill;
-}
+/* .per-texto y .personajes-titulo: estilo Abalone en el bloque de títulos al final */
 
 .personajes-titulo-row {
   margin-left: clamp(1rem, 8vw, 100px);
   margin-bottom: 1rem;
-}
-
-.personajes-titulo {
-  font-family: 'pepe', sans-serif;
-  color: #eee9e6;
-  -webkit-text-stroke: 12px #934E24;
-  paint-order: stroke fill;
 }
 
 .personajes-badge-row {
@@ -1487,7 +1458,7 @@ body {
 }
 
 .personajes-badge p {
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.72rem, 1.5vw, 1rem);
   color: #ffffff;
   margin: 0;
@@ -1527,7 +1498,7 @@ body {
 }
 
 .personajes-nav-indicador {
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(1rem, 2.5vw, 1.4rem);
   color: #1a1a1a;
   min-width: 50px;
@@ -1559,7 +1530,7 @@ body {
 }
 
 .personajes-rol p {
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.82rem, 1.5vw, 1.1rem);
   color: #000;
   margin: 0;
@@ -1591,7 +1562,7 @@ body {
 }
 
 .personajes-foto-header p {
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.62rem, 1vw, 0.8rem);
   color: #ffffff;
   margin: 0;
@@ -1621,7 +1592,7 @@ body {
 }
 
 .personajes-foto-footer p {
-  font-family: 'school', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.88rem, 1.8vw, 1.24rem);
   color: #000;
   margin: 0;
@@ -1637,16 +1608,15 @@ body {
   min-height: clamp(100px, 18vw, 200px);
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .personajes-sinopsis-titulo {
-  font-family: 'school', sans-serif;
   font-size: clamp(0.88rem, 1.8vw, 1.20rem);
-  color: #000;
   margin: auto;
   text-align: center;
 }
 
 .personajes-sinopsis-texto {
-  font-family: 'snoopy', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.82rem, 1.5vw, 1.17rem);
   color: #000;
   line-height: 1.6;
@@ -1671,16 +1641,15 @@ body {
   margin-top: 0.5rem;
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .personajes-nota-titulo {
-  font-family: 'school', sans-serif;
   font-size: clamp(0.82rem, 1.5vw, 1rem);
-  color: #000;
   margin: 0;
   text-align: center;
 }
 
 .personajes-nota-texto {
-  font-family: 'snoopy', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.82rem, 1.5vw, 1.1rem);
   color: #000;
   margin: 0;
@@ -1730,15 +1699,14 @@ body {
   white-space: nowrap;
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .personajes-atributo-label p {
-  font-family: 'school', sans-serif;
   font-size: clamp(0.78rem, 1.5vw, 1rem);
-  color: #000;
   margin: 0;
 }
 
 .personajes-atributo-texto {
-  font-family: 'snoopy', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.88rem, 1.8vw, 1.20rem);
   color: #000;
   margin: 0;
@@ -1766,11 +1734,9 @@ body {
   padding-top: clamp(2rem, 6vw, 70px);
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .creadores-encabezado h2 {
-  font-family: 'school', sans-serif;
   font-size: clamp(1.2rem, 3vw, 2rem);
-  color: #ffffff;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
 
 .creadores-persona {
@@ -1798,11 +1764,9 @@ body {
   align-items: flex-end;
 }
 
+/* Nombre (estilo Abalone: ver bloque de títulos al final) */
 .creadores-nombre {
-  font-family: 'school', sans-serif;
   font-size: clamp(1rem, 3vw, 2rem);
-  color: #ffffff;
-  text-shadow: 2px 2px 4px #000;
   margin: 0 0 4px 0;
 }
 
@@ -1885,21 +1849,11 @@ body {
   background: #f1bd55;
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .personajes-header h2 {
   margin: 0;
 
-  font-family: "pepe", sans-serif;
   font-size: 42px;
-  font-weight: bold;
-
-  color: #fff1d2;
-
-  /* borde del texto */
-  -webkit-text-stroke: 3px #9b4f1e;
-
-  text-shadow:
-    3px 3px 0 #9b4f1e,
-    -1px -1px 0 #9b4f1e;
 }
 
 /* =========================
@@ -2077,7 +2031,7 @@ body {
 }
 
 /* =========================
-   NOMBRE
+   NOMBRE (estilo Abalone: ver bloque de títulos al final)
 ========================= */
 
 .personaje h3 {
@@ -2085,16 +2039,7 @@ body {
 
   position: relative;
 
-  font-family: "pepe", sans-serif;
-
   font-size: 28px;
-
-  color: #fff0cf;
-
-  -webkit-text-stroke: 2px #f08d48;
-
-  text-shadow:
-    2px 2px 0 #f08d48;
 
   text-align: center;
 }
@@ -2114,19 +2059,11 @@ body {
   background: #f1bd55;
 }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .personajes-footer h2 {
   margin: 0;
 
-  font-family: "pepe", sans-serif;
-
   font-size: 35px;
-
-  color: #fff0cf;
-
-  -webkit-text-stroke: 2px #9b4f1e;
-
-  text-shadow:
-    2px 2px 0 #9b4f1e;
 }
 
 /* =========================
@@ -2190,7 +2127,7 @@ body {
 }
 
 .burbuja p {
-  font-family: 'snoopy', sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.78rem, 2vw, 1.30rem);
   color: #000;
   margin: 0;
@@ -2219,18 +2156,6 @@ body {
   border-top: 9px solid #ffffff;
 }
 
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-/* =========================================
-   FOOTER INLEC
-========================================= */
-
-/* =========================================
-   FOOTER NUEVO
-========================================= */
 
 /* =========================================
    FOOTER
@@ -2424,26 +2349,21 @@ body {
 
 
 /* =========================================
-   TÍTULOS
+   TÍTULOS (estilo Abalone: ver bloque de títulos al final)
 ========================================= */
 
 .ft-title {
   margin: 0 0 8px;
 
-  -webkit-text-stroke: 1px #934E24;
-  color: #eee9e6;
-  font-family: 'pepe', sans-serif;
-  paint-order: stroke fill;
-
   font-size: 24px;
   text-align: center;
-  text-shadow: 1px 1px 0 #934E24;
 }
 
 .ft-subtitle {
   margin: 0 0 12px;
 
   color: #fdf6e3;
+  font-family: 'redonda', sans-serif;
   font-size: 14px;
   text-align: center;
 }
@@ -2471,6 +2391,7 @@ body {
   padding: 4px 12px;
 
   color: #fdf6e3;
+  font-family: 'redonda', sans-serif;
   font-weight: bold;
 
   border-radius: 10px;
@@ -2546,12 +2467,14 @@ body {
 .ft-contact-item small {
   display: block;
   color: #fdf6e3;
+  font-family: 'redonda', sans-serif;
   font-size: 11px;
 }
 
 .ft-contact-item p {
   margin: 0;
   color: #fff;
+  font-family: 'redonda', sans-serif;
   font-size: 13px;
   font-weight: bold;
   word-break: break-word;
@@ -2580,6 +2503,7 @@ body {
 
   text-decoration: none;
   color: #934E24;
+  font-family: 'redonda', sans-serif;
   font-weight: bold;
 
   background: #fdf6e3;
@@ -2698,13 +2622,9 @@ body {
   height: auto;
 }
 
+/* Slogan (estilo Abalone: ver bloque de títulos al final) */
 .ft-slogan {
   margin: 0;
-
-  -webkit-text-stroke: 1px #934E24;
-  color: #eee9e6;
-  font-family: 'pepe', sans-serif;
-  paint-order: stroke fill;
 
   font-size: 22px;
 }
@@ -2712,6 +2632,7 @@ body {
 .ft-brand p {
   margin: 3px 0 0;
   color: #6a6b7c;
+  font-family: 'redonda', sans-serif;
   font-size: 13px;
 }
 
@@ -2731,6 +2652,7 @@ body {
   padding: 16px 0;
 
   color: #4b3b2f;
+  font-family: 'redonda', sans-serif;
   font-size: 13px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -2988,16 +2910,13 @@ body {
 .cr-letrero::before { left: 16%; }
 .cr-letrero::after  { right: 16%; }
 
+/* Título (estilo Abalone: ver bloque de títulos al final) */
 .cr-letrero h2 {
   margin: 0;
   text-align: center;
   white-space: nowrap;
 
-  font-family: "pepe", sans-serif;
   font-size: clamp(1.7rem, 4.6vw, 3.4rem);
-  color: #eee9e6;
-  -webkit-text-stroke: 10px #934e24;
-  paint-order: stroke fill;
 }
 
 @keyframes cr-columpio {
@@ -3072,7 +2991,7 @@ body {
 }
 
 
-/* ===== CARTEL CON EL NOMBRE ===== */
+/* ===== CARTEL CON EL NOMBRE (estilo Abalone: ver bloque de títulos al final) ===== */
 
 .cr-cartel {
   position: relative;
@@ -3085,11 +3004,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 0 #6b3a16;
 
-  font-family: "pepe", sans-serif;
   font-size: clamp(0.95rem, 2.2vw, 1.7rem);
-  color: #eee9e6;
-  -webkit-text-stroke: 5px #934e24;
-  paint-order: stroke fill;
 
   transition: rotate 0.25s ease;
 }
@@ -3129,7 +3044,7 @@ body {
 .cr-burbuja p {
   margin: 0;
   text-align: center;
-  font-family: "snoopy", "TT", sans-serif;
+  font-family: 'redonda', sans-serif;
   font-size: clamp(0.75rem, 1.5vw, 1.2rem);
   line-height: 1.25;
   color: #2b1a0e;
@@ -3228,10 +3143,6 @@ body {
     width: 31vw;
   }
 
-  .cr-letrero h2 {
-    -webkit-text-stroke: 7px #934e24;
-  }
-
   .cr-flotante:nth-of-type(n + 4) {
     display: none;
   }
@@ -3273,6 +3184,7 @@ body {
 
   color: #934E24;
 
+  font-family: 'redonda', sans-serif;
   font-size: 12px;
 
   text-align: center;
@@ -3368,3 +3280,71 @@ body {
 }
 
 
+/* =========================================================
+   ESTILO ÚNICO DE TEXTOS  (Redonda)
+   ---------------------------------------------------------
+   Todo texto corrido usa 'redonda'. Va ANTES del bloque de
+   títulos para que los títulos (Abalone) sigan ganando.
+   Para que un texto nuevo tome esta fuente, ponle una clase
+   que contenga "texto", "descripcion", "frase" o "parrafo",
+   o agrégalo a esta lista.
+   ========================================================= */
+
+body,
+p, li, a, span, small, label, blockquote, figcaption,
+td, th, dd, dt, input, textarea, select,
+.s-cap,
+[class*="texto"]:not(.per-texto),
+[class*="descripcion"],
+[class*="frase"],
+[class*="parrafo"] {
+  font-family: 'redonda', sans-serif;
+}
+
+
+/* =========================================================
+   ESTILO ÚNICO DE TÍTULOS  (igual a "Nuestro proyecto")
+   ---------------------------------------------------------
+   Todos los títulos usan Abalone ('pepe') con relleno crema
+   y contorno café. El contorno está en "em" para que se vea
+   con la misma proporción que el de "Nuestro proyecto"
+   (12px sobre 48px = 0.25em) sin importar el tamaño.
+   Este bloque va AL FINAL para que gane sobre lo anterior.
+   Para agregar un título nuevo, solo suma su selector aquí.
+   ========================================================= */
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.proyecto-titulo,
+.home-titulo,
+.superzorro-titulo,
+.detras-title,
+.autor-caption,
+.autor-sticker,
+.autor-texto h2,
+.autor-texto h3,
+.presentacion-titulo h1,
+.presentacion-capitulo h2,
+.personajes-titulo,
+.per-texto,
+.personajes-sinopsis-titulo,
+.personajes-nota-titulo,
+.personajes-atributo-label p,
+.personajes-header h2,
+.personajes-footer h2,
+.personaje h3,
+.creadores-encabezado h2,
+.creadores-nombre,
+.cr-letrero h2,
+.cr-cartel,
+.ft-title,
+.ft-slogan,
+.footer-title,
+.footer-final-text h4 {
+  font-family: 'pepe', sans-serif;
+  font-weight: 700;
+  color: #eee9e6;
+  -webkit-text-stroke: 0.25em #934E24;
+  paint-order: stroke fill;
+  text-shadow: none;
+}
