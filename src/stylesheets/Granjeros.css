@@ -3,7 +3,6 @@
 ========================================================= */
 
 .personajes-slides {
-    top: 50%;
   width: 100%;
   overflow: hidden;
 }
@@ -18,6 +17,7 @@
 .personajes-slide {
   flex: 0 0 100%;
   min-width: 0;
+  position: relative; /* el contenido se queda dentro de su slide */
   transition: visibility 0s linear 0s;
 }
 
@@ -96,12 +96,15 @@
 .granjeros {
   display: flex;
   flex-direction: row;
-  position: absolute;
   justify-content: center;
   align-items: center;
   gap: clamp(12px, 3vw, 50px);
-  top: 50%;
-  padding: 80px 16px 0; /* 80px = separación con el título, cámbiala a tu gusto */
+  top: 190px;
+
+  position: relative;      /* antes absolute: se salía del slide */
+  width: 100%;
+  box-sizing: border-box;  /* el padding no suma al ancho */
+  padding: 80px 16px 0;    /* 80px = separación con el título, cámbiala a tu gusto */
 }
 
 .granjeros-titulo {
@@ -111,7 +114,6 @@
   margin: 0;
 }
 
-/* Bean arriba */
 /* Los 3 en una sola línea: Bunce · Bean · Boggis */
 .granjeros-arriba,
 .granjeros-abajo {

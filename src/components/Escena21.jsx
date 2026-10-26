@@ -11,6 +11,11 @@ import { gsap } from "gsap";
 import fondo22 from "../assets/fondo22.webm";
 import gallina22 from "../assets/gallina22.webm";
 
+import maiz from "../assets/svg/Maiz.svg";
+import sidra from "../assets/svg/Sidra.svg";
+
+import tocar from "../assets/audio/tocar.mp3";
+
 import "../stylesheets/Escena21.css";
 
 
@@ -28,6 +33,9 @@ import "../stylesheets/Escena21.css";
 //   6.5 -> 10 s  la cámara va a la izquierda
 // La cámara está atada al tiempo del video de la gallina: si se
 // pausa, la cámara se queda en el mismo punto.
+//
+// Objetos recogibles: maíz y sidra (mismo efecto que en la
+// escena 22: brillo + zoom de cámara + vuelo al slot).
 // =========================================================
 
 // Pasar a la siguiente escena cuando termine el video
@@ -59,7 +67,12 @@ export const Escena21 = forwardRef(
       volumen = 0.7,
 
       // Opcional: avisa a InterfazCap que se tocó a la gallina
-      onPersonajeClick
+      onPersonajeClick,
+
+      // InterfazCap avisa si ya se recogieron
+      onRecoger,
+      maizRecogido,
+      sidraRecogida
     },
     ref
   ) => {
@@ -88,6 +101,19 @@ export const Escena21 = forwardRef(
 
     const fondoRef = useRef(null);
     const gallinaRef = useRef(null);
+
+    // OBJETOS RECOGIBLES
+    const maizRef = useRef(null);
+    const sidraRef = useRef(null);
+
+    // Evita recoger dos objetos a la vez (cada uno vuela a un slot distinto)
+    const recogiendoRef = useRef(false);
+
+    const tocarRef = useRef(null);
+
+    if (!tocarRef.current) {
+      tocarRef.current = new Audio(tocar);
+    }
 
 
     const obtenerMedios = () =>
@@ -437,6 +463,212 @@ export const Escena21 = forwardRef(
     };
 
 
+    // =========================================================
+    // CLICK EN UN OBJETO (maíz o sidra)
+    // brillo + cámara + rebote + vuelo al slot
+    // (misma lógica que la escena 22; la cámara aquí usa
+    // xPercent / yPercent, así que el zoom también se hace en %)
+    // =========================================================
+
+    const recogerObjeto = (e, clave, elementoRef, yaRecogido) => {
+
+      e.stopPropagation();
+
+      if (yaRecogido || recogiendoRef.current) {
+        return;
+      }
+
+      const objeto = elementoRef.current;
+      const camara = camaraRef.current;
+
+      if (!objeto || !camara) {
+        return;
+      }
+
+      const slotDestino =
+        document.querySelector(".slot.slot-vacio") ||
+        document.querySelectorAll(".slot")[0];
+
+      if (!slotDestino) {
+
+        console.warn("No se encontró el slot de destino.");
+
+        return;
+      }
+
+      recogiendoRef.current = true;
+
+
+      // SONIDO INMEDIATO
+      tocarRef.current.currentTime = 0;
+
+      tocarRef.current
+        .play()
+        .catch(() => {});
+
+
+      // Si la escena ya arrancó, se congela todo (videos, cámara y
+      // conteo de la gallina) mientras se recoge el objeto, y luego
+      // sigue igual
+      const estabaIniciada = iniciadoRef.current;
+
+      if (estabaIniciada) {
+        pausarTodo();
+      }
+
+
+      // ESTADO ACTUAL DE LA CÁMARA
+
+      const escalaActual =
+        Number(gsap.getProperty(camara, "scale")) || 1;
+
+      const xPercentActual =
+        Number(gsap.getProperty(camara, "xPercent")) || 0;
+
+      const yPercentActual =
+        Number(gsap.getProperty(camara, "yPercent")) || 0;
+
+
+      // POSICIONES
+
+      const camaraRect = camara.getBoundingClientRect();
+      const objetoRect = objeto.getBoundingClientRect();
+      const slotRect = slotDestino.getBoundingClientRect();
+
+      const camaraCentroX = camaraRect.left + camaraRect.width / 2;
+      const camaraCentroY = camaraRect.top + camaraRect.height / 2;
+
+      const objetoCentroX = objetoRect.left + objetoRect.width / 2;
+      const objetoCentroY = objetoRect.top + objetoRect.height / 2;
+
+      // ZOOM DE LA CÁMARA SOBRE EL OBJETO
+      const ZOOM = 2;
+
+      // Desplazamiento en px para dejar el objeto en el centro...
+      const offsetX =
+        -ZOOM * (objetoCentroX - camaraCentroX) / escalaActual;
+
+      const offsetY =
+        -ZOOM * (objetoCentroY - camaraCentroY) / escalaActual;
+
+      // ...convertido a % del tamaño de la cámara (xPercent / yPercent)
+      const ancho = camara.offsetWidth || 1;
+      const alto = camara.offsetHeight || 1;
+
+      const offsetXPercent = (offsetX / ancho) * 100;
+      const offsetYPercent = (offsetY / alto) * 100;
+
+      // VUELO AL SLOT (en px locales de la escena)
+      const dx =
+        (slotRect.left + slotRect.width / 2 - objetoCentroX) /
+        escalaActual;
+
+      const dy =
+        (slotRect.top + slotRect.height / 2 - objetoCentroY) /
+        escalaActual;
+
+
+      gsap.killTweensOf(objeto);
+
+
+      // TIMELINE
+
+      const tl = gsap.timeline({
+
+        onComplete: () => {
+
+          recogiendoRef.current = false;
+
+          if (estabaIniciada) {
+            reanudarTodo();
+          }
+
+          if (onRecoger) {
+            onRecoger(clave);
+          }
+
+        }
+
+      });
+
+      // 1. BRILLO + GIRO
+      tl.to(objeto, {
+
+        filter: `
+          drop-shadow(0 0 50px #ffffff)
+          drop-shadow(0 0 120px #ffe600)
+          drop-shadow(0 0 220px #ffd000)
+          drop-shadow(0 0 340px #ff9900)
+        `,
+
+        scale: 1.35,
+
+        rotation: 360,
+
+        duration: 0.35,
+
+        ease: "back.out(2)"
+
+      });
+
+      // 2. CÁMARA HACIA EL OBJETO
+      tl.to(
+        camara,
+        {
+          scale: ZOOM,
+          xPercent: offsetXPercent,
+          yPercent: offsetYPercent,
+          duration: 0.45,
+          ease: "power2.out"
+        },
+        "<"
+      );
+
+      // 3. ESPERA
+      tl.to({}, { duration: 0.15 });
+
+      // 4. REGRESAR CÁMARA A DONDE ESTABA
+      tl.to(camara, {
+        scale: escalaActual,
+        xPercent: xPercentActual,
+        yPercent: yPercentActual,
+        duration: 0.45,
+        ease: "power2.inOut"
+      });
+
+      // 5. MOVER EL OBJETO AL SLOT
+      tl.to(
+        objeto,
+        {
+          x: dx,
+          y: dy,
+          scale: 0.4,
+          rotation: 1080,
+          duration: 0.8,
+          ease: "power3.inOut"
+        },
+        "<"
+      );
+
+      // 6. REBOTE
+      tl.to(objeto, {
+        scale: 0.5,
+        duration: 0.12,
+        ease: "back.out(4)"
+      });
+
+      // 7. DESAPARECER
+      tl.to(objeto, {
+        opacity: 0,
+        duration: 0.15
+      });
+
+      // 8. LIMPIAR FILTRO
+      tl.set(objeto, { clearProps: "filter" });
+
+    };
+
+
     useImperativeHandle(
       ref,
       () => ({
@@ -496,6 +728,60 @@ export const Escena21 = forwardRef(
             >
               <source src={gallina22} type="video/webm" />
             </video>
+
+
+            {/* MAÍZ (OBJETO RECOGIBLE) */}
+
+            {!maizRecogido && (
+
+              <img
+                ref={maizRef}
+                src={maiz}
+                className="maiz21"
+                alt="Maíz"
+                draggable={false}
+                onClick={(e) =>
+                  recogerObjeto(
+                    e,
+                    "maiz",
+                    maizRef,
+                    maizRecogido
+                  )
+                }
+                style={{
+                  cursor: "pointer",
+                  userSelect: "none"
+                }}
+              />
+
+            )}
+
+
+            {/* SIDRA (OBJETO RECOGIBLE) */}
+
+            {!sidraRecogida && (
+
+              <img
+                ref={sidraRef}
+                src={sidra}
+                className="sidra21"
+                alt="Sidra"
+                draggable={false}
+                onClick={(e) =>
+                  recogerObjeto(
+                    e,
+                    "sidra",
+                    sidraRef,
+                    sidraRecogida
+                  )
+                }
+                style={{
+                  cursor: "pointer",
+                  userSelect: "none"
+                }}
+              />
+
+            )}
 
           </div>
 

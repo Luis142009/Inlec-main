@@ -120,7 +120,7 @@ const Home = () => {
     },
     {
       nombre: "Ash",
-      imagen: "/Ash.png",
+      imagen: "/Ashss.png",
     },
     {
       nombre: "Personaje 6",

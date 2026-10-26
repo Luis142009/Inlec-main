@@ -77,3 +77,50 @@
 .inicio23:focus-visible {
   box-shadow: inset 0 0 0 4px #3b1602;
 }
+
+
+/* =========================================================
+   OBJETOS RECOGIBLES - ESCENA 26
+   ========================================================= */
+
+.camara23 {
+  position: relative;
+}
+
+/* Ambos objetos pueden pulsarse */
+.objeto-recogible23 {
+  position: absolute;
+  z-index: 20;
+  display: block;
+  object-fit: contain;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: center center;
+}
+
+/* Botella o recipiente de leche */
+.leche23 {
+  width: 5%;
+  height: auto;
+
+  /* Ajustar a la posición real del objeto */
+  left: 48%;
+  top: 55%;
+}
+
+/* Escoba */
+.escoba23 {
+  width: 7%;
+  height: auto;
+
+  /* Ajustar a la posición real del objeto */
+  left: 90%;
+  top: 55%;
+}
+
+/* Permite que los objetos sigan siendo pulsables
+   mientras la capa inicial está visible */
+.inicio23 {
+  z-index: 10;
+}

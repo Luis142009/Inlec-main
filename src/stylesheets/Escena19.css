@@ -5,6 +5,23 @@
    fox20 mide 1086x1623 (1086 / 1920 = 56.6 % de ancho).
    La posición del Sr. Fox es una ESTIMACIÓN: ajústala.
    ========================================================= */
+.piedras19 {
+  position: absolute;
+  left: 8%;
+  bottom: 2%;
+  width: 9%;
+  z-index: 5;
+}
+
+.hongos19 {
+  position: absolute;
+  right: 10%;
+  bottom: 5%;
+  width: 6%;
+  z-index: 5;
+}
+
+
 
 .escena19-wrapper {
   position: relative;

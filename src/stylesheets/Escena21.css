@@ -9,6 +9,47 @@
    La posición de la gallina es una ESTIMACIÓN: ajusta left / bottom.
    ========================================================= */
 
+.piedras21 {
+  position: absolute;
+  left: 12%;
+  bottom: 8%;
+  width: 9%;
+  height: auto;
+  z-index: 10;
+  filter: drop-shadow(0 0 6px rgba(255, 225, 160, 0.95))
+          drop-shadow(0 0 14px rgba(255, 200, 100, 0.6));
+}
+
+.maiz21,
+.sidra21 {
+  position: absolute;
+  z-index: 5;
+  height: auto;
+}
+
+.maiz21 {
+  width: 10%;
+  left: 4%;
+  top: 85%;
+}
+
+.sidra21 {
+  width: 8%;
+  left: 85%;
+  top: 65%;
+}
+
+.hongos21 {
+  position: absolute;
+  right: 14%;
+  bottom: 21%;
+  width: 120%;
+  height: auto;
+  z-index: 10;
+  filter: drop-shadow(0 0 6px rgba(255, 225, 160, 0.95))
+          drop-shadow(0 0 14px rgba(255, 200, 100, 0.6));
+}
+
 .escena21-wrapper {
   position: relative;
   width: 125%;
