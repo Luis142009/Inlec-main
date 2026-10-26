@@ -62,6 +62,11 @@ import musica8   from "../assets/audio/musica8.mp3";
 import musica16 from "../assets/audio/musica16.MP3";
 import musica18   from "../assets/audio/musica18.mp3";
 import musica17 from "../assets/audio/musica17.mp3";
+import bean from "../assets/audio/bean.mp3"
+import nocturno from "../assets/audio/nocturno.mp3"
+import curacion from "../assets/audio/curacion.mp3"
+import familia from "../assets/audio/familia.mp3"
+import aburrido from "../assets/audio/aburrido.mp3"
 
 import pintura from "../assets/svg/pintura.svg";
 import manzana from "../assets/manzana.svg";
@@ -317,11 +322,22 @@ const InterfazCap = () => {
     12: "Bean, un hombre alto, huesudo y flaco, tan flaco como un lápiz enfermizo de 60 años, vestido de forma austera con ropa que le cuelga por lo esquelético que es huele a sidra de manzana, consigue pavos y barriles de sidra.",
 
     13: "Siempre regresa antes del amanecer cargado de comida para que la Sra. Fox prepare el banquete familiar, y lo hace con tal astucia que los granjeros nunca logran atraparlo.",
-    14: "Aquí va el texto de la escena 14.",
-    15: "Aquí va el texto de la escena 15.",
-    16: "Aquí va el texto de la escena 16.",
-    17: "Aquí va el texto de la escena 17.",
-    18: "Aquí va el texto de la escena 18.",
+    14:  [  
+    "Pero ¿cómo lo vamos a agarrar si es más listo que nadie?             Te equivocas, Boggis. Solo hay que ir a cazarlo en la madriguera del gran árbol. ¡Esta guerra no la pienso perder!",
+    "Hay que matar a este maldito bicho. En cuanto lo agarre, le retuerzo el pescuezo a ese maldito desgraciado."
+
+    ],
+    15: [
+      "¡Oigan, atentos! Escucho pasos.  ¡Sí, ahí está! Solo tengo que ponerlo justo en la mira y...  ¡Maldición, ha escapado! Pero no importa... ¡Es su cola!",
+      "El viento está a nuestro favor. ¡Lo tenemos!   ¿Estás seguro de que saldrá de ahí?         ¡Cállate, Boggis! No hagas que me distraiga."
+    ],
+
+    16: "La señora Fox cuida al señor Fox después de sus heridas. Lo auxilia y lo trata con cariño para que se sienta mejor y se recupere.",
+    17: [
+      "pero su descanso se ve interrumpido por el ruido de la maquinaria y las palas de los granjeros.",
+      "Cansada, la familia Fox intenta volver a conciliar el sueño después de todo lo sucedido con el señor Fox y los granjeros,"
+    ],
+    18: "La familia Fox camina desorientada y triste.",
     19: "Aquí va el texto de la escena 19.",
     20: "Aquí va el texto de la escena 20.",
     21: "Aquí va el texto de la escena 21.",
@@ -499,7 +515,11 @@ const InterfazCap = () => {
       grupoMusica: "escena12",
       grupoEfectos: "escena12",
 
-      efectos: []
+      efectos: [{
+
+         src:  bean,
+         volumen: 3
+      }]
     },
 
     13: {
@@ -507,7 +527,11 @@ const InterfazCap = () => {
       grupoMusica: "escena12",
       grupoEfectos: "escena12",
 
-      efectos: []
+      efectos: [{
+        src: nocturno,
+        volumen: 3
+
+    }]
     },
 
     // ESCENA 14: sin música y sin efectos automáticos.
@@ -539,7 +563,10 @@ const InterfazCap = () => {
       grupoMusica: "escena16",
       grupoEfectos: "escena16",
 
-      efectos: []
+      efectos: [{
+        src: curacion,
+        volumen: 3
+      }]
     },
 
     // ESCENA 17: la pones tú después (mientras tanto usa el audio fallback)
@@ -551,7 +578,10 @@ const InterfazCap = () => {
       grupoMusica: "escena18",
       grupoEfectos: "escena18",
 
-      efectos: []
+      efectos: [{
+        src: familia,
+        volumen: 3
+      }]
     },
 
     // ESCENA 19 (componente Escena16): la música suena de fondo y la
@@ -561,7 +591,10 @@ const InterfazCap = () => {
       grupoMusica: "escena19",
       grupoEfectos: "escena19",
 
-      efectos: []
+      efectos: [{
+        src: aburrido,
+        volumen: 3
+      }]
     },
 
     // ESCENA 20 (componente Escena17): sin música automática.
