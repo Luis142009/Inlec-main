@@ -74,6 +74,34 @@
   
 }
 
+
+/* Pega esto al final de ../stylesheets/Escena13.css
+   Van dentro de .escena13, así que la cámara los mueve junto con la escena.
+   Ajusta top / left / width probando en pantalla.
+   Si la mesa (Cocina) los tapa, sube el z-index. */
+
+.huevo13 {
+  position: absolute;
+  top: 55%;
+  left: 35%;
+  width: 6%;
+  z-index: 20;
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
+}
+
+.pelota13 {
+  position: absolute;
+  top: 85%;
+  left: 75%;
+  width: 7%;
+  z-index: 20;
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
+}
+
 .srfox13:hover{
 
 

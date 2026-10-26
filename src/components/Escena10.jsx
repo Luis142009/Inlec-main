@@ -12,6 +12,10 @@ import mesa10 from "../assets/mesa10.webm";
 import luz from "../assets/luz.webm";
 import fondo10 from "../assets/cocina10.webm";
 
+import pluma from "../assets/svg/pluma.svg";
+
+import tocar from "../assets/audio/tocar.mp3";
+
 import "../stylesheets/Escena10.css";
 
 
@@ -49,7 +53,22 @@ export const Escena10 = forwardRef(
     const mesa10Ref2 = useRef(null);
     const luzRef = useRef(null);
 
+    const plumaRef = useRef(null);
+
     const camaraRef = useRef(null);
+
+
+    // =========================================================
+    // AUDIO
+    // =========================================================
+
+    const tocarRef = useRef(null);
+
+    if (!tocarRef.current) {
+
+      tocarRef.current = new Audio(tocar);
+
+    }
 
 
     // =========================================================
@@ -70,6 +89,283 @@ export const Escena10 = forwardRef(
 
 
     // =========================================================
+    // CLICK EN LA PLUMA
+    // brillo + cámara + rebote + vuelo al slot
+    // =========================================================
+
+    const clickPluma = (e) => {
+
+      e.stopPropagation();
+
+
+      // SI YA FUE RECOGIDA
+      if (objetoRecogido) {
+        return;
+      }
+
+
+      // SONIDO INMEDIATO
+      tocarRef.current.currentTime = 0;
+
+      tocarRef.current
+        .play()
+        .catch(() => {});
+
+
+      const plumaEl = plumaRef.current;
+      const escena = escena10Ref.current;
+
+      if (!plumaEl || !escena) {
+        return;
+      }
+
+
+      // =======================================================
+      // SLOT DESTINO (primer slot vacío)
+      // =======================================================
+
+      const slotDestino =
+        document.querySelector(".slot.slot-vacio") ||
+        document.querySelectorAll(".slot")[0];
+
+      if (!slotDestino) {
+
+        console.warn(
+          "No se encontró el slot de destino."
+        );
+
+        return;
+      }
+
+
+      // =======================================================
+      // ESTADO ACTUAL DE LA CÁMARA
+      // (la escena 10 tiene su propia cámara animada, así que
+      // se pausa y luego se devuelve exactamente a donde estaba)
+      // =======================================================
+
+      const escalaActual =
+        Number(gsap.getProperty(escena, "scale")) || 1;
+
+      const xActual =
+        Number(gsap.getProperty(escena, "x")) || 0;
+
+      const yActual =
+        Number(gsap.getProperty(escena, "y")) || 0;
+
+      if (camaraRef.current) {
+
+        camaraRef.current.pause();
+
+      }
+
+
+      // =======================================================
+      // POSICIONES
+      // =======================================================
+
+      const escenaRect =
+        escena.getBoundingClientRect();
+
+      const plumaRect =
+        plumaEl.getBoundingClientRect();
+
+      const slotRect =
+        slotDestino.getBoundingClientRect();
+
+
+      const escenaCentroX =
+        escenaRect.left + escenaRect.width / 2;
+
+      const escenaCentroY =
+        escenaRect.top + escenaRect.height / 2;
+
+      const plumaCentroX =
+        plumaRect.left + plumaRect.width / 2;
+
+      const plumaCentroY =
+        plumaRect.top + plumaRect.height / 2;
+
+
+      // ZOOM DE LA CÁMARA SOBRE LA PLUMA
+      const ZOOM = 2;
+
+      const offsetX =
+        -ZOOM *
+        (plumaCentroX - escenaCentroX) /
+        escalaActual;
+
+      const offsetY =
+        -ZOOM *
+        (plumaCentroY - escenaCentroY) /
+        escalaActual;
+
+
+      // VUELO AL SLOT (en px locales de la escena)
+      const dx =
+        (
+          slotRect.left + slotRect.width / 2 -
+          plumaCentroX
+        ) / escalaActual;
+
+      const dy =
+        (
+          slotRect.top + slotRect.height / 2 -
+          plumaCentroY
+        ) / escalaActual;
+
+
+      // EVITAR DOBLE CLICK
+      gsap.killTweensOf(plumaEl);
+
+
+      // =======================================================
+      // TIMELINE
+      // =======================================================
+
+      const tl = gsap.timeline({
+
+        onComplete: () => {
+
+          // Reanudar la cámara de la escena
+          if (camaraRef.current) {
+
+            camaraRef.current.resume();
+
+          }
+
+          // Avisar a InterfazCap
+          if (onRecoger) {
+
+            onRecoger("pluma");
+
+          }
+
+        }
+
+      });
+
+
+      // 1. BRILLO + GIRO
+      tl.to(plumaEl, {
+
+        filter: `
+          drop-shadow(0 0 50px #ffffff)
+          drop-shadow(0 0 120px #ffe600)
+          drop-shadow(0 0 220px #ffd000)
+          drop-shadow(0 0 340px #ff9900)
+        `,
+
+        scale: 1.35,
+
+        rotation: 360,
+
+        duration: 0.35,
+
+        ease: "back.out(2)"
+
+      });
+
+
+      // 2. CÁMARA HACIA LA PLUMA
+      tl.to(
+        escena,
+        {
+
+          scale: ZOOM,
+
+          x: offsetX,
+
+          y: offsetY,
+
+          duration: 0.45,
+
+          ease: "power2.out"
+
+        },
+        "<"
+      );
+
+
+      // 3. ESPERA
+      tl.to({}, {
+
+        duration: 0.15
+
+      });
+
+
+      // 4. REGRESAR CÁMARA A DONDE ESTABA
+      tl.to(escena, {
+
+        scale: escalaActual,
+
+        x: xActual,
+
+        y: yActual,
+
+        duration: 0.45,
+
+        ease: "power2.inOut"
+
+      });
+
+
+      // 5. MOVER LA PLUMA AL SLOT
+      tl.to(
+        plumaEl,
+        {
+
+          x: dx,
+
+          y: dy,
+
+          scale: 0.4,
+
+          rotation: 1080,
+
+          duration: 0.8,
+
+          ease: "power3.inOut"
+
+        },
+        "<"
+      );
+
+
+      // 6. REBOTE
+      tl.to(plumaEl, {
+
+        scale: 0.5,
+
+        duration: 0.12,
+
+        ease: "back.out(4)"
+
+      });
+
+
+      // 7. DESAPARECER
+      tl.to(plumaEl, {
+
+        opacity: 0,
+
+        duration: 0.15
+
+      });
+
+
+      // 8. LIMPIAR FILTRO
+      tl.set(plumaEl, {
+
+        clearProps: "filter"
+
+      });
+
+    };
+
+
+    // =========================================================
     // CLICK EN FOX
     // INICIAR TODAS LAS ANIMACIONES
     // =========================================================
@@ -83,17 +379,11 @@ export const Escena10 = forwardRef(
       }
 
 
-      // =======================================================
       // MOSTRAR MESA 1
-      // =======================================================
-
       setMostrarMesa1(true);
 
 
-      // =======================================================
       // REINICIAR VIDEOS
-      // =======================================================
-
       const videos = obtenerVideos();
 
       videos.forEach((video) => {
@@ -111,10 +401,7 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // MATAR CUALQUIER CÁMARA ANTERIOR
-      // =======================================================
-
       if (camaraRef.current) {
 
         camaraRef.current.kill();
@@ -122,10 +409,7 @@ export const Escena10 = forwardRef(
       }
 
 
-      // =======================================================
       // REINICIAR CÁMARA
-      // =======================================================
-
       gsap.set(escena, {
 
         scale: 1,
@@ -137,19 +421,13 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // TIMELINE DE CÁMARA
-      // =======================================================
-
       const tl = gsap.timeline();
 
       camaraRef.current = tl;
 
 
-      // =======================================================
       // 1. ZOOM HACIA FOX
-      // =======================================================
-
       tl.to(escena, {
 
         scale: 1.7,
@@ -164,10 +442,7 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // 2. DESPLAZAMIENTO HACIA LA IZQUIERDA
-      // =======================================================
-
       tl.to(escena, {
 
         scale: 1.6,
@@ -182,10 +457,7 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // 3. REGRESAR AL CENTRO
-      // =======================================================
-
       tl.to(escena, {
 
         scale: 1.2,
@@ -200,10 +472,7 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // 4. SUBIR Y ACERCARSE
-      // =======================================================
-
       tl.to(escena, {
 
         scale: 1.7,
@@ -218,10 +487,7 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // 5. PAUSA
-      // =======================================================
-
       tl.to({}, {
 
         duration: 7.5
@@ -229,10 +495,7 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // 6. REGRESAR AL CENTRO
-      // =======================================================
-
       tl.to(escena, {
 
         scale: 1.2,
@@ -247,10 +510,7 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // 7. PAUSA
-      // =======================================================
-
       tl.to({}, {
 
         duration: 2.7
@@ -258,10 +518,7 @@ export const Escena10 = forwardRef(
       });
 
 
-      // =======================================================
       // 8. BAJAR CÁMARA
-      // =======================================================
-
       tl.to(escena, {
 
         scale: 1.2,
@@ -324,7 +581,6 @@ export const Escena10 = forwardRef(
 
 
       // PASAR A LA SIGUIENTE ESCENA
-
       if (AVANZAR_AL_TERMINAR && cambiarEscena) {
 
         cambiarEscena(ESCENA_SIGUIENTE);
@@ -354,7 +610,6 @@ export const Escena10 = forwardRef(
 
 
       // PAUSAR CÁMARA
-
       if (camaraRef.current) {
 
         camaraRef.current.pause();
@@ -386,7 +641,6 @@ export const Escena10 = forwardRef(
 
 
       // REANUDAR CÁMARA
-
       if (camaraRef.current) {
 
         camaraRef.current.resume();
@@ -542,6 +796,28 @@ export const Escena10 = forwardRef(
           />
 
         </video>
+
+
+        {/* =====================================================
+            PLUMA (OBJETO RECOGIBLE)
+        ===================================================== */}
+
+        {!objetoRecogido && (
+
+          <img
+            ref={plumaRef}
+            src={pluma}
+            className="pluma10"
+            alt="Pluma"
+            draggable={false}
+            onClick={clickPluma}
+            style={{
+              cursor: "pointer",
+              userSelect: "none"
+            }}
+          />
+
+        )}
 
 
       </div>

@@ -10,7 +10,7 @@ import { gsap } from "gsap";
 
 import fondo23 from "../assets/fondo23.webm";
 import banquete23 from "../assets/banquete23.webm";
-import fox23 from "../assets/fox23.webm";
+import fox23 from "../assets/fox58.webm";
 
 import "../stylesheets/Escena23.css";
 

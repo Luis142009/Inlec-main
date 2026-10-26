@@ -6,8 +6,15 @@ import React, {
   useImperativeHandle
 } from "react";
 
+import { gsap } from "gsap";
+
 import fondo16 from "../assets/fondo16.webm";
 import caminando16 from "../assets/caminando16.webm";
+
+import cristal from "../assets/svg/cristal.svg";
+import vela from "../assets/svg/vela.svg";
+
+import tocar from "../assets/audio/tocar.mp3";
 
 import "../stylesheets/Escena16.css";
 
@@ -32,7 +39,17 @@ const DESFASE_MAXIMO = 0.08;
 // los dos avanzan; al soltar la tecla se detienen.
 
 export const Escena16 = forwardRef(
-  ({ cambiarEscena }, ref) => {
+  (
+    {
+      cambiarEscena,
+
+      // InterfazCap avisa si ya se recogieron
+      onRecoger,
+      cristalRecogido,
+      velaRecogida
+    },
+    ref
+  ) => {
 
     // =======================================================
     // REFS Y ESTADO
@@ -40,6 +57,22 @@ export const Escena16 = forwardRef(
 
     const fondo16Ref = useRef(null);
     const caminando16Ref = useRef(null);
+
+    // Contenedor que hace zoom al recoger un objeto (la "cámara")
+    const camaraRef = useRef(null);
+
+    // OBJETOS RECOGIBLES
+    const cristalRef = useRef(null);
+    const velaRef = useRef(null);
+
+    // true mientras se anima la recogida (la familia no avanza)
+    const recogiendoRef = useRef(false);
+
+    const tocarRef = useRef(null);
+
+    if (!tocarRef.current) {
+      tocarRef.current = new Audio(tocar);
+    }
 
     const pausadoRef = useRef(false);
     const terminadaRef = useRef(false);
@@ -89,7 +122,8 @@ export const Escena16 = forwardRef(
       if (
         avanzandoRef.current ||
         pausadoRef.current ||
-        terminadaRef.current
+        terminadaRef.current ||
+        recogiendoRef.current
       ) {
         return;
       }
@@ -179,6 +213,205 @@ export const Escena16 = forwardRef(
 
 
     // =======================================================
+    // CLICK EN UN OBJETO (cristal o vela)
+    // brillo + cámara + rebote + vuelo al slot
+    // =======================================================
+
+    const recogerObjeto = (e, clave, elementoRef, yaRecogido) => {
+
+      e.stopPropagation();
+
+      if (
+        yaRecogido ||
+        recogiendoRef.current ||
+        terminadaRef.current
+      ) {
+        return;
+      }
+
+      const objeto = elementoRef.current;
+      const camara = camaraRef.current;
+
+      if (!objeto || !camara) {
+        return;
+      }
+
+      const slotDestino =
+        document.querySelector(".slot.slot-vacio") ||
+        document.querySelectorAll(".slot")[0];
+
+      if (!slotDestino) {
+
+        console.warn("No se encontró el slot de destino.");
+
+        return;
+      }
+
+      recogiendoRef.current = true;
+
+
+      // SONIDO INMEDIATO
+      tocarRef.current.currentTime = 0;
+
+      tocarRef.current
+        .play()
+        .catch(() => {});
+
+
+      // La familia se detiene mientras se recoge el objeto.
+      // Al terminar, vuelve a caminar si se sigue presionando D / →
+      detener();
+
+
+      // =====================================================
+      // ESTADO ACTUAL DE LA CÁMARA
+      // =====================================================
+
+      gsap.set(camara, { transformOrigin: "50% 50%" });
+
+      const escalaActual =
+        Number(gsap.getProperty(camara, "scale")) || 1;
+
+      const xActual =
+        Number(gsap.getProperty(camara, "x")) || 0;
+
+      const yActual =
+        Number(gsap.getProperty(camara, "y")) || 0;
+
+
+      // =====================================================
+      // POSICIONES
+      // =====================================================
+
+      const camaraRect = camara.getBoundingClientRect();
+      const objetoRect = objeto.getBoundingClientRect();
+      const slotRect = slotDestino.getBoundingClientRect();
+
+      const camaraCentroX = camaraRect.left + camaraRect.width / 2;
+      const camaraCentroY = camaraRect.top + camaraRect.height / 2;
+
+      const objetoCentroX = objetoRect.left + objetoRect.width / 2;
+      const objetoCentroY = objetoRect.top + objetoRect.height / 2;
+
+      // ZOOM DE LA CÁMARA SOBRE EL OBJETO
+      const ZOOM = 2;
+
+      const offsetX =
+        -ZOOM * (objetoCentroX - camaraCentroX) / escalaActual;
+
+      const offsetY =
+        -ZOOM * (objetoCentroY - camaraCentroY) / escalaActual;
+
+      // VUELO AL SLOT (en px locales de la escena)
+      const dx =
+        (slotRect.left + slotRect.width / 2 - objetoCentroX) /
+        escalaActual;
+
+      const dy =
+        (slotRect.top + slotRect.height / 2 - objetoCentroY) /
+        escalaActual;
+
+
+      gsap.killTweensOf(objeto);
+
+
+      // =====================================================
+      // TIMELINE
+      // =====================================================
+
+      const tl = gsap.timeline({
+
+        onComplete: () => {
+
+          recogiendoRef.current = false;
+
+          if (onRecoger) {
+            onRecoger(clave);
+          }
+
+        }
+
+      });
+
+      // 1. BRILLO + GIRO
+      tl.to(objeto, {
+
+        filter: `
+          drop-shadow(0 0 50px #ffffff)
+          drop-shadow(0 0 120px #ffe600)
+          drop-shadow(0 0 220px #ffd000)
+          drop-shadow(0 0 340px #ff9900)
+        `,
+
+        scale: 1.35,
+
+        rotation: 360,
+
+        duration: 0.35,
+
+        ease: "back.out(2)"
+
+      });
+
+      // 2. CÁMARA HACIA EL OBJETO
+      tl.to(
+        camara,
+        {
+          scale: ZOOM,
+          x: offsetX,
+          y: offsetY,
+          duration: 0.45,
+          ease: "power2.out"
+        },
+        "<"
+      );
+
+      // 3. ESPERA
+      tl.to({}, { duration: 0.15 });
+
+      // 4. REGRESAR CÁMARA A DONDE ESTABA
+      tl.to(camara, {
+        scale: escalaActual,
+        x: xActual,
+        y: yActual,
+        duration: 0.45,
+        ease: "power2.inOut"
+      });
+
+      // 5. MOVER EL OBJETO AL SLOT
+      tl.to(
+        objeto,
+        {
+          x: dx,
+          y: dy,
+          scale: 0.4,
+          rotation: 1080,
+          duration: 0.8,
+          ease: "power3.inOut"
+        },
+        "<"
+      );
+
+      // 6. REBOTE
+      tl.to(objeto, {
+        scale: 0.5,
+        duration: 0.12,
+        ease: "back.out(4)"
+      });
+
+      // 7. DESAPARECER
+      tl.to(objeto, {
+        opacity: 0,
+        duration: 0.15
+      });
+
+      // 8. LIMPIAR FILTRO
+      tl.set(objeto, { clearProps: "filter" });
+
+    };
+
+
+    // =======================================================
     // FIN DE LA ESCENA
     // =======================================================
 
@@ -241,7 +474,10 @@ export const Escena16 = forwardRef(
 
       <div className="escena16-wrapper">
 
-        <div className="escena16">
+        <div
+          ref={camaraRef}
+          className="escena16"
+        >
 
           {/* FONDO (la cueva) */}
 
@@ -268,6 +504,49 @@ export const Escena16 = forwardRef(
           >
             <source src={caminando16} type="video/webm" />
           </video>
+
+          {/* CRISTAL (OBJETO RECOGIBLE) */}
+
+          {!cristalRecogido && (
+
+            <img
+              ref={cristalRef}
+              src={cristal}
+              className="cristal16"
+              alt="Cristal"
+              draggable={false}
+              onClick={(e) =>
+                recogerObjeto(e, "cristal", cristalRef, cristalRecogido)
+              }
+              style={{
+                cursor: "pointer",
+                userSelect: "none"
+              }}
+            />
+
+          )}
+
+
+          {/* VELA (OBJETO RECOGIBLE) */}
+
+          {!velaRecogida && (
+
+            <img
+              ref={velaRef}
+              src={vela}
+              className="vela16"
+              alt="Vela"
+              draggable={false}
+              onClick={(e) =>
+                recogerObjeto(e, "vela", velaRef, velaRecogida)
+              }
+              style={{
+                cursor: "pointer",
+                userSelect: "none"
+              }}
+            />
+
+          )}
 
         </div>
 

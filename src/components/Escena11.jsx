@@ -13,6 +13,11 @@ import bunce11 from "../assets/Bunce11.webm";
 import bean11 from "../assets/Bean11.webm";
 import escenario11 from "../assets/Escenario11.mp4";
 
+import murcielago from "../assets/svg/lurcienaga.svg";
+import hoja from "../assets/svg/hoja.svg";
+
+import tocar from "../assets/audio/tocar.mp3";
+
 import "../stylesheets/Escena11.css";
 
 
@@ -37,7 +42,18 @@ const RETRASO_BOGGIS = 8;
 // =========================================================
 
 export const Escena11 = forwardRef(
-  ({ cambiarEscena, onPersonajeClick }, ref) => {
+  (
+    {
+      cambiarEscena,
+      onPersonajeClick,
+
+      // InterfazCap avisa si ya se recogieron
+      onRecoger,
+      murcielagoRecogido,
+      hojaRecogida
+    },
+    ref
+  ) => {
 
     // =======================================================
     // REFS Y ESTADO
@@ -68,6 +84,19 @@ export const Escena11 = forwardRef(
 
     // ⬛ PANTALLA NEGRA
     const [pantallaNegra, setPantallaNegra] = useState(false);
+
+    // OBJETOS RECOGIBLES
+    const murcielagoRef = useRef(null);
+    const hojaRef = useRef(null);
+
+    // Evita recoger dos objetos a la vez (cada uno vuela a un slot distinto)
+    const recogiendoRef = useRef(false);
+
+    const tocarRef = useRef(null);
+
+    if (!tocarRef.current) {
+      tocarRef.current = new Audio(tocar);
+    }
 
 
     const obtenerVideos = () => [
@@ -371,6 +400,207 @@ export const Escena11 = forwardRef(
 
 
     // =======================================================
+    // CLICK EN UN OBJETO (murciélago u hoja)
+    // brillo + cámara + rebote + vuelo al slot
+    // =======================================================
+
+    const recogerObjeto = (e, clave, elementoRef, yaRecogido) => {
+
+      e.stopPropagation();
+
+      if (yaRecogido || recogiendoRef.current) {
+        return;
+      }
+
+      const objeto = elementoRef.current;
+      const escena = escenaRef.current;
+
+      if (!objeto || !escena) {
+        return;
+      }
+
+      const slotDestino =
+        document.querySelector(".slot.slot-vacio") ||
+        document.querySelectorAll(".slot")[0];
+
+      if (!slotDestino) {
+
+        console.warn("No se encontró el slot de destino.");
+
+        return;
+      }
+
+      recogiendoRef.current = true;
+
+
+      // SONIDO INMEDIATO
+      tocarRef.current.currentTime = 0;
+
+      tocarRef.current
+        .play()
+        .catch(() => {});
+
+
+      // Si la escena ya está corriendo, se congela (videos, cámara
+      // y temporizadores) mientras se recoge el objeto
+      const estabaCorriendo = escenaIniciada.current;
+
+      if (estabaCorriendo) {
+        pausarTodo();
+      }
+
+
+      // =====================================================
+      // ESTADO ACTUAL DE LA CÁMARA
+      // =====================================================
+
+      const escalaActual =
+        Number(gsap.getProperty(escena, "scale")) || 1;
+
+      const xActual =
+        Number(gsap.getProperty(escena, "x")) || 0;
+
+      const yActual =
+        Number(gsap.getProperty(escena, "y")) || 0;
+
+
+      // =====================================================
+      // POSICIONES
+      // =====================================================
+
+      const escenaRect = escena.getBoundingClientRect();
+      const objetoRect = objeto.getBoundingClientRect();
+      const slotRect = slotDestino.getBoundingClientRect();
+
+      const escenaCentroX = escenaRect.left + escenaRect.width / 2;
+      const escenaCentroY = escenaRect.top + escenaRect.height / 2;
+
+      const objetoCentroX = objetoRect.left + objetoRect.width / 2;
+      const objetoCentroY = objetoRect.top + objetoRect.height / 2;
+
+      // ZOOM DE LA CÁMARA SOBRE EL OBJETO
+      const ZOOM = 2;
+
+      const offsetX =
+        -ZOOM * (objetoCentroX - escenaCentroX) / escalaActual;
+
+      const offsetY =
+        -ZOOM * (objetoCentroY - escenaCentroY) / escalaActual;
+
+      // VUELO AL SLOT (en px locales de la escena)
+      const dx =
+        (slotRect.left + slotRect.width / 2 - objetoCentroX) /
+        escalaActual;
+
+      const dy =
+        (slotRect.top + slotRect.height / 2 - objetoCentroY) /
+        escalaActual;
+
+
+      gsap.killTweensOf(objeto);
+
+
+      // =====================================================
+      // TIMELINE
+      // =====================================================
+
+      const tl = gsap.timeline({
+
+        onComplete: () => {
+
+          recogiendoRef.current = false;
+
+          if (estabaCorriendo) {
+            reanudarTodo();
+          }
+
+          if (onRecoger) {
+            onRecoger(clave);
+          }
+
+        }
+
+      });
+
+      // 1. BRILLO + GIRO
+      tl.to(objeto, {
+
+        filter: `
+          drop-shadow(0 0 50px #ffffff)
+          drop-shadow(0 0 120px #ffe600)
+          drop-shadow(0 0 220px #ffd000)
+          drop-shadow(0 0 340px #ff9900)
+        `,
+
+        scale: 1.35,
+
+        rotation: 360,
+
+        duration: 0.35,
+
+        ease: "back.out(2)"
+
+      });
+
+      // 2. CÁMARA HACIA EL OBJETO
+      tl.to(
+        escena,
+        {
+          scale: ZOOM,
+          x: offsetX,
+          y: offsetY,
+          duration: 0.45,
+          ease: "power2.out"
+        },
+        "<"
+      );
+
+      // 3. ESPERA
+      tl.to({}, { duration: 0.15 });
+
+      // 4. REGRESAR CÁMARA A DONDE ESTABA
+      tl.to(escena, {
+        scale: escalaActual,
+        x: xActual,
+        y: yActual,
+        duration: 0.45,
+        ease: "power2.inOut"
+      });
+
+      // 5. MOVER EL OBJETO AL SLOT
+      tl.to(
+        objeto,
+        {
+          x: dx,
+          y: dy,
+          scale: 0.4,
+          rotation: 1080,
+          duration: 0.8,
+          ease: "power3.inOut"
+        },
+        "<"
+      );
+
+      // 6. REBOTE
+      tl.to(objeto, {
+        scale: 0.5,
+        duration: 0.12,
+        ease: "back.out(4)"
+      });
+
+      // 7. DESAPARECER
+      tl.to(objeto, {
+        opacity: 0,
+        duration: 0.15
+      });
+
+      // 8. LIMPIAR FILTRO
+      tl.set(objeto, { clearProps: "filter" });
+
+    };
+
+
+    // =======================================================
     // FIN DE LA ESCENA
     // (se dispara cuando termina el último movimiento de cámara)
     // =======================================================
@@ -576,6 +806,59 @@ export const Escena11 = forwardRef(
             />
 
           </video>
+
+          {/* MURCIÉLAGO (OBJETO RECOGIBLE) */}
+
+          {!murcielagoRecogido && (
+
+            <img
+              ref={murcielagoRef}
+              src={murcielago}
+              className="murcielago11"
+              alt="Murciélago"
+              draggable={false}
+              onClick={(e) =>
+                recogerObjeto(
+                  e,
+                  "murcielago",
+                  murcielagoRef,
+                  murcielagoRecogido
+                )
+              }
+              style={{
+                cursor: "pointer",
+                userSelect: "none"
+              }}
+            />
+
+          )}
+
+
+          {/* HOJA (OBJETO RECOGIBLE) */}
+
+          {!hojaRecogida && (
+
+            <img
+              ref={hojaRef}
+              src={hoja}
+              className="hoja11"
+              alt="Hoja"
+              draggable={false}
+              onClick={(e) =>
+                recogerObjeto(
+                  e,
+                  "hoja",
+                  hojaRef,
+                  hojaRecogida
+                )
+              }
+              style={{
+                cursor: "pointer",
+                userSelect: "none"
+              }}
+            />
+
+          )}
 
         </div>
 

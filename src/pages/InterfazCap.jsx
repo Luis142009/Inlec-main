@@ -79,6 +79,16 @@ import pintura from "../assets/svg/pintura.svg";
 import manzana from "../assets/manzana.svg";
 import huella from "../assets/svg/huella.svg";
 import tomate from "../assets/svg/tomate.svg";
+import pluma from "../assets/svg/pluma.svg";
+import murcielago from "../assets/svg/lurcienaga.svg";
+import hoja from "../assets/svg/hoja.svg";
+import flores from "../assets/svg/flores.svg";
+import huevo from "../assets/svg/huevo.svg";
+import pelota from "../assets/svg/pelota.svg";
+import cristal from "../assets/svg/cristal.svg";
+import vela from "../assets/svg/vela.svg";
+import escopeta from "../assets/svg/escopeta.svg";
+import craneo from "../assets/svg/craneo.svg";
 import bellota from "../assets/svg/Bellota.svg";
 
 
@@ -188,13 +198,23 @@ const siluetasPorCapitulo = {
   ],
 
   2: [
-    tomate
+    pluma,
+    murcielago,
+    hoja,
+    flores
   ],
 
-  // Capítulo 3 y 4: todavía sin objetos
-  3: [],
+  3: [
+    huevo,
+    pelota,
+    cristal,
+    vela
+  ],
 
-  4: []
+  4: [
+    escopeta,
+    craneo
+  ]
 
 };
 
@@ -2015,6 +2035,156 @@ const InterfazCap = () => {
     },
 
 
+    pluma: {
+
+      nombre: "Pluma",
+
+      descripcion:
+        "Una pluma elegante y delicada, dejada atrás en la cocina. Alguien estuvo escribiendo en secreto...",
+
+      imagen: pluma,
+
+      detalle:
+        "Objeto encontrado en la cocina de los granjeros"
+
+    },
+
+
+    murcielago: {
+
+      nombre: "Murciélago",
+
+      descripcion:
+        "Un murciélago de alas extendidas, escondido entre las sombras. Parece vigilar la zona desde las alturas...",
+
+      imagen: murcielago,
+
+      detalle:
+        "Objeto encontrado en la escena de los granjeros"
+
+    },
+
+
+    hoja: {
+
+      nombre: "Hoja",
+
+      descripcion:
+        "Una hoja seca y crujiente caída del gran árbol. Quizá guarde un secreto de la madriguera.",
+
+      imagen: hoja,
+
+      detalle:
+        "Objeto encontrado cerca de los granjeros"
+
+    },
+
+
+    flores: {
+
+      nombre: "Flores",
+
+      descripcion:
+        "Un pequeño ramo de flores blancas de centro anaranjado, recogido a la orilla de la granja.",
+
+      imagen: flores,
+
+      detalle:
+        "Objeto encontrado cerca de los granjeros"
+
+    },
+
+
+    huevo: {
+
+      nombre: "Huevo",
+
+      descripcion:
+        "Un huevo de cáscara clara, todavía tibio. Alguien lo dejó cerca de la cocina de la madriguera.",
+
+      imagen: huevo,
+
+      detalle:
+        "Objeto encontrado en la cocina de la madriguera"
+
+    },
+
+
+    pelota: {
+
+      nombre: "Pelota",
+
+      descripcion:
+        "Una pelota de cuero gastada por mil juegos. Los cachorros Fox la usan para sus partidos entre túneles.",
+
+      imagen: pelota,
+
+      detalle:
+        "Objeto encontrado en la madriguera"
+
+    },
+
+
+    cristal: {
+
+      nombre: "Cristal",
+
+      descripcion:
+        "Un cristal verdoso que brilla débilmente en la oscuridad de la cueva. Parece muy antiguo.",
+
+      imagen: cristal,
+
+      detalle:
+        "Objeto encontrado en la cueva"
+
+    },
+
+
+    vela: {
+
+      nombre: "Vela",
+
+      descripcion:
+        "Una vela a medio consumir, olvidada en la cueva. Alguien estuvo aquí antes que la familia Fox.",
+
+      imagen: vela,
+
+      detalle:
+        "Objeto encontrado en la cueva"
+
+    },
+
+
+    escopeta: {
+
+      nombre: "Escopeta",
+
+      descripcion:
+        "Una escopeta pesada de madera y metal, dejada atrás por uno de los granjeros. Es muy peligrosa.",
+
+      imagen: escopeta,
+
+      detalle:
+        "Objeto encontrado cerca de la cueva"
+
+    },
+
+
+    craneo: {
+
+      nombre: "Cráneo",
+
+      descripcion:
+        "Un cráneo antiguo, blanquecino y agrietado, encontrado entre las rocas. Nadie sabe a quién perteneció.",
+
+      imagen: craneo,
+
+      detalle:
+        "Objeto encontrado cerca de la cueva"
+
+    },
+
+
     tomate: {
 
       nombre: "Tomate",
@@ -3220,7 +3390,7 @@ const InterfazCap = () => {
 
                           objetoRecogido={
                             objetos.includes(
-                              "tomate"
+                              "pluma"
                             )
                           }
 
@@ -3250,6 +3420,22 @@ const InterfazCap = () => {
 
                           onPersonajeClick={
                             reproducirAudioPersonaje
+                          }
+
+                          onRecoger={
+                            recogerObjeto
+                          }
+
+                          murcielagoRecogido={
+                            objetos.includes(
+                              "murcielago"
+                            )
+                          }
+
+                          hojaRecogida={
+                            objetos.includes(
+                              "hoja"
+                            )
                           }
 
                         />
@@ -3288,6 +3474,16 @@ const InterfazCap = () => {
                             reanudarAudioPersonaje
                           }
 
+                          onRecoger={
+                            recogerObjeto
+                          }
+
+                          floresRecogidas={
+                            objetos.includes(
+                              "flores"
+                            )
+                          }
+
                         />
 
                       </motion.div>
@@ -3314,6 +3510,30 @@ const InterfazCap = () => {
 
                           onPersonajeClick={
                             reproducirAudioPersonaje
+                          }
+
+                          onPausaAudio={
+                            pausarAudioPersonaje
+                          }
+
+                          onContinuarAudio={
+                            reanudarAudioPersonaje
+                          }
+
+                          onRecoger={
+                            recogerObjeto
+                          }
+
+                          huevoRecogido={
+                            objetos.includes(
+                              "huevo"
+                            )
+                          }
+
+                          pelotaRecogida={
+                            objetos.includes(
+                              "pelota"
+                            )
                           }
 
                         />
@@ -3400,6 +3620,22 @@ const InterfazCap = () => {
                             cambiarEscena
                           }
 
+                          onRecoger={
+                            recogerObjeto
+                          }
+
+                          cristalRecogido={
+                            objetos.includes(
+                              "cristal"
+                            )
+                          }
+
+                          velaRecogida={
+                            objetos.includes(
+                              "vela"
+                            )
+                          }
+
                         />
 
                       </motion.div>
@@ -3456,6 +3692,22 @@ const InterfazCap = () => {
 
                             onPersonajeClick={
                               reproducirAudioPersonaje
+                            }
+
+                            onRecoger={
+                              recogerObjeto
+                            }
+
+                            escopetaRecogida={
+                              objetos.includes(
+                                "escopeta"
+                              )
+                            }
+
+                            craneoRecogido={
+                              objetos.includes(
+                                "craneo"
+                              )
                             }
 
                           />
