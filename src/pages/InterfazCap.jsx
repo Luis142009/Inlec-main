@@ -1795,7 +1795,7 @@ const InterfazCap = () => {
       nombre: "Pintura",
 
       descripcion:
-        "Una misteriosa pintura encontrada. Su intenso color parece ocultar algo?",
+        "Una misteriosa pintura encontrada.con un color muy fuere",
 
       imagen: pintura,
 
@@ -1810,7 +1810,7 @@ const InterfazCap = () => {
       nombre: "Bellota",
 
       descripcion:
-        "Una bellota caída del gran árbol. Es pequeña, pero parece esconder algo más que una simple semilla.",
+        "Una bellota caída del gran árbol, muy misteriosa",
 
       imagen: bellota,
 
