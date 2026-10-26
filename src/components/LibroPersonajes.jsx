@@ -46,7 +46,7 @@ const personajes = [
     imagen: "/krist.png", // public/kristofferson.png
     especie: "Zorro",
     edad: "Joven",
-    rol: "Primo de Ash",
+    rol: "Familia fox",
     etiqueta: "NUEVO PERSONAJE",
     personalidad: "Disciplinado · Tranquilo · Hábil",
     descripcion:
@@ -75,12 +75,12 @@ const personajes = [
     especie: "Por definir",
     edad: "Por definir",
     rol: "Por descubrir",
-    etiqueta: "PERSONAJE EN DESARROLLO",
+    etiqueta: "Familia fox",
     personalidad: "Su historia está por descubrirse",
     descripcion:
       "Este espacio está reservado para Junior. Aquí podrás incorporar su apariencia, personalidad, relación con los demás personajes y los acontecimientos que marcarán su historia.",
     frase: "Cada personaje tiene una historia que contar.",
-    detalle: "Ficha preparada para completar con su diseño definitivo.",
+    detalle: "El segundo menor de los 4 zorritos",
   },
   {
     id: "bean",
@@ -131,12 +131,12 @@ const personajes = [
     especie: "Zorro",
     edad: "Joven",
     rol: "Por confirmar",
-    etiqueta: "RETRATO RECIBIDO",
+    etiqueta: "Familia fox",
     personalidad: "Curioso · Expresivo · Decidido",
     descripcion:
       "Este retrato muestra a un joven zorro de camiseta verde y una estrella amarilla. Puedes conservarlo como Charles o cambiar su nombre y ficha si la ilustración corresponde a Ash.",
     frase: "Cada aventura es una oportunidad para crecer.",
-    detalle: "Retrato incorporado a partir de la imagen compartida.",
+    detalle: "el menor de los zorritos.",
   },
 ];
 
