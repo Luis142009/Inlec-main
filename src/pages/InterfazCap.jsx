@@ -29,6 +29,7 @@ import { Escena19 } from "../components/Escena19";
 import { Escena20 } from "../components/Escena20";
 import { Escena21 } from "../components/Escena21";
 import { Escena22 } from "../components/Escena22";
+import { Escena23 } from "../components/Escena23";
 
 import LibroPersonajes from "../components/LibroPersonajes";
 import { PortadaCapitulo } from "../components/PortadaCapitulo";
@@ -83,8 +84,6 @@ import bellota from "../assets/svg/Bellota.svg";
 
 // =========================================================
 // MUESTRA EN PANTALLA EL ERROR REAL DE UNA ESCENA
-// (si una escena falla, en vez de romper toda la interfaz
-//  se ve aquí el mensaje exacto y también sale en la consola)
 // =========================================================
 
 class ErrorEscena extends React.Component {
@@ -231,12 +230,12 @@ const capitulos = [
     objetos: 4
   },
 
-  // El capítulo 4 empieza en la escena 20
+  // El capítulo 4 empieza en la escena 20 y llega hasta la 26 (última)
   {
     numero: 4,
     titulo: "TÍTULO DEL CAPÍTULO 4",
     escenaInicio: 20,
-    escenaFin: 25,
+    escenaFin: 26,
     objetos: 4
   }
 
@@ -408,7 +407,7 @@ const InterfazCap = () => {
     12: "Bean, un hombre alto, huesudo y flaco, tan flaco como un lápiz enfermizo de 60 años, vestido de forma austera con ropa que le cuelga por lo esquelético que es huele a sidra de manzana, consigue pavos y barriles de sidra.",
 
     13: "Siempre regresa antes del amanecer cargado de comida para que la Sra. Fox prepare el banquete familiar, y lo hace con tal astucia que los granjeros nunca logran atraparlo.",
-    14:  [  
+    14:  [
     "Pero ¿cómo lo vamos a agarrar si es más listo que nadie?             Te equivocas, Boggis. Solo hay que ir a cazarlo en la madriguera del gran árbol. ¡Esta guerra no la pienso perder!",
     "Hay que matar a este maldito bicho. En cuanto lo agarre, le retuerzo el pescuezo a ese maldito desgraciado."
 
@@ -429,7 +428,9 @@ const InterfazCap = () => {
     21: "Aquí va el texto de la escena 21.",
     22: "Aquí va el texto de la escena 22.",
     23: "Aquí va el texto de la escena 23.",
-    24: "Aquí va el texto de la escena 24."
+    24: "Aquí va el texto de la escena 24.",
+    25: "Aquí va el texto de la escena 25.",
+    26: "Aquí va el texto de la escena 26."
 
   };
 
@@ -622,7 +623,6 @@ const InterfazCap = () => {
 
     // ESCENA 14: sin música y sin efectos automáticos.
     // El único audio suena al hacer click en los personajes
-    // (ver audiosPersonajes14 y reproducirAudioPersonaje)
     14: {
       musica: null,
       grupoMusica: "sinMusica",
@@ -632,8 +632,6 @@ const InterfazCap = () => {
     },
 
     // ESCENA 15 (componente Escena12): sin música y sin efectos automáticos.
-    // El único audio (musica12) suena al hacer click en un granjero
-    // (ver audiosPersonajes15 y reproducirAudioPersonaje)
     15: {
       musica: null,
       grupoMusica: "sinMusica",
@@ -642,8 +640,7 @@ const InterfazCap = () => {
       efectos: []
     },
 
-    // ESCENA 16 (componente Escena13): sin música y sin efectos por ahora.
-    // Cuando tengas audio, ponlo en audiosPersonajes16
+    // ESCENA 16 (componente Escena13)
     16: {
       musica: musica13,
       grupoMusica: "escena16",
@@ -655,8 +652,7 @@ const InterfazCap = () => {
       }]
     },
 
-    // ESCENA 17 (componente EscenaVideo): el video trae su propio audio,
-    // así que no hay música ni efectos automáticos (y se corta la de la 16)
+    // ESCENA 17 (componente EscenaVideo): el video trae su propio audio
     17: {
       musica: null,
       grupoMusica: "sinMusica",
@@ -665,8 +661,7 @@ const InterfazCap = () => {
       efectos: []
     },
 
-    // ESCENA 18 (componente Escena15): sin música y sin efectos por ahora.
-    // Cuando tengas audio, ponlo en audiosPersonajes18 o aquí
+    // ESCENA 18 (componente Escena15)
     18: {
       musica: musica18,
       grupoMusica: "escena18",
@@ -678,8 +673,7 @@ const InterfazCap = () => {
       }]
     },
 
-    // ESCENA 19 (componente Escena16): la música suena de fondo y la
-    // animación avanza con las teclas D / flecha derecha
+    // ESCENA 19 (componente Escena16)
     19: {
       musica: musica16,
       grupoMusica: "escena19",
@@ -691,9 +685,7 @@ const InterfazCap = () => {
       }]
     },
 
-    // ESCENA 20 (componente Escena17): sin música automática.
-    // La canción suena al hacer click en el sol
-    // (ver audiosPersonajes20 y reproducirAudioPersonaje)
+    // ESCENA 20 (componente Escena17): la canción suena al hacer click en el sol
     20: {
       musica: null,
       grupoMusica: "sinMusica",
@@ -702,9 +694,7 @@ const InterfazCap = () => {
       efectos: []
     },
 
-    // ESCENA 21 (componente Escena18): sin música ni efectos por ahora.
-    // Los videos de la escena arrancan al hacer click en el Sr. o la
-    // Sra. Fox. Cuando tengas audio, ponlo en audiosPersonajes21.
+    // ESCENA 21 (componente Escena18)
     21: {
       musica: null,
       grupoMusica: "sinMusica",
@@ -713,9 +703,7 @@ const InterfazCap = () => {
       efectos: []
     },
 
-    // ESCENA 22 (componente Escena19): sin música ni efectos por ahora.
-    // Los videos de la escena arrancan al hacer click en el Sr. Fox.
-    // Cuando tengas audio, ponlo en audiosPersonajes22.
+    // ESCENA 22 (componente Escena19)
     22: {
       musica: null,
       grupoMusica: "sinMusica",
@@ -724,8 +712,7 @@ const InterfazCap = () => {
       efectos: []
     },
 
-    // ESCENA 23 (componente Escena20): sin música ni efectos por ahora.
-    // La escena avanza manteniendo presionada D / flecha derecha.
+    // ESCENA 23 (componente Escena20)
     23: {
       musica: null,
       grupoMusica: "sinMusica",
@@ -734,9 +721,7 @@ const InterfazCap = () => {
       efectos: []
     },
 
-    // ESCENA 24 (componente Escena21): sin música ni efectos automáticos.
-    // El video de la gallina trae su propio audio y arranca al hacer
-    // click en la gallina.
+    // ESCENA 24 (componente Escena21)
     24: {
       musica: null,
       grupoMusica: "sinMusica",
@@ -745,13 +730,22 @@ const InterfazCap = () => {
       efectos: []
     },
 
-    // ESCENA 25 (componente Escena22): sin música ni efectos por ahora.
-    // Los videos (sin audio) arrancan al hacer click en la escena.
-    // Cuando tengas audio, ponlo aquí en "musica" o en "efectos".
+    // ESCENA 25 (componente Escena22)
     25: {
       musica: null,
       grupoMusica: "sinMusica",
       grupoEfectos: "escena25",
+
+      efectos: []
+    },
+
+    // ESCENA 26 (componente Escena23) - ÚLTIMA: sin música ni efectos por ahora.
+    // Los videos arrancan al hacer click en el Sr. Fox.
+    // Cuando tengas audio, ponlo en audiosPersonajes26 o aquí.
+    26: {
+      musica: null,
+      grupoMusica: "sinMusica",
+      grupoEfectos: "escena26",
 
       efectos: []
     }
@@ -1460,8 +1454,8 @@ const InterfazCap = () => {
 
 
   // =========================================================
-  // AUDIO POR CLICK EN PERSONAJE (ESCENAS 14, 15, 16, 18, 20, 21 Y 22)
-  // Cambia aquí el audio de cada personaje si luego tienes uno distinto
+  // AUDIO POR CLICK EN PERSONAJE
+  // (ESCENAS 14, 15, 16, 18, 20, 21, 22 Y 26)
   // =========================================================
 
   const audiosPersonajes14 = {
@@ -1471,8 +1465,7 @@ const InterfazCap = () => {
   };
 
 
-  // Escena 15 (componente Escena12): el audio suena al hacer
-  // click en cualquiera de los granjeros
+  // Escena 15 (componente Escena12)
   const audiosPersonajes15 = {
     boggis: { src: musica12, volumen: 1 },
     bunce:  { src: musica12, volumen: 1 },
@@ -1481,44 +1474,40 @@ const InterfazCap = () => {
 
 
   // Escena 16 (componente Escena13): todavía sin audio.
-  // Cuando lo tengas, importa el mp3 arriba y descomenta, por ejemplo:
-  //   srFox:  { src: miAudio, volumen: 1 },
-  //   sraFox: { src: miAudio, volumen: 1 },
-  //   junior: { src: miAudio, volumen: 1 }
   const audiosPersonajes16 = {};
 
 
-  // Escena 18 (componente Escena15): click en el periódico.
-  // Todavía sin audio. Ejemplo:
-  //   periodico: { src: miAudio, volumen: 1 }
+  // Escena 18 (componente Escena15): click en el periódico. Sin audio.
   const audiosPersonajes18 = {};
 
 
-  // Escena 20 (componente Escena17): al dar click en el sol
-  // suena la canción mientras se va el sol y llega la luna
+  // Escena 20 (componente Escena17): click en el sol
   const audiosPersonajes20 = {
     sol: { src: musica17, volumen: 1 }
   };
 
 
-  // Escena 21 (componente Escena18): click en el Sr. Fox ("fox") o
-  // en la Sra. Fox ("sra"). Todavía sin audio. Ejemplo:
-  //   fox: { src: miAudio, volumen: 1 },
-  //   sra: { src: miAudio, volumen: 1 }
+  // Escena 21 (componente Escena18): "fox" o "sra". Sin audio.
   const audiosPersonajes21 = {};
 
 
-  // Escena 22 (componente Escena19): click en el Sr. Fox ("fox").
+  // Escena 22 (componente Escena19): "fox". Sin audio.
+  const audiosPersonajes22 = {};
+
+
+  // Escena 26 (componente Escena23): click en el Sr. Fox ("fox").
   // Todavía sin audio. Ejemplo:
   //   fox: { src: miAudio, volumen: 1 }
-  const audiosPersonajes22 = {};
+  const audiosPersonajes26 = {};
 
 
   const reproducirAudioPersonaje =
     async (personaje) => {
 
       const audiosPersonajes =
-        escena === 22
+        escena === 26
+          ? audiosPersonajes26
+          : escena === 22
           ? audiosPersonajes22
           : escena === 21
           ? audiosPersonajes21
@@ -1632,8 +1621,6 @@ const InterfazCap = () => {
 
   // =========================================================
   // PAUSAR / REANUDAR EL AUDIO DEL PERSONAJE (ESCENA 15)
-  // La escena se detiene en el segundo 20 esperando la escopeta;
-  // el audio se detiene con ella y sigue cuando se clica la escopeta
   // =========================================================
 
   const pausarAudioPersonaje = () => {
@@ -1914,6 +1901,10 @@ const InterfazCap = () => {
 
   // ESCENA 25
   const escena22Ref =
+    useRef(null);
+
+  // ESCENA 26
+  const escena23Ref =
     useRef(null);
 
 
@@ -2346,6 +2337,10 @@ const InterfazCap = () => {
         case 25:
           return escena22Ref;
 
+        // ESCENA 26
+        case 26:
+          return escena23Ref;
+
         default:
           return null;
 
@@ -2445,7 +2440,6 @@ const InterfazCap = () => {
 
 
         // La música solo se reanuda si esta escena tiene música
-        // (en las escenas sin música no, para que no suene la anterior)
         if (
           musicaRef.current &&
           configActual.musica
@@ -2459,7 +2453,7 @@ const InterfazCap = () => {
 
 
         // Solo se reanudan los efectos que pertenecen a esta escena
-        // (o los persistentes), no los que quedaron de escenas anteriores
+        // (o los persistentes), no los de escenas anteriores
         efectosRefs.current.forEach(
           (audio, i) => {
 
@@ -2469,7 +2463,7 @@ const InterfazCap = () => {
 
             // Audio de un personaje que quedó a medias
             const audioPersonajeEnCurso =
-              (escena === 14 || escena === 15 || escena === 16 || escena === 18 || escena === 20 || escena === 21 || escena === 22) &&
+              (escena === 14 || escena === 15 || escena === 16 || escena === 18 || escena === 20 || escena === 21 || escena === 22 || escena === 26) &&
               i === 0 &&
               audio.currentTime > 0;
 
@@ -2876,9 +2870,7 @@ const InterfazCap = () => {
                   <AnimatePresence mode="wait">
 
 
-                    {/* =================================================
-                        ESCENA 1
-                    ================================================= */}
+                    {/* ESCENA 1 */}
 
                     {escena === 1 && (
 
@@ -2914,9 +2906,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 2
-                    ================================================= */}
+                    {/* ESCENA 2 */}
 
                     {escena === 2 && (
 
@@ -2937,9 +2927,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 3
-                    ================================================= */}
+                    {/* ESCENA 3 */}
 
                     {escena === 3 && (
 
@@ -2973,9 +2961,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 4
-                    ================================================= */}
+                    {/* ESCENA 4 */}
 
                     {escena === 4 && (
 
@@ -2999,9 +2985,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 5
-                    ================================================= */}
+                    {/* ESCENA 5 */}
 
                     {escena === 5 && (
 
@@ -3025,9 +3009,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 6
-                    ================================================= */}
+                    {/* ESCENA 6 */}
 
                     {escena === 6 && (
 
@@ -3051,9 +3033,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 7
-                    ================================================= */}
+                    {/* ESCENA 7 */}
 
                     {escena === 7 && (
 
@@ -3077,9 +3057,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 8
-                    ================================================= */}
+                    {/* ESCENA 8 */}
 
                     {escena === 8 && (
 
@@ -3103,9 +3081,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 9
-                    ================================================= */}
+                    {/* ESCENA 9 */}
 
                     {escena === 9 && (
 
@@ -3139,9 +3115,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 10
-                    ================================================= */}
+                    {/* ESCENA 10 */}
 
                     {escena === 10 && (
 
@@ -3165,9 +3139,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 11
-                    ================================================= */}
+                    {/* ESCENA 11 */}
 
                     {escena === 11 && (
 
@@ -3191,9 +3163,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 12
-                    ================================================= */}
+                    {/* ESCENA 12 */}
 
                     {escena === 12 && (
 
@@ -3227,9 +3197,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 13
-                    ================================================= */}
+                    {/* ESCENA 13 */}
 
                     {escena === 13 && (
 
@@ -3263,9 +3231,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 14
-                    ================================================= */}
+                    {/* ESCENA 14 */}
 
                     {escena === 14 && (
 
@@ -3293,9 +3259,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 15
-                    ================================================= */}
+                    {/* ESCENA 15 */}
 
                     {escena === 15 && (
 
@@ -3331,9 +3295,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 16
-                    ================================================= */}
+                    {/* ESCENA 16 */}
 
                     {escena === 16 && (
 
@@ -3361,9 +3323,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 17 (VIDEO)
-                    ================================================= */}
+                    {/* ESCENA 17 (VIDEO) */}
 
                     {escena === 17 && (
 
@@ -3395,9 +3355,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 18
-                    ================================================= */}
+                    {/* ESCENA 18 */}
 
                     {escena === 18 && (
 
@@ -3425,9 +3383,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 19
-                    ================================================= */}
+                    {/* ESCENA 19 */}
 
                     {escena === 19 && (
 
@@ -3451,9 +3407,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 20
-                    ================================================= */}
+                    {/* ESCENA 20 */}
 
                     {escena === 20 && (
 
@@ -3481,9 +3435,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 21
-                    ================================================= */}
+                    {/* ESCENA 21 */}
 
                     {escena === 21 && (
 
@@ -3515,9 +3467,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 22
-                    ================================================= */}
+                    {/* ESCENA 22 */}
 
                     {escena === 22 && (
 
@@ -3549,9 +3499,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 23
-                    ================================================= */}
+                    {/* ESCENA 23 */}
 
                     {escena === 23 && (
 
@@ -3579,9 +3527,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 24
-                    ================================================= */}
+                    {/* ESCENA 24 */}
 
                     {escena === 24 && (
 
@@ -3613,9 +3559,7 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 25
-                    ================================================= */}
+                    {/* ESCENA 25 */}
 
                     {escena === 25 && (
 
@@ -3643,11 +3587,41 @@ const InterfazCap = () => {
                     )}
 
 
-                    {/* =================================================
-                        ESCENA 26 EN ADELANTE (pendiente)
-                    ================================================= */}
+                    {/* ESCENA 26 (ÚLTIMA) */}
 
-                    {escena >= 26 && (
+                    {escena === 26 && (
+
+                      <motion.div
+                        key="escena26"
+                        {...transicionEscena}
+                      >
+
+                        <ErrorEscena escena={26}>
+
+                          <Escena23
+
+                            ref={escena23Ref}
+
+                            cambiarEscena={
+                              cambiarEscena
+                            }
+
+                            onPersonajeClick={
+                              reproducirAudioPersonaje
+                            }
+
+                          />
+
+                        </ErrorEscena>
+
+                      </motion.div>
+
+                    )}
+
+
+                    {/* ESCENA 27 EN ADELANTE (no debería usarse) */}
+
+                    {escena >= 27 && (
 
                       <motion.div
 
@@ -3707,9 +3681,7 @@ const InterfazCap = () => {
               <div className="col-auto d-flex gap-2">
 
 
-                {/* =================================================
-                    SUBTÍTULOS
-                ================================================= */}
+                {/* SUBTÍTULOS */}
 
                 <div
 
@@ -3745,9 +3717,7 @@ const InterfazCap = () => {
                 </div>
 
 
-                {/* =================================================
-                    PAUSA
-                ================================================= */}
+                {/* PAUSA */}
 
                 <div
 
@@ -3787,9 +3757,7 @@ const InterfazCap = () => {
                 </div>
 
 
-                {/* =================================================
-                    MÚSICA
-                ================================================= */}
+                {/* MÚSICA */}
 
                 <div
 
@@ -3825,9 +3793,7 @@ const InterfazCap = () => {
                 </div>
 
 
-                {/* =================================================
-                    VOLUMEN
-                ================================================= */}
+                {/* VOLUMEN */}
 
                 <div className="audio-controls">
 
@@ -3927,9 +3893,7 @@ const InterfazCap = () => {
               </div>
 
 
-              {/* =================================================
-                  FLECHAS
-              ================================================= */}
+              {/* FLECHAS */}
 
               <div className="flechas col d-flex align-items-center justify-content-center gap-3">
 
@@ -4170,9 +4134,7 @@ const InterfazCap = () => {
               </div>
 
 
-              {/* =================================================
-                  FULLSCREEN
-              ================================================= */}
+              {/* FULLSCREEN */}
 
               <div
 
@@ -4253,9 +4215,7 @@ const InterfazCap = () => {
             </div>
 
 
-            {/* =================================================
-                SLOTS
-            ================================================= */}
+            {/* SLOTS */}
 
             <div className="row g-2">
 
@@ -4340,9 +4300,7 @@ const InterfazCap = () => {
                       >
 
 
-                        {/* =====================================
-                            IMAGEN DEL OBJETO
-                        ===================================== */}
+                        {/* IMAGEN DEL OBJETO */}
 
                         {obj &&
                           informacion && (
@@ -4364,9 +4322,7 @@ const InterfazCap = () => {
                           )}
 
 
-                        {/* =====================================
-                            CHECK
-                        ===================================== */}
+                        {/* CHECK */}
 
                         {obj && (
 

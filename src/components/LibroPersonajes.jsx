@@ -1,13 +1,20 @@
-
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import "../stylesheets/LibroPersonajes.css";
+
+// =========================================================
+// IMÁGENES
+// Todas las imágenes están en la carpeta /public.
+// Vite sirve esa carpeta desde la raíz, por eso las rutas
+// empiezan con "/" y NO se importan.
+//   public/H.png  ->  "/H.png"
+// =========================================================
 
 const personajes = [
   {
     id: "srFox",
     nombre: "Sr. Fox",
-    imagen: "/H.png",
+    imagen: "/fotofox.png", // public/fotofox.png
     especie: "Zorro",
     edad: "Adulto",
     rol: "Protagonista",
@@ -22,7 +29,7 @@ const personajes = [
   {
     id: "sraFox",
     nombre: "Sra. Fox",
-    imagen: "/personajes/sra-fox.png",
+    imagen: "/sra.png",
     especie: "Zorra",
     edad: "Adulta",
     rol: "Madre y compañera",
@@ -36,7 +43,7 @@ const personajes = [
   {
     id: "kristofferson",
     nombre: "Kristofferson",
-    imagen: "/personajes/kristofferson.png",
+    imagen: "/krist.png", // public/kristofferson.png
     especie: "Zorro",
     edad: "Joven",
     rol: "Primo de Ash",
@@ -50,7 +57,7 @@ const personajes = [
   {
     id: "ash",
     nombre: "Ash",
-    imagen: "/personajes/ash.png",
+    imagen: "/Asht.png", // public/ash.png
     especie: "Zorro",
     edad: "Joven",
     rol: "Hijo de los Fox",
@@ -64,7 +71,7 @@ const personajes = [
   {
     id: "junior",
     nombre: "Junior",
-    imagen: "/personajes/junior.png",
+    imagen: "/junior4.png", // public/junior.png
     especie: "Por definir",
     edad: "Por definir",
     rol: "Por descubrir",
@@ -78,7 +85,7 @@ const personajes = [
   {
     id: "bean",
     nombre: "Bean",
-    imagen: "/Foto Bean-1024.jpg",
+    imagen: "/FotoBean.png",
     especie: "Humano",
     edad: "Adulto",
     rol: "Granjero",
@@ -92,7 +99,7 @@ const personajes = [
   {
     id: "boggis",
     nombre: "Boggis",
-    imagen: "/Foto Boggis-1024.jpg",
+    imagen: "/Boggis.png",
     especie: "Humano",
     edad: "Adulto",
     rol: "Granjero",
@@ -106,7 +113,7 @@ const personajes = [
   {
     id: "bunce",
     nombre: "Bunce",
-    imagen: "/Foto Bunce-1024.jpg",
+    imagen: "/Bunce.png",
     especie: "Humano",
     edad: "Adulto",
     rol: "Granjero",
@@ -120,7 +127,7 @@ const personajes = [
   {
     id: "charles",
     nombre: "Charles",
-    imagen: "/Foto Charles-1024.jpg",
+    imagen: "/Charlest.png",
     especie: "Zorro",
     edad: "Joven",
     rol: "Por confirmar",
