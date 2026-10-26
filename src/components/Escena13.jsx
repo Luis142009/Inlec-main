@@ -7,7 +7,7 @@ import React, {
 
 import gsap from "gsap";
 
-import mesa13 from "../assets/mesa.webm";
+import mesa13 from "../assets/Cocina.webm";
 import fondo13 from "../assets/fondoescena13.webm";
 import srfox13 from "../assets/srfox13.webm";      // Sr. Fox (sentado en el taburete)
 import srafox13 from "../assets/srafox13.webm";      // Sra. Fox (con el papel)
