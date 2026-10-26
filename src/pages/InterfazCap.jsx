@@ -74,6 +74,11 @@ import nocturno from "../assets/audio/nocturno.mp3"
 import curacion from "../assets/audio/curacion.mp3"
 import familia from "../assets/audio/familia.mp3"
 import aburrido from "../assets/audio/aburrido.mp3"
+import cueva from "../assets/audio/cueva.mp3"
+import comun from "../assets/audio/comun.mp3"
+import discusion from "../assets/audio/discusion.mp3"
+import saqueo from "../assets/audio/saqueo.mp3"
+import pelea from "../assets/audio/pelea.mp3"
 
 import pintura from "../assets/svg/pintura.svg";
 import manzana from "../assets/manzana.svg";
@@ -419,16 +424,16 @@ const InterfazCap = () => {
 
     16: "La señora Fox cuida al señor Fox después de sus heridas. Lo auxilia y lo trata con cariño para que se sienta mejor y se recupere.",
     17: [
-      "pero su descanso se ve interrumpido por el ruido de la maquinaria y las palas de los granjeros.",
+      
       "Cansada, la familia Fox intenta volver a conciliar el sueño después de todo lo sucedido con el señor Fox y los granjeros,"
     ],
-    18: "La familia Fox camina desorientada y triste.",
-    19: "Aquí va el texto de la escena 19.",
+    18: "pero su descanso se ve interrumpido por el ruido de la maquinaria y las palas de los granjeros",
+    19: "La familia Fox camina desorientada y triste",
     20: "Aquí va el texto de la escena 20.",
-    21: "Aquí va el texto de la escena 21.",
-    22: "Aquí va el texto de la escena 22.",
-    23: "Aquí va el texto de la escena 23.",
-    24: "Aquí va el texto de la escena 24.",
+    21: "La señora y el señor Fox intentan idear un plan para poder robar las granjas mediante túneles y conseguir alimentos.",
+    22: "El señor Fox llama a todos los animales presentes para idear un plan y hacer que el robo sea más efectivo..",
+    23: "El señor Fox se reconcilia con Ash después de una discusión..",
+    24: "Luego, saquearon los almacenes de Bunce, que sufrieron la misma suerte que las gallinas. Finalmente, llegaron a la bodega de Bean..",
     25: "Aquí va el texto de la escena 25.",
     26: "Aquí va el texto de la escena 26."
 
@@ -691,7 +696,10 @@ const InterfazCap = () => {
       grupoMusica: "sinMusica",
       grupoEfectos: "escena20",
 
-      efectos: []
+      efectos: [
+      
+
+      ]
     },
 
     // ESCENA 21 (componente Escena18)
@@ -700,7 +708,12 @@ const InterfazCap = () => {
       grupoMusica: "sinMusica",
       grupoEfectos: "escena21",
 
-      efectos: []
+      efectos: [
+         {
+         src :cueva,
+         volumen : 3
+       }
+      ]
     },
 
     // ESCENA 22 (componente Escena19)
@@ -709,7 +722,10 @@ const InterfazCap = () => {
       grupoMusica: "sinMusica",
       grupoEfectos: "escena22",
 
-      efectos: []
+      efectos: [{
+        src : comun,
+        volumen : 3
+      }]
     },
 
     // ESCENA 23 (componente Escena20)
@@ -718,7 +734,10 @@ const InterfazCap = () => {
       grupoMusica: "sinMusica",
       grupoEfectos: "escena23",
 
-      efectos: []
+      efectos: [{
+        src : discusion,
+        volumen : 3
+      }]
     },
 
     // ESCENA 24 (componente Escena21)
@@ -727,7 +746,10 @@ const InterfazCap = () => {
       grupoMusica: "sinMusica",
       grupoEfectos: "escena24",
 
-      efectos: []
+      efectos: [{
+        src : saqueo,
+        volumen : 3
+      }]
     },
 
     // ESCENA 25 (componente Escena22)
@@ -736,7 +758,10 @@ const InterfazCap = () => {
       grupoMusica: "sinMusica",
       grupoEfectos: "escena25",
 
-      efectos: []
+      efectos: [{
+        src : pelea,
+        volumen : 3
+      }]
     },
 
     // ESCENA 26 (componente Escena23) - ÚLTIMA: sin música ni efectos por ahora.
