@@ -46,9 +46,9 @@
    left = 181 / 1920 = 9.4 %  (ajusta si la quieres más a un lado) */
 .banquete23 {
   position: absolute;
-  left: 9.4%;
-  top: 0;
-  width: 83.1%;
+  left: 14.4%;
+  top: 110px;
+  width: 73.1%;
   height: auto;
   pointer-events: none;
   z-index: 2;
@@ -57,12 +57,12 @@
 /* El Sr. Fox ocupa todo el ancho y va pegado abajo */
 .srfox23 {
   position: absolute;
-  left: 0;
+  left: 400px;
   bottom: 0;
-  width: 100%;
+  width: 40%;
   height: auto;
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
 }
 
 /* Capa invisible para dar click y arrancar (solo antes de iniciar) */

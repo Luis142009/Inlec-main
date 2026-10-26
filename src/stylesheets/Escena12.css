@@ -13,6 +13,19 @@
     --bean12-abajo: -17%;
 }
 
+
+.flores12 {
+  position: absolute;
+  top: 95%;
+  left: 60%;
+  width: 6%;
+  z-index: 20;
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
+}
+ 
+
 .escena12 {
     position: relative;
     width: 100%;

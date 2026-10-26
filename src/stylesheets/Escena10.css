@@ -6,7 +6,27 @@
 
   transform-origin: center center;
 }
+.pluma10 {
+  position: absolute;
+  top: 90%;
+  left: 85%;
+  width: 6%;
+  z-index: 20;
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
 
+
+  filter:   
+       
+
+    
+    brightness(0.48) 
+    contrast(1.15) 
+    saturate(0.7); 
+}
+
+ 
 
 /* =========================================================
    FONDO

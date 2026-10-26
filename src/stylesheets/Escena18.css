@@ -105,3 +105,28 @@
   height: 100%;
   will-change: transform;
 }
+
+
+
+.escopeta18 {
+  position: absolute;
+  top: 55%;
+  left: 75%;
+  width: 10%;
+  z-index: 20;
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
+}
+ 
+.craneo18 {
+  position: absolute;
+  top: 70%;
+  left: 15%;
+  width: 10%;
+  z-index: 20;
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
+}
+ 

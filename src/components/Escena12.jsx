@@ -15,6 +15,10 @@ import bunce12 from "../assets/Bunce12.webm";
 import boggis12 from "../assets/boggis12.webm";
 import escopeta12 from "../assets/escopeta.webm";
 
+import flores from "../assets/svg/flores.svg";
+
+import tocar from "../assets/audio/tocar.mp3";
+
 import "../stylesheets/Escena12.css";
 
 
@@ -149,7 +153,19 @@ const FASE = {
 // =========================================================
 
 export const Escena12 = forwardRef(
-  ({ cambiarEscena, onPersonajeClick, onPausaAudio, onContinuarAudio }, ref) => {
+  (
+    {
+      cambiarEscena,
+      onPersonajeClick,
+      onPausaAudio,
+      onContinuarAudio,
+
+      // InterfazCap avisa si ya se recogieron
+      onRecoger,
+      floresRecogidas
+    },
+    ref
+  ) => {
 
     // =======================================================
     // REFS
@@ -161,6 +177,18 @@ export const Escena12 = forwardRef(
     const bunce12Ref = useRef(null);
     const boggis12Ref = useRef(null);
     const escopeta12Ref = useRef(null);
+
+    // OBJETO RECOGIBLE
+    const floresRef = useRef(null);
+
+    // true mientras se anima la recogida (la cámara deja de seguir al video)
+    const recogiendoRef = useRef(false);
+
+    const tocarRef = useRef(null);
+
+    if (!tocarRef.current) {
+      tocarRef.current = new Audio(tocar);
+    }
 
     const escenaIniciada = useRef(false);
 
@@ -248,6 +276,11 @@ export const Escena12 = forwardRef(
       const fondo = fondo12Ref.current;
 
       if (!tl || !fondo) {
+        return;
+      }
+
+      // Mientras se recoge un objeto, la cámara la maneja esa animación
+      if (recogiendoRef.current) {
         return;
       }
 
@@ -399,6 +432,215 @@ export const Escena12 = forwardRef(
       if (onContinuarAudio) {
         onContinuarAudio();
       }
+
+    };
+
+
+    // =======================================================
+    // CLICK EN LAS FLORES
+    // brillo + cámara + rebote + vuelo al slot
+    // =======================================================
+
+    const recogerFlores = (e) => {
+
+      e.stopPropagation();
+
+      if (floresRecogidas || recogiendoRef.current) {
+        return;
+      }
+
+      const objeto = floresRef.current;
+      const camara = camaraRef.current;
+
+      if (!objeto || !camara) {
+        return;
+      }
+
+      const slotDestino =
+        document.querySelector(".slot.slot-vacio") ||
+        document.querySelectorAll(".slot")[0];
+
+      if (!slotDestino) {
+
+        console.warn("No se encontró el slot de destino.");
+
+        return;
+      }
+
+      recogiendoRef.current = true;
+
+
+      // SONIDO INMEDIATO
+      tocarRef.current.currentTime = 0;
+
+      tocarRef.current
+        .play()
+        .catch(() => {});
+
+
+      // Se congelan los videos que estén corriendo (y el audio)
+      // mientras se recoge el objeto; luego se reanudan solo esos
+      const videosActivos = obtenerVideos().filter(
+        (video) => !video.paused && !video.ended
+      );
+
+      videosActivos.forEach((video) => video.pause());
+
+      if (videosActivos.length > 0 && onPausaAudio) {
+        onPausaAudio();
+      }
+
+
+      // =====================================================
+      // ESTADO ACTUAL DE LA CÁMARA
+      // =====================================================
+
+      const escalaActual =
+        Number(gsap.getProperty(camara, "scale")) || 1;
+
+      const xActual =
+        Number(gsap.getProperty(camara, "x")) || 0;
+
+      const yActual =
+        Number(gsap.getProperty(camara, "y")) || 0;
+
+
+      // =====================================================
+      // POSICIONES
+      // =====================================================
+
+      const camaraRect = camara.getBoundingClientRect();
+      const objetoRect = objeto.getBoundingClientRect();
+      const slotRect = slotDestino.getBoundingClientRect();
+
+      const camaraCentroX = camaraRect.left + camaraRect.width / 2;
+      const camaraCentroY = camaraRect.top + camaraRect.height / 2;
+
+      const objetoCentroX = objetoRect.left + objetoRect.width / 2;
+      const objetoCentroY = objetoRect.top + objetoRect.height / 2;
+
+      // ZOOM DE LA CÁMARA SOBRE LAS FLORES
+      const ZOOM = 2;
+
+      const offsetX =
+        -ZOOM * (objetoCentroX - camaraCentroX) / escalaActual;
+
+      const offsetY =
+        -ZOOM * (objetoCentroY - camaraCentroY) / escalaActual;
+
+      // VUELO AL SLOT (en px locales de la escena)
+      const dx =
+        (slotRect.left + slotRect.width / 2 - objetoCentroX) /
+        escalaActual;
+
+      const dy =
+        (slotRect.top + slotRect.height / 2 - objetoCentroY) /
+        escalaActual;
+
+
+      gsap.killTweensOf(objeto);
+
+
+      // =====================================================
+      // TIMELINE
+      // =====================================================
+
+      const tl = gsap.timeline({
+
+        onComplete: () => {
+
+          recogiendoRef.current = false;
+
+          videosActivos.forEach((video) => {
+            video.play().catch(() => {});
+          });
+
+          if (videosActivos.length > 0 && onContinuarAudio) {
+            onContinuarAudio();
+          }
+
+          if (onRecoger) {
+            onRecoger("flores");
+          }
+
+        }
+
+      });
+
+      // 1. BRILLO + GIRO
+      tl.to(objeto, {
+
+        filter: `
+          drop-shadow(0 0 50px #ffffff)
+          drop-shadow(0 0 120px #ffe600)
+          drop-shadow(0 0 220px #ffd000)
+          drop-shadow(0 0 340px #ff9900)
+        `,
+
+        scale: 1.35,
+
+        rotation: 360,
+
+        duration: 0.35,
+
+        ease: "back.out(2)"
+
+      });
+
+      // 2. CÁMARA HACIA LAS FLORES
+      tl.to(
+        camara,
+        {
+          scale: ZOOM,
+          x: offsetX,
+          y: offsetY,
+          duration: 0.45,
+          ease: "power2.out"
+        },
+        "<"
+      );
+
+      // 3. ESPERA
+      tl.to({}, { duration: 0.15 });
+
+      // 4. REGRESAR CÁMARA A DONDE ESTABA
+      tl.to(camara, {
+        scale: escalaActual,
+        x: xActual,
+        y: yActual,
+        duration: 0.45,
+        ease: "power2.inOut"
+      });
+
+      // 5. MOVER LAS FLORES AL SLOT
+      tl.to(
+        objeto,
+        {
+          x: dx,
+          y: dy,
+          scale: 0.4,
+          rotation: 1080,
+          duration: 0.8,
+          ease: "power3.inOut"
+        },
+        "<"
+      );
+
+      // 6. REBOTE
+      tl.to(objeto, {
+        scale: 0.5,
+        duration: 0.12,
+        ease: "back.out(4)"
+      });
+
+      // 7. DESAPARECER
+      tl.to(objeto, {
+        opacity: 0,
+        duration: 0.15
+      });
+
+      // 8. LIMPIAR FILTRO
+      tl.set(objeto, { clearProps: "filter" });
 
     };
 
@@ -615,6 +857,26 @@ export const Escena12 = forwardRef(
           >
             <source src={escopeta12} type="video/webm" />
           </video>
+
+          {/* FLORES (OBJETO RECOGIBLE) */}
+
+          {!floresRecogidas && (
+
+            <img
+              ref={floresRef}
+              src={flores}
+              className="flores12"
+              alt="Flores"
+              draggable={false}
+              onClick={recogerFlores}
+              style={{
+                cursor: "pointer",
+                userSelect: "none",
+                ...sinClicks
+              }}
+            />
+
+          )}
 
         </div>
 
