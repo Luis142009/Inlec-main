@@ -99,33 +99,58 @@ const Home = () => {
     },
     {
       nombre: "Sra. Fox",
-      etiqueta: "ALIADA",
+      etiqueta: "FAMILIA FOX",
       imagen: "/señora.png",
-      personalidad: "Calmada, estratégica y siempre un paso adelante.",
+      personalidad: "Inteligente · Cariñosa · Valiente",
       descripcion:
-        "Una figura inteligente y fuerte que acompaña y apoya cada decisión importante dentro de la familia. Analítica, observadora e intuitiva, una persona muy perspicaz con grandes ojos de color azul.",
+        "Protege a su familia y detecta el peligro antes que nadie.",
       especie: "Zorro",
       edad: "3 años zorrunos",
       rol: "Aliada",
-      objetivo:
-        "Mantener la estabilidad y seguridad del hogar, ser una esposa responsable y proteger a sus hijos.",
-      detalle: "Siempre detecta el peligro antes que los demás.",
     },
     {
       nombre: "Junior",
+      etiqueta: "FAMILIA FOX",
       imagen: "/junior.png",
+      personalidad: "Curioso · Buena memoria",
+      descripcion:
+        "El segundo menor de los zorritos. Recuerda todos los caminos.",
+      especie: "Zorro",
+      edad: "Joven",
+      rol: "Hijo de los Fox",
     },
     {
-      nombre: "Kris",
+      nombre: "Kristofferson",
+      etiqueta: "FAMILIA FOX",
       imagen: "/Kris.png",
+      personalidad: "Disciplinado · Tranquilo · Hábil",
+      descripcion:
+        "El primo de Ash. Sereno, disciplinado y muy hábil.",
+      especie: "Zorro",
+      edad: "Joven",
+      rol: "Primo de Ash",
     },
     {
       nombre: "Ash",
+      etiqueta: "FAMILIA FOX",
       imagen: "/Ashss.png",
+      personalidad: "Rebelde · Ingenioso · Determinado",
+      descripcion:
+        "Inquieto y creativo, quiere demostrar lo que puede hacer por sí mismo.",
+      especie: "Zorro",
+      edad: "Joven",
+      rol: "Hijo de los Fox",
     },
     {
-      nombre: "Personaje 6",
+      nombre: "Charles",
+      etiqueta: "FAMILIA FOX",
       imagen: "/char.png",
+      personalidad: "Curioso · Expresivo · Decidido",
+      descripcion:
+        "El menor de los zorritos: pequeño, veloz y gran excavador.",
+      especie: "Zorro",
+      edad: "Joven",
+      rol: "Hijo de los Fox",
     },
   ];
 
@@ -137,11 +162,45 @@ const Home = () => {
     Cambia las rutas de "imagen" por las de tus archivos.
   */
 
+  /*
+    La ventana usa la misma "imagen" (el cuadro) que se ve en la lista.
+  */
+
   const granjeros = {
-    bean: { nombre: "Bean", imagen: "/cuadrobean.png" },
+    bean: {
+      nombre: "Bean",
+      etiqueta: "LOS GRANJEROS",
+      imagen: "/cuadrobean.png",
+      personalidad: "Frío · Calculador · Obstinado",
+      descripcion:
+        "El granjero alto y flaco de los pavos y la sidra. Quiere atrapar al Sr. Fox.",
+      especie: "Humano",
+      edad: "60 años",
+      rol: "Granjero",
+    },
     abajo: [
-      { nombre: "Bunce", imagen: "/cuadrobunce.png" },
-      { nombre: "Boggis", imagen: "/cuadroboggis.png" },
+      {
+        nombre: "Bunce",
+        etiqueta: "LOS GRANJEROS",
+        imagen: "/cuadrobunce.png",
+        personalidad: "Gruñón · Desconfiado · Persistente",
+        descripcion:
+          "El granjero bajito e irritable de los patos y los gansos.",
+        especie: "Humano",
+        edad: "40 años",
+        rol: "Granjero",
+      },
+      {
+        nombre: "Boggis",
+        etiqueta: "LOS GRANJEROS",
+        imagen: "/cuadroboggis.png",
+        personalidad: "Codicioso · Terco · Agresivo",
+        descripcion:
+          "El granjero gordo y glotón de los pollos. No tolera que le roben.",
+        especie: "Humano",
+        edad: "50 años",
+        rol: "Granjero",
+      },
     ],
   };
 
@@ -709,7 +768,19 @@ const Home = () => {
 
                 {/* BEAN ARRIBA */}
                 <div className="granjeros-arriba">
-                  <div className="granjero granjero--bean">
+                  <div
+                    className="granjero granjero--bean"
+                    role="button"
+                    tabIndex={vistaPersonajes === 1 ? 0 : -1}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setSeleccionado(granjeros.bean)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setSeleccionado(granjeros.bean);
+                      }
+                    }}
+                  >
                     <img
                       src={granjeros.bean.imagen}
                       alt={granjeros.bean.nombre}
@@ -724,6 +795,16 @@ const Home = () => {
                     <div
                       key={g.nombre}
                       className={`granjero granjero--${g.nombre.toLowerCase()}`}
+                      role="button"
+                      tabIndex={vistaPersonajes === 1 ? 0 : -1}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setSeleccionado(g)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSeleccionado(g);
+                        }
+                      }}
                     >
                       <img
                         src={g.imagen}
@@ -824,7 +905,7 @@ const Home = () => {
                 <div className="modal-halo" />
 
                 <img
-                  src={seleccionado.imagen}
+                  src={seleccionado.imagenFicha || seleccionado.imagen}
                   alt={seleccionado.nombre}
                   className="personaje-modal-imagen"
                 />

@@ -773,6 +773,116 @@ const inventarioVacio = () => [null, null, null, null];
 
 
 // =========================================================
+// FICHAS REDUCIDAS DE PERSONAJES (al hacerles click)
+// Versión corta de los datos de LibroPersonajes
+// =========================================================
+
+const personajesInfo = {
+
+  srFox: {
+    nombre: "Sr. Fox",
+    imagen: "/fotofox.png",
+    etiqueta: "PERSONAJE PRINCIPAL",
+    rol: "Protagonista",
+    personalidad: "Astuto · Audaz · Elegante",
+    frase: "Nunca subestimes a un zorro con un buen plan."
+  },
+
+  sraFox: {
+    nombre: "Sra. Fox",
+    imagen: "/sra.png",
+    etiqueta: "FAMILIA FOX",
+    rol: "Madre y compañera",
+    personalidad: "Inteligente · Cariñosa · Valiente",
+    frase: "La familia siempre encuentra la manera de salir adelante."
+  },
+
+  kristofferson: {
+    nombre: "Kristofferson",
+    imagen: "/krist.png",
+    etiqueta: "FAMILIA FOX",
+    rol: "Primo de Ash",
+    personalidad: "Disciplinado · Tranquilo · Hábil",
+    frase: "La verdadera fuerza también necesita paciencia."
+  },
+
+  ash: {
+    nombre: "Ash",
+    imagen: "/Asht.png",
+    etiqueta: "FAMILIA FOX",
+    rol: "Hijo de los Fox",
+    personalidad: "Rebelde · Ingenioso · Determinado",
+    frase: "No necesito ser como los demás para ser extraordinario."
+  },
+
+  junior: {
+    nombre: "Junior",
+    imagen: "/junior4.png",
+    etiqueta: "FAMILIA FOX",
+    rol: "Hijo de los Fox",
+    personalidad: "Curioso · Buena memoria para los caminos",
+    frase: "Cada personaje tiene una historia que contar."
+  },
+
+  charles: {
+    nombre: "Charles",
+    imagen: "/Charlest.png",
+    etiqueta: "FAMILIA FOX",
+    rol: "El menor de los zorritos",
+    personalidad: "Curioso · Expresivo · Decidido",
+    frase: "Cada aventura es una oportunidad para crecer."
+  },
+
+  bean: {
+    nombre: "Bean",
+    imagen: "/FotoBean.png",
+    etiqueta: "LOS GRANJEROS",
+    rol: "Granjero",
+    personalidad: "Frío · Calculador · Obstinado",
+    frase: "Un zorro nunca deja de causar problemas."
+  },
+
+  boggis: {
+    nombre: "Boggis",
+    imagen: "/Boggis.png",
+    etiqueta: "LOS GRANJEROS",
+    rol: "Granjero",
+    personalidad: "Codicioso · Terco · Agresivo",
+    frase: "¡Esta vez el zorro no se saldrá con la suya!"
+  },
+
+  bunce: {
+    nombre: "Bunce",
+    imagen: "/Bunce.png",
+    etiqueta: "LOS GRANJEROS",
+    rol: "Granjero",
+    personalidad: "Gruñón · Desconfiado · Persistente",
+    frase: "¡No pienso dejar que ese zorro gane!"
+  }
+
+};
+
+// Nombres que usan las escenas al avisar un click -> ficha
+// (todo en minúscula; agrega aquí los nombres que uses en tus escenas)
+const clavesPersonaje = {
+  fox: "srFox",
+  srfox: "srFox",
+  sr: "srFox",
+  sra: "sraFox",
+  srafox: "sraFox",
+  kristofferson: "kristofferson",
+  krist: "kristofferson",
+  kristo: "kristofferson",
+  ash: "ash",
+  junior: "junior",
+  charles: "charles",
+  bean: "bean",
+  boggis: "boggis",
+  bunce: "bunce"
+};
+
+
+// =========================================================
 // COMPONENTE
 // =========================================================
 
@@ -1280,6 +1390,9 @@ const InterfazCap = () => {
 
   const reproducirAudioPersonaje = async (personaje) => {
 
+    // Además del audio, muestra la ficha corta del personaje
+    abrirPersonaje(personaje);
+
     const audiosPersonajes =
       audiosPersonajesPorEscena[escena] ||
       audiosPersonajesPorEscena[14];
@@ -1572,6 +1685,43 @@ const InterfazCap = () => {
   };
 
 
+  // =========================================================
+  // FICHA DE PERSONAJE
+  // =========================================================
+
+  const [personajeSeleccionado, setPersonajeSeleccionado] =
+    useState(null);
+
+  const abrirPersonaje = (clave) => {
+
+    const id = clavesPersonaje[String(clave || "").toLowerCase()];
+
+    if (id && personajesInfo[id]) {
+      setPersonajeSeleccionado(id);
+    }
+
+  };
+
+  const cerrarPersonaje = () => {
+    setPersonajeSeleccionado(null);
+  };
+
+  // Click en cualquier elemento de la escena con data-personaje="bean"
+  const manejarClickEscena = (event) => {
+
+    const elemento = event.target.closest?.("[data-personaje]");
+
+    if (elemento) {
+      abrirPersonaje(elemento.dataset.personaje);
+    }
+
+  };
+
+  const infoPersonajeSeleccionado = personajeSeleccionado
+    ? personajesInfo[personajeSeleccionado]
+    : null;
+
+
   // Escape cierra modal y selector
   useEffect(() => {
 
@@ -1579,6 +1729,7 @@ const InterfazCap = () => {
 
       if (event.key === "Escape") {
         cerrarDescripcionObjeto();
+        setPersonajeSeleccionado(null);
         setSelectorEscenasAbierto(false);
       }
 
@@ -1977,7 +2128,7 @@ const InterfazCap = () => {
                 </AnimatePresence>
 
 
-                <div className="anim-label">
+                <div className="anim-label" onClick={manejarClickEscena}>
 
                   <AnimatePresence mode="wait">
 
@@ -2828,6 +2979,75 @@ const InterfazCap = () => {
                       <span>✦</span>
                       {infoObjetoSeleccionado.detalle}
                     </div>
+
+                  </div>
+
+                </motion.div>
+
+              </motion.div>
+
+            )}
+
+          </AnimatePresence>
+
+
+          {/* MODAL PERSONAJE (ficha reducida) */}
+
+          <AnimatePresence>
+
+            {infoPersonajeSeleccionado && (
+
+              <motion.div
+                className="objeto-modal-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={cerrarPersonaje}
+              >
+
+                <motion.div
+                  className="objeto-modal"
+                  initial={{ opacity: 0, scale: 0.8, y: 25 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 25 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 22
+                  }}
+                  onClick={(event) => event.stopPropagation()}
+                >
+
+                  <button
+                    className="objeto-modal-cerrar"
+                    onClick={cerrarPersonaje}
+                    aria-label="Cerrar ficha"
+                  >
+                    ×
+                  </button>
+
+
+                  <div className="objeto-modal-imagen-contenedor">
+                    <img
+                      src={infoPersonajeSeleccionado.imagen}
+                      alt={infoPersonajeSeleccionado.nombre}
+                      className="objeto-modal-imagen"
+                    />
+                  </div>
+
+
+                  <div className="objeto-modal-texto">
+
+                    <span className="objeto-modal-etiqueta">
+                      {infoPersonajeSeleccionado.etiqueta}
+                    </span>
+
+                    <h2>{infoPersonajeSeleccionado.nombre}</h2>
+
+                    <p>
+                      {infoPersonajeSeleccionado.rol} ·{" "}
+                      {infoPersonajeSeleccionado.personalidad}
+                    </p>
 
                   </div>
 
