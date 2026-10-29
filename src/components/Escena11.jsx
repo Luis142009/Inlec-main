@@ -14,7 +14,7 @@ import bean11 from "../assets/Bean11.webm";
 import escenario11 from "../assets/Escenario11.mp4";
 
 import murcielago from "../assets/svg/Lurcienaga.svg";
-import hoja from "../assets/svg/hoja.svg";
+import hoja from "../assets/svg/Hoja.svg";
 
 import tocar from "../assets/audio/tocar.mp3";
 
