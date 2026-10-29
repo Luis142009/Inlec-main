@@ -12,7 +12,7 @@ import mesa10 from "../assets/mesa10.webm";
 import luz from "../assets/luz.webm";
 import fondo10 from "../assets/cocina10.webm";
 
-import pluma from "../assets/svg/pluma.svg";
+import pluma from "../assets/svg/Pluma.svg";
 
 import tocar from "../assets/audio/tocar.mp3";
 
