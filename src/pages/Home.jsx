@@ -10,8 +10,8 @@ import "../stylesheets/PersonajesCarrusel.css";
 import "../stylesheets/LibroPersonajes.css";
 import "../stylesheets/Capitulos.css";
 import "../stylesheets/Granjeros.css";
-import "../stylesheets/ProyectoCarrusel.css";
-import "../stylesheets/MasInlec.css";
+import "../stylesheets/Proyectocarrusel.css";
+import "../stylesheets/Masinlec.css";
 import "../stylesheets/HojaBotones.css";
 
 
