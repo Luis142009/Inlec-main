@@ -25,7 +25,7 @@
   top: 70%;
   left: 78%;
   width: 6%;
-  z-index: 20;
+  z-index: 1;
   cursor: pointer;
   user-select: none;
   transform-origin: center center;
@@ -36,7 +36,7 @@
   top: 15%;
   left: 35%;
   width: 4%;
-  z-index: 20;
+  z-index: 1;
   cursor: pointer;
   user-select: none;
   transform-origin: center center;

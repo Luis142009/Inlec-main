@@ -310,9 +310,9 @@ const subtitulos = {
 
   24: "Luego, saquearon los almacenes de Bunce, que sufrieron la misma suerte que las gallinas. Finalmente, llegaron a la bodega de Bean..",
 
-  25: "Aquí va el texto de la escena 25.",
+  25: "Finalmente llegan a la bodega de Bean, donde se encuentran con una rata desagradable, flaca, desgreñada y borracha: un viejo enemigo del pasado. El señor Fox se enfrenta a ella en un combate corto, pero intenso, y logra ahuyentarla.",
 
-  26: "Aquí va el texto de la escena 26."
+  26: "La familia Fox disfruta alegremente del banquete final después de haber recolectado toda la comida. Finalmente, celebran su victoria y viven felices en su nueva madriguera."
 
 };
 
@@ -2528,9 +2528,12 @@ const InterfazCap = () => {
                     }
                   >
 
-                    <div className="page-num">
+                    <div
+                      className="page-num"
+                      style={{ fontFamily: "'abalon', cursive" }}
+                    >
 
-                      <span>
+                      <span style={{ fontFamily: "'abalon', cursive" }}>
                         {escena}/{TOTAL_ESCENAS}
                       </span>
 

@@ -15,6 +15,7 @@ import "../stylesheets/MasInlec.css";
 import "../stylesheets/HojaBotones.css";
 
 
+
 const Home = () => {
   const navigate = useNavigate();
 

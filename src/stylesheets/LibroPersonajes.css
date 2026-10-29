@@ -132,11 +132,7 @@
       rgba(190, 130, 65, .07),
       transparent 25%
     ),
-    linear-gradient(
-      135deg,
-     
-      #f6b85e 100%
-    );
+    #f6b85e;
 
   border: 3px solid #8d4b2e;
   border-left-width: 9px;
@@ -397,11 +393,7 @@
   border: 2px solid rgba(141, 75, 46, .14);
   border-radius: 17px;
 
-  background: linear-gradient(
-    145deg,
-    
-    rgba(241, 208, 151, 0.8)
-  );
+  background: rgba(241, 208, 151, 0.8);
 
   box-shadow:
     0 7px 0 rgba(141, 75, 46, .12),
@@ -505,7 +497,7 @@
   background:
     radial-gradient(
       circle,
-      rgba(246,184,94,.38),
+      rgba(246, 184, 94, .38),
       transparent 68%
     );
 
@@ -730,7 +722,6 @@
     ),
     linear-gradient(
       135deg,
-    
       #ffd27a 45%,
       #f6b85e 100%
     );
@@ -1116,13 +1107,18 @@
 
 /* =========================================================
    ACCESIBILIDAD
+   (antes era * global y apagaba las animaciones de TODA la web;
+   ahora solo afecta al libro y a la ficha)
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
-  *,
-  *::before,
-  *::after {
+  .libro-overlay *,
+  .libro-overlay *::before,
+  .libro-overlay *::after,
+  .personaje-modal-overlay *,
+  .personaje-modal-overlay *::before,
+  .personaje-modal-overlay *::after {
     animation: none !important;
     transition: none !important;
   }
@@ -1137,4 +1133,53 @@
 .personaje-modal,
 .personaje-modal * {
   font-family: 'abalon', cursive !important;
+}
+
+
+/* =========================================================
+   BLINDAJE CONTRA LOS ESTILOS GLOBALES DE LA PÁGINA
+   ---------------------------------------------------------
+   El CSS global le pone contorno café grueso a todos los
+   títulos (h1-h6). Aquí se anula dentro del libro y de la
+   ficha del personaje, sin depender de la clase del body.
+   Va AL FINAL del archivo, no lo muevas.
+   ========================================================= */
+
+/* 1) Sin contorno grueso en los títulos ni en ningún texto */
+.libro-overlay,
+.libro-overlay *,
+.personaje-modal-overlay,
+.personaje-modal-overlay * {
+  -webkit-text-stroke: 0;
+  paint-order: normal;
+}
+
+/* 2) Los títulos conservan su color y sombra propios */
+.libro-overlay .libro-header h2,
+.personaje-modal-overlay .personaje-modal-info h2 {
+  color: var(--fox-brown);
+  font-weight: 900;
+  text-shadow: 3px 3px 0 rgba(246, 184, 94, .18);
+}
+
+/* 3) Botón de cerrar: siempre redondo y rojo, aunque otro CSS lo pise */
+.libro-overlay .libro-cerrar,
+.personaje-modal-overlay .personaje-modal-cerrar {
+  width: 43px !important;
+  height: 43px !important;
+  padding: 0 !important;
+  border: 3px solid #7d2e24 !important;
+  border-radius: 50% !important;
+  background: #9f3f2f !important;
+  color: #fff !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  box-shadow:
+    0 4px 0 #6d281f,
+    0 6px 10px rgba(80, 30, 20, .25) !important;
+}
+
+.libro-overlay .libro-cerrar:hover,
+.personaje-modal-overlay .personaje-modal-cerrar:hover {
+  background: #7d2e24 !important;
 }

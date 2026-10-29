@@ -6,7 +6,7 @@
 @font-face { 
     font-family: 'abalon'; 
     src: url(../assets/abalon.otf); 
-} 
+}
  
 /* derrota */ 
  
@@ -133,7 +133,7 @@ body{
 .interfaz-wrapper{ 
   width:100%; 
   min-height:100vh; 
-  margin-top: 30px; 
+  margin-top: 110px; 
   display:flex; 
   justify-content:center; 
   align-items:center; 
@@ -221,9 +221,8 @@ body{
 } 
  
 .page-num { 
-  font-family: 'Abalone', cursive; 
-  font-size: 1.5rem; 
-  font-weight: 900; 
+  font-family: 'abalon', cursive; 
+  font-size: 1.8rem; 
   color: #f7e9e4; 
  
   /* =========================== 
@@ -335,7 +334,7 @@ body{
   =========================== */ 
  
   color: #ecd9cb; 
-  font-family: 'Abalone', cursive; 
+  font-family: 'abalon', cursive; 
   font-size: 1.35rem; 
   font-weight: 900; 
   letter-spacing: 0.8px; 
@@ -449,7 +448,7 @@ body{
 } 
  
 .slot-label { 
-  font-family: 'Abalone', cursive; 
+  font-family: 'abalon', cursive; 
   font-size: 1.5rem; 
   font-weight: 900; 
   color: #f5e5da; 
@@ -745,7 +744,7 @@ body{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
+  font-family: 'abalon', cursive;
   font-size: 8px;
 
   opacity: 0.7;
@@ -791,7 +790,7 @@ body{
 
   z-index: 99999;
 
-  font-family: 'abalon',cursive;
+  font-family: 'abalon', cursive;
 
 }
 
@@ -809,6 +808,8 @@ body{
   margin-bottom: 10px;
 
   color: #5a321f;
+
+  font-family: 'abalon', cursive;
 
   font-size: 11px;
 
@@ -856,7 +857,7 @@ body{
 
   color: white;
 
-  font-family: inherit;
+  font-family: 'abalon', cursive;
 
   font-size: 13px;
 
@@ -912,6 +913,26 @@ body{
 /* =========================================================
    CHULITO
 ========================================================= */
+
+/* Fuerza abalon en el título y en los números del selector,
+   aunque otra hoja de estilos intente pisarla */
+
+.selector-escenas,
+.selector-escenas *,
+.selector-escenas-titulo,
+.selector-escena,
+.selector-escena span {
+  font-family: 'abalon', cursive !important;
+}
+
+/* Contador de escenas (1/26) */
+
+.page-num,
+.page-num *,
+.page-num-selector > .page-num span {
+  font-family: 'abalon', cursive !important;
+  font-synthesis: none;
+}
 
 .escena-check {
 

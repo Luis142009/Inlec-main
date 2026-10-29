@@ -26,9 +26,6 @@
     );
 
   cursor: pointer;
-
-  /* Profundidad general */
-
 }
 
 
@@ -72,11 +69,8 @@
 
   width: 50%;
 
+  /* Pliegues */
   background:
-    /* Brillos verticales */
-
-
-    /* Pliegues */
     repeating-linear-gradient(
       90deg,
       #572018 0px,
@@ -147,14 +141,8 @@
   border: 4px solid #6b3620;
   border-radius: 26px;
 
+  /* Textura de papel */
   background:
-    /* Mancha cálida */
-    radial-gradient(
-      circle at 50% 15%,
-      transparent 45%
-    ),
-
-    /* Textura de papel */
     repeating-linear-gradient(
       175deg,
       #f2b467 0px,
@@ -367,12 +355,7 @@
 
   border: 3px solid #f4dba8;
 
-  background:
-    radial-gradient(
-      circle at 35% 28%,
-     
-      #af3a30 100%
-    );
+  background: #af3a30;
 
   box-shadow:
     0 6px 0 #5c211a,
@@ -406,7 +389,7 @@
 
 
 /* =========================================================
-   ETIQUETA "CAPÍTULO"
+   ETIQUETA (título del capítulo)
    ========================================================= */
 
 .portada-capitulo-etiqueta {
@@ -414,14 +397,13 @@
 
   z-index: 2;
 
- border: 50px;
   margin-top: 30px;
 
   font-family: "abalon", cursive;
 
   font-size: 25px;
   font-weight: 900;
-text-align: center;
+  text-align: center;
   letter-spacing: 6px;
 
   color: #ffffff;
@@ -430,13 +412,12 @@ text-align: center;
     1px 1px 0 rgba(255, 228, 170, 0.55);
 }
 
-.portada-capitulo-etiqueta-contenedor{
-  
-    margin-top: 50px;
+.portada-capitulo-etiqueta-contenedor {
+  margin-top: 50px;
 
- background-color: #5c2d1c;
-   padding: 14px;
- border-radius: 45px;
+  background-color: #5c2d1c;
+  padding: 14px;
+  border-radius: 45px;
 }
 
 
@@ -674,12 +655,7 @@ text-align: center;
 
   border-radius: 50%;
 
-  background:
-    radial-gradient(
-      circle at 35% 30%,
-     
-      #4a2415
-    );
+  background: #4a2415;
 
   box-shadow:
     0 3px 0 #4a2415,
@@ -740,15 +716,11 @@ text-align: center;
 
   font-size: 15px;
   font-weight: 700;
-  
+
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
   color: #7d2e24;
-
- 
-
- 
 }
 
 
@@ -826,4 +798,34 @@ text-align: center;
   pointer-events: none;
 
   filter: brightness(0);
+}
+
+
+/* =========================================================
+   BLINDAJE CONTRA LOS ESTILOS GLOBALES DE LA PÁGINA
+   ---------------------------------------------------------
+   El CSS global le pone contorno café grueso a todos los
+   títulos (h1-h6) y la letra 'redonda' a todos los textos
+   (p, span, [class*="texto"]...). Aquí se anula SOLO dentro
+   de la portada, sin depender de ninguna clase del body.
+   Va AL FINAL del archivo, no lo muevas.
+   ========================================================= */
+
+/* 1) Sin contorno grueso en nada de la portada */
+.portada-capitulo-overlay,
+.portada-capitulo-overlay * {
+  -webkit-text-stroke: 0;
+  paint-order: normal;
+}
+
+/* 2) Letra base de la portada, ganándole a p, span, [class*="texto"], etc. */
+.portada-capitulo-overlay.portada-capitulo-overlay,
+.portada-capitulo-overlay.portada-capitulo-overlay :where(p, span, strong, em, small, a, div, h1, h2, h3, h4, h5, h6) {
+  font-family: "abalon", cursive;
+}
+
+/* 3) El número conserva su propia letra */
+.portada-capitulo-overlay.portada-capitulo-overlay .portada-capitulo-numero {
+  font-family: "Dacherry", "abalon", serif;
+  color: #5c2d1c;
 }
