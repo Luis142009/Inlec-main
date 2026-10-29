@@ -1213,7 +1213,7 @@ const Home = () => {
         <img src="/loge.png" alt="Inlec" />
         <div>
           <h4 className="ft-slogan">Del libro al mundo digital</h4>
-          <p>Explora. Imagina. Lee.</p>
+          <p>Explora Imagina Lee</p>
         </div>
       </div>
     </div>
