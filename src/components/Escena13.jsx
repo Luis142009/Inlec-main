@@ -13,8 +13,8 @@ import srfox13 from "../assets/srfox13.webm";      // Sr. Fox (sentado en el tab
 import srafox13 from "../assets/srafox13.webm";      // Sra. Fox (con el papel)
 import junior13 from "../assets/junior13.webm";     // Junior
 
-import huevo from "../assets/svg/huevo.svg";
-import pelota from "../assets/svg/pelota.svg";
+import huevo from "../assets/svg/Huevo.svg";
+import pelota from "../assets/svg/Pelota.svg";
 
 import tocar from "../assets/audio/tocar.mp3";
 

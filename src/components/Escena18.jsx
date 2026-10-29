@@ -13,7 +13,7 @@ import fox19 from "../assets/fox19.webm";
 import sra19 from "../assets/sra19.webm";
 import dialogo19 from "../assets/dialogo.webm";
 
-import escopeta from "../assets/svg/escopeta.svg";
+import escopeta from "../assets/svg/Escopeta.svg";
 import craneo from "../assets/svg/craneo.svg";
 
 import tocar from "../assets/audio/tocar.mp3";

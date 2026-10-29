@@ -11,8 +11,8 @@ import { gsap } from "gsap";
 import fondo16 from "../assets/fondo16.webm";
 import caminando16 from "../assets/caminando16.webm";
 
-import cristal from "../assets/svg/cristal.svg";
-import vela from "../assets/svg/vela.svg";
+import cristal from "../assets/svg/Cristal.svg";
+import vela from "../assets/svg/Vela.svg";
 
 import tocar from "../assets/audio/tocar.mp3";
 
